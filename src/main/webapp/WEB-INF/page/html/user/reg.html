@@ -16,8 +16,9 @@
   <div class="fly-panel fly-panel-user" pad20>
     <div class="layui-tab layui-tab-brief" lay-filter="user">
       <ul class="layui-tab-title">
-        <li><a href="login.html">登入</a></li>
-        <li class="layui-this">注册</li>
+		<li><a href="login.html">账号登录</a></li>
+        <li><a href="photoLogin.html">手机登录</a></li>
+        <li class="layui-this">账号注册</li>
       </ul>
       <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
@@ -26,31 +27,31 @@
               <div class="layui-form-item">
                 <label for="L_email" class="layui-form-label">账号</label>
                 <div class="layui-input-inline">
-                  <input type="text" name="userName" required lay-verify="required" autocomplete="off" placeholder="将会成为您唯一的登入名" class="layui-input">
+                  <input type="text" name="userName"  lay-verify="required" autocomplete="off" placeholder="将会成为您唯一的登入名" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">昵称</label>
                 <div class="layui-input-inline">
-                  <input type="text" name="nickName" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input type="text" name="nickName"  lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label">密码</label>
                 <div class="layui-input-inline">
-                  <input type="password" name="passWord" required lay-verify="required" autocomplete="off" placeholder="6到16个字符" class="layui-input">
+                  <input type="password" name="passWord"  lay-verify="required" autocomplete="off" placeholder="6到16个字符" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">确认密码</label>
                 <div class="layui-input-inline">
-                  <input type="password" name="passWords" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input type="password" name="passWords"  lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
               </div>
 			  <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">手机号</label>
                 <div class="layui-input-inline">
-                  <input type="text" name="photo" required lay-verify="photo" autocomplete="off" class="layui-input">
+                  <input type="text" name="photo"  lay-verify="phone" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid" style="padding:0px 0!important;">
                   <button class="layui-btn">获取验证码</button>
@@ -59,7 +60,7 @@
               <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">验证码</label>
                 <div class="layui-input-inline">
-                  <input type="text" name="code" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input type="text" name="code"  lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid">
                   <span style="color: #c00;"></span>

@@ -9,6 +9,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd"
 		default-lazy-init="true" >
+		
 	<mvc:annotation-driven /> <!-- 基于Schema-based XML的配置定义模式 -->
 	<mvc:default-servlet-handler />
 
@@ -43,16 +44,25 @@
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
 
-	<context:component-scan base-package="com.yr.controller" />
-	<context:component-scan base-package="com.yr.dao" />
-	<context:component-scan base-package="com.yr.service" />
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+	<context:component-scan base-package="com.yr" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/> 
+	</context:component-scan>
+
+	<mvc:view-controller path="/WEB-INF/admin/index"  view-name="/index"/>
+	<mvc:view-controller path="/WEB-INF/admin/login"  view-name="/login"/>
 	
 	<mvc:resources location="/WEB-INF/admin/css/" mapping="/css/**"/>
-	<mvc:resources location="/WEB-INF/admin/js/" mapping="/css/**"/>
-	<mvc:resources location="/WEB-INF/admin/images/" mapping="/css/**"/>
-	<mvc:resources location="/WEB-INF/admin/json/" mapping="/css/**"/>
-	<mvc:resources location="/WEB-INF/page/res/css/" mapping="/css/**"/>
-	<mvc:resources location="/WEB-INF/page/json/" mapping="/css/**"/>
-	<mvc:resources location="/WEB-INF/page/css/" mapping="/css/**"/>
+	<mvc:resources location="/WEB-INF/admin/js/" mapping="/js/**"/>
+	<mvc:resources location="/WEB-INF/admin/images/" mapping="/images/**"/>
+    <mvc:resources location="/layui/" mapping="/layui/**"/>
+	
+	<!-- 处理静态资源 -->
+    <bean id="viewMappings" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" >
+		<property name="defaultHandler">  
+	            <bean name="index" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />  
+	     </property>   
+	</bean>
 	
 </beans>
