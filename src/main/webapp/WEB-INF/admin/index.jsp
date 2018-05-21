@@ -13,8 +13,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="icon" href="favicon.ico">
-	<link rel="stylesheet" href="<%= this.getServletContext().getContextPath() %>/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="<%= this.getServletContext().getContextPath() %>/css/index.css" media="all" />
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/index.css" media="all" />
 </head>
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
@@ -93,8 +93,8 @@
 	<div class="site-tree-mobile"><i class="layui-icon">&#xe602;</i></div>
 	<div class="site-mobile-shade"></div>
 
-	<script type="text/javascript" src="<%= this.getServletContext().getContextPath() %>/layui/layui.js"></script>
-	<script type="text/javascript" src="<%= this.getServletContext().getContextPath() %>/js/index.js"></script>
-	<script type="text/javascript" src="<%= this.getServletContext().getContextPath() %>/js/cache.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/index.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/cache.js"></script>
 </body>
 </html>

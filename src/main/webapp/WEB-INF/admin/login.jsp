@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Login</title>
-  <link rel="stylesheet" href="<%= this.getServletContext().getContextPath() %>/layui/css/layui.css">
-  <link rel="stylesheet" href="<%= this.getServletContext().getContextPath() %>/css/login.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/layui/css/layui.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css">
 </head>
 
 <body>
@@ -61,8 +61,8 @@
     </div>
   </div>
 
-  <script src="<%= this.getServletContext().getContextPath() %>/js/polyfill.min.js"></script>
-  <script src="<%= this.getServletContext().getContextPath() %>/layui/layui.js"></script>
+  <script src="<%=request.getContextPath() %>/js/polyfill.min.js"></script>
+  <script src="<%=request.getContextPath() %>/layui/layui.js"></script>
   <script>
     //'axios', 'lodash'
     layui.use(['layer', 'form'], function() {
