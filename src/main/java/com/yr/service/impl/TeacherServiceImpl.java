@@ -2,6 +2,8 @@ package com.yr.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.yr.entity.Teacher;
 import com.yr.service.TeacherService;
 
@@ -12,6 +14,7 @@ import com.yr.service.TeacherService;
  * 2018年5月22日 上午8:40:18
  *
  */
+@Service
 public class TeacherServiceImpl implements TeacherService {
 
 	@Override
