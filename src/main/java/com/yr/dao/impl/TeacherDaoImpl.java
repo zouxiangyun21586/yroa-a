@@ -2,6 +2,8 @@ package com.yr.dao.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.yr.dao.TeacherDao;
 import com.yr.entity.Teacher;
 
@@ -11,6 +13,7 @@ import com.yr.entity.Teacher;
  * @author zxy
  *
  */
+@Repository
 public class TeacherDaoImpl implements TeacherDao {
 
 	@Override
