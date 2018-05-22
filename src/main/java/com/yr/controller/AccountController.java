@@ -1,13 +1,16 @@
 package com.yr.controller;
 
+import org.springframework.stereotype.Controller;
+
 /**
  * 用户Conntroller
  * @author 周业好
  * 2018年5月22日 上午10:34:00
  */
-public class AccountConntroller {
+@Controller
+public class AccountController {
 
-	public AccountConntroller() {
+	public AccountController() {
 		// TODO Auto-generated constructor stub
 	}
 
