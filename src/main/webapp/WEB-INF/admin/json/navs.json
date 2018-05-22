@@ -49,7 +49,7 @@
                 "href": "attendance/leave",
                 "spread": false
             },{
-                "title": "添加假期",
+                "title": "假期",
                 "icon": "&#xe612;",
                 "href": "attendance/holidayAdd",
                 "spread": false
