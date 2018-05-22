@@ -8,7 +8,7 @@ import com.yr.dao.TeacherDao;
 import com.yr.entity.Teacher;
 
 /**
- * 老师 Dao 的实现类(jpa)
+ * 鑰佸笀 Dao 鐨勫疄鐜扮被(jpa)
  * 
  * @author zxy
  *
