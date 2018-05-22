@@ -96,8 +96,8 @@ public class StudentDaoImpl implements StudentDao {
 	 * @see com.yr.dao.StudentDao#addStudent(com.yr.entity.Student)
 	 */
 	public String addStudent(Student student) {
-		
-		return null;
+		String name = "liucong";
+		return name;
 	}
 	
 	
