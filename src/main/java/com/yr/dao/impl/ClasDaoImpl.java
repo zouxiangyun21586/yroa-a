@@ -1,15 +1,16 @@
 package com.yr.dao.impl;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
 import com.yr.dao.ClasDao;
 import com.yr.entity.Clas;
+import com.yr.util.DateUtils;
 
 /**
  * 届次 Dao 实现类
@@ -21,7 +22,7 @@ import com.yr.entity.Clas;
 @Repository
 public class ClasDaoImpl implements ClasDao {
 	
-	@PersistenceContext
+//	@PersistenceContext
 	private EntityManager entityManager;
 	final Integer number = 2;
 
@@ -34,13 +35,17 @@ public class ClasDaoImpl implements ClasDao {
 	 * @param clas 届次对象
 	 */
 	public void add(Clas clas) {
+		
 		Clas cla = new Clas();
-		cla.setName(clas.getName());
-		cla.setYear("2018"); // 当前年
+		cla.setName(clas.getName()); // 此届 批次名
+		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数)
 		cla.setCode("使用本地sql查询max()值 + 1 进行添加");
-//		cla.setCreateTime(createTime); // 创建时间(获取当前时间)
-//		cla.setTeacherCode(teacherCode); // 设置这批届次老师的code(获取页面上填写的老师名获取到老师code)
-//		cla.setTeacherName(teacherName); // 设置这批届次老师的code(获取页面上填写的老师名)
+		cla.setCreateTime(Date.valueOf(DateUtils.getCurrentTime())); // 创建时间(获取当前时间)
+		cla.setTeacherCode("1001"); // 设置这批届次老师的code(获取页面上填写的老师名获取到老师code)
+		cla.setTeacherName("钟林杰"); // 设置这批届次老师的code(获取页面上填写的老师名)
+		cla.setFinishTime(Date.valueOf("毕业时间"));
+		cla.setStartTime(Date.valueOf("开班时间"));
+		cla.setIsFinish("是否毕业 1 表示已毕业");
 		entityManager.persist(clas);
 	}
 
