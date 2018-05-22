@@ -5,7 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * 班级实体类
+ * 届次实体类
  * @author Administrator
  *
  * 2018年5月22日 上午8:58:28
