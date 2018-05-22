@@ -1,5 +1,12 @@
 package com.yr.entity;
 
+/**
+ * 参考数据库
+ * @author Administrator
+ *
+ * 2018年5月22日 上午9:04:59
+ *
+ */
 public class Dic {
     private Integer id;
 
@@ -55,10 +62,26 @@ public class Dic {
         this.val = val == null ? null : val.trim();
     }
 
+    /**
+     * 
+     * @author zxy
+     * 
+     * 2018年5月22日 上午9:05:20
+     * 
+     * @return String
+     */
     public String getpKey() {
         return pKey;
     }
 
+    /**
+     * 
+     * @author zxy
+     * 
+     * 2018年5月22日 上午9:05:24
+     * 
+     * @param pKey pKey
+     */
     public void setpKey(String pKey) {
         this.pKey = pKey == null ? null : pKey.trim();
     }

@@ -3,17 +3,24 @@ package com.yr.util;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 
+ * @author Administrator
+ *
+ * 2018年5月22日 上午9:12:09
+ *
+ */
 public class Constant {
 
 	
-	public static Map<String,String> ctMap = new HashMap<String,String>();
+	private static Map<String, String> ctMap = new HashMap<String, String>(); 
 	static {
 		ctMap.put("AM", "上午");
 		ctMap.put("PM", "下午");
 		ctMap.put("NT", "晚上");
 	}
 	
-	public static Map<String,String> isLateMap = new HashMap<String,String>();
+	private static Map<String, String> isLateMap = new HashMap<String, String>();
 	static {
 		isLateMap.put("0", "正常考勤");
 		isLateMap.put("1", "迟到");

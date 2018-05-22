@@ -17,13 +17,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 
+ * @author Administrator
+ *
+ * 2018年5月22日 上午9:06:01
+ *
+ */
 @Controller
-public class AuthImageServlet{
+public class AuthImageServlet {
 
 	private static final long serialVersionUID = 1L;
 	// 设置字母的大小,大小
 	private Font mFont = new Font("Times New Roman", Font.PLAIN, 17);
 
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:06:14
+	 * 
+	 * @param fc  int 参数
+	 * @param bc  int 参数
+	 * @return 返回Color
+	 */
 	Color getRandColor(int fc, int bc) {
 		Random random = new Random();
 		if (fc > 255)
@@ -36,8 +53,20 @@ public class AuthImageServlet{
 		return new Color(r, g, b);
 	}
 
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:07:18
+	 * 
+	 * @param request 参数
+	 * @param response 参数
+	 * @throws ServletException 异常
+	 * @throws IOException 异常
+	 */
 	@RequestMapping(value = "/authlmageServlet", method = RequestMethod.GET)
-	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void service(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
@@ -77,11 +106,12 @@ public class AuthImageServlet{
 
 		// 生成随机数,并将随机数字转换为字母
 		String sRand = "";
-		for (int i = 0; i < 6; i++) {//设值验证码的位数
+		for (int i = 0; i < 6; i++) { //设值验证码的位数
 			int itmp = random.nextInt(26) + 65;
 			char ctmp = (char) itmp;
 			sRand += String.valueOf(ctmp);
-			g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
+			g.setColor(new Color(20 + random.nextInt(110), 20 
+					+ random.nextInt(110), 20 + random.nextInt(110)));
 			g.drawString(String.valueOf(ctmp), 15 * i + 10, 16);
 		}
 

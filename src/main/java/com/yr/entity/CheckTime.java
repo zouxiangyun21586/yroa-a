@@ -1,5 +1,13 @@
 package com.yr.entity;
 
+/**
+ * 参考数据库(考勤时间)
+ * 
+ * @author Administrator
+ *
+ * 2018年5月22日 上午8:57:46
+ *
+ */
 public class CheckTime {
     private Integer id;
 

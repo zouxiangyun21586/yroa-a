@@ -1,5 +1,12 @@
 package com.yr.entity;
 
+/**
+ * 账户实体类
+ * @author Administrator
+ *
+ * 2018年5月22日 上午8:55:09
+ *
+ */
 public class Account {
     private Integer id;
 

@@ -23,15 +23,15 @@ public @interface Loggable {
 	/**
 	 * @func 操作类型：四种（INSERT, UPDATE, SELECT, DELETE）
 	 */
-	public String optType();
+	String optType();
 
 	/**
 	 * @func 描述
 	 */
-	public String describe();
+	String describe();
 
 	/**
 	 * @func 日志模块，不同模块的日志保存到不同的日志表中
 	 */
-	public String module();
+	String module();
 }

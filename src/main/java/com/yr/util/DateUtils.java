@@ -12,10 +12,28 @@ public class DateUtils {
 	static DateFormat dfymd = new SimpleDateFormat("yyyy-MM-dd");
 	static DateFormat dfhms = new SimpleDateFormat("HH:mm:ss");
 
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:13:23
+	 * 
+	 * @param d ..
+	 * @return String
+	 */
 	public static String dataToStringYMD(Date d) {
 		return dfymd.format(d);
 	}
 
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:13:29
+	 * 
+	 * @param d ..
+	 * @return String
+	 */
 	public static String dataToStringYMDHMS(Date d) {
 		return dfymdhms.format(d);
 	}
@@ -64,6 +82,14 @@ public class DateUtils {
 		return h;
 	}
 
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:13:49
+	 * 
+	 * @return int
+	 */
 	public static int getCurrentYear() {
 		Calendar cal = Calendar.getInstance();
 		int y = cal.get(Calendar.YEAR);
@@ -153,6 +179,16 @@ public class DateUtils {
 		return -1;
 	}
 
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:14:13
+	 * 
+	 * @param baseTime 最后时间
+	 * @param nowTime 开始时间
+	 * @return
+	 */
 	public static long getDistanceYear(Date baseTime, Date nowTime) {
 			long time1 = baseTime.getTime();
 			long time2 = nowTime.getTime();

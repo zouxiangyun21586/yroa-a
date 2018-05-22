@@ -18,15 +18,15 @@ public class Page<T> {
 	
 	/**
 	 * 总页数
-	 * @return
+	 * @return 返回计算后的总页数
 	 */
 	public Integer getPageCount() {
 		int t = totalCount % pageSize; //总数据条数取余总页数
-		pageCount = totalCount / pageSize;//将数据总条数除以页数赋给变量pageCount,也就是分页的总页数
-		if (t == 0) {//说明被整除
-			return pageCount;//则返回总页数
-		}else {
-			return pageCount + 1;//不被整除则去掉小数多加1页
+		pageCount = totalCount / pageSize; //将数据总条数除以页数赋给变量pageCount,也就是分页的总页数
+		if (t == 0) { //说明被整除
+			return pageCount; //则返回总页数
+		} else {
+			return pageCount + 1; //不被整除则去掉小数多加1页
 		}
 	}
 	public Integer getLimitNum() {
@@ -39,13 +39,17 @@ public class Page<T> {
 		this.pageCount = pageCount;
 	}
 	/**
-	 * 总数据条数
-	 * @return
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:03:38
+	 * 
+	 * @param totalCount 条数
 	 */
 	public void setTotalCount(Integer totalCount) {
-		this.totalCount = totalCount;//将总条数替换
-		Integer inte = getPageCount();//得到总页数
-		setPageCount(inte);//然后将总页数加进去
+		this.totalCount = totalCount; //将总条数替换
+		Integer inte = getPageCount(); //得到总页数
+		setPageCount(inte); //然后将总页数加进去
 	}
 	public Integer getTotalCount() {
 		return totalCount;
@@ -71,6 +75,14 @@ public class Page<T> {
 	public Integer getPageNum() {
 		return pageNum;
 	}
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:04:01
+	 * 
+	 * @param pageNum 分页数量
+	 */
 	public void setPageNum(Integer pageNum) {
 		this.pageNum = pageNum;
 		/**
@@ -79,7 +91,7 @@ public class Page<T> {
 		 * (当前页面-1) * 每页条数
 		 * @return Integer
 		 */
-		setLimitNum((pageNum-1) * pageSize); 
+		setLimitNum((pageNum - 1) * pageSize); 
 	}
 	@Override
 	public String toString() {

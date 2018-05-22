@@ -1,5 +1,12 @@
 package com.yr.entity;
 
+/**
+ * 学生
+ * @author Administrator
+ *
+ * 2018年5月22日 上午9:00:59
+ *
+ */
 public class Stu {
 	private Integer id;
 	private String name;

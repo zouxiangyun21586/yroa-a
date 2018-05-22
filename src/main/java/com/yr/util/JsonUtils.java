@@ -24,9 +24,10 @@ public class JsonUtils {
 	/**
 	 * 从一个JSON 对象字符格式中得到一个java对象
 	 * 
-	 * @param jsonString
-	 * @param beanCalss
-	 * @return
+	 * @param jsonString String
+	 * @param beanCalss Class<T>
+	 * @param <T> 泛型
+	 * @return <T>
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T jsonToBean(String jsonString, Class<T> beanCalss) {
@@ -41,8 +42,8 @@ public class JsonUtils {
 	/**
 	 * 将java对象转换成json字符串
 	 *
-	 * @param bean
-	 * @return
+	 * @param bean Object
+	 * @return String
 	 */
 	public static String beanToJson(Object bean) {
 
@@ -54,25 +55,25 @@ public class JsonUtils {
 
 	/**
 	 * 将java对象转换成json字符串
-	 *
-	 * @param bean
-	 * @return
+	 * @param bean 要转换的java对象
+	 * @param _nory_changes 放字段数组
+	 * @param nory true:只查字段数组中有的字段   
+	 * 			   false:不查字段数组中有的字段
+	 * @return String
 	 */
 	public static String beanToJson(Object bean, String[] _nory_changes, boolean nory) {
 
 		JSONObject json = null;
 
-		if (nory) {// 转换_nory_changes里的属性
+		if (nory) { // 转换_nory_changes里的属性
 
 			Field[] fields = bean.getClass().getDeclaredFields();
 			String str = "";
 			for (Field field : fields) {
-				// System.out.println(field.getName());
-				str += (":" + field.getName());
+ 				str += (":" + field.getName());
 			}
 			fields = bean.getClass().getSuperclass().getDeclaredFields();
 			for (Field field : fields) {
-				// System.out.println(field.getName());
 				str += (":" + field.getName());
 			}
 			str += ":";
@@ -81,7 +82,7 @@ public class JsonUtils {
 			}
 			json = JSONObject.fromObject(bean, configJson(str.split(":")));
 
-		} else {// 转换除了_nory_changes里的属性
+		} else { // 转换除了_nory_changes里的属性
 
 			json = JSONObject.fromObject(bean, configJson(_nory_changes));
 		}
@@ -90,6 +91,15 @@ public class JsonUtils {
 
 	}
 
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:21:13
+	 * 
+	 * @param excludes String数组
+	 * @return JsonConfig
+	 */
 	private static JsonConfig configJson(String[] excludes) {
 
 		JsonConfig jsonConfig = new JsonConfig();
@@ -111,8 +121,8 @@ public class JsonUtils {
 	/**
 	 * 将java对象List集合转换成json字符串
 	 * 
-	 * @param beans
-	 * @return
+	 * @param beans java对象List集合
+	 * @return String
 	 */
 	public static String beanListToJson(List<?> beans) {
 
@@ -135,10 +145,12 @@ public class JsonUtils {
 	}
 
 	/**
-	 * 
-	 * @param beans
-	 * @param _no_changes
-	 * @return
+	 * 将java对象List集合转换成json字符串
+	 * @param beans java对象List集合
+	 * @param _nory_changes 放字段数组
+	 * @param nory true:只查字段数组中有的字段   
+	 * 			   false:不查字段数组中有的字段
+	 * @return String
 	 */
 	public static String beanListToJson(List<?> beans, String[] _nory_changes, boolean nory) {
 
@@ -168,8 +180,8 @@ public class JsonUtils {
 	/**
 	 * 从json HASH表达式中获取一个map，改map支持嵌套功能
 	 *
-	 * @param jsonString
-	 * @return
+	 * @param jsonString JSONSTRING
+	 * @return Map<S,O>
 	 */
 	public static Map<String, Object> jsonToMap(String jsonString) {
 
@@ -189,9 +201,11 @@ public class JsonUtils {
 
 	/**
 	 * map集合转换成json格式数据
-	 * 
-	 * @param map
-	 * @return
+	 * @param map map集合
+	 * @param _nory_changes 放字段数组
+	 * @param nory true:只查字段数组中有的字段   
+	 * 			   false:不查字段数组中有的字段
+	 * @return String json格式数据
 	 */
 	public static String mapToJson(Map<String, ?> map, String[] _nory_changes, boolean nory) {
 
@@ -201,14 +215,14 @@ public class JsonUtils {
 		for (Iterator<?> it = key.iterator(); it.hasNext();) {
 			String s = (String) it.next();
 			if (map.get(s) == null) {
-
+				int aa = 0;
 			} else if (map.get(s) instanceof List<?>) {
-				s_json += (s + ":" + JsonUtils.beanListToJson((List<?>) map.get(s), _nory_changes, nory));
+				s_json += (s + ":" 
+						+ JsonUtils.beanListToJson((List<?>) map.get(s), _nory_changes, nory));
 
 			} else {
 				JSONObject json = JSONObject.fromObject(map);
 				s_json += (s + ":" + json.toString());
-				;
 			}
 
 			if (it.hasNext()) {
@@ -223,8 +237,8 @@ public class JsonUtils {
 	/**
 	 * 从json数组中得到相应java数组
 	 *
-	 * @param jsonString
-	 * @return
+	 * @param jsonString json数组
+	 * @return Object 数组
 	 */
 	public static Object[] jsonToObjectArray(String jsonString) {
 
@@ -234,6 +248,15 @@ public class JsonUtils {
 
 	}
 
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:18:22
+	 * 
+	 * @param list 泛型List
+	 * @return String
+	 */
 	public static String listToJson(List<?> list) {
 
 		JSONArray jsonArray = JSONArray.fromObject(list);
@@ -245,9 +268,9 @@ public class JsonUtils {
 	/**
 	 * 从json对象集合表达式中得到一个java对象列表
 	 *
-	 * @param jsonString
-	 * @param beanClass
-	 * @return
+	 * @param jsonString json数组
+	 * @param beanClass 实体类class
+	 * @return 泛型数组
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> jsonToBeanList(String jsonString, Class<T> beanClass) {
@@ -269,8 +292,8 @@ public class JsonUtils {
 	/**
 	 * 从json数组中解析出java字符串数组
 	 *
-	 * @param jsonString
-	 * @return
+	 * @param jsonString json数组
+	 * @return String 数组
 	 */
 	public static String[] jsonToStringArray(String jsonString) {
 
@@ -290,8 +313,8 @@ public class JsonUtils {
 	/**
 	 * 从json数组中解析出javaLong型对象数组
 	 *
-	 * @param jsonString
-	 * @return
+	 * @param jsonString json数组
+	 * @return Long 数组
 	 */
 	public static Long[] jsonToLongArray(String jsonString) {
 
@@ -312,8 +335,8 @@ public class JsonUtils {
 	/**
 	 * 从json数组中解析出java Integer型对象数组
 	 *
-	 * @param jsonString
-	 * @return
+	 * @param jsonString json数组
+	 * @return Integer数组
 	 */
 	public static Integer[] jsonToIntegerArray(String jsonString) {
 
@@ -334,8 +357,8 @@ public class JsonUtils {
 	/**
 	 * 从json数组中解析出java Double型对象数组
 	 *
-	 * @param jsonString
-	 * @return
+	 * @param jsonString json数组
+	 * @return Double数组
 	 */
 	public static Double[] jsonToDoubleArray(String jsonString) {
 		JSONArray jsonArray = JSONArray.fromObject(jsonString);

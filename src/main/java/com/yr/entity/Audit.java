@@ -2,6 +2,14 @@ package com.yr.entity;
 
 import java.util.Date;
 
+/**
+ * 参考数据库(审计)
+ * 
+ * @author Administrator
+ *
+ * 2018年5月22日 上午8:55:30
+ *
+ */
 public class Audit {
     private Integer id;
 

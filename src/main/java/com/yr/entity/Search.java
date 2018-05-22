@@ -1,5 +1,12 @@
 package com.yr.entity;
 
+/**
+ * 参考数据库(搜索)
+ * @author Administrator
+ *
+ * 2018年5月22日 上午9:01:17
+ *
+ */
 public class Search  {
 	
 	private String dateStart;
@@ -28,13 +35,21 @@ public class Search  {
 	public String getPageNum() {
 		return pageNum;
 	}
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 上午9:02:26
+	 * 
+	 * @param pageNum 分页数
+	 */
 	public void setPageNum(String pageNum) {
 		if (null == pageNum || "".equals(pageNum)) {
 			this.pageNum = "1";
 			return;
 		}
 		for (int i = 0; i < pageNum.length(); i++) {
-			if (!Character.isDigit(pageNum.charAt(i))){
+			if (!Character.isDigit(pageNum.charAt(i))) {
 				this.pageNum = "1"; //分页时传递的参数有问题时默认是第1页
 				return;
 			}
@@ -43,7 +58,8 @@ public class Search  {
 	}
 	@Override
 	public String toString() {
-		return "Search [dateStart=" + dateStart + ", dateEnd=" + dateEnd + ", dayOf=" + dayOf + ", pageNum=" + pageNum
+		return "Search [dateStart = " + dateStart + ", dateEnd = " + dateEnd
+				+ ", dayOf = " + dayOf + ", pageNum = " + pageNum
 				+  "]";
 	}
 }

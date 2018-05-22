@@ -2,6 +2,13 @@ package com.yr.entity;
 
 import java.util.Date;
 
+/**
+ * 老师实体类
+ * @author Administrator
+ *
+ * 2018年5月22日 上午8:59:47
+ *
+ */
 public class Teacher {
     private Integer id;
 

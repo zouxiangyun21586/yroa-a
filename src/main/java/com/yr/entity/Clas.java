@@ -4,6 +4,13 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+/**
+ * 班级实体类
+ * @author Administrator
+ *
+ * 2018年5月22日 上午8:58:28
+ *
+ */
 public class Clas {
     private Integer id;
 
@@ -72,7 +79,7 @@ public class Clas {
 		this.teacherName = teacherName;
 	}
 
-	@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getStartTime() {
         return startTime;
     }
@@ -81,7 +88,7 @@ public class Clas {
         this.startTime = startTime;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
@@ -98,7 +105,7 @@ public class Clas {
         this.isFinish = isFinish == null ? null : isFinish.trim();
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getFinishTime() {
         return finishTime;
     }

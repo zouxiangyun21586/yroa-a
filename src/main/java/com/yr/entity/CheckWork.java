@@ -2,10 +2,18 @@ package com.yr.entity;
 
 import java.sql.Date;
 
-public class CheckWork extends Search{
+/**
+ * 参考数据库(考勤作业)
+ * 
+ * @author Administrator
+ *
+ * 2018年5月22日 上午8:56:31
+ *
+ */
+public class CheckWork extends Search {
 	private Integer id;
 	private Integer clasId; //班级ID
-	private String clasName;//班级名称
+	private String clasName; //班级名称
 	private String stuCode; //学生ID
 	private String stuName; //学生名称
 	private String ctCode; //考勤ID
@@ -13,10 +21,10 @@ public class CheckWork extends Search{
 	private Date ckTime; //考勤时间
 	private String retyTime; //实际到时间
 	private String baseTime; //特殊上课时间
-	private Integer lateTime;//迟到时间(分钟)
+	private Integer lateTime; //迟到时间(分钟)
 	private Integer isLate; //是否迟到(0没迟到,1迟到,2旷课,3请假)
 	private Integer isNote; // 是否有请假条(1有假条,0没有假条)
-	private Date createTime;//数据创建时间
+	private Date createTime; //数据创建时间
 	private String startTime;
 	private String isLateStr;
 	private String isNoteStr;
@@ -125,8 +133,9 @@ public class CheckWork extends Search{
 	@Override
 	public String toString() {
 		return "CheckWork [id=" + id + ", clasId=" + clasId + ", clasName=" + clasName + ", stuCode=" + stuCode
-				+ ", stuName=" + stuName + ", ctCode=" + ctCode + ", ctName=" + ctName + ", ckTime=" + ckTime
-				+ ", retyTime=" + retyTime + ", lateTime=" + lateTime + ", isLate=" + isLate + ", isNote=" + isNote
+				+ ", stuName=" + stuName + ", ctCode=" + ctCode + ", ctName=" + ctName + ", ckTime=" 
+				+ ckTime + ", retyTime=" + retyTime + ", lateTime=" + lateTime + ", isLate=" + isLate 
+				+ ", isNote=" + isNote
 				+ ", createTime=" + createTime + "]";
 	}
 }

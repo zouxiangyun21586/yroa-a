@@ -2,6 +2,13 @@ package com.yr.entity;
 
 import java.util.Date;
 
+/**
+ * 参考数据库
+ * @author Administrator
+ *
+ * 2018年5月22日 上午9:04:35
+ *
+ */
 public class Leave {
     private Integer id;
 

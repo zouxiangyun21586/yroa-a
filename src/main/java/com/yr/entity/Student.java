@@ -4,6 +4,13 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+/**
+ * 学生实体类
+ * @author Administrator
+ *
+ * 2018年5月22日 上午9:00:36
+ *
+ */
 public class Student {
 	private Integer id;
 
@@ -167,5 +174,4 @@ public class Student {
 	public void setOfferIncome(String offerIncome) {
 		this.offerIncome = offerIncome;
 	}
-
 }

@@ -2,6 +2,13 @@ package com.yr.entity;
 
 import java.util.Date;
 
+/**
+ * 学生考勤
+ * @author Administrator
+ *
+ * 2018年5月22日 上午8:59:57
+ *
+ */
 public class StudentCheck {
     private Integer id;
 
