@@ -193,7 +193,7 @@ public final class JsonUtils {
 		Iterator<?> keyIter = jsonObject.keys();
 		String key;
 		Object value;
-		Map<String, Object> valueMap = new HashMap<>();
+		Map<String, Object> valueMap = new HashMap<String, Object>();
 		while (keyIter.hasNext()) {
 			key = (String) keyIter.next();
 			value = jsonObject.get(key).toString();

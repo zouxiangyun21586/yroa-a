@@ -39,9 +39,9 @@ public interface TeacherDao {
 	 * 2018年5月22日 上午8:52:33
 	 * 
 	 * @param teacher 老师对象
-	 * @return Long类型
+	 * @return Integer类型
 	 */
-	int delete(Teacher teacher);
+	Integer delete(Teacher teacher);
 	
 	/**
 	 * 
@@ -62,5 +62,5 @@ public interface TeacherDao {
 	 * @param id 需回显的老师id
 	 * @return 老师对象
 	 */
-	Teacher get(Long id);
+	Teacher get(Integer id);
 }
