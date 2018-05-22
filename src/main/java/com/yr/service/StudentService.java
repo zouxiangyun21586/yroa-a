@@ -1,8 +1,7 @@
 package com.yr.service;
 
-import java.util.List;
-
 import com.yr.entity.Student;
+import com.yr.util.PageUtil;
 
 /**
  * 
@@ -15,15 +14,17 @@ import com.yr.entity.Student;
 public interface StudentService {
 	/**
 	 * 
-	 * @Date : 2018年5月22日下午4:51:12
+	 * @Date : 2018年5月22日下午7:13:48
 	 * 
 	 * @author : 唐子壕
-	 * 
-	 * @describe : 查询所有学生
 	 *	
-	 * @return : List<Student> 返回类型
+	 * @return : PageUtil
+	 *
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 搜索条件
 	 */
-	 List<Student> queryStudent();
+	 PageUtil queryStudent(Integer page, Integer limit, String name);
 	 
 	 /**
 	  * 

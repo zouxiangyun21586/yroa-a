@@ -1,8 +1,7 @@
 package com.yr.dao;
 
-import java.util.List;
-
 import com.yr.entity.Student;
+import com.yr.util.PageUtil;
 
 /**
  * 
@@ -15,16 +14,17 @@ import com.yr.entity.Student;
 public interface StudentDao {
 	/**
 	 * 
-	 * @Date : 2018年5月22日下午5:16:00
+	 * @Date : 2018年5月22日下午7:18:23
 	 * 
 	 * @author : 唐子壕
-	 * 
-	 * @describe : 查询所有学生
 	 *	
-	 * @return : List<Student> 
+	 * @return : PageUtil 返回查询的结果,是一个集合
 	 *
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 搜索条件
 	 */
-	 List<Student> queryStudent();
+	PageUtil queryStudent(Integer page, Integer limit, String name);
 	 
 	 /**
 	  * 

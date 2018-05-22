@@ -1,13 +1,12 @@
 package com.yr.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yr.dao.StudentDao;
 import com.yr.entity.Student;
 import com.yr.service.StudentService;
+import com.yr.util.PageUtil;
 
 /**
  * 
@@ -24,19 +23,21 @@ public class StudentServiceImpl implements StudentService {
 	
 	/**
 	 * 
-	 * @Date : 2018年5月22日下午5:09:23
+	 * @Date : 2018年5月22日下午7:15:23
 	 * 
 	 * @author : 唐子壕
 	 *	
-	 * @return : 返回所有学生的集合
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 搜索条件
+	 *
+	 * @return : PageUtil 返回查询的结果,是一个集合
 	 * 
-	 *  @describe : 实现com.yr.service.StudentService接口,重写方法
-	 * 
-	 * @see com.yr.service.StudentService#queryStudent()
+	 * @see com.yr.service.StudentService#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
 	 */
-	public List<Student> queryStudent() {
-		List<Student> student = studentDao.queryStudent();
-		return student;
+	public PageUtil queryStudent(Integer page, Integer limit, String name) {
+		PageUtil pageUtil = studentDao.queryStudent(page, limit, name);
+		return pageUtil;
 	}
 	
 	/**

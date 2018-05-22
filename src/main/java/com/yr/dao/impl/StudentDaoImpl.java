@@ -1,5 +1,6 @@
 package com.yr.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yr.dao.StudentDao;
 import com.yr.entity.Student;
+import com.yr.util.PageUtil;
 
 
 
@@ -25,25 +27,58 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
+	
 	/**
 	 * 
-	 * @Date : 2018年5月22日下午5:18:03
+	 * @Date : 2018年5月22日下午7:19:40
 	 * 
 	 * @author : 唐子壕
 	 *	
-	 * @return : List<Student>
-	 * 
-	 * @describe : 实现com.yr.dao.StudentDao接口,重写方法,进行操作数据库
-	 * 
-	 * @see com.yr.dao.StudentDao#queryStudent()
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 搜索条件
+	 * @return : PageUtil 返回查询结果,是一个集合
+	 *
+	 * @see com.yr.dao.StudentDao#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
 	 */
-	public List<Student> queryStudent() {
-		String sql = "select * from Student";
-		List<Student> studentList = entityManager.createQuery(sql).getResultList();
-		for (Student student : studentList) {
-			student.toString();
+	public PageUtil queryStudent(Integer page, Integer limit, String name) {
+		PageUtil pageUtil = new PageUtil(); 
+		try {
+			int count = 0;
+			String jpql = "From Student where code !='root' order by in_time desc";
+			if (null  != name && !"".equals(name)) {
+				jpql = "from Student where name like :name and code !='root'order by in_time desc";
+			}
+			List<Student> studentList = new ArrayList<Student>();
+			name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
+			if (null  != name && !"".equals(name)) {
+				studentList = entityManager.createQuery(jpql)
+						.setMaxResults(limit).setFirstResult((page - 1) * limit)
+						.setParameter("name", "" + name + "%").getResultList();
+				count = Integer
+				.parseInt(entityManager
+				 .createNativeQuery("select count(*) from Student name like :name and code !='root'")
+				   .setParameter("name", "" + name + "%").getSingleResult().toString());
+			} else {
+				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
+						.setMaxResults(limit).getResultList();
+				count = Integer
+						.parseInt(entityManager
+						   .createNativeQuery("select count(*) from Student code !='root'")
+							  .getSingleResult().toString());
+			}
+			pageUtil = new PageUtil(limit, page, count);		
+			pageUtil.setCount(count);
+			pageUtil.setCode(0);
+			pageUtil.setData(studentList);
+			pageUtil.setMsg("OK");
+		} catch (Exception e) {
+			pageUtil.setCode(1);
+			pageUtil.setMsg("---出错了!----");
+			e.printStackTrace();
 		}
-		return studentList;
+		
+		return pageUtil;
 	}
 	
 	/**

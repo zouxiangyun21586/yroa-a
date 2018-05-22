@@ -1,6 +1,5 @@
 package com.yr.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yr.entity.Student;
 import com.yr.service.StudentService;
 import com.yr.util.JsonUtils;
+import com.yr.util.PageUtil;
 
 /**
  * 
@@ -28,19 +28,21 @@ public class StudentController {
 	
 	/**
 	 * 
-	 * @Date : 2018年5月22日下午5:13:42
+	 * @Date : 2018年5月22日下午7:10:05
 	 * 
 	 * @author : 唐子壕
 	 *	
-	 * @return : String 返回Json格式的String数据
+	 * @return : String 返回json格式
 	 *
-	 * @describe : 查询所有学生
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 搜索条件
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/student")
-	public String queryStudent() {
-		List<Student> studentList = studentService.queryStudent();
-		String result = JsonUtils.listToJson(studentList);
+	public String queryStudent(Integer page, Integer limit, String name) {
+		PageUtil pageUtil = studentService.queryStudent(page, limit, name);
+		String result = JsonUtils.beanToJson(pageUtil);
 		return result;
 	}
 	
