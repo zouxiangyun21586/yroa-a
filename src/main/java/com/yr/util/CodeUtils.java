@@ -7,8 +7,15 @@ package com.yr.util;
  * 2018年5月22日 上午9:09:05
  *
  */
-public class CodeUtils {
+public final class CodeUtils {
 
+	private static final Integer T9999 = 9999;
+	private static final Integer T1000 = 1000;
+	
+	private CodeUtils() {
+		
+	}
+	
 	/**
 	 * 
 	 * @author zxy
@@ -59,8 +66,8 @@ public class CodeUtils {
 	 * @return long
 	 */
 	public static long getRound3() {
-		int max = 9999;
-		int min = 1000;
+		int max = T9999;
+		int min = T1000;
 		Long a = Math.round(Math.random() * (max - min) + min);
 		return a;
 	}
