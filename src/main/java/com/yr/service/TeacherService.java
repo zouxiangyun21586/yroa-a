@@ -64,5 +64,5 @@ public interface TeacherService {
 	 * @param id 获取页面上需回显的老师id
 	 * @return 返回老师对象
 	 */
-	Teacher get(Long id);
+	Teacher get(Integer id);
 }
