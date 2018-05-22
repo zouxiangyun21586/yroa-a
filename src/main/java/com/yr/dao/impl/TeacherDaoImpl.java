@@ -2,6 +2,9 @@ package com.yr.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
 
 import com.yr.dao.TeacherDao;
@@ -16,6 +19,9 @@ import com.yr.entity.Teacher;
 @Repository
 public class TeacherDaoImpl implements TeacherDao {
 
+	@PersistenceContext
+	private EntityManager entityManager;
+	
 	@Override
 	public void add(Teacher teacher) {
 		
