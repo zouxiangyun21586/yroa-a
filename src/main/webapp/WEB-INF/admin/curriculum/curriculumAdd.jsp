@@ -55,6 +55,6 @@
 	</form>
 </div>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/user/userAdd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/curriculum/curriculumAdd.js"></script>
 </body>
 </html>

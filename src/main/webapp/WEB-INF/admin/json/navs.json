@@ -8,24 +8,24 @@
 			{
 				"title": "用户管理",
 				"icon": "&#xe612;",
-				"href": "userList",
+				"href": "user/userList",
 				"spread": false
 			}
 		]
 	},{
 		"title": "学生管理",
 		"icon": "icon-text",
-		"href": "studentList",
+		"href": "student/studentList",
 		"spread": false
 	},{
 		"title": "教师管理",
 		"icon": "&#xe634;",
-		"href": "teacherList",
+		"href": "teacher/teacherList",
 		"spread": false
 	},{
 		"title": "课程管理",
 		"icon": "&#xe634;",
-		"href": "curriculumList.jsp",
+		"href": "curriculum/curriculumList",
 		"spread": false
 	}
 ]
