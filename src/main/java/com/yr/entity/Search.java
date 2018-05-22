@@ -36,7 +36,6 @@ public class Search  {
 		return pageNum;
 	}
 	/**
-	 * 
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 上午9:02:26
@@ -46,12 +45,12 @@ public class Search  {
 	public void setPageNum(String pageNum) {
 		if (null == pageNum || "".equals(pageNum)) {
 			this.pageNum = "1";
-			return;
-		}
-		for (int i = 0; i < pageNum.length(); i++) {
-			if (!Character.isDigit(pageNum.charAt(i))) {
-				this.pageNum = "1"; //分页时传递的参数有问题时默认是第1页
-				return;
+		} else {
+			for (int i = 0; i < pageNum.length(); i++) {
+				if (!Character.isDigit(pageNum.charAt(i))) {
+					this.pageNum = "1"; //分页时传递的参数有问题时默认是第1页
+					return;
+				}
 			}
 		}
 		this.pageNum = pageNum;
