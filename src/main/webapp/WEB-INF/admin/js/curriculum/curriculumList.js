@@ -63,80 +63,7 @@ layui.use(['table','form','tree'], function(){
 		 //监听工具条
 		table.on('tool(demo)', function(obj){
 		  var data = obj.data;
-		  if(obj.event === 'look'){
-				$.ajax({
-					type : "get",
-					url : path+"lookRole",
-					data : {"id" : obj.data.id},
-					success : function(data) {
-						var role="";
-						for (var i=0;i<data.length;i++){
-							if(0==i%3&&0!=i){
-								role+="<br/>"
-							}
-							role+='<span class="layui-badge layui-bg-green" style="height:23px;line-height:23px;margin:5px 5px 0px 0px;">'+data[i]+'</span>';
-						}
-						layer.open({
-						  title: '查看权限',
-						  content: role
-						});     
-					},error : function() {
-						setTimeout(function() {
-							top.layer.msg("异常", {
-								icon : 2
-							});
-							location.reload();
-						}, 1000);
-					}
-				});
-			}else if(obj.event === 'state'){
-				var index= top.layer.msg('正在修改用户状态...请稍候',{icon: 16,time:false,shade:0.8});
-				$.ajax({
-		    	       type:"post",
-		    	       url:path+"userStatus",
-		    	       data: {"id":obj.data.id,"value":obj.data.status,"_method":"PUT"},
-		    	       success:function(data){
-		    	    	   if(0==data.code){
-		    	    		   setTimeout(function(){
-			   			            top.layer.close(index);
-			   			        	top.layer.msg(data.msg,{icon:1});
-			   			        	table.reload('demo',{
-			   			        		where: {
-			   			        			name:null
-			   			        		}
-			   			        	});
-			   			        },1000);
-		    	    	   }else {
-		    	    		   setTimeout(function(){
-			   			            top.layer.close(index);
-			   			        	top.layer.msg(data.msg,{icon:2});
-			   			        	table.reload('demo',{
-			   			        		where: {
-			   			        			name:null
-			   			        		}
-			   			        	});
-			   			        },1000);
-		    	    	   }
-		    	       },error : function() {
-							setTimeout(function(){
-							    top.layer.close(index);
-							    top.layer.msg("异常",{icon:2});
-								location.reload();
-							},1000);
-		    	       }
-			     	});
-			}else if(obj.event === 'role'){
-		    var layerRole=layer.open({
-				anim: 2,
-				title : '选择角色',
-				type: 2, //窗口类型
-				resize:false,//禁止拉伸
-				maxmin:false,//最大化,最小化
-				shade: [0.3,'#000'],
-				area: ['300px', '400px'],//窗口宽高
-				content: path+'user/role?id='+data.id
-			});
-		  } else if(obj.event === 'del'){
+		 if(obj.event === 'del'){
 		    layer.confirm('确定要删除么', function(index){
 		    	layer.close(index);
 		    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
@@ -176,16 +103,36 @@ layui.use(['table','form','tree'], function(){
 		     	});
 		      layer.close(index);
 		    });
+		  }else if(obj.event === 'edit'){
+			  var index = layui.layer.open({
+					title : "修改届次",
+					type : 2,
+					anim : 5,
+					content : "userAdd",//修改学生的页面路径
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
 		  }
 		});
 		
 		 //添加用户
 		function addUser(edit){
 			var index = layui.layer.open({
-				title : "添加用户",
+				title : "添加届次",
 				type : 2,
 				anim : 5,
-				content : "userAdd",
+				content : "curriculumAdd",
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回',

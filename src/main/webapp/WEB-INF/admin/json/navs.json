@@ -14,18 +14,23 @@
 		]
 	},{
 		"title": "学生管理",
-		"icon": "icon-text",
+		"icon": "&#xe770;",
 		"href": "student/studentList",
 		"spread": false
 	},{
 		"title": "教师管理",
-		"icon": "&#xe634;",
+		"icon": "&#xe770;",
 		"href": "teacher/teacherList",
 		"spread": false
 	},{
-		"title": "课程管理",
-		"icon": "&#xe634;",
+		"title": "届次管理",
+		"icon": "&#xe663;",
 		"href": "curriculum/curriculumList",
+		"spread": false
+	},{
+		"title": "课程管理",
+		"icon": "&#xe705;",
+		"href": "class/classList",
 		"spread": false
 	},{
         "title": "考勤管理",
@@ -44,7 +49,7 @@
                 "href": "attendance/leave",
                 "spread": false
             },{
-                "title": "添加假期",
+                "title": "假期",
                 "icon": "&#xe612;",
                 "href": "attendance/holidayAdd",
                 "spread": false

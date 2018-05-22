@@ -72,7 +72,7 @@ layui.use(['table','form','tree'], function(){
 	    	       url:path+"userDelete",
 	    	       data: {"id":obj.data.id,"_method":"DELETE"},
 	    	       success:function(data){
-	    	    	   if(0==data.code){
+	    	    	   if(200==data.code){
 	    	    		   setTimeout(function(){
 		   			            top.layer.close(index);
 		   			        	top.layer.msg(data.msg,{icon:1});
@@ -105,10 +105,10 @@ layui.use(['table','form','tree'], function(){
 		    });
 		  }else if(obj.event === 'edit'){
 			  var index = layui.layer.open({
-					title : "修改教师",
+					title : "修改课程",
 					type : 2,
 					anim : 5,
-					content : "teacherAdd",//修改用户的页面路径
+					content : "classUpdate",//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
@@ -127,12 +127,12 @@ layui.use(['table','form','tree'], function(){
 		});
 		
 		 //添加用户
-		function addUser(edit){
-			var index = layui.layer.open({
-				title : "添加教师",
+	    $(".addUser_btn").click(function(){
+	    	var index = layui.layer.open({
+				title : "添加课程",
 				type : 2,
 				anim : 5,
-				content : "teacherAdd",
+				content : "classAdd",
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回',
@@ -147,8 +147,5 @@ layui.use(['table','form','tree'], function(){
 			$(window).on("resize", function() {
 				layui.layer.full(index);
 			});
-	    }
-	    $(".addUser_btn").click(function(){
-	        addUser();
 	    });
 });

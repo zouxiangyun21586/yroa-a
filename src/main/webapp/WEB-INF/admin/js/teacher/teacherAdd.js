@@ -1,24 +1,25 @@
-layui.use([ 'layer', 'form' ], function() {
+layui.use([ 'layer', 'form' ,'laydate'], function() {
 	var layer = layui.layer, 
 	form = layui.form, 
 	$ = layui.jquery,
+	laydate=layui.laydate,
 	strFullPath = window.document.location.href,
   	strPath = window.document.location.pathname,
 	pos = strFullPath.indexOf(strPath),
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
+	laydate.render({
+	    elem: '#year'
+	});
+	laydate.render({
+		elem: '#entranceYear'
+	});
 	form.on("submit(addUser)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
 			time : false,
 			shade : 0.8
 		});
-		var passWord=$(":input[name='passWord']").val();
-    	var passWords=$(":input[name='passWords']").val();
-    	if(passWord!=passWords){
-    		top.layer.close(index);
-			layer.msg("2次密码不一致",{icon:2,time:2000,shade:0.5});
-    	}else{
 			$.ajax({
 				type : "post",
 				url : path+"userInsert",
@@ -52,7 +53,6 @@ layui.use([ 'layer', 'form' ], function() {
 					}, 1000);
 				}
 			});
-		}
 		return false;
 	});
 	 form.verify({
@@ -70,9 +70,5 @@ layui.use([ 'layer', 'form' ], function() {
    	    	return '用户名必须6到12位，且不能出现空格';
    	    }
    	  }
-   	  ,pass: [
-   	    /^[\S]{6,12}$/
-   	    ,'密码必须6到12位，且不能出现空格'
-   	  ] 
    	});
 });

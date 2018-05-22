@@ -24,7 +24,7 @@
 						<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
 					</div>
 					<div class="layui-inline">
-						<a class="layui-btn layui-btn-normal addUser_btn">添加用户</a>
+						<a class="layui-btn layui-btn-normal addUser_btn">添加教师</a>
 					</div>
 				</div>
 			</form>
@@ -38,11 +38,8 @@
 <div class="layui-dropdown">
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
-		  <shiro:hasPermission name="userStatus"><li><a lay-event="state"><i class="layui-icon" style="font-size:18px;">&#xe612; </i>{{d.status==0?'禁用账号':'启用用户'}}</a></li></shiro:hasPermission>
-		  <shiro:hasPermission name="userUpdate"><li><a lay-event="look"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li></shiro:hasPermission>
-		  <shiro:hasPermission name="lookRole"><li><a lay-event="look"><i class="layui-icon" style="font-size:18px;">&#xe705; </i>查看角色</a></li></shiro:hasPermission>
-          <shiro:hasPermission name="userEmpowerment"><li><a lay-event="role"><i class="seraph icon-icon10" style="font-size:18px;"> </i>选择角色</a></li></shiro:hasPermission>
-          <shiro:hasPermission name="userDelete"><li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除用户</a></li></shiro:hasPermission>
+          <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>编辑</a></li>
+          <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除教师</a></li>
       </ul>
   </div>
 </script>

@@ -56,11 +56,13 @@ public class TeacherDaoImpl implements TeacherDao {
 		Integer age = teacher.getAge();
 		String tel = teacher.getTel();
 		String addr = teacher.getAddr();
+		Date birth = teacher.getBirth();
 		Date inTime = teacher.getInTime();
 		String level = teacher.getLevel();
 		String isleaver = teacher.getIsLeave();
 		Date leavetime  = teacher.getLeaveTime();
 		String info = teacher.getInfo();
+		Date createTime = teacher.getCreateTime();
 		entityManager.remove(t);
 		
 		Teacher tc = new Teacher();
@@ -75,6 +77,8 @@ public class TeacherDaoImpl implements TeacherDao {
 		tc.setIsLeave(isleaver);
 		tc.setLeaveTime(leavetime);
 		tc.setInfo(info);
+		tc.setBirth(birth);
+		tc.setCreateTime(createTime);
 		entityManager.merge(tc);
 		
 	}

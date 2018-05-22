@@ -17,27 +17,26 @@
 <br/>
 <form class="layui-form" style="width:80%;">
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">届次名</label>
+		<label class="layui-form-label">课程名</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input userName" lay-verify="required" placeholder="请输入">
+			<input type="text" class="layui-input userName" lay-verify="required" placeholder="请输入登录名">
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-				<label class="layui-form-label">开班日期</label>
-				<div class="layui-input-block">
-					<input type="text" class="layui-input" id="year" placeholder="yyyy-MM-dd" lay-verify="required">
-				</div>
+		<label class="layui-form-label">课程等级</label>
+			<div class="layui-input-block">
+				<select name="userGrade" class="userGrade" lay-filter="userGrade">
+					<option value="0">初级</option>
+					<option value="1">中级</option>
+					<option value="2">高级</option>
+				</select>
 			</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">本届教师</label>
-			<div class="layui-input-block">
-				<select name="userStatus" class="userStatus" lay-filter="userStatus">
-					<option value="0">最强王者</option>
-					<option value="1">倔强青铜</option>
-				</select>
-			</div>
+		<label class="layui-form-label">课程简介</label>
+		<div class="layui-input-block">
+			<textarea placeholder="请输入简介" class="layui-textarea userDesc"></textarea>
+		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
@@ -47,6 +46,6 @@
 	</div>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/curriculum/curriculumAdd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/class/classAdd.js"></script>
 </body>
 </html>
