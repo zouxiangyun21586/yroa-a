@@ -221,6 +221,54 @@
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
         </plugin>
+        <plugin>
+          <artifactId>commons-io</artifactId>
+          <version>1.3.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>commons-fileupload</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+           <artifactId>hibernate-jpa-2.0-api</artifactId>
+  		   <version>1.0.1.Final</version>
+        </plugin>
+        <plugin>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>5.2.16.Final</version>
+        </plugin>
+        <plugin>
+			<artifactId>hibernate-core</artifactId>
+    		<version>5.2.16.Final</version>
+        </plugin>
+        <plugin>
+			<artifactId>hibernate-commons-annotations</artifactId>
+    		<version>5.0.1.Final</version>
+        </plugin>
+        <plugin>
+			<artifactId>javassist</artifactId>
+    		<version>3.22.0-GA</version>
+        </plugin>
+        <plugin>
+			<artifactId>geronimo-jta_1.1_spec</artifactId>
+    		<version>1.1.1</version>
+        </plugin>
+        <plugin>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+    		<version>1.0.0.Final</version>
+        </plugin>
+        <plugin>
+			<artifactId>ejb3-persistence</artifactId>
+   			<version>3.3.2.Beta1</version>
+        </plugin>
+        <plugin>
+			<artifactId>persistence-api</artifactId>
+   			<version>1.0.2</version>
+        </plugin>
+        <plugin>
+			<artifactId>log4j-api</artifactId>
+   			<version>2.10.0</version>
+        </plugin>
       </plugins>
     </pluginManagement>
 	</build>
