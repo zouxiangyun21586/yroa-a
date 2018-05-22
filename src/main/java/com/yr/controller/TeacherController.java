@@ -1,6 +1,9 @@
 package com.yr.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import com.yr.service.TeacherService;
 
 /**
  * 老师controller层
@@ -12,5 +15,6 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class TeacherController {
-
+	@Autowired
+	private TeacherService teacherService;
 }
