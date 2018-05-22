@@ -94,10 +94,8 @@ public class AuthImageServlet {
 		response.setDateHeader("Expires", 0);
 		// 表明生成的响应是图片
 		response.setContentType("image/jpeg");
-
 		int width = T110, height = T20;
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
 		Graphics g = image.getGraphics();
 		Random random = new Random();
 		g.setColor(getRandColor(T200, T250));
@@ -105,9 +103,7 @@ public class AuthImageServlet {
 		g.setColor(new Color(T102, T102, T102));
 		g.drawRect(0, 0, width - 1, height - 1);
 		g.setFont(mFont);
-
 		g.setColor(getRandColor(T160, T200));
-
 		// 画随机线
 		for (int i = 0; i < T155; i++) {
 			int x = random.nextInt(width - 1);
@@ -116,7 +112,6 @@ public class AuthImageServlet {
 			int yl = random.nextInt(T12) + 1;
 			g.drawLine(x, y, x + xl, y + yl);
 		}
-
 		// 从另一方向画随机线
 		for (int i = 0; i < T70; i++) {
 			int x = random.nextInt(width - 1);

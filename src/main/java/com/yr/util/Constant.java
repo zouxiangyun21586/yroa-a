@@ -60,17 +60,17 @@ public final class Constant {
 
 	public static final Integer ISRETURNNO = 1;
 
-	public static final Double LevelNO = 0.0;
+	public static final Double LEVELNO = 0.0;
 
-	public static final Double LevelOne = 1.0;
+	public static final Double LEVELONE = 1.0;
 
-	public static final Double LevelTwo = 1.0;
+	public static final Double LEVELTWO = 1.0;
 
-	public static final Double LevelThree = 0.3;
+	public static final Double LEVELTHREE = 0.3;
 
-	public static final Double LevelFour = 0.1;
+	public static final Double LEVELFOUR = 0.1;
 
-	public static final Integer Book = 1;
+	public static final Integer BOOK = 1;
 
-	public static final Integer Journal = 2;
+	public static final Integer JOURNAL = 2;
 }

@@ -17,6 +17,16 @@ public final class DateUtils {
 	static DateFormat dfymd = new SimpleDateFormat("yyyy-MM-dd");
 	static DateFormat dfhms = new SimpleDateFormat("HH:mm:ss");
 
+	private static final Integer T1000 = 1000;
+	private static final Integer T60 = 60;
+	private static final Integer T24 = 24;
+	private static final Integer T18 = 18;
+	private static final Integer T23 = 23;
+	private static final Integer T13 = 13;
+	private static final Integer T1 = -1;
+	private static final Integer T365 = 365;
+	
+	
 	private DateUtils() {
 		
 	}
@@ -112,17 +122,18 @@ public final class DateUtils {
 	 */
 	public static String getAmPmNt() {
 		GregorianCalendar ca = new GregorianCalendar();
+		String time = "-1";
 		if (ca.get(GregorianCalendar.AM_PM) == 0) {
-			return "AM";
+			time = "AM";
 		} else {
 			int hour = getCurrentHour();
-			if (hour >= 13 && hour < 18) {
-				return "PM";
-			} else if (hour >= 18 && hour <= 23) {
-				return "NT";
+			if (hour >= T13 && hour < T18) {
+				time = "PM";
+			} else if (hour >= T18 && hour <= T23) {
+				time = "NT";
 			}
 		}
-		return "-1";
+		return time;
 	}
 
 	/**
@@ -150,7 +161,7 @@ public final class DateUtils {
 			long time2 = two.getTime();
 			long diff;
 			diff = time2 - time1;
-			return (diff / (1000 * 60));
+			return (diff / (T1000 * T60));
 			/*
 			 * if(time1<time2) { diff = time2 - time1; } else { diff = time1 - time2; }
 			 */
@@ -185,7 +196,7 @@ public final class DateUtils {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return -1;
+		return T1;
 	}
 
 	/**
@@ -196,14 +207,14 @@ public final class DateUtils {
 	 * 
 	 * @param baseTime 最后时间
 	 * @param nowTime 开始时间
-	 * @return
+	 * @return long类型
 	 */
 	public static long getDistanceYear(Date baseTime, Date nowTime) {
 			long time1 = baseTime.getTime();
 			long time2 = nowTime.getTime();
 			long diff;
 			diff = time2 - time1;
-			return (diff / (1000 * 60 * 60 * 24) / 365);
+			return (diff / (T1000 * T60 * T60 * T24) / T365);
 			/*
 			 * if(time1<time2) { diff = time2 - time1; } else { diff = time1 - time2; }
 			 */
