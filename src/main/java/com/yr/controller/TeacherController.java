@@ -43,7 +43,7 @@ public class TeacherController {
 	 * @return 返回到哪个界面
 	 */
 	@Transactional
-	@RequestMapping(value = "/Teacher", method = RequestMethod.POST)
+	@RequestMapping(value = "/teacher", method = RequestMethod.POST)
 	public String add(Teacher teacher, ModelMap map) {
 		Boolean boo = teacherService.add(teacher);
 		if (boo) {
@@ -66,7 +66,7 @@ public class TeacherController {
 	 * @return 执行完这个方法后去到哪个页面
 	 */
 	@Transactional
-	@RequestMapping(value = "/Teacher/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/teacher/{id}", method = RequestMethod.DELETE)
 	public String del(Teacher teacher, ModelMap map) {
 		Boolean bool = teacherService.delete(teacher);
 		if (bool) {
@@ -89,7 +89,7 @@ public class TeacherController {
 	 * @return 执行完这个方法后去到哪个页面
 	 */
 	@Transactional
-	@RequestMapping(value = "/Teacher", method = RequestMethod.PUT)
+	@RequestMapping(value = "/teacher", method = RequestMethod.PUT)
 	public String upd(Teacher teacher, ModelMap map) {
 		Boolean bool = teacherService.update(teacher);
 		if (bool) {
@@ -128,7 +128,7 @@ public class TeacherController {
 	 * @param request 接收数据
 	 * @return Json格式的String数据
 	 */
-	@RequestMapping(value = "/Teacher", method = RequestMethod.GET)
+	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
 	public @ResponseBody String sel(HttpServletResponse response, HttpServletRequest request) {
 		List<Teacher> listUser = teacherService.query();
 		String str = "";

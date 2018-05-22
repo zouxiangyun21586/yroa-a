@@ -34,6 +34,13 @@ public class ClasDaoImpl implements ClasDao {
 	 * @param clas 届次对象
 	 */
 	public void add(Clas clas) {
+		Clas cla = new Clas();
+		cla.setName(clas.getName());
+		cla.setYear("2018"); // 当前年
+		cla.setCode("使用本地sql查询max()值 + 1 进行添加");
+//		cla.setCreateTime(createTime); // 创建时间(获取当前时间)
+//		cla.setTeacherCode(teacherCode); // 设置这批届次老师的code(获取页面上填写的老师名获取到老师code)
+//		cla.setTeacherName(teacherName); // 设置这批届次老师的code(获取页面上填写的老师名)
 		entityManager.persist(clas);
 	}
 

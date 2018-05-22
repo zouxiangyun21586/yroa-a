@@ -4,129 +4,151 @@ import java.util.Date;
 
 /**
  * 老师实体类
+ * 
  * @author Administrator
  *
- * 2018年5月22日 上午8:59:47
+ *         2018年5月22日 上午8:59:47
  *
  */
 public class Teacher {
-    private Integer id;
+	private Integer id;
 
-    private String name;
+	private String name;
 
-    private String code;
+	private String code;
 
-    private String sex;
+	private String sex;
 
-    private Integer age;
+	private Date birth;
 
-    private String tel;
+	private Integer age;
 
-    private String addr;
+	private String tel;
 
-    private Date inTime;
+	private String addr;
 
-    private String level;
+	private Date inTime;
 
-    private String isLeave;
+	private String level;
 
-    private Date leaveTime;
+	private String isLeave;
 
-    private String info;
+	private Date leaveTime;
 
-    public Integer getId() {
-        return id;
-    }
+	private String info;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	private Date createTime;
 
-    public String getName() {
-        return name;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public String getSex() {
-        return sex;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
+	public void setCode(String code) {
+		this.code = code == null ? null : code.trim();
+	}
 
-    public Integer getAge() {
-        return age;
-    }
+	public String getSex() {
+		return sex;
+	}
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+	public void setSex(String sex) {
+		this.sex = sex == null ? null : sex.trim();
+	}
 
-    public String getTel() {
-        return tel;
-    }
+	public Integer getAge() {
+		return age;
+	}
 
-    public void setTel(String tel) {
-        this.tel = tel == null ? null : tel.trim();
-    }
+	public void setAge(Integer age) {
+		this.age = age;
+	}
 
-    public String getAddr() {
-        return addr;
-    }
+	public String getTel() {
+		return tel;
+	}
 
-    public void setAddr(String addr) {
-        this.addr = addr == null ? null : addr.trim();
-    }
+	public void setTel(String tel) {
+		this.tel = tel == null ? null : tel.trim();
+	}
 
-    public Date getInTime() {
-        return inTime;
-    }
+	public String getAddr() {
+		return addr;
+	}
 
-    public void setInTime(Date inTime) {
-        this.inTime = inTime;
-    }
+	public void setAddr(String addr) {
+		this.addr = addr == null ? null : addr.trim();
+	}
 
-    public String getLevel() {
-        return level;
-    }
+	public Date getInTime() {
+		return inTime;
+	}
 
-    public void setLevel(String level) {
-        this.level = level == null ? null : level.trim();
-    }
+	public void setInTime(Date inTime) {
+		this.inTime = inTime;
+	}
 
-    public String getIsLeave() {
-        return isLeave;
-    }
+	public String getLevel() {
+		return level;
+	}
 
-    public void setIsLeave(String isLeave) {
-        this.isLeave = isLeave == null ? null : isLeave.trim();
-    }
+	public void setLevel(String level) {
+		this.level = level == null ? null : level.trim();
+	}
 
-    public Date getLeaveTime() {
-        return leaveTime;
-    }
+	public String getIsLeave() {
+		return isLeave;
+	}
 
-    public void setLeaveTime(Date leaveTime) {
-        this.leaveTime = leaveTime;
-    }
+	public void setIsLeave(String isLeave) {
+		this.isLeave = isLeave == null ? null : isLeave.trim();
+	}
 
-    public String getInfo() {
-        return info;
-    }
+	public Date getLeaveTime() {
+		return leaveTime;
+	}
 
-    public void setInfo(String info) {
-        this.info = info == null ? null : info.trim();
-    }
+	public void setLeaveTime(Date leaveTime) {
+		this.leaveTime = leaveTime;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info == null ? null : info.trim();
+	}
+
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
 }

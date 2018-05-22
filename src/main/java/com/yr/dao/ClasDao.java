@@ -18,7 +18,7 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月22日 上午8:52:09
 	 * 
-	 * @param clas 老师对象
+	 * @param clas 届次对象
 	 */
 	void add(Clas clas);
 	
@@ -28,7 +28,7 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月22日 上午8:52:21
 	 * 
-	 * @param clas 老师对象
+	 * @param clas 届次对象
 	 */
 	void update(Clas clas);
 	
@@ -38,7 +38,7 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月22日 上午8:52:33
 	 * 
-	 * @param clas 老师对象
+	 * @param clas 届次对象
 	 * @return Integer类型
 	 */
 	Integer delete(Clas clas);
@@ -49,7 +49,7 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月22日 上午8:52:40
 	 * 
-	 * @return 老师对象
+	 * @return 届次对象
 	 */
 	List<Clas> query();
 	
@@ -59,8 +59,8 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月22日 上午8:52:59
 	 * 
-	 * @param id 需回显的老师id
-	 * @return 老师对象
+	 * @param id 需回显的届次id
+	 * @return 届次对象
 	 */
 	Clas get(Integer id);
 }
