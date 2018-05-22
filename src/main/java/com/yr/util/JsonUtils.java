@@ -19,8 +19,12 @@ import net.sf.json.JsonConfig;
  *
  * @date 2017年8月4日
  */
-public class JsonUtils {
+public final class JsonUtils {
 
+	private JsonUtils() {
+		
+	}
+	
 	/**
 	 * 从一个JSON 对象字符格式中得到一个java对象
 	 * 
@@ -56,12 +60,12 @@ public class JsonUtils {
 	/**
 	 * 将java对象转换成json字符串
 	 * @param bean 要转换的java对象
-	 * @param _nory_changes 放字段数组
+	 * @param noryChanges 放字段数组
 	 * @param nory true:只查字段数组中有的字段   
 	 * 			   false:不查字段数组中有的字段
 	 * @return String
 	 */
-	public static String beanToJson(Object bean, String[] _nory_changes, boolean nory) {
+	public static String beanToJson(Object bean, String[] noryChanges, boolean nory) {
 
 		JSONObject json = null;
 
@@ -77,14 +81,14 @@ public class JsonUtils {
 				str += (":" + field.getName());
 			}
 			str += ":";
-			for (String s : _nory_changes) {
+			for (String s : noryChanges) {
 				str = str.replace(":" + s + ":", ":");
 			}
 			json = JSONObject.fromObject(bean, configJson(str.split(":")));
 
 		} else { // 转换除了_nory_changes里的属性
 
-			json = JSONObject.fromObject(bean, configJson(_nory_changes));
+			json = JSONObject.fromObject(bean, configJson(noryChanges));
 		}
 
 		return json.toString();
@@ -147,12 +151,12 @@ public class JsonUtils {
 	/**
 	 * 将java对象List集合转换成json字符串
 	 * @param beans java对象List集合
-	 * @param _nory_changes 放字段数组
+	 * @param noryChanges 放字段数组
 	 * @param nory true:只查字段数组中有的字段   
 	 * 			   false:不查字段数组中有的字段
 	 * @return String
 	 */
-	public static String beanListToJson(List<?> beans, String[] _nory_changes, boolean nory) {
+	public static String beanListToJson(List<?> beans, String[] noryChanges, boolean nory) {
 
 		StringBuffer rest = new StringBuffer();
 
@@ -162,7 +166,7 @@ public class JsonUtils {
 
 		for (int i = 0; i < size; i++) {
 			try {
-				rest.append(beanToJson(beans.get(i), _nory_changes, nory));
+				rest.append(beanToJson(beans.get(i), noryChanges, nory));
 				if (i < size - 1) {
 					rest.append(",");
 				}
@@ -202,14 +206,14 @@ public class JsonUtils {
 	/**
 	 * map集合转换成json格式数据
 	 * @param map map集合
-	 * @param _nory_changes 放字段数组
+	 * @param noryChanges 放字段数组
 	 * @param nory true:只查字段数组中有的字段   
 	 * 			   false:不查字段数组中有的字段
 	 * @return String json格式数据
 	 */
-	public static String mapToJson(Map<String, ?> map, String[] _nory_changes, boolean nory) {
+	public static String mapToJson(Map<String, ?> map, String[] noryChanges, boolean nory) {
 
-		String s_json = "{";
+		String sJson = "{";
 
 		Set<String> key = map.keySet();
 		for (Iterator<?> it = key.iterator(); it.hasNext();) {
@@ -217,21 +221,21 @@ public class JsonUtils {
 			if (map.get(s) == null) {
 				int aa = 0;
 			} else if (map.get(s) instanceof List<?>) {
-				s_json += (s + ":" 
-						+ JsonUtils.beanListToJson((List<?>) map.get(s), _nory_changes, nory));
+				sJson += (s + ":" 
+						+ JsonUtils.beanListToJson((List<?>) map.get(s), noryChanges, nory));
 
 			} else {
 				JSONObject json = JSONObject.fromObject(map);
-				s_json += (s + ":" + json.toString());
+				sJson += (s + ":" + json.toString());
 			}
 
 			if (it.hasNext()) {
-				s_json += ",";
+				sJson += ",";
 			}
 		}
 
-		s_json += "}";
-		return s_json;
+		sJson += "}";
+		return sJson;
 	}
 
 	/**
@@ -270,6 +274,7 @@ public class JsonUtils {
 	 *
 	 * @param jsonString json数组
 	 * @param beanClass 实体类class
+	 * @param <T> 泛型
 	 * @return 泛型数组
 	 */
 	@SuppressWarnings("unchecked")

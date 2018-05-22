@@ -7,11 +7,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class DateUtils {
+/**
+ * 
+ * @作者 林水桥
+ * 2018年5月22日上午10:38:38
+ */
+public final class DateUtils {
 	static DateFormat dfymdhms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	static DateFormat dfymd = new SimpleDateFormat("yyyy-MM-dd");
 	static DateFormat dfhms = new SimpleDateFormat("HH:mm:ss");
 
+	private DateUtils() {
+		
+	}
+	
 	/**
 	 * 
 	 * @author zxy

@@ -10,7 +10,7 @@ import java.util.Map;
  * 2018年5月22日 上午9:12:09
  *
  */
-public class Constant {
+public final class Constant {
 
 	
 	private static Map<String, String> ctMap = new HashMap<String, String>(); 
@@ -26,6 +26,10 @@ public class Constant {
 		isLateMap.put("1", "迟到");
 		isLateMap.put("2", "旷课");
 		isLateMap.put("3", "请假");
+	}
+	
+	private Constant() {
+		
 	}
 	
 	public static final String SOURCE = "客户端";

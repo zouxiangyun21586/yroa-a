@@ -7,7 +7,10 @@ import java.util.List;
  * @param <T>
  */
 public class Page<T> {
-	private Integer pageSize = 6; //每页多少条数据,默认10条
+	
+	private static final Integer T6 = 6;
+	
+	private Integer pageSize = T6; //每页多少条数据,默认10条
 	private Integer pageCount = 0; //总页数，默认0页
 	private Integer pageNum = 1; //当前多少页面,默认第1页
 	private Integer totalCount = 0; //总数据条数,默认0条
@@ -21,9 +24,9 @@ public class Page<T> {
 	 * @return 返回计算后的总页数
 	 */
 	public Integer getPageCount() {
-		int t = totalCount % pageSize; //总数据条数取余总页数
+		int tt = totalCount % pageSize; //总数据条数取余总页数
 		pageCount = totalCount / pageSize; //将数据总条数除以页数赋给变量pageCount,也就是分页的总页数
-		if (t == 0) { //说明被整除
+		if (tt == 0) { //说明被整除
 			return pageCount; //则返回总页数
 		} else {
 			return pageCount + 1; //不被整除则去掉小数多加1页
