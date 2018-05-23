@@ -177,8 +177,15 @@ public class Account {
 	public void setCreateTimeStr(String createTimeStr) {
 		this.createTimeStr = createTimeStr;
 	}
-
+	/**
+	 * 得到最后修改时间 的字符串
+	 * @return 时间的字符串
+	 */
 	public String getUpdateTimeStr() {
+		String fmt = "yyyy-MM-dd E HH:mm:ss";
+		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
+		String dateStr = sdf.format(updateTimeStr);
+		updateTimeStr = dateStr;
 		return updateTimeStr;
 	}
 
