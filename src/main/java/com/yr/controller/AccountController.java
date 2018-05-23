@@ -42,7 +42,7 @@ public class AccountController  {
 	 */
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	//@Valid   BindingResult result
-	public void addId(Account account, HttpServletRequest requ, HttpServletResponse resp)  {
+	public void addId(Account account,String roleCode , HttpServletRequest requ, HttpServletResponse resp)  {
 		resp.setContentType("text/json");
 		resp.setCharacterEncoding("utf-8");
 		String oldpassW = requ.getParameter("oldpassW"); //旧密码
@@ -57,7 +57,7 @@ public class AccountController  {
 		Integer val  =  0;
 //		if (passW.equals(oldpassW)) {
 			try  {
-				val  =  acc.addId(account);
+				val  =  acc.addId(account,roleCode);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
