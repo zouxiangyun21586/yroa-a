@@ -59,10 +59,10 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月22日 上午8:52:59
 	 * 
-	 * @param id 需回显的届次id
+	 * @param code 需回显的届次code
 	 * @return 届次对象
 	 */
-	Clas get(Integer id);
+	Clas get(String code);
 	
 	/**
 	 * 毕业

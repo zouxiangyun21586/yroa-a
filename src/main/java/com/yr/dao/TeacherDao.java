@@ -59,8 +59,8 @@ public interface TeacherDao {
 	 * 
 	 * 2018年5月22日 上午8:52:59
 	 * 
-	 * @param id 需回显的老师id
+	 * @param code 需回显的老师code
 	 * @return 老师对象
 	 */
-	Teacher get(Integer id);
+	Teacher get(String code);
 }

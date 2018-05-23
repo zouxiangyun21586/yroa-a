@@ -72,7 +72,8 @@ public class LeaveDaoImpl implements LeaveDao {
 	 * @param leave 请假对象
 	 */
 	public void cancelLeave(Leave leave) {
-		entityManager.createQuery("delete Leave where id = :id").setParameter("id", leave.getId());
+		entityManager.createQuery("delete Leave where student_code = :student_code")
+			.setParameter("student_code", leave.getStudentCode());
 	}
 
 }

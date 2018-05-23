@@ -136,11 +136,11 @@ public class ClasDaoImpl implements ClasDao {
 	 * 
 	 * 2018年5月22日 下午5:48:57
 	 * 
-	 *  @param id 获取页面是届次id 用来数据回显
+	 *  @param code 获取页面是届次code 用来数据回显
 	 * @return 返回某届次的对象
 	 */
-	public Clas get(Integer id) {
-		Query q = entityManager.createQuery("from Clas where id = :id").setParameter("id", id);
+	public Clas get(String code) {
+		Query q = entityManager.createQuery("from Clas where code = :code").setParameter("code", code);
 		Clas listUser = (Clas) q.getSingleResult();
 		return listUser;
 	}
