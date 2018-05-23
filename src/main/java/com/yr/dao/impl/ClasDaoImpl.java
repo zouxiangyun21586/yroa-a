@@ -140,7 +140,7 @@ public class ClasDaoImpl implements ClasDao {
 	 * @return 返回某届次的对象
 	 */
 	public Clas get(Integer id) {
-		Query q = entityManager.createQuery("from Clas where id = " + id);
+		Query q = entityManager.createQuery("from Clas where id = :id").setParameter("id", id);
 		Clas listUser = (Clas) q.getSingleResult();
 		return listUser;
 	}
@@ -155,8 +155,8 @@ public class ClasDaoImpl implements ClasDao {
 	 * @return Integer 判断是否毕业  1表示毕业 其余表示未毕业
 	 */
 	public Integer graduation(String code) {
-		String str = (String) entityManager.createNativeQuery("select isFinish from yr_clas where code = " 
-				+ code).getSingleResult();
+		String str = (String) entityManager.createNativeQuery("select isFinish from yr_clas where code = :code")
+				.setParameter("code", code).getSingleResult();
 		return Integer.valueOf(str);
 	}
 
@@ -170,8 +170,8 @@ public class ClasDaoImpl implements ClasDao {
 	 * @return 判断是否开课
 	 */
 	public Integer openClss(String code) {
-		String str = (String) entityManager.createNativeQuery("select start_time from yr_clas where code = "
-				+ code).getSingleResult();
+		String str = (String) entityManager.createNativeQuery("select start_time from yr_clas where code = ?1")
+				.setParameter(1, code).getSingleResult();
 		return Integer.valueOf(str);
 	}
 	
