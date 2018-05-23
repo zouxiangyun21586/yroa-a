@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Student;
 import com.yr.service.StudentService;
-import com.yr.util.JsonUtils;
-import com.yr.util.PageUtil;
 
 /**
  * 
@@ -41,8 +39,7 @@ public class StudentController {
 	@ResponseBody
 	@RequestMapping(value = "/student")
 	public String queryStudent(Integer page, Integer limit, String name) {
-		PageUtil pageUtil = studentService.queryStudent(page, limit, name);
-		String result = JsonUtils.beanToJson(pageUtil);
+		String result = studentService.queryStudent(page, limit, name);
 		return result;
 	}
 	
@@ -61,8 +58,28 @@ public class StudentController {
 	@ResponseBody
 	@RequestMapping(value = "/student", method = {RequestMethod.POST})
 	public String addStudent(Student student) {
-		studentService.addStudent(student);
-		return null;
+		String result = studentService.addStudent(student);
+		return result;
 	}
+	
+	/**
+	 * 
+	 * @Date : 2018年5月23日下午3:05:04
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : String 返回Json格式的String数据
+	 *
+	 * @param id 学生id
+	 * 
+	 * @describe : 根据学术id删除学生信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/student", method = {RequestMethod.DELETE})
+	public String deleteStudent(Integer id) {
+		String result = studentService.deleteStudent(id);
+		return result;
+	}
+	
 	 
 }

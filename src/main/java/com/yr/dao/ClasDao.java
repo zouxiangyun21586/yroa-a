@@ -63,4 +63,26 @@ public interface ClasDao {
 	 * @return 届次对象
 	 */
 	Clas get(Integer id);
+	
+	/**
+	 * 毕业
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午9:34:37
+	 * 
+	 * @param code 届次Code
+	 * @return Integer 用于判断
+	 */
+	Integer graduation(String code);
+	
+	/**
+	 * 开课
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午10:24:42
+	 * 
+	 * @param code 届次
+	 * @return Integer 判断
+	 */
+	Integer openClss(String code);
 }

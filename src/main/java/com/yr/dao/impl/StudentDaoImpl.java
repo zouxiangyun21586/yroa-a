@@ -1,6 +1,8 @@
 package com.yr.dao.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -96,10 +98,56 @@ public class StudentDaoImpl implements StudentDao {
 	 * @see com.yr.dao.StudentDao#addStudent(com.yr.entity.Student)
 	 */
 	public String addStudent(Student student) {
-		String name = "liucong";
-		return name;
+		String name = ""; //学生姓名
+		Date birth = null; //出生年月
+		String sex = ""; //性别  0代表女,1代表男
+		String year = ""; //届次
+		String tel = ""; //学生电话
+		String addr = ""; //家庭地址
+		String homeTel = ""; //家长电话
+		Date inTime = null; //入学时间
+		Date createTime = null; //创建时间
+		String isFinish = ""; //是否毕业  1代表已毕业,0代表未毕业,添加时默认是未毕业
+		try {
+			name = new String(student.getName().getBytes("ISO8859-1"), "utf-8");
+			birth = student.getBirth();
+			sex = new String(student.getSex().getBytes("ISO8859-1"), "utf-8");
+			year = new String(student.getYear().getBytes("ISO8859-1"), "utf-8");
+			tel = new String(student.getTel().getBytes("ISO8859-1"), "utf-8");
+			addr = new String(student.getAddr().getBytes("ISO8859-1"), "utf-8");
+			homeTel = new String(student.getHomeTel().getBytes("ISO8859-1"), "utf-8");
+			inTime = student.getInTime();
+			createTime = new Date();
+			isFinish = "0";
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		student.setName(name);
+		student.setBirth(birth);
+		student.setSex(sex);
+		student.setYear(year);
+		student.setTel(tel);
+		student.setAddr(addr);
+		student.setHomeTel(homeTel);
+		student.setInTime(inTime);
+		student.setCreateTime(createTime);
+		student.setIsFinish(isFinish);
+		entityManager.persist(student);
+		return "success";
 	}
-	
-	
 
+	/**
+	 * 
+	 * @Date : 2018年5月23日下午3:20:42
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param id 学生id
+	 * 
+	 * @see com.yr.dao.StudentDao#deleteStudent(java.lang.Integer)
+	 */
+	public void deleteStudent(Integer id) {
+		Student student = entityManager.find(Student.class, id);
+		entityManager.remove(student);
+	}
 }

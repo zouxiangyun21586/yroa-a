@@ -2,13 +2,22 @@ package com.yr.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
- * 参考数据库
- * @author Administrator
+ * 请假实体类
+ * @author zxy
  *
  * 2018年5月22日 上午9:04:35
  *
  */
+@Entity
+@Table(name = "yr_leave")
 public class Leave {
     private Integer id;
 
@@ -36,6 +45,8 @@ public class Leave {
 
     private Date createTime;
 
+    @GeneratedValue
+    @Id
     public Integer getId() {
         return id;
     }
@@ -76,6 +87,7 @@ public class Leave {
         this.studentName = studentName == null ? null : studentName.trim();
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getLeaveDate() {
         return leaveDate;
     }

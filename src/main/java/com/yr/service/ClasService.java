@@ -67,4 +67,25 @@ public interface ClasService {
 	 */
 	Clas get(Integer id);
 	
+	/**
+	 * 毕业
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午9:46:35
+	 * 
+	 * @param code 届次
+	 * @return Integer 用于判断
+	 */
+	Integer graduation(String code);
+	
+	/**
+	 * 开课
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午10:28:54
+	 * 
+	 * @param code 届次
+	 * @return Integer 判断
+	 */
+	Integer openClss(String code);
 }

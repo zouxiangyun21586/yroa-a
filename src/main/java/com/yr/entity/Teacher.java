@@ -2,14 +2,23 @@ package com.yr.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * 老师实体类
  * 
- * @author Administrator
+ * @author zxy
  *
- *         2018年5月22日 上午8:59:47
+ * 2018年5月22日 上午8:59:47
  *
  */
+@Entity
+@Table(name = "yr_teacher")
 public class Teacher {
 	private Integer id;
 
@@ -39,6 +48,8 @@ public class Teacher {
 
 	private Date createTime;
 
+	@GeneratedValue
+    @Id
 	public Integer getId() {
 		return id;
 	}
@@ -95,6 +106,7 @@ public class Teacher {
 		this.addr = addr == null ? null : addr.trim();
 	}
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getInTime() {
 		return inTime;
 	}
@@ -119,6 +131,7 @@ public class Teacher {
 		this.isLeave = isLeave == null ? null : isLeave.trim();
 	}
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getLeaveTime() {
 		return leaveTime;
 	}
@@ -135,6 +148,7 @@ public class Teacher {
 		this.info = info == null ? null : info.trim();
 	}
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getBirth() {
 		return birth;
 	}
@@ -143,6 +157,7 @@ public class Teacher {
 		this.birth = birth;
 	}
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getCreateTime() {
 		return createTime;
 	}

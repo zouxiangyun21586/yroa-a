@@ -93,15 +93,15 @@ public class TeacherDaoImpl implements TeacherDao {
 	 * @return 返回 Integer类型 判断是否删除	1 表示此老师有届次(Clas届次表)不能删除  0 表示可以删除
 	 */
 	public Integer delete(Teacher teacher) {
-		Query query = entityManager.createNativeQuery("select count(*) from Clas where teacher_code ="
-				+ teacher.getCode());
+		Query query = entityManager.createNativeQuery("select count(*) from yr_clas where teacher_code = code")
+				.setParameter("code", teacher.getCode());
 		BigInteger big = (BigInteger) query.getSingleResult();
 		int uid = big.intValue();
 		if (query != null && uid != 0) { // 如果届次表中有数据那么不能进行删除老师
 			return 1;
 		} else {
-			Query qu = entityManager.createNativeQuery("delete from teacher where id ="
-					+ teacher.getId());
+			Query qu = entityManager.createNativeQuery("delete from yr_teacher where id = ?1")
+					.setParameter(1, teacher.getId());
 			qu.executeUpdate();
 			return number;
 		}
@@ -131,7 +131,7 @@ public class TeacherDaoImpl implements TeacherDao {
 	 * @return 返回某老师的对象
 	 */
 	public Teacher get(Integer id) {
-		Query q = entityManager.createQuery("from Teacher where id = " + id);
+		Query q = entityManager.createQuery("from Teacher where id = :id").setParameter("id", id);
 		Teacher listUser = (Teacher) q.getSingleResult();
 		return listUser;
 	}

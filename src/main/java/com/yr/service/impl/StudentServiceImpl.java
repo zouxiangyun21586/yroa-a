@@ -1,12 +1,18 @@
 package com.yr.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yr.dao.StudentDao;
 import com.yr.entity.Student;
 import com.yr.service.StudentService;
+import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
+
+import net.sf.json.JSONObject;
 
 /**
  * 
@@ -35,9 +41,10 @@ public class StudentServiceImpl implements StudentService {
 	 * 
 	 * @see com.yr.service.StudentService#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
 	 */
-	public PageUtil queryStudent(Integer page, Integer limit, String name) {
+	public String queryStudent(Integer page, Integer limit, String name) {
 		PageUtil pageUtil = studentDao.queryStudent(page, limit, name);
-		return pageUtil;
+		String result = JsonUtils.beanToJson(pageUtil);
+		return result;
 	}
 	
 	/**
@@ -55,7 +62,44 @@ public class StudentServiceImpl implements StudentService {
 	 * @see com.yr.service.StudentService#addStudent(com.yr.entity.Student)
 	 */
 	public String addStudent(Student student) {
-		String result = studentDao.addStudent(student);
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			studentDao.addStudent(student);
+			map.put("code", 0);
+			map.put("msg", "添加成功");
+		} catch (Exception e) {
+			map.put("code", 1);
+			map.put("msg", "添加失败");
+			map.put("error", e);
+		}
+		String result = JSONObject.fromObject(map).toString();
+		return result;
+	}
+
+	/**
+	 * 
+	 * @Date : 2018年5月23日下午3:08:34
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param id 学生id
+	 * 
+	 * @return : String
+	 * 
+	 * @see com.yr.service.StudentService#deleteStudent(java.lang.Integer)
+	 */
+	public String deleteStudent(Integer id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			studentDao.deleteStudent(id);
+			map.put("code", 0);
+			map.put("msg", "删除成功");
+		} catch (Exception e) {
+			map.put("code", 1);
+			map.put("msg", "删除失败");
+			map.put("error", e);
+		}
+		String result = JSONObject.fromObject(map).toString();
 		return result;
 	}
 	

@@ -2,7 +2,12 @@ package com.yr.entity;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 届次实体类
@@ -11,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * 2018年5月22日 上午8:58:28
  *
  */
+@Entity
+@Table(name = "yr_clas")
 public class Clas {
     private Integer id;
 
@@ -31,6 +38,8 @@ public class Clas {
 
     private Date finishTime;
 
+    @GeneratedValue
+    @Id
     public Integer getId() {
         return id;
     }
@@ -79,7 +88,8 @@ public class Clas {
 		this.teacherName = teacherName;
 	}
 
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getStartTime() {
         return startTime;
     }
@@ -88,7 +98,8 @@ public class Clas {
         this.startTime = startTime;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getCreateTime() {
         return createTime;
     }
@@ -105,7 +116,8 @@ public class Clas {
         this.isFinish = isFinish == null ? null : isFinish.trim();
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getFinishTime() {
         return finishTime;
     }
