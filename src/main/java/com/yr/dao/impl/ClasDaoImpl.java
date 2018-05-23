@@ -40,7 +40,7 @@ public class ClasDaoImpl implements ClasDao {
 		Clas cla = new Clas();
 		cla.setName(clas.getName()); // 此届 批次名
 		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数)
-		String strCode = (String) entityManager.createNativeQuery("select max(code) from Clas")
+		String strCode = (String) entityManager.createNativeQuery("select max(code) from yr_clas")
 				.getSingleResult();
 		cla.setCode(strCode); // 不需要页面传值过来,在后台算出code最大值后+1 成为要存入的code值
 		cla.setCreateTime(Date.valueOf(DateUtils.getCurrentTime())); // 创建时间(获取当前时间)
@@ -155,7 +155,7 @@ public class ClasDaoImpl implements ClasDao {
 	 * @return Integer 判断是否毕业  1表示毕业 其余表示未毕业
 	 */
 	public Integer graduation(String code) {
-		String str = (String) entityManager.createNativeQuery("select isFinish from Clas where code = " 
+		String str = (String) entityManager.createNativeQuery("select isFinish from yr_clas where code = " 
 				+ code).getSingleResult();
 		return Integer.valueOf(str);
 	}
@@ -170,7 +170,7 @@ public class ClasDaoImpl implements ClasDao {
 	 * @return 判断是否开课
 	 */
 	public Integer openClss(String code) {
-		String str = (String) entityManager.createNativeQuery("select start_time from Clas where code = "
+		String str = (String) entityManager.createNativeQuery("select start_time from yr_clas where code = "
 				+ code).getSingleResult();
 		return Integer.valueOf(str);
 	}
