@@ -6,13 +6,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -69,27 +72,20 @@ public class Account {
 	private String createTimeStr = "";
     private String updateTimeStr = "";
 
-    public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
+   
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
+    
     @Column(name = "username")
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
     }
@@ -113,7 +109,6 @@ public class Account {
 	public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
     }
@@ -121,8 +116,6 @@ public class Account {
     public String getIsAdmin() {
         return isAdmin;
     }
-    
-  
 	public void setIsAdmin(String isAdmin) {
         this.isAdmin = isAdmin == null ? null : isAdmin.trim();
     }
@@ -130,7 +123,6 @@ public class Account {
 	public String getTel() {
 		return tel;
 	}
-
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
@@ -138,18 +130,25 @@ public class Account {
     public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "yr_account_role", 
-	joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"), 
-	inverseJoinColumns = @JoinColumn(name = "role_code", referencedColumnName = "code")//
-	)
+			joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"), 
+			inverseJoinColumns = @JoinColumn(name = "role_code", referencedColumnName = "code"))
 	public Set<Role> getUsersRoleItems() {
 		return usersRoleItems;
 	}
-
 	public void setUsersRoleItems(Set<Role> usersRoleItems) {
 		this.usersRoleItems = usersRoleItems;
 	}
