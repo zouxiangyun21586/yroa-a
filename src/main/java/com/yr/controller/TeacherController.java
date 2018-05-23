@@ -107,13 +107,13 @@ public class TeacherController {
 	 * 
 	 * 2018年5月22日 下午4:04:50
 	 * 
-	 * @param id 需数据回显的老师id
+	 * @param code 需数据回显的老师code
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return Json格式的String数据
 	 */
 	@RequestMapping(value = "/getTeacher", method = RequestMethod.GET)
-	public @ResponseBody String get(Integer id, ModelMap map) {
-		Teacher listUser = teacherService.get(id);
+	public @ResponseBody String get(String code, ModelMap map) {
+		Teacher listUser = teacherService.get(code);
 		String str = JsonUtils.beanToJson(listUser);
 		return str;
 	}

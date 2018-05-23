@@ -61,8 +61,8 @@ public interface TeacherService {
 	 * 
 	 * 2018年5月22日 上午8:50:01
 	 * 
-	 * @param id 获取页面上需回显的老师id
+	 * @param code 获取页面上需回显的老师code
 	 * @return 返回老师对象
 	 */
-	Teacher get(Integer id);
+	Teacher get(String code);
 }
