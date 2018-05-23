@@ -58,7 +58,7 @@ public class AccountController  {
 		Integer val  =  0;
 //		if (passW.equals(oldpassW)) {
 			try  {
-				val  =  acc.addId(account,roleCode);
+				val  =  acc.addId(account, roleCode);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -181,6 +181,7 @@ public class Account {
 	 * 得到最后修改时间 的字符串
 	 * @return 时间的字符串
 	 */
+	@Transient
 	public String getUpdateTimeStr() {
 		String fmt = "yyyy-MM-dd E HH:mm:ss";
 		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
