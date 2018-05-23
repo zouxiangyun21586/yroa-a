@@ -111,4 +111,38 @@ public class ClasServiceImpl implements ClasService {
 		Clas listClas = clasDao.get(id);
 		return listClas;
 	}
+
+	/**
+	 * 毕业
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午9:47:29
+	 * 
+	 * @param code 届次
+	 * @return 判断
+	 */
+	public Integer graduation(String code) {
+		Integer gd = clasDao.graduation(code);
+		if (gd == 1) {
+			return 1;
+		}
+		return 0;
+	}
+
+	/**
+	 * 开课
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午10:29:20
+	 * 
+	 * @param code 届次
+	 * @return Integer 有值表示已开课,如果没有值代表还未开
+	 */
+	public Integer openClss(String code) {
+		Integer oc = clasDao.openClss(code);
+		if (oc == 1) {
+			return 1;
+		}
+		return 0;
+	}
 }
