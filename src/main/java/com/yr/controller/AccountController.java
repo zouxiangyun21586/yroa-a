@@ -37,12 +37,13 @@ public class AccountController  {
 	/**
 	 * 添加
 	 * @param account 账户实体类
+	 * @param roleCode 角色code
 	 * @param requ get
 	 * @param resp POST
 	 */
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	//@Valid   BindingResult result
-	public void addId(Account account,String roleCode , HttpServletRequest requ, HttpServletResponse resp)  {
+	public void addId(Account account, String roleCode, HttpServletRequest requ, HttpServletResponse resp) {
 		resp.setContentType("text/json");
 		resp.setCharacterEncoding("utf-8");
 		String oldpassW = requ.getParameter("oldpassW"); //旧密码
