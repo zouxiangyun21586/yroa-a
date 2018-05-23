@@ -40,18 +40,20 @@ public class ClasDaoImpl implements ClasDao {
 		Clas cla = new Clas();
 		cla.setName(clas.getName()); // 此届 批次名
 		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数)
-		cla.setCode("使用本地sql查询max()值 + 1 进行添加");
+		String strCode = (String) entityManager.createNativeQuery("select max(code) from Clas")
+				.getSingleResult();
+		cla.setCode(strCode); // 不需要页面传值过来,在后台算出code最大值后+1 成为要存入的code值
 		cla.setCreateTime(Date.valueOf(DateUtils.getCurrentTime())); // 创建时间(获取当前时间)
-		cla.setTeacherCode("1001"); // 设置这批届次老师的code(获取页面上填写的老师名获取到老师code)
-		cla.setTeacherName("钟林杰"); // 设置这批届次老师的code(获取页面上填写的老师名)
+		cla.setTeacherCode(clas.getTeacherCode()); // 设置这批届次老师的code(获取页面上填写的老师名获取到老师code)
+		cla.setTeacherName(clas.getTeacherName()); // 设置这批届次老师的code(获取页面上填写的老师名)
 		cla.setFinishTime(Date.valueOf("毕业时间"));
 		cla.setStartTime(Date.valueOf("开班时间"));
-		cla.setIsFinish("是否毕业 1 表示已毕业");
-		entityManager.persist(clas);
+		cla.setIsFinish("判断是否毕业   1 表示已毕业");
+		entityManager.persist(cla);
 	}
 
 	/**
-	 * 修改
+	 * 修改 (获取老师Code 根据code修改老师名称)
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午5:47:58
@@ -60,13 +62,13 @@ public class ClasDaoImpl implements ClasDao {
 	 */
 	public void update(Clas clas) {
 		
-		Clas c = entityManager.find(Clas.class, clas.getId());
+		Clas c = entityManager.find(Clas.class, clas.getTeacherCode());
 		
 		Integer id = clas.getId();
 //		String name = clas.getName();
 //		String year = clas.getYear();
 //		String code = clas.getCode();
-		String teacherCode = clas.getTeacherCode();
+//		String teacherCode = clas.getTeacherCode();
 		String teacherName = clas.getTeacherName();
 //		Date startTime = clas.getStartTime();
 //		Date createTime = clas.getCreateTime();
@@ -79,7 +81,7 @@ public class ClasDaoImpl implements ClasDao {
 //		cl.setName(name);
 //		cl.setYear(year);
 //		cl.setCode(code);
-		cl.setTeacherCode(teacherCode);
+//		cl.setTeacherCode(teacherCode);
 		cl.setTeacherName(teacherName);
 //		cl.setStartTime(startTime);
 //		cl.setCreateTime(createTime);
@@ -96,7 +98,7 @@ public class ClasDaoImpl implements ClasDao {
 	 * 2018年5月22日 下午5:48:35
 	 * 
 	 * @param clas 届次对象
-	 * @return 返回 Integer类型 判断是否删除	1 表示此届次有届次(Clas届次表)不能删除  0 表示可以删除
+	 * @return 返回 Integer类型 届次不能删除
 	 */
 	public Integer delete(Clas clas) {
 //		Query query = entityManager.createNativeQuery("select count(*) from Clas where Clas_code ="
@@ -115,12 +117,12 @@ public class ClasDaoImpl implements ClasDao {
 	}
 
 	/**
-	 * 查询
+	 * 查询所有
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午5:48:49
 	 * 
-	 * @return @return 返回届次集合
+	 * @return @return 返回届次集合,以便显示
 	 */
 	public List<Clas> query() {
 		Query q = entityManager.createQuery("from Clas");
@@ -141,6 +143,36 @@ public class ClasDaoImpl implements ClasDao {
 		Query q = entityManager.createQuery("from Clas where id = " + id);
 		Clas listUser = (Clas) q.getSingleResult();
 		return listUser;
+	}
+
+	/**
+	 * 毕业
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午9:36:50
+	 * 
+	 * @param code 届次code
+	 * @return Integer 判断是否毕业  1表示毕业 其余表示未毕业
+	 */
+	public Integer graduation(String code) {
+		String str = (String) entityManager.createNativeQuery("select isFinish from Clas where code = " 
+				+ code).getSingleResult();
+		return Integer.valueOf(str);
+	}
+
+	/**
+	 * 开课
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午10:25:22
+	 * 
+	 * @param code 届次
+	 * @return 判断是否开课
+	 */
+	public Integer openClss(String code) {
+		String str = (String) entityManager.createNativeQuery("select start_time from Clas where code = "
+				+ code).getSingleResult();
+		return Integer.valueOf(str);
 	}
 	
 }

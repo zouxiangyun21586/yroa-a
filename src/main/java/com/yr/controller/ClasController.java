@@ -141,4 +141,26 @@ public class ClasController {
 		return str;
 		
 	}
+	
+	/**
+	 * 毕业或者开课
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午9:52:53
+	 * 
+	 * @param code 届次
+	 * @param map 传送值
+	 * @return JsonString
+	 */
+	@RequestMapping(value = "/graduation", method = RequestMethod.GET)
+	public @ResponseBody String graduation(String code, ModelMap map) {
+		Integer gd = clasService.graduation(code);
+		Integer oc = clasService.openClss(code);
+		if (gd == 1) {
+			return "已毕业";
+		} else if (oc == 1) {
+			return "已开课";
+		}
+		return "灰色按钮";
+	}
 }
