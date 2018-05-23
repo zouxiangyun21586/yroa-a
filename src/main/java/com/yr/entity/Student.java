@@ -23,7 +23,8 @@ public class Student {
 	private String classCode;
 
 	private String sex;
-
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	
 	private Integer age;
@@ -33,13 +34,17 @@ public class Student {
 	private String addr;
 
 	private String homeTel;
-
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date inTime;
-
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createTime;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date finishTime;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date offerTime;
 
 	private String offerIncome;

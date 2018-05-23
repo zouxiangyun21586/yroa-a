@@ -1,6 +1,8 @@
 package com.yr.dao.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -96,10 +98,40 @@ public class StudentDaoImpl implements StudentDao {
 	 * @see com.yr.dao.StudentDao#addStudent(com.yr.entity.Student)
 	 */
 	public String addStudent(Student student) {
-		String name = "liucong";
+		String name = ""; //学生姓名
+		Date birth = null; //出生年月
+		String sex = ""; //性别
+		String year = ""; //届次
+		String tel = ""; //学生电话
+		String addr = ""; //家庭地址
+		String homeTel = ""; //家长电话
+		Date inTime = null; //入学时间
+		try {
+			name = new String(student.getName().getBytes("ISO8859-1"), "utf-8");
+			birth = student.getBirth();
+			sex = new String(student.getSex().getBytes("ISO8859-1"), "utf-8");
+			if ("男".equals(sex)) {
+				sex = "1";
+			} else if ("女".equals(sex)) {
+				sex = "0";
+			}
+			year = new String(student.getYear().getBytes("ISO8859-1"), "utf-8");
+			tel = new String(student.getTel().getBytes("ISO8859-1"), "utf-8");
+			addr = new String(student.getAddr().getBytes("ISO8859-1"), "utf-8");
+			homeTel = new String(student.getHomeTel().getBytes("ISO8859-1"), "utf-8");
+			inTime = student.getInTime();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		student.setName(name);
+		student.setBirth(birth);
+		student.setSex(sex);
+		student.setYear(year);
+		student.setTel(tel);
+		student.setAddr(addr);
+		student.setHomeTel(homeTel);
+		student.setInTime(inTime);
+		entityManager.persist(student);
 		return name;
 	}
-	
-	
-
 }
