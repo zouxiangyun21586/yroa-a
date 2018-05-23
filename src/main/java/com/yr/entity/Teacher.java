@@ -2,19 +2,23 @@ package com.yr.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 老师实体类
  * 
- * @author Administrator
+ * @author zxy
  *
- *         2018年5月22日 上午8:59:47
+ * 2018年5月22日 上午8:59:47
  *
  */
+@Entity
+@Table(name = "yr_teacher")
 public class Teacher {
 	private Integer id;
 

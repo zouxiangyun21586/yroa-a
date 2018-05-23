@@ -2,8 +2,10 @@ package com.yr.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,6 +16,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  * 2018年5月22日 上午9:04:35
  *
  */
+@Entity
+@Table(name = "yr_leave")
 public class Leave {
     private Integer id;
 

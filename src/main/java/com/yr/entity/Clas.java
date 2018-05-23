@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,6 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  */
 @Entity
+@Table(name = "yr_clas")
 public class Clas {
     private Integer id;
 
