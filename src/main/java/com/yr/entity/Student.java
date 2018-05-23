@@ -13,42 +13,114 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 public class Student {
 	private Integer id;
-
+	
+	//学生姓名
 	private String name;
-
+	
+	//学生编号
 	private String code;
 
+	//届次
 	private String year;
-
+	
+	//所属批次编码
 	private String classCode;
-
+	
+	//性别
 	private String sex;
 	
+	//出生年月日
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	
+	//年龄  age的值不需要存。在列表显示时不显示出生年月日，而是用当前时间－出生年月日得出年龄显示在列表中。
 	private Integer age;
-
+	
+	//学生电话
 	private String tel;
 
+	//家庭住址
 	private String addr;
 
+	//家长电话
 	private String homeTel;
 	
+	//在校学生是否展示 1代表展示,其他代表不展示
+	private String isInPublish;
+	
+	//在校照片路径
+	private String inImgUrl;
+	
+	//入学时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date inTime;
 	
+	//编入学生信息时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createTime;
 
+	//毕业时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date finishTime;
 
+	//入职日期
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date offerTime;
-
+	
+	//工资
 	private String offerIncome;
+	
+	//是否毕业
+	private String isFinish;
+	
+	//该毕业生是否展示 1代表展示,其他代表不展示
+	private String isFinishPublishl;
+	
+	
+	public String getIsInPublish() {
+		return isInPublish;
+	}
 
+	public void setIsInPublish(String isInPublish) {
+		this.isInPublish = isInPublish;
+	}
+
+	public String getInImgUrl() {
+		return inImgUrl;
+	}
+
+	public void setInImgUrl(String inImgUrl) {
+		this.inImgUrl = inImgUrl;
+	}
+
+	public String getIsFinish() {
+		return isFinish;
+	}
+
+	public void setIsFinish(String isFinish) {
+		this.isFinish = isFinish;
+	}
+
+	public String getIsFinishPublishl() {
+		return isFinishPublishl;
+	}
+
+	public void setIsFinishPublishl(String isFinishPublishl) {
+		this.isFinishPublishl = isFinishPublishl;
+	}
+
+	public String getFinishImgUrl() {
+		return finishImgUrl;
+	}
+
+	public void setFinishImgUrl(String finishImgUrl) {
+		this.finishImgUrl = finishImgUrl;
+	}
+
+	//就业照片路径
+	private String finishImgUrl;
+	
+	
 	public Integer getId() {
 		return id;
 	}

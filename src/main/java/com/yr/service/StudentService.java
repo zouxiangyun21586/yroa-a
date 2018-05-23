@@ -1,7 +1,6 @@
 package com.yr.service;
 
 import com.yr.entity.Student;
-import com.yr.util.PageUtil;
 
 /**
  * 
@@ -24,7 +23,7 @@ public interface StudentService {
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
 	 */
-	 PageUtil queryStudent(Integer page, Integer limit, String name);
+	 String queryStudent(Integer page, Integer limit, String name);
 	 
 	 /**
 	  * 
@@ -39,4 +38,16 @@ public interface StudentService {
 	  * @param student 接收StudentControlle传过来的值
 	  */
 	 String addStudent(Student student);
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月23日下午3:08:02
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : String
+	  *
+	  * @param id 学生id
+	  */
+	 String deleteStudent(Integer id);
 }

@@ -39,4 +39,16 @@ public interface StudentDao {
 	  * @param student 接收StudentService传过来的值
 	  */
 	 String addStudent(Student student);
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月23日下午3:08:02
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @param id 学生id
+	  */
+	 void deleteStudent(Integer id);
+	 
+	 
 }
