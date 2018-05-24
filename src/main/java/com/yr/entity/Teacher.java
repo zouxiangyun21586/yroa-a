@@ -2,6 +2,7 @@ package com.yr.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -107,6 +108,7 @@ public class Teacher {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "in_time")
 	public Date getInTime() {
 		return inTime;
 	}
@@ -123,6 +125,7 @@ public class Teacher {
 		this.level = level == null ? null : level.trim();
 	}
 
+	@Column(name = "is_leave")
 	public String getIsLeave() {
 		return isLeave;
 	}
@@ -132,6 +135,7 @@ public class Teacher {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "leave_time")
 	public Date getLeaveTime() {
 		return leaveTime;
 	}
@@ -158,6 +162,7 @@ public class Teacher {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "create_time")
 	public Date getCreateTime() {
 		return createTime;
 	}

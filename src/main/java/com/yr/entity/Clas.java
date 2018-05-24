@@ -2,6 +2,7 @@ package com.yr.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -72,6 +73,7 @@ public class Clas {
         this.code = code == null ? null : code.trim();
     }
 
+    @Column(name = "teacher_code")
     public String getTeacherCode() {
 		return teacherCode;
 	}
@@ -80,6 +82,7 @@ public class Clas {
 		this.teacherCode = teacherCode;
 	}
 
+	@Column(name = "teacher_name")
 	public String getTeacherName() {
 		return teacherName;
 	}
@@ -90,6 +93,7 @@ public class Clas {
 
 //	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "start_time")
     public Date getStartTime() {
         return startTime;
     }
@@ -100,6 +104,7 @@ public class Clas {
 
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "create_time")
     public Date getCreateTime() {
         return createTime;
     }
@@ -108,6 +113,7 @@ public class Clas {
         this.createTime = createTime;
     }
 
+    @Column(name = "is_finish")
     public String getIsFinish() {
         return isFinish;
     }
@@ -118,6 +124,7 @@ public class Clas {
 
 //    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "finish_time")
     public Date getFinishTime() {
         return finishTime;
     }
