@@ -22,12 +22,60 @@ function getLangDate(){
     document.getElementById("nowTime").innerHTML = "亲爱的管理员，"+timeValue+"好！ 欢迎使用。当前时间为： "+newDate+"　"+week;
     setTimeout("getLangDate()",1000);
 }
-
-layui.use(['form','element','layer','jquery'],function(){
+var tagData = [{"id":12,"name":"长者"},{"id":13,"name":"工厂"},{"id":14,"name":"小学生"},{"id":15,"name":"大学生"},{"id":16,"name":"研究生"},{"id":17,"name":"教师"},{"id":18,"name":"记者"}];    
+var catData = [{"id":1,"name":"周边旅游","children":[{"id":24,"name":"广东","children":[{"id":7,"name":"广州"},{"id":23,"name":"潮州"}]}]},{"id":5,"name":"国内旅游","children":[{"id":8,"name":"华北地区","children":[{"id":9,"name":"北京"}]}]},{"id":6,"name":"出境旅游","children":[{"id":10,"name":"东南亚","children":[{"id":11,"name":"马来西亚","children":[{"id":20,"name":"沙巴","children":[{"id":21,"name":"美人鱼岛","children":[{"id":22,"name":"潜水"}]}]}]}]}]}];
+layui.config({
+    base : 'js/'
+}).extend({
+  selectN: 'layui_extends/selectN',
+  selectM: 'layui_extends/selectM',
+}).use(['form','element','layer','jquery','selectN','selectM'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
-        element = layui.element;
+        element = layui.element,
+	    selectN = layui.selectN,
+	    selectM = layui.selectM;
         $ = layui.jquery;
+        
+        //无限级分类-基本配置
+        var catIns1 = selectN({
+          //元素容器【必填】
+          elem: '#cat_ids1'
+          //候选数据【必填】
+          ,data: catData
+        });     
+        //多选标签-基本配置
+        var tagIns1 = selectM({
+          //元素容器【必填】
+          elem: '#tag_ids1'
+          //候选数据【必填】
+          ,data: tagData
+        }); 
+        form.on('submit(demo)',function(data){		
+        	layer.msg("请打开浏览器控制台查看内容")
+          console.log('catIns1 当前选中的值名：',catIns1.selected);
+          console.log('catIns1 当前选中的值：',catIns1.values);
+          console.log('catIns1 当前选中的名：',catIns1.names);
+          console.log('catIns1 当前最后一个选中值：',catIns1.lastValue);
+          console.log('catIns1 当前最后一个选中名：',catIns1.lastName);
+          console.log('catIns1 当前最后一个是否已选：',catIns1.isSelected);
+          console.log('');
+
+          console.log('tagIns1 当前选中的值名：',tagIns1.selected);
+          console.log('tagIns1 当前选中的值：',tagIns1.values);
+          console.log('tagIns1 当前选中的名：',tagIns1.names);      
+          
+          console.log('');
+          
+          var formData = data.field;
+          console.log('表单对象：',formData);
+        });
+         
+    		//通过js动态选择
+        $('.set').click(function(){
+          catIns1.set([6,10]);
+        });
+        
     //上次登录时间【此处应该从接口获取，实际使用中请自行更换】
     $(".loginTime").html(newDate.split("日")[0]+"日</br>"+newDate.split("日")[1]);
     //icon动画
@@ -76,5 +124,66 @@ layui.use(['form','element','layer','jquery'],function(){
     $.get(iconUrl,function(data){
         $(".outIcons span").text(data.split(".icon-").length-1);
     })
+    var myChart = echarts.init(document.getElementById('main'));
+    option = {
+        title : {
+            text: '某楼盘销售情况',
+            subtext: '纯属虚构'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['意向','预购','成交']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : ['周一','周二','周三','周四','周五','周六','周日']
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'成交',
+                type:'line',
+                smooth:true,
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data:[10, 12, 21, 54, 260, 830, 710]
+            },
+            {
+                name:'预购',
+                type:'line',
+                smooth:true,
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data:[30, 182, 434, 791, 390, 30, 10]
+            },
+            {
+                name:'意向',
+                type:'line',
+                smooth:true,
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data:[1320, 1132, 601, 234, 120, 90, 20]
+            }
+        ]
+    };     
+    myChart.setOption(option);
+    
+});
 
-})

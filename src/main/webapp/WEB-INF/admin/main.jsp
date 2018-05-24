@@ -13,6 +13,24 @@
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="css/public.css" media="all" />
+	<style>
+	  #btn-wrap{margin:100px auto;text-align:center;}
+	  form{
+	    margin:30px;
+	  }
+	  /*无限级设定表单宽度*/
+	  #cat_ids1 .layui-input-inline{
+	    width:120px;
+	  }
+	  /*多选设定表单宽度*/
+	  #tag_ids1{
+	   width:250px;
+	  }
+	  /*多选设定表单宽度*/
+	  #tag_ids2{
+	   width:350px;
+	  }
+	</style>
 </head>
 <body class="childrenBody">
 	<blockquote class="layui-elem-quote layui-bg-green">
@@ -85,79 +103,35 @@
 		</div>
 		<div class="layui-col-lg6 layui-col-md12">
 			<blockquote class="layui-elem-quote title">Echarts</blockquote>
-			<div class="layui-elem-quote layui-quote-nm history_box magb0" id="main">
-				
-			</div>
+			<div class="layui-elem-quote layui-quote-nm history_box magb0" id="main"></div>
 		</div>
 	</div>
+		<div class="layui-row layui-col-space10 panel_box">
+			<blockquote class="layui-elem-quote title">select级联/多选</blockquote>
+			<div class="layui-elem-quote layui-quote-nm history_box magb0">
+				<form class="layui-form" method="post">
+				  <div class="layui-form-item">
+						<label class="layui-form-label">分类1</label>
+						<div id="cat_ids1">			
+			      </div><button type="button" class="layui-btn layui-btn-normal set">点击选择</button>
+				  </div>
+				  <div class="layui-form-item">
+						<label class="layui-form-label">标签1</label>
+						<div class="layui-input-block" id="tag_ids1">
+			      </div>
+				  </div>
+				  <div class="layui-form-item" style="text-align:center;">
+					<div class="layui-input-block">
+						<button type="button" class="layui-btn" lay-submit="" lay-filter="demo">打印到控制台</button>
+					    <button type="reset" class="layui-btn layui-btn-primary">重置</button></div>
+				  </div>
+				</form>
+			</div>
+		</div>
 	
 
 	<script type="text/javascript" src="layui/layui.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/echarts.js"></script>
-	<script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
-        option = {
-    title : {
-        text: '某楼盘销售情况',
-        subtext: '纯属虚构'
-    },
-    tooltip : {
-        trigger: 'axis'
-    },
-    legend: {
-        data:['意向','预购','成交']
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    xAxis : [
-        {
-            type : 'category',
-            boundaryGap : false,
-            data : ['周一','周二','周三','周四','周五','周六','周日']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    series : [
-        {
-            name:'成交',
-            type:'line',
-            smooth:true,
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[10, 12, 21, 54, 260, 830, 710]
-        },
-        {
-            name:'预购',
-            type:'line',
-            smooth:true,
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[30, 182, 434, 791, 390, 30, 10]
-        },
-        {
-            name:'意向',
-            type:'line',
-            smooth:true,
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[1320, 1132, 601, 234, 120, 90, 20]
-        }
-    ]
-};
-                    
-		myChart.setOption(option);
-    </script>
 </body>
 </html>
