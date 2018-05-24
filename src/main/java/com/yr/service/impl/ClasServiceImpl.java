@@ -19,7 +19,6 @@ import com.yr.util.PageUtil;
  * 2018年5月22日 下午4:51:56
  *
  */
-@Transactional
 @Service
 public class ClasServiceImpl implements ClasService {
 	
@@ -36,6 +35,8 @@ public class ClasServiceImpl implements ClasService {
 	 * @param clas 届次对象
 	 * @return 返回boolean 判断是否成功
 	 */
+	@Transactional
+	@Override
 	public Boolean add(Clas clas) {
 		try {
 			clasDao.add(clas);
@@ -55,6 +56,7 @@ public class ClasServiceImpl implements ClasService {
 	 * @param clas 届次对象
 	 * @return 返回boolean 判断是否成功
 	 */
+	@Transactional
 	@Override
 	public Boolean update(Clas clas) {
 		try {
@@ -101,6 +103,7 @@ public class ClasServiceImpl implements ClasService {
 	 *
 	 * @return : PageUtil 返回查询的结果,是一个集合
 	 */
+	@Transactional
 	@Override
 	public String query(Integer page, Integer limit, String name) {
 		PageUtil pu = clasDao.query(page, limit, name);
@@ -117,6 +120,7 @@ public class ClasServiceImpl implements ClasService {
 	 * @param code 某届次的code
 	 * @return 届次对象,用于数据回显
 	 */
+	@Transactional
 	@Override
 	public Clas get(String code) {
 		Clas listClas = clasDao.get(code);
@@ -132,6 +136,7 @@ public class ClasServiceImpl implements ClasService {
 	 * @param code 届次
 	 * @return 判断
 	 */
+	@Transactional
 	@Override
 	public Integer graduation(String code) {
 		Integer gd = clasDao.graduation(code);
@@ -150,6 +155,7 @@ public class ClasServiceImpl implements ClasService {
 	 * @param code 届次
 	 * @return Integer 有值表示已开课,如果没有值代表还未开
 	 */
+	@Transactional
 	@Override
 	public Integer openClss(String code) {
 		Integer oc = clasDao.openClss(code);
@@ -168,6 +174,7 @@ public class ClasServiceImpl implements ClasService {
 	 * @param year
 	 * @return
 	 */
+	@Transactional
 	@Override
 	public List<Clas> getOnly(String year) {
 		List<Clas> listClas = clasDao.getOnly(year);
@@ -182,6 +189,7 @@ public class ClasServiceImpl implements ClasService {
 	 * 
 	 * @return
 	 */
+	@Transactional
 	@Override
 	public List<Clas> query() {
 		List<Clas> listClas = clasDao.query();

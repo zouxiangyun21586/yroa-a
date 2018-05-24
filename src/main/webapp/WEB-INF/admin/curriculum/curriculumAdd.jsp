@@ -19,24 +19,24 @@
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">班级名</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input userName" lay-verify="required" placeholder="请输入" name="name" id="name">
+			<input type="text" class="layui-input userName" lay-verify="required" placeholder="请输入" name="name" >
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">开班日期</label>
 				<div class="layui-input-block">
-					<input type="text" class="layui-input" placeholder="yyyy-MM-dd" lay-verify="required" name="start_time" id="start_time">
+					<input type="text" class="layui-input" placeholder="yyyy-MM-dd" lay-verify="required" name="startTime" id="entranceYear">
 				</div>
 			</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">本届教师</label>
 			<div class="layui-input-block">
-				<select name="userStatus" class="userStatus" lay-filter="userStatus" name="teacher_code" id="teacher_code">
-					<option value="1001">最强王者</option>
-					<option value="1002">顽固黄金</option>
-					<option value="1003">倔强青铜</option>
+				<!-- <select name="userStatus" class="userStatus" lay-filter="userStatus" name="teacherCode" > -->
+				<select lay-filter="teacherCode" name="teacherCode" />
+					<option value="T1001">T1001</option>
+					<option value="T1002">T1002</option>
 				</select>
 			</div>
 	</div>
