@@ -93,11 +93,10 @@ public class Role {
 	public Integer getUse() {
 		return use;
 	}
-
 	public void setUse(Integer use) {
 		this.use = use;
 	}
-
+	@Column(name = "create_time")
 	public Date getCreateTime() {
 		return createTime;
 	}
