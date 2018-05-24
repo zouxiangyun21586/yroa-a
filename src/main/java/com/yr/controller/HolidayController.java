@@ -33,16 +33,18 @@ public class HolidayController {
 	 * @param page       当前页
 	 * @param limit		   每页多少条数据
 	 * @param name       是否使用搜索框
-	 * @param request    请求
+	 * @param response    请求
 	 * @return  String   返回json类型      
 	 * String
 	 * @作者 林水桥2018年5月24日上午11:53:44
 	 */
 	@ResponseBody
-    @RequestMapping(value = "/getHoliday", method = RequestMethod.GET)
-	public String getTest(int page, int limit, String name, HttpServletRequest request) {
+    @RequestMapping(value = "/getHoliday", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public String getTest(int page, int limit, String name, HttpServletResponse response) {
 		
-		return holidayService.getHoliday(page, limit, name);
+		String a = holidayService.getHoliday(page, limit, name);
+		
+		return a;
 		
 	}
 	
@@ -50,12 +52,12 @@ public class HolidayController {
 	 * 添加假期
 	 * @param holiday 假期数据
 	 * @param request 
-	 * @param resp
+	 * @param response
 	 * void
 	 * @作者 林水桥2018年5月24日上午11:28:23
 	 */
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public void add(Holiday holiday, HttpServletRequest request, HttpServletResponse resp) {
+	public void add(Holiday holiday, HttpServletRequest request, HttpServletResponse response) {
 		
 	}
 	
