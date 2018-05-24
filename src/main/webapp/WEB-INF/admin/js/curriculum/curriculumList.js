@@ -17,7 +17,7 @@ layui.use(['table','form','tree'], function(){
 		  limits:[4,7,10,15],
 		  page:true,
 		  where: {
-			   name:null,
+			   year:null,
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
 				{type:'numbers',title:'编号',width:50,field: 'code'},

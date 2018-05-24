@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yr.dao.ClasDao;
 import com.yr.entity.Clas;
 import com.yr.service.ClasService;
+import com.yr.util.JsonUtils;
+import com.yr.util.PageUtil;
 
 /**
  * 届次 Service实现类
@@ -93,12 +95,17 @@ public class ClasServiceImpl implements ClasService {
 	 * 
 	 * 2018年5月22日 下午2:59:07
 	 * 
-	 * @return 返回届次集合
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param year 分页条件
+	 *
+	 * @return : PageUtil 返回查询的结果,是一个集合
 	 */
 	@Override
-	public List<Clas> query() {
-		List<Clas> listClas = clasDao.query();
-		return listClas;
+	public String query(Integer page, Integer limit, String year) {
+		PageUtil pu = clasDao.query(page, limit, year);
+		String result = JsonUtils.beanToJson(pu);
+		return result;
 	}
 
 	/**

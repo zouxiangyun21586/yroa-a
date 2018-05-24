@@ -31,13 +31,13 @@ public class Clas {
     private String teacherCode;
     private String teacherName;
 
-    private Date startTime;
+    private String startTime;
 
     private Date createTime;
 
     private String isFinish;
 
-    private Date finishTime;
+    private String finishTime;
 
     @GeneratedValue
     @Id
@@ -91,18 +91,16 @@ public class Clas {
 		this.teacherName = teacherName;
 	}
 
-//	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "start_time")
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_time")
     public Date getCreateTime() {
@@ -122,14 +120,13 @@ public class Clas {
         this.isFinish = isFinish == null ? null : isFinish.trim();
     }
 
-//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "finish_time")
-    public Date getFinishTime() {
+    public String getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
     }
 }

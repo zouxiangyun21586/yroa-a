@@ -1,6 +1,7 @@
 package com.yr.dao.impl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.yr.dao.ClasDao;
 import com.yr.entity.Clas;
 import com.yr.util.DateUtils;
+import com.yr.util.PageUtil;
 
 /**
  * 届次 Dao 实现类
@@ -129,10 +131,44 @@ public class ClasDaoImpl implements ClasDao {
 	 * @return @return 返回届次集合,以便显示
 	 */
 	@Override
-	public List<Clas> query() {
-		Query q = entityManager.createQuery("from Clas");
-		List<Clas> listResource = q.getResultList();
-		return listResource;
+	public PageUtil query(Integer page, Integer limit, String year) {
+		PageUtil pageUtil = new PageUtil();
+		try {
+			int count = 0;
+			String jpql = "From Clas order by startTime desc";
+			if (null  != year && !"".equals(year)) {
+				jpql = "from Clas where year like :year order by startTime desc";
+			}
+			List<Clas> studentList = new ArrayList<Clas>();
+			year = pageUtil.decodeSpecialCharsWhenLikeUseSlash(year);
+			if (null  != year && !"".equals(year)) {
+				studentList = entityManager.createQuery(jpql)
+						.setMaxResults(limit).setFirstResult((page - 1) * limit)
+						.setParameter("year", "%" + year + "%").getResultList();
+				count = Integer
+				.parseInt(entityManager
+				 .createNativeQuery("select count(*) from yr_clas where year like :year ")
+				   .setParameter("year", "%" + year + "%").getSingleResult().toString());
+			} else {
+				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
+						.setMaxResults(limit).getResultList();
+				count = Integer
+						.parseInt(entityManager
+						   .createNativeQuery("select count(*) from yr_clas")
+							  .getSingleResult().toString());
+			}
+			pageUtil = new PageUtil(limit, page, count);		
+			pageUtil.setCount(count);
+			pageUtil.setCode(0);
+			pageUtil.setData(studentList);
+			pageUtil.setMsg("OK");
+		} catch (Exception e) {
+			pageUtil.setCode(1);
+			pageUtil.setMsg("---出错了!----");
+			e.printStackTrace();
+		}
+		
+		return pageUtil;
 	}
 
 	/**

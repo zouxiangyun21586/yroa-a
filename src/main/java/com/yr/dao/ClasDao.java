@@ -3,6 +3,7 @@ package com.yr.dao;
 import java.util.List;
 
 import com.yr.entity.Clas;
+import com.yr.util.PageUtil;
 
 /**
  * 届次 Dao接口
@@ -49,9 +50,12 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月22日 上午8:52:40
 	 * 
-	 * @return 届次对象
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param year 分页条件
+	 * @return PageUtil 返回查询的结果,是一个集合
 	 */
-	List<Clas> query();
+	PageUtil query(Integer page, Integer limit, String year);
 	
 	/**
 	 * 

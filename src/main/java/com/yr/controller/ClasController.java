@@ -121,20 +121,14 @@ public class ClasController {
 	 * 
 	 * 2018年5月22日 下午5:57:52
 	 * 
-	 * @param response 发送数据
-	 * @param request 接收数据
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param year 分页条件
 	 * @return Json格式的String数据
 	 */
-	@RequestMapping(value = "/clas", method = RequestMethod.GET)
-	public @ResponseBody String sel(HttpServletResponse response, HttpServletRequest request) {
-		List<Clas> listUser = clasService.query();
-		String str = "";
-		try {
-			// false表示数组中的属性不需要转成json,如果是true代表只将数组中的属性转成json格式
-			str = JsonUtils.beanListToJson(listUser);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@RequestMapping(value = "/clas", produces = "text/json;charset=UTF-8")
+	public @ResponseBody String sel(Integer page, Integer limit, String year) {
+		String str = clasService.query(page, limit, year);
 		return str;
 		
 	}
