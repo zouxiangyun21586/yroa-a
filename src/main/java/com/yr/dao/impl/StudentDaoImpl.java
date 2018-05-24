@@ -46,6 +46,7 @@ public class StudentDaoImpl implements StudentDao {
 	public PageUtil queryStudent(Integer page, Integer limit, String name) {
 		PageUtil pageUtil = new PageUtil(); 
 		try {
+			name = new String(name.getBytes("ISO8859-1"), "utf-8");
 			int count = 0;
 			String jpql = "From Student order by inTime desc";
 			if (null  != name && !"".equals(name)) {
@@ -110,7 +111,7 @@ public class StudentDaoImpl implements StudentDao {
 		Date createTime = null; //创建时间
 		String isFinish = ""; //是否毕业  1代表已毕业,0代表未毕业,添加时默认是未毕业
 		try {
-			name = new String(student.getName().getBytes("ISO8859-1"), "utf-8");
+			name = student.getName();
 			String result1 = queyrIsName(name);
 			if ("0".equals(result1)) {
 				code = code();
@@ -118,7 +119,7 @@ public class StudentDaoImpl implements StudentDao {
 				sex = new String(student.getSex().getBytes("ISO8859-1"), "utf-8");
 				year = new String(student.getYear().getBytes("ISO8859-1"), "utf-8");
 				tel = new String(student.getTel().getBytes("ISO8859-1"), "utf-8");
-				addr = new String(student.getAddr().getBytes("ISO8859-1"), "utf-8");
+				addr = student.getAddr();
 				homeTel = new String(student.getHomeTel().getBytes("ISO8859-1"), "utf-8");
 				inTime = student.getInTime();
 				createTime = new Date();
@@ -174,11 +175,33 @@ public class StudentDaoImpl implements StudentDao {
 	 *	
 	 * @param id 学生id
 	 * 
+	 * @describe : 根据id删除学生信息
+	 * 
 	 * @see com.yr.dao.StudentDao#deleteStudent(java.lang.Integer)
 	 */
 	public void deleteStudent(Integer id) {
 		Student student = entityManager.find(Student.class, id);
 		entityManager.remove(student);
+	}
+	
+	
+	/**
+	 * 
+	 * @Date : 2018年5月24日下午8:25:25
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param id 
+	 * 
+	 * @describe : 根据id修改学生信息
+	 * 
+	 * @see com.yr.dao.StudentDao#updateStudent(java.lang.Integer)
+	 */
+	@Override
+	public void updateStudent(Integer id, Student student) {
+		student = entityManager.find(Student.class, id);
+		student.setName(student.getName());
+		entityManager.merge(student);
 	}
 	
 	/**
@@ -205,5 +228,15 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		return code;
 	}
+	
+	
+
+	@Override
+	public Student updateDisplay(Integer id) {
+		Student student = entityManager.find(Student.class, id);
+		return student;
+	}
+
+	
 	
 }

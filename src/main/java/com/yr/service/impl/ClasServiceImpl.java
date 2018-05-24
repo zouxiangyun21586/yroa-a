@@ -185,6 +185,6 @@ public class ClasServiceImpl implements ClasService {
 	@Override
 	public List<Clas> query() {
 		List<Clas> listClas = clasDao.query();
-		return null;
+		return listClas;
 	}
 }

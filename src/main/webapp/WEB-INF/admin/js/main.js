@@ -34,36 +34,36 @@ layui.config({
         layer = parent.layer === undefined ? layui.layer : top.layer,
         element = layui.element,
 	    selectN = layui.selectN,
-	    selectM = layui.selectM;
+	    selectM = layui.selectM,
         $ = layui.jquery;
         
         //无限级分类-基本配置
         var catIns1 = selectN({
           //元素容器【必填】
-          elem: '#cat_ids1'
+          elem: '#cat_ids'
           //候选数据【必填】
           ,data: catData
         });     
         //多选标签-基本配置
         var tagIns1 = selectM({
           //元素容器【必填】
-          elem: '#tag_ids1'
+          elem: '#tag_ids'
           //候选数据【必填】
           ,data: tagData
         }); 
         form.on('submit(demo)',function(data){		
-        	layer.msg("请打开浏览器控制台查看内容")
-          console.log('catIns1 当前选中的值名：',catIns1.selected);
-          console.log('catIns1 当前选中的值：',catIns1.values);
-          console.log('catIns1 当前选中的名：',catIns1.names);
-          console.log('catIns1 当前最后一个选中值：',catIns1.lastValue);
-          console.log('catIns1 当前最后一个选中名：',catIns1.lastName);
-          console.log('catIns1 当前最后一个是否已选：',catIns1.isSelected);
+        	layer.msg("打开浏览器控制台查看内容")
+          console.log('catIns 当前选中的值名：',catIns1.selected);
+          console.log('catIns 当前选中的值：',catIns1.values);
+          console.log('catIns 当前选中的名：',catIns1.names);
+          console.log('catIns 当前最后一个选中值：',catIns1.lastValue);
+          console.log('catIns 当前最后一个选中名：',catIns1.lastName);
+          console.log('catIns 当前最后一个是否已选：',catIns1.isSelected);
           console.log('');
 
-          console.log('tagIns1 当前选中的值名：',tagIns1.selected);
-          console.log('tagIns1 当前选中的值：',tagIns1.values);
-          console.log('tagIns1 当前选中的名：',tagIns1.names);      
+          console.log('tagIns 当前选中的值名：',tagIns1.selected);
+          console.log('tagIns 当前选中的值：',tagIns1.values);
+          console.log('tagIns 当前选中的名：',tagIns1.names);      
           
           console.log('');
           
@@ -127,7 +127,7 @@ layui.config({
     var myChart = echarts.init(document.getElementById('main'));
     option = {
         title : {
-            text: '某楼盘销售情况',
+            text: '未知情况',
             subtext: '纯属虚构'
         },
         tooltip : {

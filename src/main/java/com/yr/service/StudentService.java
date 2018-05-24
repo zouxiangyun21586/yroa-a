@@ -50,4 +50,30 @@ public interface StudentService {
 	  * @param id 学生id
 	  */
 	 String deleteStudent(Integer id);
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月24日下午7:19:55
+	  * 
+	  * @author : 唐子壕 
+	  *	
+	  * @return : String 
+	  *
+	  * @param id 
+	  */
+	 String updateDisplay(Integer id);
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月24日下午8:32:49
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : String 
+	  *
+	  * @param id  
+	  * 
+	  * @param student 
+	  */
+	 String updateStudent(Integer id, Student student);
 }

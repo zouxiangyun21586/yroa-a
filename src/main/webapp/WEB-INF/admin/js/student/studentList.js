@@ -19,6 +19,7 @@ layui.use(['table','form','tree'], function(){
 			   name:null,
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
+				{field: 'code', title: '学生编号', unresize: true},
 				{field: 'name', title: '姓名', unresize: true},
 				{field: 'sex', title:'性别', width:90,align:'center', templet: function(d){
 					var state;
@@ -34,17 +35,16 @@ layui.use(['table','form','tree'], function(){
 				{field: 'age', title: '年龄', unresize: true},
 				{field: 'addr', title: '家庭地址', unresize: true},
 				{field: 'birth', title: '出生年月', unresize: true},
+				{field: 'year', title: '届次', unresize: true},
 				{field: 'tel', title: '学生电话', unresize: true},
 				{field: 'homeTel', title: '家长电话', unresize: true},
 				{field: 'inTime', title: '入学时间', unresize: true},
 				{field: 'isFinish', title:'是否毕业', width:90,align:'center', templet: function(d){
 					var state;
 					if('1'==d.isFinish){
-						state='已毕业';
+						state='<span style="font-size:5px;color:#009688;">已毕业</span>';
 					}else if('0'==d.isFinish){
-						state='未毕业';
-					}else{
-						state='未知';
+						state='<span style="font-size:5px;color:#FFB800;">未毕业</span>';
 					}
 					return state;
 				}, unresize: true},
@@ -117,7 +117,7 @@ layui.use(['table','form','tree'], function(){
 					title : "修改学生",
 					type : 2,
 					anim : 5,
-					content : "userAdd",//修改学生的页面路径
+					content : "studentUpdate",//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
@@ -136,7 +136,7 @@ layui.use(['table','form','tree'], function(){
 		});
 		
 		 //添加用户
-		function addUser(edit){
+		function addStudent(edit){
 			var index = layui.layer.open({
 				title : "添加学生",
 				type : 2,
@@ -157,7 +157,7 @@ layui.use(['table','form','tree'], function(){
 				layui.layer.full(index);
 			});
 	    }
-	    $(".addUser_btn").click(function(){
-	        addUser();
+	    $(".addStudent_btn").click(function(){
+	    	addStudent();
 	    });
 });
