@@ -1,5 +1,6 @@
 package com.yr.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yr.entity.Clas;
 import com.yr.entity.Holiday;
 import com.yr.service.ClasService;
 import com.yr.service.HolidayService;
-import com.yr.util.JsonUtils;
+import com.yr.util.DateJsonValueProcessor;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 
 /**
  * 假期Controller层
@@ -59,12 +65,34 @@ public class HolidayController {
      * 2018年3月1日下午10:09:29
      */
 	@ResponseBody
-    @RequestMapping(value = "/adds")
+    @RequestMapping(value = "/adds", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
     public String adds() {
 //        map.put("clas", claService.query());
 //        map.put("holiday", new Holiday());
-        return JsonUtils.beanListToJson(claService.query());
+		List<Clas> clas = claService.query();
+//		String a = JsonUtils.beanListToJson(clas, null, false);
+		String a = sendArray(clas);
+        return a;
     }
+	/**
+     * 过滤json嵌套异常字段
+     * @param object  对象
+     * @return
+     * String
+     * 2018年4月9日下午10:06:38
+     */
+    public static String sendArray(Object object) {
+    	JsonConfig jsonConfig = new JsonConfig();
+
+    	jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+    	
+    	jsonConfig.registerJsonBeanProcessor(java.sql.Date.class, new DateJsonValueProcessor());
+
+    	JSONArray json = JSONArray.fromObject(object, jsonConfig);
+
+    	return json.toString();
+    }
+    
 	
 	/**
 	 * 添加假期
