@@ -134,6 +134,22 @@ public class ClasController {
 	}
 	
 	/**
+	 * 查询所有
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 下午5:36:28
+	 * 
+	 * @return JsonString数据
+	 */
+	@RequestMapping(value = "/clas", produces = "text/json;charset=UTF-8")
+	public @ResponseBody String quert() {
+		List<Clas> listClas = clasService.query();
+		String str = JsonUtils.beanToJson(listClas);
+		return str;
+		
+	}
+	
+	/**
 	 * 毕业或者开课
 	 * @author zxy
 	 * 
@@ -156,7 +172,7 @@ public class ClasController {
 	}
 	
 	/**
-	 * 
+	 * 查询某个值
 	 * @author zxy
 	 * 
 	 * 2018年5月24日 上午11:03:30

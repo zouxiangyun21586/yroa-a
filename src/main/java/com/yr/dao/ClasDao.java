@@ -45,7 +45,7 @@ public interface ClasDao {
 	Integer delete(Clas clas);
 	
 	/**
-	 * 
+	 * 查询所有 带分页
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 上午8:52:40
@@ -56,6 +56,16 @@ public interface ClasDao {
 	 * @return PageUtil 返回查询的结果,是一个集合
 	 */
 	PageUtil query(Integer page, Integer limit, String year);
+	
+	/**
+	 * 不分页的查询所有
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 下午5:29:50
+	 * 
+	 * @return 届次集合
+	 */
+	List<Clas> query();
 	
 	/**
 	 * 

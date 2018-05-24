@@ -60,6 +60,16 @@ public interface ClasService {
 	String query(Integer page, Integer limit, String year);
 	
 	/**
+	 * 不分页的查询所有
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 下午5:33:20
+	 * 
+	 * @return 届次集合
+	 */
+	List<Clas> query();
+	
+	/**
 	 * 
 	 * @author zxy
 	 * 

@@ -28,7 +28,7 @@ public class ClasServiceImpl implements ClasService {
 	final Integer number = 2;
 
 	/**
-	 * 
+	 * 添加
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:58:15
@@ -47,7 +47,7 @@ public class ClasServiceImpl implements ClasService {
 	}
 
 	/**
-	 * 
+	 * 修改
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:58:56
@@ -67,7 +67,7 @@ public class ClasServiceImpl implements ClasService {
 	}
 
 	/**
-	 * 
+	 * 删除
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:59:01
@@ -90,7 +90,7 @@ public class ClasServiceImpl implements ClasService {
 	}
 
 	/**
-	 * 
+	 * 分页查询
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:59:07
@@ -109,7 +109,7 @@ public class ClasServiceImpl implements ClasService {
 	}
 
 	/**
-	 * 
+	 * 回显
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:59:21
@@ -159,9 +159,32 @@ public class ClasServiceImpl implements ClasService {
 		return 0;
 	}
 
+	/**
+	 * 查询指定值
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 下午5:33:52
+	 * 
+	 * @param year
+	 * @return
+	 */
 	@Override
 	public List<Clas> getOnly(String year) {
 		List<Clas> listClas = clasDao.getOnly(year);
 		return listClas;
+	}
+
+	/**
+	 * 查询所有
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 下午5:34:01
+	 * 
+	 * @return
+	 */
+	@Override
+	public List<Clas> query() {
+		List<Clas> listClas = clasDao.query();
+		return null;
 	}
 }

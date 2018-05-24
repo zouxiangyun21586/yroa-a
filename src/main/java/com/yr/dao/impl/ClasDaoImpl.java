@@ -230,8 +230,14 @@ public class ClasDaoImpl implements ClasDao {
 	 */
 	@Override
 	public List<Clas> getOnly(String year) {
-		List<Clas> listClas = entityManager.createNativeQuery("select name from yr_clas where year = ?1")
+		List<Clas> listClas = entityManager.createNativeQuery("select * from yr_clas where year = ?1")
 				.setParameter(1, year).getResultList();
+		return listClas;
+	}
+
+	@Override
+	public List<Clas> query() {
+		List<Clas> listClas = entityManager.createNativeQuery("select * from yr_clas").getResultList();
 		return listClas;
 	}
 	

@@ -21,7 +21,7 @@
 							<input type="text" class="layui-input searchVal" placeholder="根据届次搜索"
 							onkeydown="if(event.keyCode==13){document.getElementById('selectuser').click();return false;}"/>
 						</div>
-						<a class="layui-btn search_btn" data-type="reload" id="selectuser" href="<%=request.getContextPath() %>/clas/year?" + year>搜索</a>
+						<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
 					</div>
 					<div class="layui-inline">
 						<a class="layui-btn layui-btn-normal addUser_btn">添加届次</a>
