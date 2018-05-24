@@ -20,22 +20,20 @@ layui.use(['table','form','tree'], function(){
 			   name:null,
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
-				{type:'numbers',title:'编号',width:50},
-				{field: 'name', title: '用户名', unresize: true},
-				{field: 'userName', title: '账号', unresize: true},
-				{field: 'passWord', title: '密码',  unresize: true},
-				{field: 'email', title: '邮箱',  unresize: true},
-				{field: 'insertTime', title: '注册时间',templet: function(d) {
-                    return d.insertTime.time;
-                }, unresize: true},
-				{field: 'status', title:'状态', width:90,align:'center', templet: function(d){
-					var state;
-					if(0==d.status){
-						state='<span style="font-size:5px;color:#009688;">可使用</span>'
-					}else if(1==d.status){
-						state='<span style="font-size:5px;color:#FFB800;">未激活</span>'
-					}else if(2==d.status){
-						state='<span style="font-size:5px;color:#ff0000;">已禁用</span>'
+				{type:'numbers',title:'编号',width:50,field: 'code'},
+				{field: 'year', title: '届次', unresize: true},
+				{field: 'name', title: '批次名(班级)', unresize: true},
+				{field: 'startTime', title: '开班时间', unresize: true},
+				{field: 'teacherName', title: '教师姓名',  unresize: true},
+//				{field: 'insertTime', title: '注册时间',templet: function(d) {
+//                    return d.insertTime.time;
+//                }, unresize: true},
+				{field: 'isFinish', title:'是否毕业', width:90,align:'center', templet: function(d){
+					var gdt;
+					if(1==d.gdt){
+						state='<span style="font-size:5px;color:#009688;">毕业</span>'
+					}else{
+						state='<span style="font-size:5px;color:#FFB800;">详情</span>'
 					}
 					return state;
 				}, unresize: true},

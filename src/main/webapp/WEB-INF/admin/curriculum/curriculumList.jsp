@@ -29,11 +29,13 @@
 				</div>
 			</form>
 		</blockquote>
-		<table id="demo" lay-filter="demo"></table>
+		<table id="demo" lay-filter="demo">
+		</table>
 	</form>
 </body>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/curriculum/curriculumList.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-1.9.1.min.js"></script>
 <script type="text/html" id="barDemo">
 <div class="layui-dropdown">
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
@@ -46,31 +48,5 @@
 		  <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除用户</a></li>
       </ul>
   </div>
-</script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$.ajax({
-			type: "get",  // 请求方式(post或get)
-			async:false,  //默认true(异步请求),设置为false(同步请求)
-			url:"<%=request.getContextPath() %>/clas", // 发送请求的地址
-			scriptCharset: 'utf-8',
-			dataType:"json",
-			success:function(c){
-				//$("#tch").empty(); // 每次执行前都清空数据
-				//var resource = eval("("+a+")"); // 将传过来的值转为json格式
-				alert(c);
-				link = "";
-				
-				for(var i in c){
-					link = "<tr><td>"+c[i].id+"</td>"
-				}
-				
-			},error:function(XMLHttpRequest, textStatus, errorThrown){
-				alert(XMLHttpRequest.status);
-				alert(XMLHttpRequest.readyState);
-				alert(textStatus);
-	        }
-		});
-	});
 </script>
 </html> 
