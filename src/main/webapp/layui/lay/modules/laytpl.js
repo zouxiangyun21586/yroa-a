@@ -72,7 +72,7 @@ layui.define(function(e) {
     o.v = "1.2.0",
     e("laytpl", o)
 });
-layui.laytpl.toDateString = function(d, format){
+	layui.laytpl.toDateTimeString = function(d, format){
 	  var date = new Date(d || new Date())
 	  ,ymd = [
 	    this.digit(date.getFullYear(), 4)
@@ -94,6 +94,25 @@ layui.laytpl.toDateString = function(d, format){
 	  .replace(/mm/g, hms[1])
 	  .replace(/ss/g, hms[2]);
 	};
+	layui.laytpl.toDateString = function(d, format){
+		  var date = new Date(d || new Date())
+		  ,ymd = [
+		    this.digit(date.getFullYear(), 4)
+		    ,this.digit(date.getMonth() + 1)
+		    ,this.digit(date.getDate())
+		  ]
+		  ,hms = [
+		    this.digit(date.getHours())
+		    ,this.digit(date.getMinutes())
+		    ,this.digit(date.getSeconds())
+		  ];
+
+		  format = format || 'yyyy-MM-dd';
+
+		  return format.replace(/yyyy/g, ymd[0])
+		  .replace(/MM/g, ymd[1])
+		  .replace(/dd/g, ymd[2])
+		};
 	 
 	//数字前置补零
 	layui.laytpl.digit = function(num, length, end){
@@ -104,4 +123,4 @@ layui.laytpl.toDateString = function(d, format){
 	    str += '0';
 	  }
 	  return num < Math.pow(10, length) ? str + (num|0) : num;
-};
+	};
