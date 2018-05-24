@@ -23,13 +23,13 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">教师姓名</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入学生姓名">
+				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入学生姓名" name="name" id="name">
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">出生日期</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input" id="year" placeholder="yyyy-MM-dd" lay-verify="required">
+				<input type="text" class="layui-input" id="year" placeholder="yyyy-MM-dd" lay-verify="required" name="birth" id="birth">
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
@@ -42,24 +42,25 @@
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">教师登录</label>
+			<label class="layui-form-label">教师等级</label>
 			<div class="layui-input-block">
-				<select name="userStatus" class="userStatus" lay-filter="userStatus">
-					<option value="0">最强王者</option>
-					<option value="1">倔强青铜</option>
+				<select name="userStatus" class="userStatus" lay-filter="userStatus" name="level" id="level">
+					<option value="1001">最强王者</option>
+					<option value="1002">顽固黄金</option>
+					<option value="1003">倔强青铜</option>
 				</select>
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
-				<input class="layui-input" placeholder="请输入手机号">
+				<input class="layui-input" placeholder="请输入手机号" name="tel" id="tel">
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">地址</label>
 			<div class="layui-input-block">
-				<input class="layui-input" placeholder="请输入地址">
+				<input class="layui-input" placeholder="请输入地址" name="addr" id="addr">
 			</div>
 		</div>
 	</div>
@@ -67,14 +68,14 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">入职日期</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input" id="entranceYear" placeholder="yyyy-MM-dd" lay-verify="required">
+				<input type="text" class="layui-input" id="entranceYear" placeholder="yyyy-MM-dd" lay-verify="required" name="in_time">
 			</div>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">教师备注</label>
 		<div class="layui-input-block">
-			<textarea placeholder="请输入用户简介" class="layui-textarea userDesc"></textarea>
+			<textarea placeholder="请输入用户简介" class="layui-textarea userDesc" name="info" id="info"></textarea>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">

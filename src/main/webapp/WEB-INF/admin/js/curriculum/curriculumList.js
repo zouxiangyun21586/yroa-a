@@ -25,9 +25,6 @@ layui.use(['table','form','tree'], function(){
 				{field: 'name', title: '批次名(班级)', unresize: true},
 				{field: 'startTime', title: '开班时间', unresize: true},
 				{field: 'teacherName', title: '教师姓名',  unresize: true},
-//				{field: 'insertTime', title: '注册时间',templet: function(d) {
-//                    return d.insertTime.time;
-//                }, unresize: true},
 				{field: 'isFinish', title:'是否毕业', width:90,align:'center', templet: function(d){
 					var gdt;
 					if(1==d.isFinish){

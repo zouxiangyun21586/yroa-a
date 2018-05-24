@@ -1,10 +1,5 @@
 package com.yr.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,20 +119,14 @@ public class TeacherController {
 	 * 
 	 * 2018年5月22日 下午4:07:04
 	 * 
-	 * @param response 发送数据
-	 * @param request 接收数据
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 分页条件
 	 * @return Json格式的String数据
 	 */
-	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
-	public @ResponseBody String sel(HttpServletResponse response, HttpServletRequest request) {
-		List<Teacher> listUser = teacherService.query();
-		String str = "";
-		try {
-			// false表示数组中的属性不需要转成json,如果是true代表只将数组中的属性转成json格式
-			str = JsonUtils.beanListToJson(listUser);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@RequestMapping(value = "/teacher", produces = "text/json;charset=UTF-8")
+	public @ResponseBody String sel(Integer page, Integer limit, String name) {
+		String str = teacherService.query(page, limit, name);
 		return str;
 		
 	}

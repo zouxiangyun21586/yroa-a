@@ -1,6 +1,7 @@
 package com.yr.dao.impl;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,10 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.yr.dao.TeacherDao;
+import com.yr.entity.Clas;
 import com.yr.entity.Teacher;
+import com.yr.util.AgeUtils;
+import com.yr.util.PageUtil;
 
 /**
  * 老师的 Dao 实现类(jpa)
@@ -33,11 +37,53 @@ public class TeacherDaoImpl implements TeacherDao {
 	 * 2018年5月22日 下午2:55:59
 	 * 
 	 * @param teacher 老师对象
+	 * @throws Exception 
 	 */
 	public void add(Teacher teacher) {
-		entityManager.persist(teacher);
+		
+		try {
+		Teacher tch = new Teacher();
+		tch.setName(teacher.getName());
+		String strCode = code();
+		tch.setCode(strCode); // 需加1
+		tch.setSex(teacher.getSex());
+		tch.setBirth(teacher.getBirth());
+		tch.setAge(AgeUtils.birthTime(teacher.getBirth()));
+		tch.setTel(teacher.getTel());
+		tch.setAddr(teacher.getAddr());
+		tch.setInTime(teacher.getInTime());
+		tch.setLevel(teacher.getIsLeave());
+		tch.setInfo(teacher.getInfo());
+		entityManager.persist(teacher); // 老师code  age需要算
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * 获取届次编号
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 下午8:54:03
+	 * 
+	 * @return String
+	 */
+	public String code() {
+		String code = "";
+		String jpql = "select count(*) from yr_teacher";
+		String value = entityManager.createNativeQuery(jpql).getSingleResult().toString();
+		if ("0".equals(value)) { // 如果数据中没有值 那么编号默认从 C1001 开始
+			code = "T1001";
+		} else { // 如果数据库中有值 那么将最大code 数查出 加1 成为下一个code数
+			String sql = "select max(`code`)  from yr_teacher";
+			String sqlCode = entityManager.createNativeQuery(sql).getSingleResult().toString();
+			Integer integer = Integer.valueOf(sqlCode.substring(1)) + 1;
+			code = "T" + integer;
+		}
+		return code;
+	}
+	
 	/**
 	 * 修改
 	 * @author zxy
@@ -56,7 +102,7 @@ public class TeacherDaoImpl implements TeacherDao {
 		Integer age = teacher.getAge();
 		String tel = teacher.getTel();
 		String addr = teacher.getAddr();
-		Date birth = teacher.getBirth();
+		String birth = teacher.getBirth();
 		Date inTime = teacher.getInTime();
 		String level = teacher.getLevel();
 		String isleaver = teacher.getIsLeave();
@@ -108,17 +154,52 @@ public class TeacherDaoImpl implements TeacherDao {
 	}
 
 	/**
-	 * 
+	 * 分页查询
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:57:16
 	 * 
 	 * @return 返回老师集合
 	 */
-	public List<Teacher> query() {
-		Query q = entityManager.createQuery("from Teacher");
-		List<Teacher> listResource = q.getResultList();
-		return listResource;
+	@Override
+	public PageUtil query(Integer page, Integer limit, String name) {
+		PageUtil pageUtil = new PageUtil();
+		try {
+			int count = 0;
+			String jpql = "From Teacher order by in_time desc";
+			if (null  != name && !"".equals(name)) {
+				jpql = "from Teacher where year like :year order by in_time desc";
+			}
+			List<Clas> studentList = new ArrayList<Clas>();
+			name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
+			if (null  != name && !"".equals(name)) {
+				studentList = entityManager.createQuery(jpql)
+						.setMaxResults(limit).setFirstResult((page - 1) * limit)
+						.setParameter("name", "%" + name + "%").getResultList();
+				count = Integer
+				.parseInt(entityManager
+				 .createNativeQuery("select count(*) from yr_tearcher where name like :name ")
+				   .setParameter("name", "%" + name + "%").getSingleResult().toString());
+			} else {
+				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
+						.setMaxResults(limit).getResultList();
+				count = Integer
+						.parseInt(entityManager
+						   .createNativeQuery("select count(*) from yr_tearcher")
+							  .getSingleResult().toString());
+			}
+			pageUtil = new PageUtil(limit, page, count);		
+			pageUtil.setCount(count);
+			pageUtil.setCode(0);
+			pageUtil.setData(studentList);
+			pageUtil.setMsg("OK");
+		} catch (Exception e) {
+			pageUtil.setCode(1);
+			pageUtil.setMsg("---出错了!----");
+			e.printStackTrace();
+		}
+		
+		return pageUtil;
 	}
 
 	/**

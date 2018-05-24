@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * 
  * @author zxy
  *
- * 2018年5月22日 上午8:59:47
+ *         2018年5月22日 上午8:59:47
  *
  */
 @Entity
@@ -27,9 +27,11 @@ public class Teacher {
 
 	private String code;
 
+	private String teacherAccount;
+
 	private String sex;
 
-	private Date birth;
+	private String birth;
 
 	private Integer age;
 
@@ -50,13 +52,21 @@ public class Teacher {
 	private Date createTime;
 
 	@GeneratedValue
-    @Id
+	@Id
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getTeacherAccount() {
+		return teacherAccount;
+	}
+
+	public void setTeacherAccount(String teacherAccount) {
+		this.teacherAccount = teacherAccount;
 	}
 
 	public String getName() {
@@ -153,11 +163,11 @@ public class Teacher {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 

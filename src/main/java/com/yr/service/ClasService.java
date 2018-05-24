@@ -54,10 +54,10 @@ public interface ClasService {
 	 * 
 	 * @param page 第几页
 	 * @param limit 每页多少条
-	 * @param year 分页条件
-	 * @return PageUtil
+	 * @param name 分页条件
+	 * @return String
 	 */
-	String query(Integer page, Integer limit, String year);
+	String query(Integer page, Integer limit, String name);
 	
 	/**
 	 * 不分页的查询所有

@@ -1,8 +1,7 @@
 package com.yr.dao;
 
-import java.util.List;
-
 import com.yr.entity.Teacher;
+import com.yr.util.PageUtil;
 
 /**
  * 老师的  Dao 接口
@@ -49,9 +48,12 @@ public interface TeacherDao {
 	 * 
 	 * 2018年5月22日 上午8:52:40
 	 * 
-	 * @return 老师对象
+	 *  @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 分页条件
+	 * @return PageUtil 返回查询的结果,是一个集合
 	 */
-	List<Teacher> query();
+	PageUtil query(Integer page, Integer limit, String name);
 	
 	/**
 	 * 

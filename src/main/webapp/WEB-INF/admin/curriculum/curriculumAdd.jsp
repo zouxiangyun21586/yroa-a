@@ -26,7 +26,7 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">开班日期</label>
 				<div class="layui-input-block">
-					<input type="text" class="layui-input" id="year" placeholder="yyyy-MM-dd" lay-verify="required" name="start_time" id="start_time">
+					<input type="text" class="layui-input" placeholder="yyyy-MM-dd" lay-verify="required" name="start_time" id="start_time">
 				</div>
 			</div>
 	</div>
@@ -34,8 +34,9 @@
 		<label class="layui-form-label">本届教师</label>
 			<div class="layui-input-block">
 				<select name="userStatus" class="userStatus" lay-filter="userStatus" name="teacher_code" id="teacher_code">
-					<option value="0">最强王者</option>
-					<option value="1">倔强青铜</option>
+					<option value="1001">最强王者</option>
+					<option value="1002">顽固黄金</option>
+					<option value="1003">倔强青铜</option>
 				</select>
 			</div>
 	</div>

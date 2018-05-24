@@ -1,7 +1,5 @@
 package com.yr.service;
 
-import java.util.List;
-
 import com.yr.entity.Teacher;
 
 /**
@@ -51,9 +49,12 @@ public interface TeacherService {
 	 * 
 	 * 2018年5月22日 上午8:49:02
 	 * 
-	 * @return 返回老师集合
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 分页条件
+	 * @return String
 	 */
-	List<Teacher> query();
+	String query(Integer page, Integer limit, String name);
 	
 	/**
 	 * 

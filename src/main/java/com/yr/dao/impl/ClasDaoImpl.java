@@ -43,10 +43,8 @@ public class ClasDaoImpl implements ClasDao {
 		Clas cla = new Clas();
 		cla.setName(clas.getName()); // 此届 批次名
 		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数)
-//		String strCode = (String) entityManager.createNativeQuery("select max(code) from yr_clas")
-//				.getSingleResult(); 
-// 不需要页面传值过来,在后台算出code最大值后+1 成为要存入的code值    这里是添加届次 老师是已存在的所以直接获取页面上传过来的值就好
-		cla.setCode(clas.getCode()); 
+		String strCode = code(); // 获取code数
+		cla.setCode(strCode);
 		cla.setCreateTime(Date.valueOf(DateUtils.getCurrentTime())); // 创建时间(获取当前时间)
 		cla.setTeacherCode(clas.getTeacherCode()); // 设置这批届次老师的code(获取页面上填写的老师code)
 		String strName = (String) entityManager.createNativeQuery("select teacher_name where teacher_code = ?1")
@@ -56,6 +54,29 @@ public class ClasDaoImpl implements ClasDao {
 		entityManager.persist(cla);
 	}
 
+	/**
+	 * 获取届次编号
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 下午8:52:19
+	 * 
+	 * @return String
+	 */
+	public String code() {
+		String code = "";
+		String jpql = "select count(*) from yr_clas";
+		String value = entityManager.createNativeQuery(jpql).getSingleResult().toString();
+		if ("0".equals(value)) { // 如果数据中没有值 那么编号默认从 C1001 开始
+			code = "C1001";
+		} else { // 如果数据库中有值 那么将最大code 数查出 加1 成为下一个code数
+			String sql = "select max(`code`)  from yr_clas";
+			String sqlCode = entityManager.createNativeQuery(sql).getSingleResult().toString();
+			Integer integer = Integer.valueOf(sqlCode.substring(1)) + 1;
+			code = "C" + integer;
+		}
+		return code;
+	}
+	
 	/**
 	 * 修改 (获取老师Code 根据code修改老师名称)
 	 * @author zxy
@@ -70,28 +91,12 @@ public class ClasDaoImpl implements ClasDao {
 		Clas c = entityManager.find(Clas.class, clas.getTeacherCode());
 		
 		Integer id = clas.getId();
-//		String name = clas.getName();
-//		String year = clas.getYear();
-//		String code = clas.getCode();
-//		String teacherCode = clas.getTeacherCode();
 		String teacherName = clas.getTeacherName();
-//		Date startTime = clas.getStartTime();
-//		Date createTime = clas.getCreateTime();
-//		String isFinish = clas.getIsFinish();
-//		Date finishTime = clas.getFinishTime();
 		entityManager.remove(c);
 		
 		Clas cl = new Clas();
 		cl.setId(id);
-//		cl.setName(name);
-//		cl.setYear(year);
-//		cl.setCode(code);
-//		cl.setTeacherCode(teacherCode);
 		cl.setTeacherName(teacherName);
-//		cl.setStartTime(startTime);
-//		cl.setCreateTime(createTime);
-//		cl.setIsFinish(isFinish);
-//		cl.setFinishTime(finishTime);
 		entityManager.merge(cl);
 		
 	}
@@ -128,7 +133,7 @@ public class ClasDaoImpl implements ClasDao {
 	 * 
 	 * 2018年5月22日 下午5:48:49
 	 * 
-	 * @return @return 返回届次集合,以便显示
+	 * @return 返回届次集合,以便显示
 	 */
 	@Override
 	public PageUtil query(Integer page, Integer limit, String year) {

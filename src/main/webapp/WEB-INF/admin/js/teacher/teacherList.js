@@ -12,7 +12,7 @@ layui.use(['table','form','tree'], function(){
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"userSelect", //请求路径
+		  url: path+"teacher", //请求路径
 		  limit:7,
 		  limits:[4,7,10,15],
 		  page:true,
@@ -20,22 +20,19 @@ layui.use(['table','form','tree'], function(){
 			   name:null,
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
-				{type:'numbers',title:'编号',width:50},
-				{field: 'name', title: '用户名', unresize: true},
-				{field: 'userName', title: '账号', unresize: true},
-				{field: 'passWord', title: '密码',  unresize: true},
-				{field: 'email', title: '邮箱',  unresize: true},
-				{field: 'insertTime', title: '注册时间',templet: function(d) {
-                    return d.insertTime.time;
-                }, unresize: true},
-				{field: 'status', title:'状态', width:90,align:'center', templet: function(d){
+				{type:'numbers',field: 'code',title:'编号',width:50},
+				{field: 'name', title: '姓名', unresize: true},
+				{field: 'sex', title: '性别', unresize: true},
+				{field: 'age', title: '年龄',  unresize: true},
+				{field: 'tel', title: '电话',  unresize: true},
+				{field: 'level', title: '教学等级',  unresize: true},
+				{field: 'in_time', title: '入职时间', unresize: true},
+				{field: 'is_level', title:'是否离职', width:90,align:'center', templet: function(d){
 					var state;
-					if(0==d.status){
-						state='<span style="font-size:5px;color:#009688;">可使用</span>'
-					}else if(1==d.status){
-						state='<span style="font-size:5px;color:#FFB800;">未激活</span>'
-					}else if(2==d.status){
-						state='<span style="font-size:5px;color:#ff0000;">已禁用</span>'
+					if(1==d.is_level){
+						state='<span style="font-size:5px;color:#009688;">已离职</span>'
+					}else{
+						state='<span style="font-size:5px;color:#FFB800;">未离职</span>'
 					}
 					return state;
 				}, unresize: true},
@@ -48,7 +45,7 @@ layui.use(['table','form','tree'], function(){
 			if($(".searchVal").val() != ''){
 				table.reload('demo',{
 					where: {
-					   name:$(".searchVal").val()
+						name:$(".searchVal").val()
 					 },page:{
 						 curr:1
 					 }

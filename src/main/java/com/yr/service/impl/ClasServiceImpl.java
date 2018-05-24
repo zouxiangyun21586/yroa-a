@@ -97,13 +97,13 @@ public class ClasServiceImpl implements ClasService {
 	 * 
 	 * @param page 第几页
 	 * @param limit 每页多少条
-	 * @param year 分页条件
+	 * @param name 分页条件
 	 *
 	 * @return : PageUtil 返回查询的结果,是一个集合
 	 */
 	@Override
-	public String query(Integer page, Integer limit, String year) {
-		PageUtil pu = clasDao.query(page, limit, year);
+	public String query(Integer page, Integer limit, String name) {
+		PageUtil pu = clasDao.query(page, limit, name);
 		String result = JsonUtils.beanToJson(pu);
 		return result;
 	}

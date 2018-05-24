@@ -1,7 +1,5 @@
 package com.yr.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yr.dao.TeacherDao;
 import com.yr.entity.Teacher;
 import com.yr.service.TeacherService;
+import com.yr.util.JsonUtils;
+import com.yr.util.PageUtil;
 
 /**
  * 
@@ -91,11 +91,16 @@ public class TeacherServiceImpl implements TeacherService {
 	 * 
 	 * 2018年5月22日 下午2:59:07
 	 * 
-	 * @return 返回老师集合
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param year 分页条件
+	 *
+	 * @return : PageUtil 返回查询的结果,是一个集合
 	 */
-	public List<Teacher> query() {
-		List<Teacher> listTeacher = teacherDao.query();
-		return listTeacher;
+	public String query(Integer page, Integer limit, String year) {
+		PageUtil pu = teacherDao.query(page, limit, year);
+		String result = JsonUtils.beanToJson(pu);
+		return result;
 	}
 
 	/**
