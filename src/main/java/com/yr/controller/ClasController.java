@@ -141,8 +141,8 @@ public class ClasController {
 	 * 
 	 * @return JsonString数据
 	 */
-	@RequestMapping(value = "/clas", produces = "text/json;charset=UTF-8")
-	public @ResponseBody String quert() {
+	@RequestMapping(value = "/clasQuery", produces = "text/json;charset=UTF-8")
+	public @ResponseBody String query() {
 		List<Clas> listClas = clasService.query();
 		String str = JsonUtils.beanToJson(listClas);
 		return str;
