@@ -91,28 +91,28 @@ public class AccountDaoImpl implements AccountDao {
 	 * @return 4
 	 */
 	@SuppressWarnings({ "unchecked", "static-access", "rawtypes" })
-    public String getUser(int page, int limit, String name) {
+    public String getFenye(int page, int limit, String name) {
         PageUtil pageUtil = new PageUtil();
         try {
             int count = 0;
-            String jpql = "FROM yr_account WHERE code!='root' ORDER BY updateTime desc";
+            String jpql = "FROM Account ORDER BY updateTime desc";
             if (null != name && !"".equals(name)) {
-                jpql = "FROM User where name like :name and code!='root' ORDER BY updateTime desc";
+                jpql = "FROM Account where username like :username ORDER BY updateTime desc";
             }
             List<Account> list = new ArrayList<Account>();
             name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
             if (null != name && !"".equals(name)) {
                 list = em.createQuery(jpql).setFirstResult((page - 1) * limit)
-                        .setMaxResults(limit).setParameter("name", "%" + name + "%").getResultList();
+                        .setMaxResults(limit).setParameter("username", "%" + name + "%").getResultList();
                 count = Integer.parseInt(em.createNativeQuery(
-                		"SELECT COUNT(*) FROM user where name like :name and code!='root'")
-                                        .setParameter("name", "%" + name + "%").getSingleResult().toString());
+                		"SELECT COUNT(*) FROM yr_account where username like :username")
+                                        .setParameter("username", "%" + name + "%").getSingleResult().toString());
 
             } else {
                 list = em.createQuery(jpql).setFirstResult((page - 1) * limit)
                         .setMaxResults(limit).getResultList();
                 count = Integer.parseInt(em
-                       .createNativeQuery("SELECT COUNT(*) FROM user where code!='root'").getSingleResult().toString());
+                       .createNativeQuery("SELECT COUNT(*) FROM yr_account").getSingleResult().toString());
             }
             pageUtil = new PageUtil(limit, page, count);
             pageUtil.setCount(count);

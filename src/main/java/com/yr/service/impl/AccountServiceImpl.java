@@ -69,5 +69,17 @@ public class AccountServiceImpl implements AccountService {
 		Account acc = accDao.query(i);
 		return acc;
 	}
+	/**
+	 * 班某人的分页
+	 * @param page 当前页 
+	 * @param limit 一页显示多少条
+	 * @param name 是否使用模糊搜索
+	 * @return json
+	 */
+	@Override
+	public String getFenye(int page, int limit, String name) {
+		String json = accDao.getFenye(page, limit, name);
+		return json;
+	}
 
 }
