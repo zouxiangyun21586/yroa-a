@@ -12,7 +12,7 @@ layui.use(['table','form','tree'], function(){
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"userSelect", //请求路径
+		  url: path+"clas", //请求路径
 		  limit:7,
 		  limits:[4,7,10,15],
 		  page:true,

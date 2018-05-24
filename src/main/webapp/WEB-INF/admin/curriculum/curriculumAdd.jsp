@@ -12,7 +12,6 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/layui/css/layui.css" media="all" />
-	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <br/>
