@@ -20,7 +20,7 @@ layui.use(['table','form','tree'], function(){
 			   name:null,
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
-				{type:'id',title:'编号',width:50},
+				{type:'numbers',title:'编号',width:50},
 				{field: 'name', title: '假期名称', unresize: true},
 				{field: 'startDate', title: '放假开始日期', unresize: true},
 				{field: 'endDate', title: '放假结束日期',  unresize: true},
@@ -28,9 +28,7 @@ layui.use(['table','form','tree'], function(){
 				{field: 'endTime', title: '放假结束时间',  unresize: true},
 				{field: 'info', title: '备注',  unresize: true},
 				{field: 'classCode', title: '所属届次',  unresize: true},
-				{field: 'createTime', title: '创建时间',templet: function(d) {
-                    return d.insertTime.time;
-                }, unresize: true},
+				{field: 'createTime', title: '创建时间', unresize: true},
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
 		});
