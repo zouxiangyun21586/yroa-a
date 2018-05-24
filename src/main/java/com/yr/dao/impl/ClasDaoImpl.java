@@ -35,20 +35,22 @@ public class ClasDaoImpl implements ClasDao {
 	 * 
 	 * @param clas 届次对象
 	 */
+	@Override
 	public void add(Clas clas) {
 		
 		Clas cla = new Clas();
 		cla.setName(clas.getName()); // 此届 批次名
-		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数)
-		String strCode = (String) entityManager.createNativeQuery("select max(code) from yr_clas")
-				.getSingleResult();
-		cla.setCode(strCode); // 不需要页面传值过来,在后台算出code最大值后+1 成为要存入的code值
+		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数) 
+//		String strCode = (String) entityManager.createNativeQuery("select max(code) from yr_clas")
+//				.getSingleResult(); 
+// 不需要页面传值过来,在后台算出code最大值后+1 成为要存入的code值    这里是添加届次 老师是已存在的所以直接获取页面上传过来的值就好
+		cla.setCode(clas.getCode()); 
 		cla.setCreateTime(Date.valueOf(DateUtils.getCurrentTime())); // 创建时间(获取当前时间)
-		cla.setTeacherCode(clas.getTeacherCode()); // 设置这批届次老师的code(获取页面上填写的老师名获取到老师code)
-		cla.setTeacherName(clas.getTeacherName()); // 设置这批届次老师的code(获取页面上填写的老师名)
-		cla.setFinishTime(Date.valueOf("毕业时间"));
-		cla.setStartTime(Date.valueOf("开班时间"));
-		cla.setIsFinish("判断是否毕业   1 表示已毕业");
+		cla.setTeacherCode(clas.getTeacherCode()); // 设置这批届次老师的code(获取页面上填写的老师code)
+		String strName = (String) entityManager.createNativeQuery("select teacher_name where teacher_code = ?1")
+				.setParameter(1, clas.getTeacherName()).getSingleResult();
+		cla.setTeacherName(strName); // 设置这批届次老师的名字(获取页面上填写的老师code获取到老师名字)
+		cla.setStartTime(clas.getStartTime());
 		entityManager.persist(cla);
 	}
 
@@ -60,6 +62,7 @@ public class ClasDaoImpl implements ClasDao {
 	 * 
 	 * @param clas 届次对象
 	 */
+	@Override
 	public void update(Clas clas) {
 		
 		Clas c = entityManager.find(Clas.class, clas.getTeacherCode());
@@ -100,6 +103,7 @@ public class ClasDaoImpl implements ClasDao {
 	 * @param clas 届次对象
 	 * @return 返回 Integer类型 届次不能删除
 	 */
+	@Override
 	public Integer delete(Clas clas) {
 //		Query query = entityManager.createNativeQuery("select count(*) from Clas where Clas_code ="
 //				+ clas.getCode());
@@ -124,6 +128,7 @@ public class ClasDaoImpl implements ClasDao {
 	 * 
 	 * @return @return 返回届次集合,以便显示
 	 */
+	@Override
 	public List<Clas> query() {
 		Query q = entityManager.createQuery("from Clas");
 		List<Clas> listResource = q.getResultList();
@@ -139,6 +144,7 @@ public class ClasDaoImpl implements ClasDao {
 	 *  @param code 获取页面是届次code 用来数据回显
 	 * @return 返回某届次的对象
 	 */
+	@Override
 	public Clas get(String code) {
 		Query q = entityManager.createQuery("from Clas where code = :code").setParameter("code", code);
 		Clas listUser = (Clas) q.getSingleResult();
@@ -154,6 +160,7 @@ public class ClasDaoImpl implements ClasDao {
 	 * @param code 届次code
 	 * @return Integer 判断是否毕业  1表示毕业 其余表示未毕业
 	 */
+	@Override
 	public Integer graduation(String code) {
 		String str = (String) entityManager.createNativeQuery("select isFinish from yr_clas where code = :code")
 				.setParameter("code", code).getSingleResult();
@@ -169,10 +176,27 @@ public class ClasDaoImpl implements ClasDao {
 	 * @param code 届次
 	 * @return 判断是否开课
 	 */
+	@Override
 	public Integer openClss(String code) {
 		String str = (String) entityManager.createNativeQuery("select start_time from yr_clas where code = ?1")
 				.setParameter(1, code).getSingleResult();
 		return Integer.valueOf(str);
+	}
+
+	/**
+	 * 查询指定值
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 上午10:59:49
+	 * 
+	 * @param year
+	 * @return 查询某届下的所有批次
+	 */
+	@Override
+	public List<Clas> getOnly(String year) {
+		List<Clas> listClas = entityManager.createNativeQuery("select name from yr_clas where year = ?1")
+				.setParameter(1, year).getResultList();
+		return listClas;
 	}
 	
 }

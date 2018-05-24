@@ -43,4 +43,13 @@ public interface AccountDao {
 	 * @return 查出的用户对象
 	 */
 	Account query(Integer i);
+	
+	/**
+	 * 班某人的分页
+	 * @param page 当前页 
+	 * @param limit 一页显示多少条
+	 * @param name 是否使用模糊搜索
+	 * @return json
+	 */
+    String getFenye(int page, int limit, String name);
 }

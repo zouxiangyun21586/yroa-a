@@ -12,7 +12,7 @@ layui.use(['table','form','tree'], function(){
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"userSelect", //请求路径
+		  url: path+"queryfy", //请求路径
 		  limit:7,
 		  limits:[10,15,20],
 		  page:true,
@@ -20,23 +20,45 @@ layui.use(['table','form','tree'], function(){
 			   name:null,
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
-				{type:'numbers',title:'编号',width:50},
-				{field: 'name', title: '用户名', unresize: true},
-				{field: 'userName', title: '账号', unresize: true},
-				{field: 'passWord', title: '密码',  unresize: true},
-				{field: 'email', title: '邮箱',  unresize: true},
-				{field: 'insertTime', title: '注册时间',templet: function(d) {
-                    return d.insertTime.time;
+//				{type:'numbers',title:'编号',width:50},
+				{field: 'username', title: '账号', unresize: true},
+				{field: 'password', title: '密码', unresize: true},
+				{field: 'tel', title: '电话',  unresize: true},
+				{field: 'isAdmin', title: '是否是管理员', width:90,align:'center', templet: function(d){
+					var adm;
+					if('true'==d.isAdmin){
+						adm='<span style="font-size:5px;color:#009688;">是</span>'
+					}else if('false'==d.isAdmin){
+						adm='<span style="font-size:5px;color:#FFB800;">否</span>'
+					}
+					return adm;
+				}, unresize: true},
+				{field: 'type', title: '用户类型', width:90,align:'center', templet: function(d){
+					var types;
+					if('T'==d.type){
+						types='<span style="font-size:5px;color:#009688;">老师</span>'
+					}else if('S'==d.type){
+						types='<span style="font-size:5px;color:#FFB800;">学生</span>'
+					}else if('P'==d.type){
+						types='<span style="font-size:5px;color:#ff0000;">家长</span>'
+					}
+					return types;
+				}, unresize: true},
+				{field: 'createTime', title: '注册时间',templet: function(d) {
+                    return d.createTime.time;
+                }, unresize: true},
+                {field: 'updateTime', title: '最后修改时间',templet: function(d) {
+                    return d.updateTime.time;
                 }, unresize: true},
 				{field: 'status', title:'状态', width:90,align:'center', templet: function(d){
 					var state;
-					if(0==d.status){
+					if('0'==d.status){
 						state='<span style="font-size:5px;color:#009688;">可使用</span>'
-					}else if(1==d.status){
+					}else if('1'==d.status){
 						state='<span style="font-size:5px;color:#FFB800;">未激活</span>'
-					}else if(2==d.status){
+					}/*else if(2==d.status){
 						state='<span style="font-size:5px;color:#ff0000;">已禁用</span>'
-					}
+					}*/
 					return state;
 				}, unresize: true},
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}

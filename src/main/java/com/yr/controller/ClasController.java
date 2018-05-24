@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,7 +41,6 @@ public class ClasController {
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return 返回到哪个界面
 	 */
-	@Transactional
 	@RequestMapping(value = "/clas", method = RequestMethod.POST)
 	public String add(Clas clas, ModelMap map) {
 		Boolean boo = clasService.add(clas);
@@ -64,7 +63,6 @@ public class ClasController {
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return 执行完这个方法后去到哪个页面
 	 */
-	@Transactional
 	@RequestMapping(value = "/clas/{id}", method = RequestMethod.DELETE)
 	public String del(Clas clas, ModelMap map) {
 //		Boolean bool = clasService.delete(clas);
@@ -88,7 +86,6 @@ public class ClasController {
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return 执行完这个方法后去到哪个页面
 	 */
-	@Transactional
 	@RequestMapping(value = "/clas", method = RequestMethod.PUT)
 	public String upd(Clas clas, ModelMap map) {
 		Boolean bool = clasService.update(clas);
@@ -162,5 +159,31 @@ public class ClasController {
 			return "已开课";
 		}
 		return "灰色按钮";
+	}
+	
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 上午11:03:30
+	 * 
+	 * @param response 发送
+	 * @param request 接收
+	 * @param year 届次
+	 * @return JsonString
+	 */
+	@RequestMapping(value = "/clas/year", method = RequestMethod.GET)
+	public @ResponseBody String query(HttpServletResponse response, HttpServletRequest request,
+			@PathVariable(value = "year") String year) {
+		List<Clas> listUser = clasService.getOnly(year);
+		String str = "";
+		try {
+			// false表示数组中的属性不需要转成json,如果是true代表只将数组中的属性转成json格式
+			str = JsonUtils.beanListToJson(listUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return str;
+		
 	}
 }
