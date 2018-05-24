@@ -85,4 +85,15 @@ public interface ClasDao {
 	 * @return Integer 判断
 	 */
 	Integer openClss(String code);
+	
+	/**
+	 * 查询指定届次下的所有批次
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 上午10:56:02
+	 * 
+	 * @param year 指定届次
+	 * @return List<Clas> 所查询出来的所有批次
+	 */
+	List<Clas> getOnly(String year);
 }

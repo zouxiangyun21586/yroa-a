@@ -53,6 +53,7 @@ public class ClasServiceImpl implements ClasService {
 	 * @param clas 届次对象
 	 * @return 返回boolean 判断是否成功
 	 */
+	@Override
 	public Boolean update(Clas clas) {
 		try {
 			clasDao.update(clas);
@@ -72,6 +73,7 @@ public class ClasServiceImpl implements ClasService {
 	 * @param clas 届次对象
 	 * @return 返回boolean 判断是否成功
 	 */
+	@Override
 	public Boolean delete(Clas clas) {
 //		try {
 //			Integer code = clasDao.delete(clas);
@@ -93,6 +95,7 @@ public class ClasServiceImpl implements ClasService {
 	 * 
 	 * @return 返回届次集合
 	 */
+	@Override
 	public List<Clas> query() {
 		List<Clas> listClas = clasDao.query();
 		return listClas;
@@ -107,6 +110,7 @@ public class ClasServiceImpl implements ClasService {
 	 * @param code 某届次的code
 	 * @return 届次对象,用于数据回显
 	 */
+	@Override
 	public Clas get(String code) {
 		Clas listClas = clasDao.get(code);
 		return listClas;
@@ -121,6 +125,7 @@ public class ClasServiceImpl implements ClasService {
 	 * @param code 届次
 	 * @return 判断
 	 */
+	@Override
 	public Integer graduation(String code) {
 		Integer gd = clasDao.graduation(code);
 		if (gd == 1) {
@@ -138,11 +143,18 @@ public class ClasServiceImpl implements ClasService {
 	 * @param code 届次
 	 * @return Integer 有值表示已开课,如果没有值代表还未开
 	 */
+	@Override
 	public Integer openClss(String code) {
 		Integer oc = clasDao.openClss(code);
 		if (oc == 1) {
 			return 1;
 		}
 		return 0;
+	}
+
+	@Override
+	public List<Clas> getOnly(String year) {
+		List<Clas> listClas = clasDao.getOnly(year);
+		return listClas;
 	}
 }
