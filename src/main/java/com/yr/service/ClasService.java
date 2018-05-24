@@ -88,4 +88,15 @@ public interface ClasService {
 	 * @return Integer 判断
 	 */
 	Integer openClss(String code);
+	
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月24日 上午11:01:09
+	 * 
+	 * @param year 届次
+	 * @return 查询出来的批次
+	 */
+	List<Clas> getOnly(String year);
 }

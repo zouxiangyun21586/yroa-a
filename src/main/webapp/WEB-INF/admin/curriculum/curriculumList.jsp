@@ -18,10 +18,10 @@
 				<div class="demoTable">
 					<div class="layui-inline">
 						<div class="layui-input-inline">
-							<input type="text" class="layui-input searchVal" placeholder="根据账号搜索"
+							<input type="text" class="layui-input searchVal" placeholder="根据届次搜索"
 							onkeydown="if(event.keyCode==13){document.getElementById('selectuser').click();return false;}"/>
 						</div>
-						<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
+						<a class="layui-btn search_btn" data-type="reload" id="selectuser" href="<%=request.getContextPath() %>/clas/year?" + year>搜索</a>
 					</div>
 					<div class="layui-inline">
 						<a class="layui-btn layui-btn-normal addUser_btn">添加届次</a>
@@ -46,5 +46,31 @@
 		  <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除用户</a></li>
       </ul>
   </div>
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			type: "get",  // 请求方式(post或get)
+			async:false,  //默认true(异步请求),设置为false(同步请求)
+			url:"<%=request.getContextPath() %>/clas", // 发送请求的地址
+			scriptCharset: 'utf-8',
+			dataType:"json",
+			success:function(c){
+				//$("#tch").empty(); // 每次执行前都清空数据
+				//var resource = eval("("+a+")"); // 将传过来的值转为json格式
+				alert(c);
+				link = "";
+				
+				for(var i in c){
+					link = "<tr><td>"+c[i].id+"</td>"
+				}
+				
+			},error:function(XMLHttpRequest, textStatus, errorThrown){
+				alert(XMLHttpRequest.status);
+				alert(XMLHttpRequest.readyState);
+				alert(textStatus);
+	        }
+		});
+	});
 </script>
 </html> 
