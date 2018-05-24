@@ -1,14 +1,19 @@
 package com.yr.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yr.dao.StudentDao;
+import com.yr.entity.Account;
 import com.yr.entity.Student;
 import com.yr.service.StudentService;
+import com.yr.util.HanyuPinyinHelper;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
 
@@ -61,16 +66,22 @@ public class StudentServiceImpl implements StudentService {
 	 *  
 	 * @see com.yr.service.StudentService#addStudent(com.yr.entity.Student)
 	 */
+	@Transactional
 	public String addStudent(Student student) {
+		final Integer number = 2;
 		Map<String, Object> map = new HashMap<String, Object>();
-		try {
-			studentDao.addStudent(student);
+		String resutl1 = studentDao.addStudent(student);
+		if ("addSuccess".equals(resutl1)) {
+			Account account = addAccount(student);
+//			addId(Account users, String code)			
 			map.put("code", 0);
 			map.put("msg", "添加成功");
-		} catch (Exception e) {
+		} else if ("addFail".equals(resutl1)) {
 			map.put("code", 1);
 			map.put("msg", "添加失败");
-			map.put("error", e);
+		} else if ("alreadyExisted".equals(resutl1)) {
+			map.put("code", number);
+			map.put("msg", "该学生已经添加过了");
 		}
 		String result = JSONObject.fromObject(map).toString();
 		return result;
@@ -101,6 +112,39 @@ public class StudentServiceImpl implements StudentService {
 		}
 		String result = JSONObject.fromObject(map).toString();
 		return result;
+	}
+	/**
+	 * 
+	 * @Date : 2018年5月23日下午8:47:35
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : Account
+	 *
+	 * @param student 学生实体
+	 * 
+	 * @describe 添加学生时添加一个默认的账号
+	 * 
+	 */
+	public Account addAccount(Student student) {
+		Account account = new Account();
+		HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
+        String username = hanyuPinyinHelper.toHanyuPinyin(student.getName());
+        String password = "670b14728ad9902aecba32e22fa4f6bd";
+		String isAdmin = "false";
+		String type = "S";
+		String status = "0";
+		Date createTime = new Date();
+		Date updateTime = new Date();
+		
+		account.setUsername(username);
+		account.setIsAdmin(isAdmin);
+		account.setPassword(password);
+		account.setType(type);
+		account.setStatus(status);
+		account.setCreateTime(createTime);
+		account.setUpdateTime(updateTime);
+		return account;
 	}
 	
 	

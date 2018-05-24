@@ -4,14 +4,15 @@ layui.use(['table','form','tree'], function(){
   $=layui.jquery,
   tree=layui.tree,
   strFullPath = window.document.location.href,
-  strPath = window.document.location.pathname,
-  pos = strFullPath.indexOf(strPath),
-  prePath = strFullPath.substring(0, pos),
-  path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
+  	strPath = window.document.location.pathname,
+	pos = strFullPath.indexOf(strPath),
+	prePath = strFullPath.substring(0, pos),
+	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
+		
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"student", //请求路径
+		  url: path+"holiday/getHoliday", //请求路径
 		  limit:7,
 		  limits:[4,7,10,15],
 		  page:true,
@@ -19,35 +20,17 @@ layui.use(['table','form','tree'], function(){
 			   name:null,
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
-				{field: 'name', title: '姓名', unresize: true},
-				{field: 'sex', title:'性别', width:90,align:'center', templet: function(d){
-					var state;
-					if('0'==d.sex){
-						state='女';
-					}else if('1'==d.sex){
-						state='男';
-					}else{
-						state='未知';
-					}
-					return state;
-				}, unresize: true},
-				{field: 'age', title: '年龄', unresize: true},
-				{field: 'addr', title: '家庭地址', unresize: true},
-				{field: 'birth', title: '出生年月', unresize: true},
-				{field: 'tel', title: '学生电话', unresize: true},
-				{field: 'homeTel', title: '家长电话', unresize: true},
-				{field: 'inTime', title: '入学时间', unresize: true},
-				{field: 'isFinish', title:'是否毕业', width:90,align:'center', templet: function(d){
-					var state;
-					if('1'==d.isFinish){
-						state='已毕业';
-					}else if('0'==d.isFinish){
-						state='未毕业';
-					}else{
-						state='未知';
-					}
-					return state;
-				}, unresize: true},
+				{type:'id',title:'编号',width:50},
+				{field: 'name', title: '假期名称', unresize: true},
+				{field: 'startDate', title: '放假开始日期', unresize: true},
+				{field: 'endDate', title: '放假结束日期',  unresize: true},
+				{field: 'startTime', title: '放假开始时间', unresize: true},
+				{field: 'endTime', title: '放假结束时间',  unresize: true},
+				{field: 'info', title: '备注',  unresize: true},
+				{field: 'classCode', title: '所属届次',  unresize: true},
+				{field: 'createTime', title: '创建时间',templet: function(d) {
+                    return d.insertTime.time;
+                }, unresize: true},
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
 		});
@@ -78,7 +61,7 @@ layui.use(['table','form','tree'], function(){
 		    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
 		    	$.ajax({
 	    	       type:"post",
-	    	       url:path+"student",
+	    	       url:path+"userDelete",
 	    	       data: {"id":obj.data.id,"_method":"DELETE"},
 	    	       success:function(data){
 	    	    	   if(200==data.code){
@@ -114,10 +97,10 @@ layui.use(['table','form','tree'], function(){
 		    });
 		  }else if(obj.event === 'edit'){
 			  var index = layui.layer.open({
-					title : "修改学生",
+					title : "修改考勤",
 					type : 2,
 					anim : 5,
-					content : "userAdd",//修改学生的页面路径
+					content : "classUpdate",//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
@@ -136,12 +119,12 @@ layui.use(['table','form','tree'], function(){
 		});
 		
 		 //添加用户
-		function addUser(edit){
-			var index = layui.layer.open({
-				title : "添加学生",
+	    $(".addUser_btn").click(function(){
+	    	var index = layui.layer.open({
+				title : "添加考勤",
 				type : 2,
 				anim : 5,
-				content : "studentAdd",
+				content : "attendanceAdd",
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回',
@@ -156,8 +139,5 @@ layui.use(['table','form','tree'], function(){
 			$(window).on("resize", function() {
 				layui.layer.full(index);
 			});
-	    }
-	    $(".addUser_btn").click(function(){
-	        addUser();
 	    });
 });

@@ -1,13 +1,13 @@
-package com.yr.dao;
+package com.yr.service;
 
 import com.yr.entity.Holiday;
 
 /**
- * 假期Dao
+ * 假期Service层
  * @作者 林水桥
- * 2018年5月22日下午10:26:49
+ * 2018年5月24日上午8:57:22
  */
-public interface HolidayDao {
+public interface HolidayService {
 	
 	/**
 	 * 添加假期

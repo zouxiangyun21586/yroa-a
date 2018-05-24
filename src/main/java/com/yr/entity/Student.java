@@ -2,6 +2,12 @@ package com.yr.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -11,12 +17,32 @@ import org.springframework.format.annotation.DateTimeFormat;
  * 2018年5月22日 上午9:00:36
  *
  */
+@Entity
+@Table(name = "yr_student")
 public class Student {
+	
 	private Integer id;
 	
 	//学生姓名
 	private String name;
 	
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name 
+				+ ", code=" + code + ", year=" + year 
+				+ ", classCode=" + classCode
+				+ ", sex=" + sex + ", birth=" 
+				+ birth + ", age=" + age + ", tel=" 
+				+ tel + ", addr=" + addr
+				+ ", homeTel=" + homeTel + ", isInPublish=" 
+				+ isInPublish + ", inImgUrl=" + inImgUrl + ", inTime="
+				+ inTime + ", createTime=" + createTime 
+				+ ", finishTime=" + finishTime + ", offerTime=" + offerTime
+				+ ", offerIncome=" + offerIncome 
+				+ ", isFinish=" + isFinish + ", isFinishPublishl=" + isFinishPublishl
+				+ ", finishImgUrl=" + finishImgUrl + "]";
+	}
+
 	//学生编号
 	private String code;
 
@@ -31,7 +57,7 @@ public class Student {
 	
 	//出生年月日
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date birth;
+	private String birth;
 	
 	//年龄  age的值不需要存。在列表显示时不显示出生年月日，而是用当前时间－出生年月日得出年龄显示在列表中。
 	private Integer age;
@@ -53,19 +79,19 @@ public class Student {
 	
 	//入学时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date inTime;
+	private String inTime;
 	
 	//编入学生信息时间
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 
 	//毕业时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date finishTime;
+	private String finishTime;
 
 	//入职日期
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date offerTime;
+	private String offerTime;
 	
 	//工资
 	private String offerIncome;
@@ -77,6 +103,7 @@ public class Student {
 	private String isFinishPublishl;
 	
 	
+	@Column(name = "is_in_publish") 
 	public String getIsInPublish() {
 		return isInPublish;
 	}
@@ -85,6 +112,7 @@ public class Student {
 		this.isInPublish = isInPublish;
 	}
 
+	@Column(name = "in_img_url") 
 	public String getInImgUrl() {
 		return inImgUrl;
 	}
@@ -93,6 +121,7 @@ public class Student {
 		this.inImgUrl = inImgUrl;
 	}
 
+	@Column(name = "is_finish") 
 	public String getIsFinish() {
 		return isFinish;
 	}
@@ -100,7 +129,8 @@ public class Student {
 	public void setIsFinish(String isFinish) {
 		this.isFinish = isFinish;
 	}
-
+	
+	@Column(name = "is_finish_publishl") 
 	public String getIsFinishPublishl() {
 		return isFinishPublishl;
 	}
@@ -108,11 +138,11 @@ public class Student {
 	public void setIsFinishPublishl(String isFinishPublishl) {
 		this.isFinishPublishl = isFinishPublishl;
 	}
-
+	@Column(name = "finish_img_url") 
 	public String getFinishImgUrl() {
 		return finishImgUrl;
 	}
-
+	
 	public void setFinishImgUrl(String finishImgUrl) {
 		this.finishImgUrl = finishImgUrl;
 	}
@@ -120,15 +150,16 @@ public class Student {
 	//就业照片路径
 	private String finishImgUrl;
 	
-	
+	@GeneratedValue
+	@Id
 	public Integer getId() {
 		return id;
 	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -144,7 +175,7 @@ public class Student {
 	public void setCode(String code) {
 		this.code = code == null ? null : code.trim();
 	}
-
+	@Column(name = "class_code") 
 	public String getClassCode() {
 		return classCode;
 	}
@@ -161,13 +192,12 @@ public class Student {
 		this.sex = sex == null ? null : sex.trim();
 	}
 	
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")  
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
@@ -194,7 +224,8 @@ public class Student {
 	public void setAddr(String addr) {
 		this.addr = addr == null ? null : addr.trim();
 	}
-
+	
+	@Column(name = "home_tel") 
 	public String getHomeTel() {
 		return homeTel;
 	}
@@ -202,16 +233,16 @@ public class Student {
 	public void setHomeTel(String homeTel) {
 		this.homeTel = homeTel == null ? null : homeTel.trim();
 	}
-
-	public Date getInTime() {
+	
+	@Column(name = "in_time") 
+	public String getInTime() {
 		return inTime;
 	}
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public void setInTime(Date inTime) {
+	public void setInTime(String inTime) {
 		this.inTime = inTime;
 	}
-
+	@Column(name = "create_time") 
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -227,23 +258,25 @@ public class Student {
 	public void setYear(String year) {
 		this.year = year;
 	}
-
-	public Date getFinishTime() {
+	
+	@Column(name = "finish_time") 
+	public String getFinishTime() {
 		return finishTime;
 	}
 
-	public void setFinishTime(Date finishTime) {
+	public void setFinishTime(String finishTime) {
 		this.finishTime = finishTime;
 	}
-
-	public Date getOfferTime() {
+	@Column(name = "offer_time") 
+	public String getOfferTime() {
 		return offerTime;
 	}
 
-	public void setOfferTime(Date offerTime) {
+	public void setOfferTime(String offerTime) {
 		this.offerTime = offerTime;
 	}
-
+	
+	@Column(name = "offer_in_come") 
 	public String getOfferIncome() {
 		return offerIncome;
 	}
