@@ -15,7 +15,7 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" action="<%=request.getContextPath() %>/clas" method="post">
+<form class="layui-form" style="width:80%;" id="clasForm">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">班级名</label>
 		<div class="layui-input-block">

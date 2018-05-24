@@ -18,7 +18,7 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;">
+<form class="layui-form" style="width:80%;" id="teacherForm">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">教师姓名</label>
