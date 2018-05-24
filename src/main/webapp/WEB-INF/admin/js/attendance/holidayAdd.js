@@ -8,13 +8,35 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	pos = strFullPath.indexOf(strPath),
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
-	
+	laydate.render({
+	    elem: '#startDate'
+	});
+	laydate.render({
+		elem: '#endDate'
+	});
 	laydate.render({
 	    elem: '#date',
 	    type: 'datetime',
 	    range: true
 	  });
-	
+	$.ajax({
+		type : "get",
+		url : path + "holiday/adds",
+		success : function(data) {
+			$("#claSelect").append("<option value="+data+">"+ivalue+"</option>");  
+            renderForm();//表单重新渲染，要不然添加完显示不出来新的option
+            layer.close(index);
+		},
+		error : function() {
+			setTimeout(function() {
+				top.layer.close(index);
+				top.layer.msg("异常！", {
+					icon : 2
+				});
+				layer.closeAll("iframe");
+			}, 1000);
+		}
+	});
 	form.on("submit(addUser)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
