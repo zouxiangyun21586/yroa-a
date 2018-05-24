@@ -35,6 +35,21 @@ public class AccountController  {
 	
 	private static final int THREE = 3;
 	/**
+	 * 
+	 * @author 周业好
+	 * 分页方法
+	 * @param page 当前第几页
+	 * @param limit 每页多少条
+	 * @param name 搜索条件
+	 * @return 数据json
+	 */
+	@RequestMapping(value = "queryfy", method = RequestMethod.GET)
+	public String queryFenye(int page, int limit, String name) {
+		String json = acc.getFenye(page, limit, name);
+		return json;
+	}
+	
+	/**
 	 * 添加
 	 * @param account 账户实体类
 	 * @param roleCode 角色code
