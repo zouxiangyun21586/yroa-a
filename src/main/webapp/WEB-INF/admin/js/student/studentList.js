@@ -11,7 +11,7 @@ layui.use(['table','form','tree'], function(){
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"userSelect", //请求路径
+		  url: path+"student", //请求路径
 		  limit:7,
 		  limits:[4,7,10,15],
 		  page:true,
@@ -19,22 +19,32 @@ layui.use(['table','form','tree'], function(){
 			   name:null,
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
-				{type:'numbers',title:'编号',width:50},
-				{field: 'name', title: '用户名', unresize: true},
-				{field: 'userName', title: '账号', unresize: true},
-				{field: 'passWord', title: '密码',  unresize: true},
-				{field: 'email', title: '邮箱',  unresize: true},
-				{field: 'insertTime', title: '注册时间',templet: function(d) {
-                    return d.insertTime.time;
-                }, unresize: true},
-				{field: 'status', title:'状态', width:90,align:'center', templet: function(d){
+				{field: 'name', title: '姓名', unresize: true},
+				{field: 'sex', title:'性别', width:90,align:'center', templet: function(d){
 					var state;
-					if(0==d.status){
-						state='<span style="font-size:5px;color:#009688;">可使用</span>'
-					}else if(1==d.status){
-						state='<span style="font-size:5px;color:#FFB800;">未激活</span>'
-					}else if(2==d.status){
-						state='<span style="font-size:5px;color:#ff0000;">已禁用</span>'
+					if('0'==d.sex){
+						state='女';
+					}else if('1'==d.sex){
+						state='男';
+					}else{
+						state='未知';
+					}
+					return state;
+				}, unresize: true},
+				{field: 'age', title: '年龄', unresize: true},
+				{field: 'addr', title: '家庭地址', unresize: true},
+				{field: 'birth', title: '出生年月', unresize: true},
+				{field: 'tel', title: '学生电话', unresize: true},
+				{field: 'homeTel', title: '家长电话', unresize: true},
+				{field: 'inTime', title: '入学时间', unresize: true},
+				{field: 'isFinish', title:'是否毕业', width:90,align:'center', templet: function(d){
+					var state;
+					if('1'==d.isFinish){
+						state='已毕业';
+					}else if('0'==d.isFinish){
+						state='未毕业';
+					}else{
+						state='未知';
 					}
 					return state;
 				}, unresize: true},
@@ -68,7 +78,7 @@ layui.use(['table','form','tree'], function(){
 		    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
 		    	$.ajax({
 	    	       type:"post",
-	    	       url:path+"userDelete",
+	    	       url:path+"student",
 	    	       data: {"id":obj.data.id,"_method":"DELETE"},
 	    	       success:function(data){
 	    	    	   if(200==data.code){

@@ -37,7 +37,7 @@ public class StudentController {
 	 * @param name 搜索条件
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/student")
+	@RequestMapping(value = "/student", produces = "text/json;charset=UTF-8")
 	public String queryStudent(Integer page, Integer limit, String name) {
 		String result = studentService.queryStudent(page, limit, name);
 		return result;
@@ -56,7 +56,7 @@ public class StudentController {
 	 * @param student 用来接收页面传过来的值
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/student", method = {RequestMethod.POST})
+	@RequestMapping(value = "/student", method = {RequestMethod.POST}, produces = "text/json;charset=UTF-8")
 	public String addStudent(Student student) {
 		String result = studentService.addStudent(student);
 		return result;
@@ -75,7 +75,7 @@ public class StudentController {
 	 * @describe : 根据学术id删除学生信息
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/student", method = {RequestMethod.DELETE})
+	@RequestMapping(value = "/student", method = {RequestMethod.DELETE}, produces = "text/json;charset=UTF-8")
 	public String deleteStudent(Integer id) {
 		String result = studentService.deleteStudent(id);
 		return result;

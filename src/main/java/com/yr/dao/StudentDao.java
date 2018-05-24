@@ -33,9 +33,9 @@ public interface StudentDao {
 	  * @author : 唐子壕
 	  *	
 	  * @describe : 添加学生
+	  * 
+	  * @return String  
 	  *	
-	  * @return : String 返回一个提示
-	  *
 	  * @param student 接收StudentService传过来的值
 	  */
 	 String addStudent(Student student);
@@ -49,6 +49,4 @@ public interface StudentDao {
 	  * @param id 学生id
 	  */
 	 void deleteStudent(Integer id);
-	 
-	 
 }
