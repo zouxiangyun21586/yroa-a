@@ -1,8 +1,9 @@
-layui.use(['table','form','tree'], function(){
+layui.use(['table','form','tree','laytpl'], function(){
   var table = layui.table,
   form = layui.form,
   $=layui.jquery,
   tree=layui.tree,
+  laytpl=layui.laytpl,
   strFullPath = window.document.location.href,
   	strPath = window.document.location.pathname,
 	pos = strFullPath.indexOf(strPath),
@@ -22,15 +23,11 @@ layui.use(['table','form','tree'], function(){
 				{type:'checkbox', fixed: 'left'},
 				{type:'numbers',title:'编号',width:50},
 				{field: 'name', title: '假期名称', unresize: true},
-				{field: 'startDate', title: '放假开始日期', unresize: true},
-				{field: 'endDate', title: '放假结束日期',  unresize: true},
-				{field: 'startTime', title: '放假开始时间', unresize: true},
-				{field: 'endTime', title: '放假结束时间',  unresize: true},
+				{field: 'startDate', title: '放假开始时间', unresize: true,templet: '<div>{{ layui.laytpl.toDateString(d.startDate.time) }} {{d.startTime}}</div>'},
+				{field: 'endDate', title: '放假结束时间',  unresize: true,templet: '<div>{{ layui.laytpl.toDateString(d.endDate.time) }} {{d.endTime}}</div>'},
 				{field: 'info', title: '备注',  unresize: true},
 				{field: 'classCode', title: '所属届次',  unresize: true},
-				{field: 'createTime', title: '创建时间', unresize: true, templet: function(d){
-					return layui.laytpl.toDateString(d.createTime.time);
-				}},
+				{field: 'createTime', title: '创建时间', unresize: true, templet: '<div>{{ layui.laytpl.toDateTimeString(d.createTime.time) }}</div>'},
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
 		});
@@ -118,13 +115,13 @@ layui.use(['table','form','tree'], function(){
 		  }
 		});
 		
-		 //添加用户
+		 //添加假期
 	    $(".addUser_btn").click(function(){
 	    	var index = layui.layer.open({
-				title : "添加考勤",
+				title : "添加假期",
 				type : 2,
 				anim : 5,
-				content : "attendanceAdd",
+				content : "holiday/holidayAdd",
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回',

@@ -31,7 +31,7 @@
             },{
                 "title": "假期",
                 "icon": "&#xe612;",
-                "href": "attendance/holidayAdd",
+                "href": "attendance/holiday",
                 "spread": false
             },{
                 "title": "添加考勤",

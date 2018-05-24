@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Holiday;
+import com.yr.service.ClasService;
 import com.yr.service.HolidayService;
+import com.yr.util.JsonUtils;
 
 /**
  * 假期Controller层
@@ -27,6 +29,8 @@ public class HolidayController {
 
 	@Autowired
 	private HolidayService holidayService;
+	@Autowired
+	private ClasService claService;
 	
 	/**
 	 * 查询全部假期   带分页
@@ -47,6 +51,20 @@ public class HolidayController {
 		return a;
 		
 	}
+	
+	/**
+     * 进入假期添加页面
+     * @return     届次json集合
+     * String
+     * 2018年3月1日下午10:09:29
+     */
+	@ResponseBody
+    @RequestMapping(value = "/adds")
+    public String adds() {
+//        map.put("clas", claService.query());
+//        map.put("holiday", new Holiday());
+        return JsonUtils.beanListToJson(claService.query());
+    }
 	
 	/**
 	 * 添加假期
