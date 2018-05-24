@@ -26,10 +26,7 @@
 	  #tag_ids1{
 	   width:250px;
 	  }
-	  /*多选设定表单宽度*/
-	  #tag_ids2{
-	   width:350px;
-	  }
+	  .lay-ext-mulitsel .layui-input.multiple a{background-color:#5FB878 !important;}
 	</style>
 </head>
 <body class="childrenBody">
@@ -109,15 +106,15 @@
 		<div class="layui-row layui-col-space10 panel_box">
 			<blockquote class="layui-elem-quote title">select级联/多选</blockquote>
 			<div class="layui-elem-quote layui-quote-nm history_box magb0">
-				<form class="layui-form" method="post">
+				<form class="layui-form">
 				  <div class="layui-form-item">
 						<label class="layui-form-label">分类1</label>
-						<div id="cat_ids1">			
+						<div id="cat_ids">			
 			      </div><button type="button" class="layui-btn layui-btn-normal set">点击选择</button>
 				  </div>
 				  <div class="layui-form-item">
 						<label class="layui-form-label">标签1</label>
-						<div class="layui-input-block" id="tag_ids1">
+						<div class="layui-input-block" id="tag_ids">
 			      </div>
 				  </div>
 				  <div class="layui-form-item" style="text-align:center;">
