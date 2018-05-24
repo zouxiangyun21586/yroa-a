@@ -34,20 +34,20 @@ layui.config({
         layer = parent.layer === undefined ? layui.layer : top.layer,
         element = layui.element,
 	    selectN = layui.selectN,
-	    selectM = layui.selectM;
+	    selectM = layui.selectM,
         $ = layui.jquery;
         
         //无限级分类-基本配置
         var catIns1 = selectN({
           //元素容器【必填】
-          elem: '#cat_ids1'
+          elem: '#cat_ids'
           //候选数据【必填】
           ,data: catData
         });     
         //多选标签-基本配置
         var tagIns1 = selectM({
           //元素容器【必填】
-          elem: '#tag_ids1'
+          elem: '#tag_ids'
           //候选数据【必填】
           ,data: tagData
         }); 

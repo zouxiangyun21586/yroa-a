@@ -14,18 +14,6 @@
 	<link rel="stylesheet" href="layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="css/public.css" media="all" />
 	<style>
-	  #btn-wrap{margin:100px auto;text-align:center;}
-	  form{
-	    margin:30px;
-	  }
-	  /*无限级设定表单宽度*/
-	  #cat_ids1 .layui-input-inline{
-	    width:120px;
-	  }
-	  /*多选设定表单宽度*/
-	  #tag_ids1{
-	   width:250px;
-	  }
 	  .lay-ext-mulitsel .layui-input.multiple a{background-color:#5FB878 !important;}
 	</style>
 </head>
@@ -62,10 +50,7 @@
 		<div class="layui-col-lg6 layui-col-md12">
 			<blockquote class="layui-elem-quote title">系统基本参数</blockquote>
 			<table class="layui-table magt0">
-				<colgroup>
-					<col width="150">
-					<col>
-				</colgroup>
+				<colgroup><col width="150"><col></colgroup>
 				<tbody>
 				<tr>
 					<td>当前版本</td>
@@ -108,13 +93,13 @@
 			<div class="layui-elem-quote layui-quote-nm history_box magb0">
 				<form class="layui-form">
 				  <div class="layui-form-item">
-						<label class="layui-form-label">分类1</label>
+						<label class="layui-form-label">级联下拉</label>
 						<div id="cat_ids">			
 			      </div><button type="button" class="layui-btn layui-btn-normal set">点击选择</button>
 				  </div>
 				  <div class="layui-form-item">
-						<label class="layui-form-label">标签1</label>
-						<div class="layui-input-block" id="tag_ids">
+						<label class="layui-form-label">多选下拉框</label>
+						<div class="layui-input-block" id="tag_ids" style="width:200px;">
 			      </div>
 				  </div>
 				  <div class="layui-form-item" style="text-align:center;">
@@ -123,7 +108,6 @@
 					    <button type="reset" class="layui-btn layui-btn-primary">重置</button></div>
 				  </div>
 				</form>
-			</div>
 		</div>
 	
 
