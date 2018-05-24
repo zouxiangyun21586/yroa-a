@@ -35,6 +35,8 @@ public class Holiday {
 	private String info;
 	/**创建时间*/
 	private Date createTime;
+	/**修改时间*/
+	private Date updateTime;
 	/**所属批次编码。绑定届次，空表示所有的届次都施行*/
 	private String classCode;
 	/**批次名称*/
@@ -99,6 +101,14 @@ public class Holiday {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "update_time")
+	public Date getUpdateTime()	{
+		return updateTime;
+	}
+	public void setUpdateTime(Date updateTime)	{
+		this.updateTime = updateTime;
 	}
 	@Column(name = "class_code")
 	public String getClassCode() {
