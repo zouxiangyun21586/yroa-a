@@ -28,7 +28,9 @@ layui.use(['table','form','tree'], function(){
 				{field: 'endTime', title: '放假结束时间',  unresize: true},
 				{field: 'info', title: '备注',  unresize: true},
 				{field: 'classCode', title: '所属届次',  unresize: true},
-				{field: 'createTime', title: '创建时间', unresize: true},
+				{field: 'createTime', title: '创建时间', unresize: true, templet: function(d){
+					return layui.laytpl.toDateString(d.createTime.time);
+				}},
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
 		});
