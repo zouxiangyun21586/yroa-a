@@ -11,6 +11,12 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	laydate.render({
 	    elem: '#year'
 	});
+	laydate.render({
+		elem: '#entranceYear'
+	});
+	form.on('select(year)', function(data){
+		 $(":select[name='year']").val(data.value);
+	});
 	form.on("submit(addUser)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
@@ -19,8 +25,8 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		});
 			$.ajax({
 				type : "post",
-				url : path+"userInsert",
-				data : $('#UserForm').serialize(),
+				url : path+"clas",
+				data : $('#clasForm').serialize(),
 				success : function(data) {
 					if (0 == data.code) {
 						setTimeout(function() {

@@ -42,7 +42,7 @@ public class ClasDaoImpl implements ClasDao {
 		
 		Clas cla = new Clas();
 		cla.setName(clas.getName()); // 此届 批次名
-		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数) 
+		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数)
 //		String strCode = (String) entityManager.createNativeQuery("select max(code) from yr_clas")
 //				.getSingleResult(); 
 // 不需要页面传值过来,在后台算出code最大值后+1 成为要存入的code值    这里是添加届次 老师是已存在的所以直接获取页面上传过来的值就好

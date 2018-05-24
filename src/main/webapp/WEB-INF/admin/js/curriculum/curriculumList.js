@@ -30,12 +30,12 @@ layui.use(['table','form','tree'], function(){
 //                }, unresize: true},
 				{field: 'isFinish', title:'是否毕业', width:90,align:'center', templet: function(d){
 					var gdt;
-					if(1==d.gdt){
-						state='<span style="font-size:5px;color:#009688;">毕业</span>'
+					if(1==d.isFinish){
+						gdt='<span style="font-size:5px;color:#009688;">详情</span>'
 					}else{
-						state='<span style="font-size:5px;color:#FFB800;">详情</span>'
+						gdt='<span style="font-size:5px;color:#FFB800;">毕业</span>'
 					}
-					return state;
+					return gdt;
 				}, unresize: true},
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
@@ -46,7 +46,7 @@ layui.use(['table','form','tree'], function(){
 			if($(".searchVal").val() != ''){
 				table.reload('demo',{
 					where: {
-					   name:$(".searchVal").val()
+					   year:$(".searchVal").val()
 					 },page:{
 						 curr:1
 					 }
