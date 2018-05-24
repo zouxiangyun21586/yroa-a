@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yr.dao.StudentDao;
 import com.yr.entity.Student;
+import com.yr.util.AgeUtils;
 import com.yr.util.PageUtil;
 
 
@@ -55,11 +56,11 @@ public class StudentDaoImpl implements StudentDao {
 			if (null  != name && !"".equals(name)) {
 				studentList = entityManager.createQuery(jpql)
 						.setMaxResults(limit).setFirstResult((page - 1) * limit)
-						.setParameter("name", "" + name + "%").getResultList();
+						.setParameter("name", "%" + name + "%").getResultList();
 				count = Integer
 				.parseInt(entityManager
-				 .createNativeQuery("select count(*) from yr_student name like :name ")
-				   .setParameter("name", "" + name + "%").getSingleResult().toString());
+				 .createNativeQuery("select count(*) from yr_student where name like :name ")
+				   .setParameter("name", "%" + name + "%").getSingleResult().toString());
 			} else {
 				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
 						.setMaxResults(limit).getResultList();
@@ -126,6 +127,7 @@ public class StudentDaoImpl implements StudentDao {
 				student.setBirth(birth);
 				student.setCode(code);
 				student.setSex(sex);
+				student.setAge(AgeUtils.birthTime(birth));
 				student.setYear(year);
 				student.setTel(tel);
 				student.setAddr(addr);
