@@ -42,7 +42,9 @@ public class HolidayController {
     @RequestMapping(value = "/getHoliday", method = RequestMethod.GET)
 	public String getTest(int page, int limit, String name, HttpServletRequest request) {
 		
-		return holidayService.getHoliday(page, limit, name);
+		String a = holidayService.getHoliday(page, limit, name);
+		
+		return a;
 		
 	}
 	

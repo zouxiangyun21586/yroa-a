@@ -69,7 +69,7 @@ public class HolidayDaoImpl implements HolidayDao {
                 list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
                         .setMaxResults(limit).getResultList();
                 count = Integer.parseInt(entityManager
-                       .createNativeQuery("SELECT COUNT(*) FROM Holiday").getSingleResult().toString());
+                       .createNativeQuery("SELECT COUNT(*) FROM yr_holiday").getSingleResult().toString());
             }
             pageUtil = new PageUtil(limit, page, count);
             pageUtil.setCount(count);
@@ -81,7 +81,7 @@ public class HolidayDaoImpl implements HolidayDao {
             pageUtil.setMsg("-----出错啦-----");
             e.printStackTrace();
         }
-        return JsonUtils.beanToJson(pageUtil, new String[] {}, false);
+        return JsonUtils.beanToJson(pageUtil);
     }
 	
 	/**

@@ -8,8 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 假期实体类
@@ -57,7 +57,7 @@ public class Holiday {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "start_date", nullable = false, length = 10)
 	public Date getStartDate() {
 		return startDate;
@@ -65,7 +65,7 @@ public class Holiday {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "end_date", nullable = false, length = 10)
 	public Date getEndDate() {
 		return endDate;
@@ -94,7 +94,7 @@ public class Holiday {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "create_time")
 	public Date getCreateTime() {
 		return createTime;
@@ -102,7 +102,7 @@ public class Holiday {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "update_time")
 	public Date getUpdateTime()	{
 		return updateTime;
