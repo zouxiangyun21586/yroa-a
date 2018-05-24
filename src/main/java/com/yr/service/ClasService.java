@@ -52,9 +52,12 @@ public interface ClasService {
 	 * 
 	 * 2018年5月22日 下午5:39:08
 	 * 
-	 * @return 返回届次集合
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param year 分页条件
+	 * @return PageUtil
 	 */
-	List<Clas> query();
+	String query(Integer page, Integer limit, String year);
 	
 	/**
 	 * 
