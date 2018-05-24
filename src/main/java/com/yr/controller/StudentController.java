@@ -72,7 +72,7 @@ public class StudentController {
 	 *
 	 * @param id 学生id
 	 * 
-	 * @describe : 根据学术id删除学生信息
+	 * @describe : 根据学生id删除学生信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/student", method = {RequestMethod.DELETE}, produces = "text/json;charset=UTF-8")
@@ -80,6 +80,48 @@ public class StudentController {
 		String result = studentService.deleteStudent(id);
 		return result;
 	}
+	
+	/**
+	 * 
+	 * @Date : 2018年5月24日下午5:42:55
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : String
+	 *
+	 * @describe : 根据学生id修改学生信息
+	 *
+	 * @param id 学生id
+	 * 
+	 * @param student 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/student", method = {RequestMethod.PUT}, produces = "text/json;charset=UTF-8")
+	public String updateStudent(Integer id, Student student) {
+		String result = studentService.updateStudent(id, student);
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @Date : 2018年5月24日下午7:12:54
+	 * 
+	 * @author : 唐子壕 
+	 *	
+	 * @return : String 
+	 *
+	 * @param id 学生code 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updateDisplay", produces = "text/json;charset=UTF-8")
+	public String updateDisplay(Integer id) {
+		String result = studentService.updateDisplay(id);
+		return result;
+	}
+	
+	
+	
+	
 	
 	 
 }

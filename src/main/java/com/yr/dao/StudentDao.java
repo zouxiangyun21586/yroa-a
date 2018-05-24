@@ -49,4 +49,29 @@ public interface StudentDao {
 	  * @param id 学生id
 	  */
 	 void deleteStudent(Integer id);
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月24日下午7:23:50
+	  * 
+	  * @author : 唐子壕 
+	  *	
+	  * @return : String 
+	  * 
+	  * @param id 
+	  */
+	 Student updateDisplay(Integer id);
+	 
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月24日下午8:24:39
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @param id 
+	  * 
+	  * @param student 
+	  */
+	 void updateStudent(Integer id, Student student);
 }

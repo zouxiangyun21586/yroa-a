@@ -24,7 +24,7 @@
 						<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
 					</div>
 					<div class="layui-inline">
-						<a class="layui-btn layui-btn-normal addUser_btn">添加学生</a>
+						<a class="layui-btn layui-btn-normal addStudent_btn">添加学生</a>
 					</div>
 				</div>
 			</form>
