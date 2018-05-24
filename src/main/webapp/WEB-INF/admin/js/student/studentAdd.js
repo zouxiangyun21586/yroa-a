@@ -14,7 +14,10 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	laydate.render({
 		elem: '#entranceYear'
 	});
-	form.on("submit(addUser)", function(data) {
+	form.on('select(year)', function(data){
+		 $(":select[name='year']").val(data.value);
+	});   
+	form.on("submit(add)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
 			time : false,
@@ -22,8 +25,8 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		});
 			$.ajax({
 				type : "post",
-				url : path+"userInsert",
-				data : $('#UserForm').serialize(),
+				url : path+"student",
+				data : $('#studentForm').serialize(),
 				success : function(data) {
 					if (0 == data.code) {
 						setTimeout(function() {
@@ -55,20 +58,4 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 			});
 		return false;
 	});
-	 form.verify({
-   	  username: function(value, item){ //value：表单的值、item：表单的DOM对象
-   	    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-   	      return '用户名不能有特殊字符';
-   	    }
-   	    if(/(^\_)|(\__)|(\_+$)/.test(value)){
-   	      return '用户名首尾不能出现下划线\'_\'';
-   	    }
-   	    if(/^\d+\d+\d$/.test(value)){
-   	      return '用户名不能全为数字';
-   	    }
-   	    if(/^[\S]{6,12}$/.test(value)){
-   	    	return '用户名必须6到12位，且不能出现空格';
-   	    }
-   	  }
-   	});
 });
