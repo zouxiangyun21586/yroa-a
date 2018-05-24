@@ -112,7 +112,7 @@ public class Account {
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
     }
-
+    @Column(name = "id_admin")
     public String getIsAdmin() {
         return isAdmin;
     }
