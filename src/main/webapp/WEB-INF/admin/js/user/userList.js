@@ -12,7 +12,7 @@ layui.use(['table','form','tree'], function(){
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"queryfy", //请求路径
+		  url: path+"acc/queryfy", //请求路径
 		  limit:7,
 		  limits:[10,15,20],
 		  page:true,

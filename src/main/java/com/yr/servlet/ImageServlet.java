@@ -1,4 +1,4 @@
-package com.java.servlet;
+package com.yr.servlet;
 
 import java.io.IOException;
 

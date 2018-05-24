@@ -124,6 +124,6 @@ public class AccountDaoImpl implements AccountDao {
             pageUtil.setMsg("-----出错啦-----");
             e.printStackTrace();
         }
-        return JsonUtils.beanToJson(pageUtil, new String[] {"roles" }, false);
+        return JsonUtils.beanToJson(pageUtil, new String[] {"usersRoleItems" }, false);
     }
 }

@@ -1,5 +1,6 @@
 package com.yr.entity;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -29,7 +30,7 @@ import javax.persistence.Transient;
 @Cacheable(true)
 @Table(name = "yr_account")
 @Entity
-public class Account {
+public class Account implements Serializable {
 	/**
 	 * 用户编号
 	 */
@@ -68,7 +69,6 @@ public class Account {
     private Date updateTime;
     
     private Set<Role> usersRoleItems = new HashSet<>();
-	private String strRole = "";
 	private String createTimeStr = "";
     private String updateTimeStr = "";
 
@@ -112,7 +112,7 @@ public class Account {
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
     }
-    @Column(name = "id_admin")
+    @Column(name = "is_admin")
     public String getIsAdmin() {
         return isAdmin;
     }
@@ -151,14 +151,6 @@ public class Account {
 	}
 	public void setUsersRoleItems(Set<Role> usersRoleItems) {
 		this.usersRoleItems = usersRoleItems;
-	}
-	@Transient
-	public String getStrRole() {
-		return strRole;
-	}
-
-	public void setStrRole(String strRole) {
-		this.strRole = strRole;
 	}
 	/**
 	 * 得到创建时间 的字符串
