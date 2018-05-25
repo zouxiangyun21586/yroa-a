@@ -1,5 +1,8 @@
 package com.yr.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 代码工具类
  * @author Administrator
@@ -71,5 +74,23 @@ public final class CodeUtils {
 		Long a = Math.round(Math.random() * (max - min) + min);
 		return a;
 	}
-	 
+	
+	/**
+	 * 编号 +1 工具方法
+	 * @author 周业好
+	 * @param code 你要 +1的编号
+	 * @return +1后的结果编号
+	 */
+	public static String codeConvert(String code) {
+		String regEx = "[^0-9]";  
+		String re = "[^A-Z]";
+		Pattern p = Pattern.compile(regEx);
+		Matcher m = p.matcher(code);
+		Pattern p1 = Pattern.compile(re);
+		Matcher m1 = p1.matcher(code);
+		String zimu = m1.replaceAll("").trim();
+		Integer i = Integer.valueOf(m.replaceAll("").trim());
+		i = i + 1;
+		return zimu + i;
+	}
 }

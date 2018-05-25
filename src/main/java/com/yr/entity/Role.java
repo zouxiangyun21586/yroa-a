@@ -52,11 +52,17 @@ public class Role implements Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
+	
+	/**
+     * 最后修改时间
+     */
+    private Date updateTime;
 	private Set<Auth> rolePermItems = new HashSet<>();
 	private Set<Account> roleUsersItems = new HashSet<>();
 	
 	
 	private String createTimeStr = "";
+	private String updateTimeStr = "";
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
@@ -106,6 +112,15 @@ public class Role implements Serializable {
 		this.createTime = createTime;
 	}
 	
+	@Column(name = "updateTime")
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "yr_role_auth",
 	joinColumns = @JoinColumn(name = "role_code", referencedColumnName = "code"),
@@ -142,6 +157,23 @@ public class Role implements Serializable {
 		this.createTimeStr = createTimeStr;
 	}
 
+	/**
+	 * 得到最后修改时间 的字符串
+	 * @return 时间的字符串
+	 */
+	@Transient
+	public String getUpdateTimeStr() {
+		String fmt = "yyyy-MM-dd E HH:mm:ss";
+		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
+		String dateStr = sdf.format(updateTime);
+		updateTimeStr = dateStr;
+		return updateTimeStr;
+	}
+
+	public void setUpdateTimeStr(String updateTimeStr) {
+		this.updateTimeStr = updateTimeStr;
+	}
+	
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", name=" + name + ", code=" + code

@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yr.entity.Account;
-import com.yr.service.AccountService;
+import com.yr.entity.Role;
+import com.yr.service.RoleService;
 
 /**
  * 用户Conntroller
@@ -32,7 +32,7 @@ import com.yr.service.AccountService;
 @RequestMapping(value  =  "role")
 public class RoleController  {
 	@Autowired
-	private AccountService acc;
+	private RoleService role;
 	
 	private static final int THREE = 3;
 	/**
@@ -47,7 +47,7 @@ public class RoleController  {
 	@ResponseBody
 	@RequestMapping(value = "queryfy", produces = "text/json;charset=UTF-8")
 	public String queryFenye(int page, int limit, String name) {
-		String json = acc.getFenye(page, limit, name);
+		String json = role.getFenye(page, limit, name);
 		return json;
 	}
 	/**
@@ -58,21 +58,21 @@ public class RoleController  {
 	@ResponseBody
 	@RequestMapping(value = "qrole", produces = "text/json;charset=UTF-8")
 	public String queryRoleAll() {
-		String json = acc.queryRoleAll();
+		String json = role.queryRoleAll();
 		return json;
 	}
 	
 	/**
-	 * 添加  (多余功能,作废)
-	 * @param account 账户实体类
+	 * 添加  
+	 * @param ro 账户实体类
 	 * @param code 角色code
 	 * @return json
 	 */
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	//@Valid   BindingResult result
-	public String addId(Account account, String code) {
-		return acc.addId(account, code);
+	public String addId(Role ro, String code) {
+		return role.addId(ro, code);
 	}
 	/**
 	 * 删除
@@ -83,8 +83,8 @@ public class RoleController  {
 	@RequestMapping(value = "/del/{id}", method = RequestMethod.DELETE)
 	public void del(@PathVariable(value = "id") Integer i, HttpServletRequest request, HttpServletResponse resp) {
 		String pagesize = request.getParameter("pagesize");
-//		acc.delAccRole(i); //解除关系
-//		int z = acc.del(i); //删除
+//		role.delroleRole(i); //解除关系
+//		int z = role.del(i); //删除
 //		if (0 == z) {
 //			mo.addAttribute("z", "删除失败,没有这个编号");
 //		}
@@ -97,13 +97,13 @@ public class RoleController  {
 	
 	/**
 	 * 修改账户信息
-	 * @param account 3
+	 * @param ro 3
 	 * @param result 2 
 	 * @param map 1
 	 * @return modelandview
 	 */
 	@RequestMapping(value = "upda", method = RequestMethod.PUT)
-	public ModelAndView upd(@Valid @ModelAttribute("accou")Account account, BindingResult result, 
+	public ModelAndView upd(@Valid @ModelAttribute("roleou")Role ro, BindingResult result, 
 			Map<String, Object>map) {
 		ModelAndView mv = new ModelAndView();
 		if (result.getErrorCount() > 0) {
@@ -114,12 +114,12 @@ public class RoleController  {
                 	String er = allError.getDefaultMessage();
                 }
 //                map.put("user", y);
-                map.put("accou", account);
+                map.put("roleou", ro);
                 mv.setViewName("update");
                 return mv;
             }
         }
-		int i  = acc.upd(account);
+		int i  = role.upd(ro);
 		if (0 == i) {
 			mv.addObject("z", "修改失败,检查输入");
 		}
@@ -134,7 +134,7 @@ public class RoleController  {
 	 */ 
 	@RequestMapping(value = "upd_echo")
 	public String query(@PathVariable(value = "id")Integer i, Map<String, Object> map) {
-		Account e = acc.query(i);
+		Role e = role.query(i);
 		map.put("users", e);
 		return "update";
 	}
@@ -150,7 +150,7 @@ public class RoleController  {
 	 */
 	@RequestMapping(value = "/updatePass", method = RequestMethod.POST)
 	public void updatePass(String oldpassword, Integer id, String passW, String userN, HttpServletResponse resp) {
-		String val = acc.updatePass(oldpassword, userN, id, passW);
+		String val = role.updatePass(oldpassword, userN, id, passW);
 		try {
 			resp.getWriter().write(val);
 		} catch (IOException e) {
@@ -166,7 +166,7 @@ public class RoleController  {
 	@ResponseBody
 	@RequestMapping(value = "reset", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
 	public String resetPassWord(String username) {
-		return acc.resetPassWord(username);
+		return role.resetPassWord(username);
 	}
 	 /**
      * 启用停用
@@ -177,6 +177,6 @@ public class RoleController  {
 	@ResponseBody
 	@RequestMapping(value = "switchs", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
 	public String kaiguan(String name) {
-		return acc.kaiguan(name);
+		return role.kaiguan(name);
 	}
 }
