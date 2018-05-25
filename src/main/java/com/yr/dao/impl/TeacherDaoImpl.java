@@ -52,8 +52,11 @@ public class TeacherDaoImpl implements TeacherDao {
 		tch.setTel(teacher.getTel());
 		tch.setAddr(teacher.getAddr());
 		tch.setInTime(teacher.getInTime());
-		tch.setLevel(teacher.getIsLeave());
+		tch.setLevel(levelMothed(teacher.getLevel()));
 		tch.setInfo(teacher.getInfo());
+		tch.setIsLeave("");
+		tch.setCreateTime(new Date());
+		tch.setTeacherAccount(teacher.getTeacherAccount());
 		entityManager.persist(tch); // 老师code  age需要算
 		
 		} catch (Exception e) {
@@ -61,6 +64,31 @@ public class TeacherDaoImpl implements TeacherDao {
 		}
 	}
 
+	/**
+	 * 教学等级
+	 * @author zxy
+	 * 
+	 * 2018年5月25日 下午5:44:37
+	 * 
+	 * @param level 等级参数
+	 * @return 教师等级
+	 */
+	public static String levelMothed(String level) {
+		String lev = "";
+		if (level.equals("UI")) {
+			lev = level;
+		} else if (level.equals("DBA")) {
+			lev = level;
+		} else if (level.equals("DEVELE")) {
+			lev = level;
+		} else if (level.equals("DEVMID")) {
+			lev = level;
+		} else if (level.equals("DEVHIG")) {
+			lev = level;
+		}
+		return lev;
+	}
+	
 	/**
 	 * 获取届次编号
 	 * @author zxy

@@ -44,7 +44,7 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">教师等级</label>
 			<div class="layui-input-block">
-				<select lay-filter="teacherCode" name="teacherCode">
+				<select lay-filter="level" name="level">
 					<option value="DEVHIG">高级</option>
 					<option value="DEVMID">中级</option>
 					<option value="DEVELE">初级</option>
@@ -57,6 +57,12 @@
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
 				<input class="layui-input" placeholder="请输入手机号" name="tel" id="tel">
+			</div>
+		</div>
+		<div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">账户名</label>
+			<div class="layui-input-block">
+				<input class="layui-input" placeholder="请输入账户名" name="teacherAccount" id="teacherAccount">
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">

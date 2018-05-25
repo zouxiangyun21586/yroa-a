@@ -20,7 +20,7 @@ public interface ClasService {
 	 * 2018年5月22日 下午5:39:38
 	 * 
 	 * @param clas 届次实体类
-	 * @return Boolean值  判断添加是否成功  true: 成功  false: 失败回滚
+	 * @return String
 	 */
 	Boolean add(Clas clas);
 	
@@ -31,7 +31,7 @@ public interface ClasService {
 	 * 2018年5月22日 下午5:39:29
 	 * 
 	 * @param clas 届次对象
-	 * @return Boolean值 便于判断是否修改成功
+	 * @return String
 	 */
 	Boolean update(Clas clas);
 	
@@ -42,7 +42,7 @@ public interface ClasService {
 	 * 2018年5月22日 下午5:39:17
 	 * 
 	 * @param clas 届次对象
-	 * @return Boolean值 便于判断是否删除成功
+	 * @return Boolean
 	 */
 	Boolean delete(Clas clas);
 	
@@ -55,7 +55,7 @@ public interface ClasService {
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param name 分页条件
-	 * @return String
+	 * @return Boolean
 	 */
 	String query(Integer page, Integer limit, String name);
 	
