@@ -47,13 +47,30 @@ public class ClasDaoImpl implements ClasDao {
 		cla.setCreateTime(new Date()); // 创建时间(获取当前时间)
 		cla.setTeacherCode(clas.getTeacherCode()); // 设置这批届次老师的code(获取页面上填写的老师code)
 		String strName = (String) entityManager
-				.createNativeQuery("select teacher_name from yr_clas where teacher_code = ?1")
+				.createNativeQuery("select DISTINCT teacher_name from yr_clas where teacher_code = ?1")
 				.setParameter(1, clas.getTeacherCode()).getSingleResult();
 		cla.setTeacherName(strName); // 设置这批届次老师的名字(获取页面上填写的老师code获取到老师名字)
+		cla.setIsFinish(ifs(clas.getIsFinish()));
 		cla.setStartTime(clas.getStartTime());
 		entityManager.persist(cla);
 	}
 
+	/**
+	 * 是否是毕业生
+	 * 
+	 * @author zxy
+	 * @param aps 参数
+	 * @return String
+	 * 2018年5月25日下午8:37:46
+	 */
+	public String ifs(String aps) {
+		String cs = "0";
+		if (aps.equals("1")) {
+			cs = aps;
+		}
+		return cs;
+	}
+	
 	/**
 	 * 获取届次编号
 	 * @author zxy
@@ -67,12 +84,12 @@ public class ClasDaoImpl implements ClasDao {
 		String jpql = "select count(*) from yr_clas";
 		String value = entityManager.createNativeQuery(jpql).getSingleResult().toString();
 		if ("0".equals(value)) { // 如果数据中没有值 那么编号默认从 C1001 开始
-			code = "C1001";
+			code = "1001";
 		} else { // 如果数据库中有值 那么将最大code 数查出 加1 成为下一个code数
 			String sql = "select max(`code`)  from yr_clas";
 			String sqlCode = entityManager.createNativeQuery(sql).getSingleResult().toString();
-			Integer integer = Integer.valueOf(sqlCode.substring(1)) + 1;
-			code = "C" + integer;
+			Integer integer = Integer.parseInt(sqlCode) + 1;
+			code = String.valueOf(integer);
 		}
 		return code;
 	}
