@@ -1,5 +1,6 @@
 package com.yr.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import com.yr.util.EncryptUtils;
 import net.sf.json.JSONObject;
 
 /**
- * 用户service 是实现类
+ * 角色service 是实现类
  * @author 周业好
  * 2018年5月22日 上午10:53:21
  */
@@ -26,44 +27,35 @@ public class RoleServiceImpl implements RoleService {
 	
 	/**
 	 * 添加
-	 * @param emp 用户对象
-	 * @param code 角色code
+	 * @param emp 角色对象
 	 * @return 操作是否成功
 	 */
-	public String addId(Role emp, String code) {
-//		Map<String, Object> map = new HashMap<>(); 
-//		try {
-//			String breaMi = EncryptUtils.encryptBASE64(emp.getPassword().getBytes()); //BASE64位加密
-//			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
-//			emp.setCreateTime(new Date()); //添加开始时间
-//			emp.setUpdateTime(new Date()); //添加最后修改时间
-//			emp.setPassword(mdFiveMi);
-//			emp.setStatus("0");
-//			if ("否".equals(emp.getIsAdmin())) {
-//				emp.setIsAdmin("false");
-//			} else {
-//				emp.setIsAdmin("true");
-//			}
-//			int z = accDao.addId(emp, code);
-//			if (1 == z) {
-//				map.put("code", 0);
-//				map.put("msg", "添加成功");
-//			} else {
-//				map.put("code", 1);
-//				map.put("msg", "错误,id已存在");
-//			}
-//		} catch (Exception e) {
-//			map.put("code", 1);
-//			map.put("msg", "添加失败");
-//			e.printStackTrace();
-//		}
-//		
-//		return JSONObject.fromObject(map).toString();
-		return "";
+	public String addId(Role emp) {
+		Map<String, Object> map = new HashMap<>(); 
+		try {
+			emp.setCreateTime(new Date()); //添加开始时间
+			emp.setUpdateTime(new Date()); //添加最后修改时间
+			
+			emp.setUse(0);
+			int z = accDao.addId(emp);
+			if (1 == z) {
+				map.put("code", 0);
+				map.put("msg", "添加成功");
+			} else {
+				map.put("code", 1);
+				map.put("msg", "错误,id已存在");
+			}
+		} catch (Exception e) {
+			map.put("code", 1);
+			map.put("msg", "添加失败");
+			e.printStackTrace();
+		}
+		
+		return JSONObject.fromObject(map).toString();
 	}
 	/**
 	 * 删除
-	 * @param i 用户编号
+	 * @param i 角色编号
 	 * @return 是否操作成功
 	 */
 	public int del(Integer i) {
@@ -72,7 +64,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 	/**
 	 * 修改
-	 * @param emp 用户对象
+	 * @param emp 角色对象
 	 * @return 操作是否成功
 	 */
 	public int upd(Role emp) {
@@ -94,8 +86,8 @@ public class RoleServiceImpl implements RoleService {
 	}
 	/**
 	 * 查询单个
-	 * @param i 用户id
-	 * @return 查出的用户对象
+	 * @param i 角色id
+	 * @return 查出的角色对象
 	 */
 	public Role query(Integer i) {
 		Role acc = accDao.query(i);

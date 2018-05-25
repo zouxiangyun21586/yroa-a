@@ -11,10 +11,9 @@ public interface RoleDao {
 	/**
 	 * 添加
 	 * @param emp 用户对象
-	 * @param code 角色code
 	 * @return 操作是否成功
 	 */
-	int addId(Role emp, String code);
+	int addId(Role emp);
 	/**
 	 * 删除
 	 * @param i 用户编号

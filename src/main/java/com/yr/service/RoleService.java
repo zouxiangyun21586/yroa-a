@@ -3,27 +3,26 @@ package com.yr.service;
 import com.yr.entity.Role;
 
 /**
- * 用户service实现类
+ * 角色service实现类
  * @author 周业好
  * 2018年5月22日 上午10:53:54
  */
 public interface RoleService {
 	/**
 	 * 添加
-	 * @param emp 用户对象
-	 * @param code 角色code
+	 * @param emp 角色对象
 	 * @return 操作是否成功
 	 */
-	String addId(Role emp, String code);
+	String addId(Role emp);
 	/**
 	 * 删除
-	 * @param i 用户编号
+	 * @param i 角色编号
 	 * @return 是否操作成功
 	 */
 	int del(Integer i);
 	/**
 	 * 修改
-	 * @param emp 用户对象
+	 * @param emp 角色对象
 	 * @return 操作是否成功
 	 */
 	int upd(Role emp);
@@ -39,8 +38,8 @@ public interface RoleService {
 	String updatePass(String oldpassword, String userN, Integer id, String passW);
 	/**
 	 * 查询单个
-	 * @param i 用户id
-	 * @return 查出的用户对象
+	 * @param i 角色id
+	 * @return 查出的角色对象
 	 */
 	Role query(Integer i);
 	

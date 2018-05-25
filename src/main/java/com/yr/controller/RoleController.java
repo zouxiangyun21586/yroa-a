@@ -64,15 +64,14 @@ public class RoleController  {
 	
 	/**
 	 * 添加  
-	 * @param ro 账户实体类
-	 * @param code 角色code
+	 * @param ro 角色实体类
 	 * @return json
 	 */
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	//@Valid   BindingResult result
-	public String addId(Role ro, String code) {
-		return role.addId(ro, code);
+	public String addId(Role ro) {
+		return role.addId(ro);
 	}
 	/**
 	 * 删除
@@ -96,7 +95,7 @@ public class RoleController  {
 	}
 	
 	/**
-	 * 修改账户信息
+	 * 修改角色信息
 	 * @param ro 3
 	 * @param result 2 
 	 * @param map 1
@@ -168,7 +167,7 @@ public class RoleController  {
 	public String resetPassWord(String username) {
 		return role.resetPassWord(username);
 	}
-	 /**
+	/**
      * 启用停用
      * @author 周业好
      * @param name 账号
