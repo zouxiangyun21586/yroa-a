@@ -20,7 +20,7 @@
                 "icon": "&#xe612;",
                 "href": "auth/authList",
                 "spread": false
-            },
+            }
 		]
 	},{
         "title": "考勤管理",
