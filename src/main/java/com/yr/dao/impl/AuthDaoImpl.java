@@ -41,15 +41,6 @@ public class AuthDaoImpl implements AuthDao {
 			return i;
 		}
 		Role r = (Role) em.createQuery("from Role r where r.code=?").setParameter(0, code).getSingleResult();
-		if (r != null && !"".equals(r)) {
-			if ("老师".equals(r.getName())) {
-				users.setType("T");
-			} else if ("学生".equals(r.getName())) {
-				users.setType("S");
-			} else {
-				users.setType("P");
-			}
-		}
 		users.getUsersRoleItems().add(r);
 		em.persist(users);
 		return 1;
