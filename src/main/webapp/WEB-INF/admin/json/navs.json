@@ -10,7 +10,17 @@
 				"icon": "&#xe612;",
 				"href": "user/userList",
 				"spread": false
-			}
+			},{
+                "title": "角色管理",
+                "icon": "&#xe612;",
+                "href": "role/roleList",
+                "spread": false
+            },{
+                "title": "权限管理",
+                "icon": "&#xe612;",
+                "href": "auth/authList",
+                "spread": false
+            },
 		]
 	},{
         "title": "考勤管理",
