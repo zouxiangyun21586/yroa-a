@@ -63,19 +63,13 @@ layui.use(['table','form','tree'], function(){
 		
 		//搜索
 		$(".search_btn").on("click",function(){
-			if($(".searchVal").val() != ''){
-				table.reload('demo',{
-					where: {
-					   name:$(".searchVal").val()
-					 },page:{
-						 curr:1
-					 }
-				});
-			}else{
-                layui.layer.tips('请输入内容', '.searchVal', {
-                    tips: 3
-                });
-			}
+			table.reload('demo',{
+				where: {
+				   name:$(".searchVal").val()
+				 },page:{
+					 curr:1
+				 }
+			});
 		});
 		
 		 //监听工具条
