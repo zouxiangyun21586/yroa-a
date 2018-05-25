@@ -14,7 +14,7 @@ public interface AccountService {
 	 * @param code 角色code
 	 * @return 操作是否成功
 	 */
-	int addId(Account emp, String code);
+	String addId(Account emp, String code);
 	/**
 	 * 删除
 	 * @param i 用户编号
@@ -52,4 +52,27 @@ public interface AccountService {
 	 * @return json
 	 */
     String getFenye(int page, int limit, String name);
+    
+    /**
+     * 查询所有的角色
+     * @author 周业好
+     * @return json
+     */
+    String queryRoleAll();
+    
+    /**
+     * 重置密码
+     * @author 周业好
+     * @param name 账号
+     * @return json
+     */
+    String resetPassWord(String name);
+    
+    /**
+     * 启用停用
+     * @author 周业好
+     * @param name 账号
+     * @return json
+     */
+    String kaiguan(String name);
 }

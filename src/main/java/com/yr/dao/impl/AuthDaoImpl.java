@@ -10,7 +10,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.yr.dao.AccountDao;
+import com.yr.dao.AuthDao;
 import com.yr.entity.Account;
 import com.yr.entity.Role;
 import com.yr.util.JsonUtils;
@@ -23,7 +23,7 @@ import com.yr.util.PageUtil;
  * 2018年5月22日 上午10:52:12
  */
 @Repository
-public class AuthDaoImpl implements AccountDao {
+public class AuthDaoImpl implements AuthDao {
 	private static final int TWO = 2;
 	@PersistenceContext
 	private EntityManager em;
