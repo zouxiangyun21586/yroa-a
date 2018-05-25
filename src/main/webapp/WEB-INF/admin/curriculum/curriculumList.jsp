@@ -44,7 +44,6 @@
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>毕业</a></li>
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>进度</a></li>
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>详情</a></li>
-		  <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除用户</a></li>
       </ul>
   </div>
 </script>

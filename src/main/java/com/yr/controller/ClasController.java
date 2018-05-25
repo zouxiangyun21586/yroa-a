@@ -108,8 +108,8 @@ public class ClasController {
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return Json格式的String数据
 	 */
-	@RequestMapping(value = "/getClas", method = RequestMethod.GET)
-	public @ResponseBody String get(String code, ModelMap map) {
+	@RequestMapping(value = "/getClasOnly?code", method = RequestMethod.GET)
+	public @ResponseBody String get(ModelMap map, @PathVariable(value = "code") String code) {
 		Clas listUser = clasService.get(code);
 		String str = JsonUtils.beanToJson(listUser);
 		return str;

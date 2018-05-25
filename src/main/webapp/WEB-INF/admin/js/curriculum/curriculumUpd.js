@@ -8,15 +8,14 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	pos = strFullPath.indexOf(strPath),
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
-	laydate.render({
-	    elem: '#year'
-	});
-	laydate.render({
-		elem: '#entranceYear'
-	});
-	form.on('select(year)', function(data){
-		 $(":select[name='year']").val(data.value);
-	});
+		
+	$.getUrlParam = function (name) {  
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
+		var r = window.location.search.substr(1).match(reg);  //匹配目标参数  
+		if (r != null) return decodeURI(r[2]); return null; //返回参数值  
+	}
+	$.getUrlParam('code');
+	
 	form.on("submit(addUser)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
@@ -26,7 +25,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 			$.ajax({
 				type : "post",
 				url : path+"clas",
-				data : $('#clasUpdForm').serialize(),
+				data : {"#clasUpdForm":$('#clasUpdForm').serialize(),"_method":"PUT","#teacherCode":data.teacherCode},
 				success : function(data) {
 					if (0 == data.code) {
 						setTimeout(function() {

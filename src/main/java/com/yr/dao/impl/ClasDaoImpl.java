@@ -88,14 +88,14 @@ public class ClasDaoImpl implements ClasDao {
 	@Override
 	public void update(Clas clas) {
 		
-		Clas c = entityManager.find(Clas.class, clas.getTeacherCode());
+		Clas c = entityManager.getReference(Clas.class, clas.getCode());
 		
-		Integer id = clas.getId();
+		String teacherCode = clas.getTeacherCode();
 		String teacherName = clas.getTeacherName();
 		entityManager.remove(c);
 		
 		Clas cl = new Clas();
-		cl.setId(id);
+		cl.setTeacherCode(teacherCode);
 		cl.setTeacherName(teacherName);
 		entityManager.merge(cl);
 		
