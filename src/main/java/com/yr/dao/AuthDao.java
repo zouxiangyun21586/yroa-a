@@ -7,7 +7,7 @@ import com.yr.entity.Account;
  * @author 周业好
  * 2018年5月22日 上午10:51:19
  */
-public interface AccountDao {
+public interface AuthDao {
 	/**
 	 * 添加
 	 * @param emp 用户对象

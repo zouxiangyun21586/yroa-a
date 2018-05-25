@@ -18,25 +18,25 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;">
+<form class="layui-form" style="width:80%;" id="accountAdd">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">昵称</label>
-			<div class="layui-input-block">
-				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入昵称">
-			</div>
-		</div>
+            <label class="layui-form-label">登录名</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" class="layui-input userName" lay-verify="required|username" placeholder="请输入登录名">
+            </div>
+        </div>
+        <div class="magb15 layui-col-md4 layui-col-xs12">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="tel" lay-verify="required|phone" placeholder="请输入正确的电话号码">
+            </div>
+        </div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">登录名</label>
-			<div class="layui-input-block">
-				<input type="text" class="layui-input userName" lay-verify="required|username" placeholder="请输入登录名">
-			</div>
-		</div>
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">性别</label>
+			<label class="layui-form-label">设为管理员?</label>
 			<div class="layui-input-block userSex">
-				<input type="radio" name="sex" value="男" title="男" checked>
-				<input type="radio" name="sex" value="女" title="女">
+				<input type="radio" name="isAdmin" value="是" title="是">
+				<input type="radio" name="isAdmin" value="否" title="否" checked>
 			</div>
 		</div>
 	</div>
@@ -44,22 +44,29 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">密码</label>
 			<div class="layui-input-block">
-				<input type="password" name="passWord" class="layui-input linksPassWrod" lay-verify="required|password" placeholder="请输入" maxlength="16">
+				<input type="password" name="password" class="layui-input linksPassWrod" lay-verify="required|password" placeholder="请输入" maxlength="16">
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">确定密码</label>
 			<div class="layui-input-block">
-				<input type="password" name="passWords" class="layui-input linksPassWrods" lay-verify="required|password" placeholder="请输入" maxlength="16">
+				<input type="password" name="passwords" class="layui-input linksPassWrods" lay-verify="required|password" placeholder="请输入" maxlength="16">
 			</div>
 		</div>
+	    <div class="magb15 layui-col-md4 layui-col-xs12">
+            <label class="layui-form-label">所属角色</label>
+            <div class="layui-input-block">
+                <select id="code" name="code" lay-verify="required">
+                </select>
+            </div> 
+        </div>
 	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
+	<!-- <div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">用户简介</label>
 		<div class="layui-input-block">
 			<textarea placeholder="请输入用户简介" class="layui-textarea userDesc"></textarea>
 		</div>
-	</div>
+	</div> -->
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
 			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">立即添加</button>

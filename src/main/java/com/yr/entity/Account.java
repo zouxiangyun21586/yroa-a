@@ -160,7 +160,7 @@ public class Account implements Serializable {
 	public String getCreateTimeStr() {
 		String fmt = "yyyy-MM-dd E HH:mm:ss";
 		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
-		String dateStr = sdf.format(createTimeStr);
+		String dateStr = sdf.format(createTime);
 		createTimeStr = dateStr;
 		return createTimeStr;
 	}
@@ -176,7 +176,7 @@ public class Account implements Serializable {
 	public String getUpdateTimeStr() {
 		String fmt = "yyyy-MM-dd E HH:mm:ss";
 		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
-		String dateStr = sdf.format(updateTimeStr);
+		String dateStr = sdf.format(updateTime);
 		updateTimeStr = dateStr;
 		return updateTimeStr;
 	}

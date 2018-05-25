@@ -1,5 +1,6 @@
 package com.yr.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 @Cacheable(true)
 @Table(name = "yr_auth")
 @Entity
-public class Auth {
+public class Auth implements Serializable {
 	private Integer id;
 	private String name;
 	private String code;
