@@ -58,7 +58,7 @@
 	},{
 		"title": "教师管理",
 		"icon": "&#xe770;",
-		"href": "teacher/teacherList",
+		"href": "teacherFolder/teacherFolderList",
 		"spread": false
 	},{
 		"title": "届次管理",
