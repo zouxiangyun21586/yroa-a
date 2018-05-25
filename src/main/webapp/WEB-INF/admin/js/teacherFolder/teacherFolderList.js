@@ -25,8 +25,8 @@ layui.use(['table','form','tree'], function(){
 			{field: 'age', title: '年龄',  unresize: true},
 			{field: 'tel', title: '电话',  unresize: true},
 			{field: 'level', title: '教学等级',  unresize: true},
-			{field: 'in_time', title: '入职时间', unresize: true},
-			{field: 'is_level', title:'是否离职', width:90,align:'center', templet: function(d){
+			{field: 'inTime', title: '入职时间', unresize: true},
+			{field: 'isLevel', title:'是否离职', width:90,align:'center', templet: function(d){
 			var state;
 			if(1==d.is_level){
 				state='<span style="font-size:5px;color:#009688;">已离职</span>'

@@ -103,7 +103,7 @@ public class TeacherDaoImpl implements TeacherDao {
 		String tel = teacher.getTel();
 		String addr = teacher.getAddr();
 		String birth = teacher.getBirth();
-		Date inTime = teacher.getInTime();
+		String inTime = teacher.getInTime();
 		String level = teacher.getLevel();
 		String isleaver = teacher.getIsLeave();
 		Date leavetime  = teacher.getLeaveTime();

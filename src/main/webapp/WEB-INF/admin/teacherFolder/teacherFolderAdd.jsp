@@ -23,7 +23,7 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">教师姓名</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入学生姓名" name="name" id="name">
+				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入教师姓名" name="name" id="name">
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
@@ -45,8 +45,11 @@
 			<label class="layui-form-label">教师等级</label>
 			<div class="layui-input-block">
 				<select lay-filter="teacherCode" name="teacherCode">
-					<option value="T1001">钟林军</option>
-					<option value="T1002">林娟娟</option>
+					<option value="DEVHIG">高级</option>
+					<option value="DEVMID">中级</option>
+					<option value="DEVELE">初级</option>
+					<option value="DBA">数据库</option>
+					<option value="UI">前台</option>
 				</select>
 			</div>
 		</div>
@@ -74,17 +77,17 @@
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">教师备注</label>
 		<div class="layui-input-block">
-			<textarea placeholder="请输入用户简介" class="layui-textarea userDesc" name="info" id="info"></textarea>
+			<textarea placeholder="请输入教师简介" class="layui-textarea userDesc" name="info" id="info"></textarea>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
-			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">立即添加</button>
+			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="add">立即添加</button>
 			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
 		</div>
 	</div>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/teacher/teacherFolderAdd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/teacherFolder/teacherFolderAdd.js"></script>
 </body>
 </html>

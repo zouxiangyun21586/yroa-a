@@ -39,7 +39,7 @@ public class Teacher {
 
 	private String addr;
 
-	private Date inTime;
+	private String inTime;
 
 	private String level;
 
@@ -119,11 +119,11 @@ public class Teacher {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "in_time")
-	public Date getInTime() {
+	public String getInTime() {
 		return inTime;
 	}
 
-	public void setInTime(Date inTime) {
+	public void setInTime(String inTime) {
 		this.inTime = inTime;
 	}
 

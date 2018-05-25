@@ -9,12 +9,44 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
 		
-	$.getUrlParam = function (name) {  
+	/*$.getUrlParam = function (name) {  
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
 		var r = window.location.search.substr(1).match(reg);  //匹配目标参数  
 		if (r != null) return decodeURI(r[2]); return null; //返回参数值  
 	}
-	$.getUrlParam('code');
+	$.getUrlParam('code');*/
+	
+	$.ajax({
+        type : "get",
+        url : path + "getClasOnly",
+        success : function(data) {
+            var obj = eval(data);
+            var objLength = obj.length;
+            if(objLength>0){
+                $('#claSelect').empty();
+                var a="";
+                $(obj).each(function (i) {
+                    a+='<option value="' + obj[i].code + '">' + obj[i].code+"-"+obj[i].name + '</option>';
+                });
+                $("#claSelect").append(a);
+                form.render('select');
+            }else{
+                alert("没有东西");
+                $('#claSelect').find('option').remove();
+                form.render('select');
+
+            }
+        },
+        error : function() {
+            setTimeout(function() {
+                top.layer.close(index);
+                top.layer.msg("异常！", {
+                    icon : 2
+                });
+                layer.closeAll("iframe");
+            }, 1000);
+        }
+    });
 	
 	form.on("submit(addUser)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
@@ -25,7 +57,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 			$.ajax({
 				type : "post",
 				url : path+"clas",
-				data : {"#clasUpdForm":$('#clasUpdForm').serialize(),"_method":"PUT","#teacherCode":data.teacherCode},
+				data : $('#clasUpdForm').serialize(),
 				success : function(data) {
 					if (0 == data.code) {
 						setTimeout(function() {

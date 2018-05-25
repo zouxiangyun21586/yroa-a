@@ -103,7 +103,7 @@ layui.use(['table','form','tree'], function(){
 					title : "修改届次",
 					type : 2,
 					anim : 5,
-					content: path+'getClasOnly?code='+data.code,//修改学生的页面路径
+					content: "../getClasOnly?code="+data.code,//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
