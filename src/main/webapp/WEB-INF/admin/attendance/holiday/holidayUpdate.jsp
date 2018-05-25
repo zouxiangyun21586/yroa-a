@@ -22,6 +22,8 @@
 <body>
 <br/>
 <form:form class="layui-form" style="width:80%;" modelAttribute="holiday" id = "HolidayForm">
+    <form:hidden path="id"/>
+    <input type="hidden" name="_method" value="PUT">
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">假期名称</label>
@@ -56,7 +58,6 @@
         <div class="magb15 layui-col-md4 layui-col-xs12">
            <label class="layui-form-label">届次名称</label>
           <div class="layui-input-block editWidth">
-              ${code}
               <input type="hidden" id="code" name="code" value="${holiday.classCode}" />
               <select name="classCode" lay-verify="required" id="claSelect">
                   
