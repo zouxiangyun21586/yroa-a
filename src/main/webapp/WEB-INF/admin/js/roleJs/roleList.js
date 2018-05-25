@@ -12,7 +12,7 @@ layui.use(['table','form','tree'], function(){
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"acc/queryfy", //请求路径
+		  url: path+"role/queryfy", //请求路径
 		  limit:7,
 		  limits:[10,15,20],
 		  page:true,
@@ -21,37 +21,17 @@ layui.use(['table','form','tree'], function(){
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
 				{type:'numbers',title:'编号',width:50},
-				{field: 'username', title: '账号', unresize: true},
-				{field: 'password', title: '密码', unresize: true},
-				{field: 'tel', title: '电话',  unresize: true},
-				{field: 'isAdmin', title: '管理员?', width:90,align:'center', templet: function(d){
-					var adm;
-					if('true'==d.isAdmin){
-						adm='<span style="font-size:5px;color:#009688;">是</span>'
-					}else if('false'==d.isAdmin){
-						adm='<span style="font-size:5px;color:#FFB800;">否</span>'
-					}
-					return adm;
-				}, unresize: true},
-				{field: 'type', title: '用户类型', width:90,align:'center', templet: function(d){
-					var types;
-					if('T'==d.type){
-						types='<span style="font-size:5px;color:#009688;">老师</span>'
-					}else if('S'==d.type){
-						types='<span style="font-size:5px;color:#FFB800;">学生</span>'
-					}else if('P'==d.type){
-						types='<span style="font-size:5px;color:#ff0000;">家长</span>'
-					}
-					return types;
-				}, unresize: true},
+				{field: 'name', title: '角色名', unresize: true},
+				{field: 'code', title: '编号', unresize: true},
+				{field: 'info', title: '描述',  unresize: true},
 				{field: 'createTimeStr', title: '注册时间', unresize: true},
-                {field: 'updateTimeStr', title: '最后修改时间', unresize: true},
-				{field: 'status', title:'状态', width:90,align:'center', templet: function(d){
+				{field: 'updateTimeStr', title: '最后修改时间', unresize: true},
+				{field: 'use', title:'状态', width:90,align:'center', templet: function(d){
 					var state;
-					if('0'==d.status){
-						state='<span style="font-size:5px;color:#009688;">可使用</span>'
-					}else if('1'==d.status){
-						state='<span style="font-size:5px;color:#FFB800;">未激活</span>'
+					if('0'==d.use){
+						state='<span style="font-size:5px;color:#009688;">使用中</span>'
+					}else if('1'==d.use){
+						state='<span style="font-size:5px;color:#FFB800;">未使用</span>'
 					}/*else if(2==d.status){
 						state='<span style="font-size:5px;color:#ff0000;">已禁用</span>'
 					}*/
@@ -79,7 +59,7 @@ layui.use(['table','form','tree'], function(){
 				var index= top.layer.msg('正在修改用户状态...请稍候',{icon: 16,time:false,shade:0.8});
 				$.ajax({
 	    	       type:"post",
-	    	       url:path+"acc/switchs",
+	    	       url:path+"role/switchs",
 	    	       data: {"name":obj.data.username,"_method":"PUT"},
 	    	       success:function(data){
 	    	    	   if(0==data.code){
@@ -134,7 +114,7 @@ layui.use(['table','form','tree'], function(){
 		  }else if(obj.event === 'resetPassword'){
 			  $.ajax({
 	    	       type:"post",
-	    	       url:path+"acc/reset",
+	    	       url:path+"role/reset",
 	    	       data: {"username":obj.data.username,"_method":"PUT"},
 	    	       success:function(data){
 	    	    	   if(0==data.code){
@@ -175,7 +155,7 @@ layui.use(['table','form','tree'], function(){
 				title : "添加用户",
 				type : 2,
 				anim : 5,
-				content : "userAdd",
+				content : "roleAdd",
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回','.layui-layer-setwin .layui-layer-close', {

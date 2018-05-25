@@ -11,7 +11,6 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.yr.dao.RoleDao;
-import com.yr.entity.Account;
 import com.yr.entity.Role;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
@@ -33,25 +32,25 @@ public class RoleDaoImpl implements RoleDao {
 	 * @param code 角色code
 	 * @return 操作是否成功
 	 */
-	public int addId(Account users, String code) {
-		List qu = em.createQuery("select u from Account u where u.id=?").setParameter(0, users.getId())
-				.getResultList();
-		if (qu.size() > 0) {
-			final int i = 2;
-			return i;
-		}
-		Role r = (Role) em.createQuery("from Role r where r.code=?").setParameter(0, code).getSingleResult();
-		if (r != null && !"".equals(r)) {
-			if ("老师".equals(r.getName())) {
-				users.setType("T");
-			} else if ("学生".equals(r.getName())) {
-				users.setType("S");
-			} else {
-				users.setType("P");
-			}
-		}
-		users.getUsersRoleItems().add(r);
-		em.persist(users);
+	public int addId(Role users, String code) {
+//		List qu = em.createQuery("select u from Role u where u.id=?").setParameter(0, users.getId())
+//				.getResultList();
+//		if (qu.size() > 0) {
+//			final int i = 2;
+//			return i;
+//		}
+//		Role r = (Role) em.createQuery("from Role r where r.code=?").setParameter(0, code).getSingleResult();
+//		if (r != null && !"".equals(r)) {
+//			if ("老师".equals(r.getName())) {
+//				users.setType("T");
+//			} else if ("学生".equals(r.getName())) {
+//				users.setType("S");
+//			} else {
+//				users.setType("P");
+//			}
+//		}
+//		users.getUsersRoleItems().add(r);
+//		em.persist(users);
 		return 1;
 	}
 	/**
@@ -68,7 +67,7 @@ public class RoleDaoImpl implements RoleDao {
 	 * @param emp 用户对象
 	 * @return 操作是否成功
 	 */
-	public int upd(Account emp) {
+	public int upd(Role emp) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -90,7 +89,7 @@ public class RoleDaoImpl implements RoleDao {
 	 * @param i 用户id
 	 * @return 查出的用户对象
 	 */
-	public Account query(Integer i) {
+	public Role query(Integer i) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -106,24 +105,24 @@ public class RoleDaoImpl implements RoleDao {
         PageUtil pageUtil = new PageUtil();
         try {
             int count = 0;
-            String jpql = "FROM Account ORDER BY updateTime desc";
+            String jpql = "FROM Role ORDER BY updateTime desc";
             if (null != name && !"".equals(name)) {
-                jpql = "FROM Account where username like :username ORDER BY updateTime desc";
+                jpql = "FROM Role where name like :name ORDER BY updateTime desc";
             }
-            List<Account> list = new ArrayList<Account>();
+            List<Role> list = new ArrayList<Role>();
             name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
             if (null != name && !"".equals(name)) {
                 list = em.createQuery(jpql).setFirstResult((page - 1) * limit)
-                        .setMaxResults(limit).setParameter("username", "%" + name + "%").getResultList();
+                        .setMaxResults(limit).setParameter("name", "%" + name + "%").getResultList();
                 count = Integer.parseInt(em.createNativeQuery(
-                		"SELECT COUNT(*) FROM yr_account where username like :username")
-                                        .setParameter("username", "%" + name + "%").getSingleResult().toString());
+                		"SELECT COUNT(*) FROM yr_role where name like :name")
+                                        .setParameter("name", "%" + name + "%").getSingleResult().toString());
 
             } else {
                 list = em.createQuery(jpql).setFirstResult((page - 1) * limit)
                         .setMaxResults(limit).getResultList();
                 count = Integer.parseInt(em
-                       .createNativeQuery("SELECT COUNT(*) FROM yr_account").getSingleResult().toString());
+                       .createNativeQuery("SELECT COUNT(*) FROM yr_role").getSingleResult().toString());
             }
             pageUtil = new PageUtil(limit, page, count);
             pageUtil.setCount(count);
@@ -135,7 +134,7 @@ public class RoleDaoImpl implements RoleDao {
             pageUtil.setMsg("-----出错啦-----");
             e.printStackTrace();
         }
-        return JsonUtils.beanToJson(pageUtil, new String[] {"usersRoleItems" }, false);
+        return JsonUtils.beanToJson(pageUtil, new String[] {"rolePermItems", "roleUsersItems" }, false);
     }
 	 /**
      * 查询所有的角色
@@ -163,7 +162,7 @@ public class RoleDaoImpl implements RoleDao {
      */
 	@Override
 	public String resetPassWord(String name, String newPass) {
-		Query qu = em.createQuery("update Account a set a.password = ?,a.updateTime=? where a.username=?");
+		Query qu = em.createQuery("update Role a set a.password = ?,a.updateTime=? where a.username=?");
 		
 		qu.setParameter(0, newPass);
 		qu.setParameter(1, new Date());
@@ -179,18 +178,18 @@ public class RoleDaoImpl implements RoleDao {
      */
 	@Override
 	public int kaiguan(String name) {
-		Account ac = (Account) em.createQuery("from Account where username=?").setParameter(0, name)
+		Role ac = (Role) em.createQuery("from Role where username=?").setParameter(0, name)
 				.getSingleResult();
 		if ("".equals(ac) && null == ac) {
 			return 1;
 		}
 		String val = "";
-		if ("1".equals(ac.getStatus())) {
-			val = "0";
-		} else {
-			val = "1";
-		}
-		Query qu = em.createQuery("update Account a set a.status=?,a.updateTime=? where a.username=?");
+//		if ("1".equals(ac.getStatus())) {
+//			val = "0";
+//		} else {
+//			val = "1";
+//		}
+		Query qu = em.createQuery("update Role a set a.status=?,a.updateTime=? where a.username=?");
 		qu.setParameter(0, val);
 		qu.setParameter(1, new Date());
 		qu.setParameter(TWO, name);

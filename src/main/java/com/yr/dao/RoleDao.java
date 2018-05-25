@@ -1,6 +1,6 @@
 package com.yr.dao;
 
-import com.yr.entity.Account;
+import com.yr.entity.Role;
 
 /**
  * 用户dao接口
@@ -14,7 +14,7 @@ public interface RoleDao {
 	 * @param code 角色code
 	 * @return 操作是否成功
 	 */
-	int addId(Account emp, String code);
+	int addId(Role emp, String code);
 	/**
 	 * 删除
 	 * @param i 用户编号
@@ -26,7 +26,7 @@ public interface RoleDao {
 	 * @param emp 用户对象
 	 * @return 操作是否成功
 	 */
-	int upd(Account emp);
+	int upd(Role emp);
 	
 	/**
 	 * 修改密码
@@ -42,7 +42,7 @@ public interface RoleDao {
 	 * @param i 用户id
 	 * @return 查出的用户对象
 	 */
-	Account query(Integer i);
+	Role query(Integer i);
 	
 	/**
 	 * 班某人的分页

@@ -209,32 +209,35 @@ public class EncryptUtils {
 
     /**
      * 根据一定的算法得到相应的key
-     * @param src
-     * @return
+     * @param algorithm 1
+     * @param src 1
+     * @return 1
      */
-    public String getKey(String algorithm,String src){
-        if(algorithm.equals("AES")){
-            return src.substring(0, 16);
-        }else if(algorithm.equals("DES")){
-            return src.substring(0, 8);
-        }else{
+    public String getKey(String algorithm, String src) {
+        if (algorithm.equals("AES")) {
+            final int i = 16;
+			return src.substring(0, i);
+        } else if (algorithm.equals("DES")) {
+            final int i = 8;
+			return src.substring(0, i);
+        } else {
             return null;
         }
     }
     /**
      * 得到AES加密的key
-     * @param src
-     * @return
+     * @param src 1
+     * @return 1
      */
-    public String getAESKey(String src){
+    public String getAESKey(String src) {
         return this.getKey("AES", src);
     }
     /**
      * 得到DES加密的key
-     * @param src
-     * @return
+     * @param src 1
+     * @return 1
      */
-    public String getDESKey(String src){
+    public String getDESKey(String src) {
         return this.getKey("DES", src);
     }
     /**
@@ -262,7 +265,7 @@ public class EncryptUtils {
 
     /**
      * 创建一个AES的密钥
-     * @return
+     * @return 1
      */
     public SecretKey createSecretAESKey() {
         return createSecretKey("AES");
@@ -270,7 +273,7 @@ public class EncryptUtils {
 
     /**
      * 创建一个DES的密钥
-     * @return
+     * @return 1
      */
     public SecretKey createSecretDESKey() {
         return createSecretKey("DES");
@@ -278,17 +281,17 @@ public class EncryptUtils {
 
     /**
      * 根据相应的加密算法、密钥、源文件进行加密，返回加密后的文件
-     * @param Algorithm 加密算法:DES,AES
-     * @param key
-     * @param info
-     * @return
+     * @param algorithm 加密算法:DES,AES
+     * @param key 1 
+     * @param info 1
+     * @return 1
      */
-    public String encrypt(String Algorithm, SecretKey key, String info) {
+    public String encrypt(String algorithm, SecretKey key, String info) {
         // 定义要生成的密文
         byte[] cipherByte = null;
         try {
             // 得到加密/解密器
-            Cipher c1 = Cipher.getInstance(Algorithm);
+            Cipher c1 = Cipher.getInstance(algorithm);
             // 用指定的密钥和模式初始化Cipher对象
             // 参数:(ENCRYPT_MODE, DECRYPT_MODE, WRAP_MODE,UNWRAP_MODE)
             c1.init(Cipher.ENCRYPT_MODE, key);

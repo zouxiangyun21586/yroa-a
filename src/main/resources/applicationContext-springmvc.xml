@@ -53,10 +53,12 @@
 	</bean>
 	<mvc:view-controller path="/WEB-INF/admin/index"  view-name="/index"/>
 	<mvc:view-controller path="/WEB-INF/admin/login"  view-name="/login"/>
-	<mvc:view-controller path="/WEB-INF/admin/user/userList"  view-name="/userList"/>
+	<!-- <mvc:view-controller path="/WEB-INF/admin/user/userList"  view-name="/userList"/>
+	<mvc:view-controller path="/WEB-INF/admin/role/roleList"  view-name="/roleList"/>
+	<mvc:view-controller path="/WEB-INF/admin/auth/authList"  view-name="/authList"/>
 	<mvc:view-controller path="/WEB-INF/admin/student/studentList"  view-name="/studentList"/>
 	<mvc:view-controller path="/WEB-INF/admin/teacher/teacherList"  view-name="/teacherList"/>
-	<mvc:view-controller path="/WEB-INF/admin/curriculum/curriculumList"  view-name="/curriculumList"/>
+	<mvc:view-controller path="/WEB-INF/admin/curriculum/curriculumList"  view-name="/curriculumList"/> -->
 	
 	<mvc:resources location="/WEB-INF/admin/css/" mapping="/css/**"/>
 	<mvc:resources location="/WEB-INF/admin/js/" mapping="/js/**"/>

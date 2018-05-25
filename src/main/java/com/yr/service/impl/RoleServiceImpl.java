@@ -1,6 +1,5 @@
 package com.yr.service.impl;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yr.dao.AccountDao;
-import com.yr.entity.Account;
+import com.yr.dao.RoleDao;
+import com.yr.entity.Role;
 import com.yr.service.RoleService;
 import com.yr.util.EncryptUtils;
 import net.sf.json.JSONObject;
@@ -23,7 +22,7 @@ import net.sf.json.JSONObject;
 @Service
 public class RoleServiceImpl implements RoleService {
 	@Autowired
-	private AccountDao accDao;
+	private RoleDao accDao;
 	
 	/**
 	 * 添加
@@ -31,35 +30,36 @@ public class RoleServiceImpl implements RoleService {
 	 * @param code 角色code
 	 * @return 操作是否成功
 	 */
-	public String addId(Account emp, String code) {
-		Map<String, Object> map = new HashMap<>(); 
-		try {
-			String breaMi = EncryptUtils.encryptBASE64(emp.getPassword().getBytes()); //BASE64位加密
-			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
-			emp.setCreateTime(new Date()); //添加开始时间
-			emp.setUpdateTime(new Date()); //添加最后修改时间
-			emp.setPassword(mdFiveMi);
-			emp.setStatus("0");
-			if ("否".equals(emp.getIsAdmin())) {
-				emp.setIsAdmin("false");
-			} else {
-				emp.setIsAdmin("true");
-			}
-			int z = accDao.addId(emp, code);
-			if (1 == z) {
-				map.put("code", 0);
-				map.put("msg", "添加成功");
-			} else {
-				map.put("code", 1);
-				map.put("msg", "错误,id已存在");
-			}
-		} catch (Exception e) {
-			map.put("code", 1);
-			map.put("msg", "添加失败");
-			e.printStackTrace();
-		}
-		
-		return JSONObject.fromObject(map).toString();
+	public String addId(Role emp, String code) {
+//		Map<String, Object> map = new HashMap<>(); 
+//		try {
+//			String breaMi = EncryptUtils.encryptBASE64(emp.getPassword().getBytes()); //BASE64位加密
+//			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
+//			emp.setCreateTime(new Date()); //添加开始时间
+//			emp.setUpdateTime(new Date()); //添加最后修改时间
+//			emp.setPassword(mdFiveMi);
+//			emp.setStatus("0");
+//			if ("否".equals(emp.getIsAdmin())) {
+//				emp.setIsAdmin("false");
+//			} else {
+//				emp.setIsAdmin("true");
+//			}
+//			int z = accDao.addId(emp, code);
+//			if (1 == z) {
+//				map.put("code", 0);
+//				map.put("msg", "添加成功");
+//			} else {
+//				map.put("code", 1);
+//				map.put("msg", "错误,id已存在");
+//			}
+//		} catch (Exception e) {
+//			map.put("code", 1);
+//			map.put("msg", "添加失败");
+//			e.printStackTrace();
+//		}
+//		
+//		return JSONObject.fromObject(map).toString();
+		return "";
 	}
 	/**
 	 * 删除
@@ -75,7 +75,7 @@ public class RoleServiceImpl implements RoleService {
 	 * @param emp 用户对象
 	 * @return 操作是否成功
 	 */
-	public int upd(Account emp) {
+	public int upd(Role emp) {
 		int z = accDao.upd(emp);
 		return z;
 	}
@@ -97,8 +97,8 @@ public class RoleServiceImpl implements RoleService {
 	 * @param i 用户id
 	 * @return 查出的用户对象
 	 */
-	public Account query(Integer i) {
-		Account acc = accDao.query(i);
+	public Role query(Integer i) {
+		Role acc = accDao.query(i);
 		return acc;
 	}
 	/**

@@ -138,7 +138,7 @@ public class AccountServiceImpl implements AccountService {
 			String zhi = accDao.resetPassWord(name, mdFiveMi);
 			if ("1".equals(zhi)) {
 				map.put("code", 0);
-				map.put("msg", "重置失败");
+				map.put("msg", "重置成功");
 			}
 		} catch (Exception e) {
 			map.put("code", 1);

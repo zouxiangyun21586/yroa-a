@@ -15,6 +15,14 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
         elem: '#endDate'
     });
     laydate.render({
+        elem: '#startTime',
+        type: 'time'
+    });
+    laydate.render({
+        elem: '#endTime',
+        type: 'time'
+    });
+    laydate.render({
         elem: '#date',
         type: 'datetime',
         range: true
@@ -26,11 +34,16 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
         success : function(data) {
             var obj = eval(data);
             var objLength = obj.length;
+            var code = $("#code").val();
             if(objLength>0){
                 $('#claSelect').empty();
                 var a="";
                 $(obj).each(function (i) {
-                    a+='<option value="' + obj[i].code + '">' + obj[i].code+"-"+obj[i].name + '</option>';
+                    if (obj[i].code == code) {
+                        a+='<option value="' + obj[i].code + '" selected>' + obj[i].code+"-"+obj[i].name + '</option>';
+                    } else {
+                        a+='<option value="' + obj[i].code + '">' + obj[i].code+"-"+obj[i].name + '</option>';
+                    }
                 });
                 $("#claSelect").append(a);
                 form.render('select');
@@ -61,7 +74,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
         
             $.ajax({
                 type : "post",
-                url : path+"holiday/add",
+                url : path+"holiday/update",
                 data : $('#HolidayForm').serialize(),
                 success : function(data) {
                     if (0 == data.code) {
