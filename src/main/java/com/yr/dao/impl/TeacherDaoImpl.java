@@ -54,7 +54,7 @@ public class TeacherDaoImpl implements TeacherDao {
 		tch.setInTime(teacher.getInTime());
 		tch.setLevel(teacher.getIsLeave());
 		tch.setInfo(teacher.getInfo());
-		entityManager.persist(teacher); // 老师code  age需要算
+		entityManager.persist(tch); // 老师code  age需要算
 		
 		} catch (Exception e) {
 			e.printStackTrace();
