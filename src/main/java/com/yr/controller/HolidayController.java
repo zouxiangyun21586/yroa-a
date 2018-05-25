@@ -19,6 +19,7 @@ import com.yr.entity.Holiday;
 import com.yr.service.ClasService;
 import com.yr.service.HolidayService;
 import com.yr.util.DateJsonValueProcessor;
+import com.yr.util.JsonUtils;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
@@ -70,20 +71,28 @@ public class HolidayController {
 //        map.put("clas", claService.query());
 //        map.put("holiday", new Holiday());
 		List<Clas> clas = claService.query();
-//		String a = JsonUtils.beanListToJson(clas, null, false);
-		String a = sendArray(clas);
+		
+		String a = JsonUtils.beanListToJson(clas);
+		
+//		String a = sendArray(clas, new String[]{"createTime", "startTime", "finishTime"});
         return a;
     }
+	
 	/**
      * 过滤json嵌套异常字段
      * @param object  对象
+     * @param gl     忽略字段
      * @return
      * String
      * 2018年4月9日下午10:06:38
      */
-    public static String sendArray(Object object) {
+    public static String sendArray(Object object, String[] gl) {
     	JsonConfig jsonConfig = new JsonConfig();
 
+    	jsonConfig.setExcludes(gl); // 只要将所需忽略字段加到数组中即可
+    	
+        jsonConfig.setIgnoreDefaultExcludes(false); // 设置默认忽略
+    	
     	jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
     	
     	jsonConfig.registerJsonBeanProcessor(java.sql.Date.class, new DateJsonValueProcessor());
