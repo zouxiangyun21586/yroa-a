@@ -1,22 +1,37 @@
-package com.yr.dao.impl;
+package com.yr.service.impl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.stereotype.Repository;
-
+import com.yr.dao.StCkDao;
 import com.yr.entity.StudentCheck;
 
 /**
- * 学生考勤Dao层
+ * 学生考勤Service层
  * @author 林水桥
- * 2018年5月25日下午9:44:35
+ * 2018年5月25日下午9:58:18
  */
-@Repository("stCkDaoImpl")
-public class StCkDaoImpl {
+@Transactional
+@Service("stCkServiceImpl")
+public class StCkServiceImpl {
 	
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private StCkDao stCkDao;
+	
+	/**
+	 * 签到
+	 * @author 林水桥
+	 * @param stCk     学生考勤实体数据
+	 * @return Integer 返回签到ID
+	 * 2018年5月25日下午10:26:04
+	 */
+	public Integer duty(StudentCheck stCk) {
+		
+		stCkDao.add(stCk);
+		
+		return null;
+	}
 	
 	/**
 	 * 添加考勤
@@ -26,8 +41,10 @@ public class StCkDaoImpl {
 	 * 2018年5月25日下午10:03:49
 	 */
 	public Integer add(StudentCheck stCk) {
-		entityManager.persist(stCk);
-		return stCk.getId();
+		
+		stCkDao.add(stCk);
+		
+		return null;
 	}
 	
 	/**
@@ -38,6 +55,8 @@ public class StCkDaoImpl {
 	 * 2018年5月25日下午10:06:02
 	 */
 	public Integer delete(Integer id) {
+		
+		stCkDao.delete(id);
 		
 		return null;
 	}
@@ -51,6 +70,8 @@ public class StCkDaoImpl {
 	 */
 	public Integer update(StudentCheck stCk) {
 		
+		stCkDao.update(stCk);
+		
 		return null;
 	}
 	
@@ -62,6 +83,8 @@ public class StCkDaoImpl {
 	 * 2018年5月25日下午10:19:01
 	 */
 	public StudentCheck get(Integer id) {
+		
+		stCkDao.get(id);
 		
 		return null;
 	}
