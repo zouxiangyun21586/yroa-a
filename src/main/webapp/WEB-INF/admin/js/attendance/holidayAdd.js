@@ -15,37 +15,39 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		elem: '#endDate'
 	});
 	laydate.render({
+	    elem: '#startTime',
+	    type: 'time'
+	});
+	laydate.render({
+	    elem: '#endTime',
+	    type: 'time'
+	});
+	laydate.render({
 	    elem: '#date',
 	    type: 'datetime',
 	    range: true
 	  });
 	$.ajax({
 		type : "get",
-		url : path + "holiday/adds",
+		url : path + "holiday/clasList",
 		success : function(data) {
 			var obj = eval(data);
             var objLength = obj.length;
             if(objLength>0){
                 $('#claSelect').empty();
+                var a="";
                 $(obj).each(function (i) {
-                    alert("进入循环");
-                    alert(obj[i].code + ":" + obj[i].name);
-                    form.render('select');
-                    $("#claSelect").append('<option value="' + obj[i].code + '">' + obj[i].name + '</option>');
-
+                    a+='<option value="' + obj[i].code + '">' + obj[i].code+"-"+obj[i].name + '</option>';
                 });
+                $("#claSelect").append(a);
+                form.render('select');
             }else{
                 alert("没有东西");
                 $('#claSelect').find('option').remove();
-                alert("应该清空")
+                //alert("应该清空")
                 form.render('select');
 
             }
-            
-//			layer.msg("获得的值为："+data.listClas.);
-//			$("#claSelect").append("<option value="+data+">"+ivalue+"</option>");  
-//            renderForm();//表单重新渲染，要不然添加完显示不出来新的option
-//            layer.close(index);
 		},
 		error : function() {
 			setTimeout(function() {
@@ -57,7 +59,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 			}, 1000);
 		}
 	});
-	form.on("submit(addUser)", function(data) {
+	form.on("submit(addHoliday)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
 			time : false,
@@ -66,8 +68,8 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		
 			$.ajax({
 				type : "post",
-				url : path+"userInsert",
-				data : $('#UserForm').serialize(),
+				url : path+"holiday/add",
+				data : $('#HolidayForm').serialize(),
 				success : function(data) {
 					if (0 == data.code) {
 						setTimeout(function() {
@@ -99,24 +101,4 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 			});
 		return false;
 	});
-	 form.verify({
-   	  username: function(value, item){ //value：表单的值、item：表单的DOM对象
-   	    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-   	      return '用户名不能有特殊字符';
-   	    }
-   	    if(/(^\_)|(\__)|(\_+$)/.test(value)){
-   	      return '用户名首尾不能出现下划线\'_\'';
-   	    }
-   	    if(/^\d+\d+\d$/.test(value)){
-   	      return '用户名不能全为数字';
-   	    }
-   	    if(/^[\S]{6,12}$/.test(value)){
-   	    	return '用户名必须6到12位，且不能出现空格';
-   	    }
-   	  }
-   	  ,pass: [
-   	    /^[\S]{6,12}$/
-   	    ,'密码必须6到12位，且不能出现空格'
-   	  ] 
-   	});
 });
