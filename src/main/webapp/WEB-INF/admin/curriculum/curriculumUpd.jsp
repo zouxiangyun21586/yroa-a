@@ -33,9 +33,10 @@
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">本届教师</label>
 			<div class="layui-input-block">
-				<select lay-filter="teacherCode" name="teacherCode">
-					<option value="T1001">钟林军</option>
-					<option value="T1002">林娟娟</option>
+				<!-- <select name="userStatus" class="userStatus" lay-filter="userStatus" name="teacherCode" > -->
+				<select lay-filter="teacherCode" name="teacherCode" />
+					<option value="T1001">T1001</option>
+					<option value="T1002">T1002</option>
 				</select>
 			</div>
 	</div>

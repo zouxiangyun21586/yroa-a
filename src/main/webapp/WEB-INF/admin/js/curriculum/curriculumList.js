@@ -64,7 +64,7 @@ layui.use(['table','form','tree'], function(){
 		    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
 		    	$.ajax({
 	    	       type:"post",
-	    	       url:path+"userDelete",
+	    	       url:path+"clas?id",
 	    	       data: {"id":obj.data.id,"_method":"DELETE"},
 	    	       success:function(data){
 	    	    	   if(200==data.code){
@@ -103,7 +103,7 @@ layui.use(['table','form','tree'], function(){
 					title : "修改届次",
 					type : 2,
 					anim : 5,
-					content : "userAdd",//修改学生的页面路径
+					content : "curriculumUpd",//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
