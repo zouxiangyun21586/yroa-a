@@ -29,6 +29,7 @@ public class Clas {
     private String code;
 
     private String teacherCode;
+    
     private String teacherName;
 
     private String startTime;
@@ -129,4 +130,14 @@ public class Clas {
     public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
     }
+
+	@Override
+	public String toString() {
+		return "Clas [id=" + id + ", year=" + year 
+				+ ", name=" + name + ", code=" + code 
+				+ ", teacherCode="
+				+ teacherCode + ", teacherName=" + teacherName 
+				+ ", startTime=" + startTime + ", createTime="
+				+ createTime + ", isFinish=" + isFinish + ", finishTime=" + finishTime + "]";
+	}
 }

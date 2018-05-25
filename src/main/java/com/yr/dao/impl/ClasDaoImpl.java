@@ -1,6 +1,6 @@
 package com.yr.dao.impl;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,16 +39,16 @@ public class ClasDaoImpl implements ClasDao {
 	 */
 	@Override
 	public void add(Clas clas) {
-		
 		Clas cla = new Clas();
 		cla.setName(clas.getName()); // 此届 批次名
 		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数)
 		String strCode = code(); // 获取code数
 		cla.setCode(strCode);
-		cla.setCreateTime(Date.valueOf(DateUtils.getCurrentTime())); // 创建时间(获取当前时间)
+		cla.setCreateTime(new Date()); // 创建时间(获取当前时间)
 		cla.setTeacherCode(clas.getTeacherCode()); // 设置这批届次老师的code(获取页面上填写的老师code)
-		String strName = (String) entityManager.createNativeQuery("select teacher_name where teacher_code = ?1")
-				.setParameter(1, clas.getTeacherName()).getSingleResult();
+		String strName = (String) entityManager
+				.createNativeQuery("select teacher_name from yr_clas where teacher_code = ?1")
+				.setParameter(1, clas.getTeacherCode()).getSingleResult();
 		cla.setTeacherName(strName); // 设置这批届次老师的名字(获取页面上填写的老师code获取到老师名字)
 		cla.setStartTime(clas.getStartTime());
 		entityManager.persist(cla);
