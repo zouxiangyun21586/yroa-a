@@ -45,8 +45,8 @@
 			<label class="layui-form-label">届次</label>
 			<div class="layui-input-block">
 				<select lay-filter="year" name="year" />
-					<option value="2018">2018届</option>
-					<option value="2017">2017届</option>
+					<option value="2018届">2018届</option>
+					<option value="2017届">2017届</option>
 				</select>
 			</div>
 		</div>

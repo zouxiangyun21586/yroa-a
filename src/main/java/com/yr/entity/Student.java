@@ -26,22 +26,6 @@ public class Student {
 	//学生姓名
 	private String name;
 	
-	@Override
-	public String toString() {
-		return "Student [id=" + id + ", name=" + name 
-				+ ", code=" + code + ", year=" + year 
-				+ ", classCode=" + classCode
-				+ ", sex=" + sex + ", birth=" 
-				+ birth + ", age=" + age + ", tel=" 
-				+ tel + ", addr=" + addr
-				+ ", homeTel=" + homeTel + ", isInPublish=" 
-				+ isInPublish + ", inImgUrl=" + inImgUrl + ", inTime="
-				+ inTime + ", createTime=" + createTime 
-				+ ", finishTime=" + finishTime + ", offerTime=" + offerTime
-				+ ", offerIncome=" + offerIncome 
-				+ ", isFinish=" + isFinish + ", isFinishPublishl=" + isFinishPublishl
-				+ ", finishImgUrl=" + finishImgUrl + "]";
-	}
 
 	//学生编号
 	private String code;
@@ -283,5 +267,22 @@ public class Student {
 
 	public void setOfferIncome(String offerIncome) {
 		this.offerIncome = offerIncome;
+	}
+	
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name 
+				+ ", code=" + code + ", year=" + year 
+				+ ", classCode=" + classCode
+				+ ", sex=" + sex + ", birth=" 
+				+ birth + ", age=" + age + ", tel=" 
+				+ tel + ", addr=" + addr
+				+ ", homeTel=" + homeTel + ", isInPublish=" 
+				+ isInPublish + ", inImgUrl=" + inImgUrl + ", inTime="
+				+ inTime + ", createTime=" + createTime 
+				+ ", finishTime=" + finishTime + ", offerTime=" + offerTime
+				+ ", offerIncome=" + offerIncome 
+				+ ", isFinish=" + isFinish + ", isFinishPublishl=" + isFinishPublishl
+				+ ", finishImgUrl=" + finishImgUrl + "]";
 	}
 }

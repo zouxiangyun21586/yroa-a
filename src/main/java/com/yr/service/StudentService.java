@@ -1,5 +1,7 @@
 package com.yr.service;
 
+import java.util.List;
+
 import com.yr.entity.Student;
 
 /**
@@ -76,4 +78,16 @@ public interface StudentService {
 	  * @param student 
 	  */
 	 String updateStudent(Integer id, Student student);
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月25日上午9:06:32
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : List<String> 
+	  *
+	  */
+	 List<Student> queryCls();
+	 
 }
