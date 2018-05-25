@@ -54,6 +54,16 @@
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">老师状态</label>
+			<div class="layui-input-block">
+				<select lay-filter="isLeave" name="isLeave">
+					<option value="1">离职</option>
+					<option value="0">在职</option>
+					<option value="2">试用</option>
+				</select>
+			</div>
+		</div>
+		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
 				<input class="layui-input" placeholder="请输入手机号" name="tel" id="tel">
@@ -76,7 +86,7 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">入职日期</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input" id="entranceYear" placeholder="yyyy-MM-dd" lay-verify="required" name="in_time">
+				<input type="text" class="layui-input" id="entranceYear" placeholder="yyyy-MM-dd" lay-verify="required" name="inTime">
 			</div>
 		</div>
 	</div>
