@@ -242,7 +242,7 @@ public class ClasDaoImpl implements ClasDao {
 
 	@Override
 	public List<Clas> query() {
-		List<Clas> listClas = entityManager.createNativeQuery("select * from yr_clas").getResultList();
+		List<Clas> listClas = entityManager.createQuery("from Clas").getResultList();
 		return listClas;
 	}
 	

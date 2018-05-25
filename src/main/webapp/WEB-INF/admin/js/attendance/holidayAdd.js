@@ -23,9 +23,29 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		type : "get",
 		url : path + "holiday/adds",
 		success : function(data) {
-			$("#claSelect").append("<option value="+data+">"+ivalue+"</option>");  
-            renderForm();//表单重新渲染，要不然添加完显示不出来新的option
-            layer.close(index);
+			var obj = eval(data);
+            var objLength = obj.length;
+            if(objLength>0){
+                $('#claSelect').empty();
+                $(obj).each(function (i) {
+                    alert("进入循环");
+                    alert(obj[i].code + ":" + obj[i].name);
+                    form.render('select');
+                    $("#claSelect").append('<option value="' + obj[i].code + '">' + obj[i].name + '</option>');
+
+                });
+            }else{
+                alert("没有东西");
+                $('#claSelect').find('option').remove();
+                alert("应该清空")
+                form.render('select');
+
+            }
+            
+//			layer.msg("获得的值为："+data.listClas.);
+//			$("#claSelect").append("<option value="+data+">"+ivalue+"</option>");  
+//            renderForm();//表单重新渲染，要不然添加完显示不出来新的option
+//            layer.close(index);
 		},
 		error : function() {
 			setTimeout(function() {
