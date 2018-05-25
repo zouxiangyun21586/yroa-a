@@ -29,8 +29,8 @@ import com.yr.service.AccountService;
  * 2018年5月22日 上午10:34:00
  */
 @Controller
-@RequestMapping(value  =  "acc")
-public class AccountController  {
+@RequestMapping(value  =  "role")
+public class RoleController  {
 	@Autowired
 	private AccountService acc;
 	

@@ -1,5 +1,6 @@
 package com.yr.entity;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -26,7 +27,7 @@ import javax.persistence.Transient;
 @Cacheable(true)
 @Table(name = "yr_role")
 @Entity
-public class Role {
+public class Role implements Serializable {
 	/**
 	 * id
 	 */
@@ -132,7 +133,7 @@ public class Role {
 	public String getCreateTimeStr() {
 		String fmt = "yyyy-MM-dd E HH:mm:ss";
 		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
-		String dateStr = sdf.format(createTimeStr);
+		String dateStr = sdf.format(createTime);
 		createTimeStr = dateStr;
 		return createTimeStr;
 	}
@@ -140,5 +141,11 @@ public class Role {
 	public void setCreateTimeStr(String createTimeStr) {
 		this.createTimeStr = createTimeStr;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", name=" + name + ", code=" + code
+				+ ", info=" + info + ", use=" + use + ", createTime="
+				+ createTime + "]";
+	}
 }

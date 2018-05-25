@@ -1,5 +1,7 @@
 package com.yr.dao;
 
+import java.util.List;
+
 import com.yr.entity.Student;
 import com.yr.util.PageUtil;
 
@@ -74,4 +76,15 @@ public interface StudentDao {
 	  * @param student 
 	  */
 	 void updateStudent(Integer id, Student student);
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月24日下午10:28:22
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : List<String> 
+	  *
+	  */
+	 List<Student> queryCls();
 }

@@ -23,9 +23,9 @@
 						</div>
 						<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
 					</div>
-					<div class="layui-inline">
-						<a href="userAdd.jsp" class="layui-btn layui-btn-normal addUser_btn">添加用户</a>
-					</div>
+					<!-- <div class="layui-inline">
+						<a class="layui-btn layui-btn-normal addUser_btn">添加用户</a>
+					</div> -->
 				</div>
 			</form>
 		</blockquote>
@@ -39,10 +39,10 @@
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
 		  <<li><a lay-event="state"><i class="layui-icon" style="font-size:18px;">&#xe612; </i>{{d.status==0?'禁用账号':'启用用户'}}</a></li>
-		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
+		  
           <li><a lay-event="resetPassword"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>重置密码</a></li>
-          <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>注销用户</a></li>
       </ul>
   </div>
 </script>
+<!--<li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>  -->
 </html> 

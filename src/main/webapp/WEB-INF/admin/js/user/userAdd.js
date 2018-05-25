@@ -7,6 +7,25 @@ layui.use([ 'layer', 'form' ], function() {
 	pos = strFullPath.indexOf(strPath),
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
+	$.ajax({
+		type : "get",
+		url : path+"acc/qrole",
+		success : function(data) {
+			$("#code").append("<option value=''>请选择角色</option>");
+            for(var i in data){
+            	$("#code").append("<option value='"+data[i].code+"'>"+data[i].name+"</option>");
+            }
+            form.render('select');
+		},error : function() {
+			setTimeout(function() {
+				top.layer.close(index);
+				top.layer.msg("异常！", {
+					icon : 2
+				});
+				layer.closeAll("iframe");
+			}, 1000);
+		}
+	});
 	form.on("submit(addUser)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
@@ -21,8 +40,8 @@ layui.use([ 'layer', 'form' ], function() {
     	}else{
 			$.ajax({
 				type : "post",
-				url : path+"userInsert",
-				data : $('#UserForm').serialize(),
+				url : path+"acc/add",
+				data : $('#accountAdd').serialize(),
 				success : function(data) {
 					if (0 == data.code) {
 						setTimeout(function() {
@@ -64,9 +83,6 @@ layui.use([ 'layer', 'form' ], function() {
 	    }
 	    if(/^\d+\d+\d$/.test(value)){
 	      return '用户名不能全为数字';
-	    }
-	    if(/^[\S]{6,12}$/.test(value)){
-	    	return '用户名必须6到12位，且不能出现空格';
 	    }
 	    },password: [
 	        /^[\S]{6,12}$/,

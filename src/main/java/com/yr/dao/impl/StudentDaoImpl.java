@@ -30,6 +30,8 @@ public class StudentDaoImpl implements StudentDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
+	
+	
 	/**
 	 * 
 	 * @Date : 2018年5月22日下午7:19:40
@@ -199,8 +201,8 @@ public class StudentDaoImpl implements StudentDao {
 	 */
 	@Override
 	public void updateStudent(Integer id, Student student) {
-		student = entityManager.find(Student.class, id);
-		student.setName(student.getName());
+		Student student1 = entityManager.find(Student.class, id);
+		student1.setName(student.getName());
 		entityManager.merge(student);
 	}
 	
@@ -230,13 +232,40 @@ public class StudentDaoImpl implements StudentDao {
 	}
 	
 	
-
+	/**
+	 * 
+	 * @Date : 2018年5月25日上午8:20:56
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param id
+	 * 
+	 * @describe : 修改数据回显
+	 * 
+	 * @see com.yr.dao.StudentDao#updateDisplay(java.lang.Integer)
+	 */
 	@Override
 	public Student updateDisplay(Integer id) {
 		Student student = entityManager.find(Student.class, id);
 		return student;
 	}
 
-	
-	
+	/**
+	 * 
+	 * @Date : 2018年5月24日下午10:16:00
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : List<String> 
+	 * 
+	 * @describe : 查询出已有届次
+	 *
+	 */
+	@Override
+	public List<Student> queryCls() {
+		String jpql = "select * from yr_clas";
+		List<Student> yearList = new  ArrayList<Student>();
+		yearList = entityManager.createNativeQuery(jpql).getResultList();
+		return yearList;
+	}
 }

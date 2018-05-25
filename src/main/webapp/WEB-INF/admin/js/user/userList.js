@@ -20,11 +20,11 @@ layui.use(['table','form','tree'], function(){
 			   name:null,
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
-//				{type:'numbers',title:'编号',width:50},
+				{type:'numbers',title:'编号',width:50},
 				{field: 'username', title: '账号', unresize: true},
 				{field: 'password', title: '密码', unresize: true},
 				{field: 'tel', title: '电话',  unresize: true},
-				{field: 'isAdmin', title: '是否是管理员', width:90,align:'center', templet: function(d){
+				{field: 'isAdmin', title: '管理员?', width:90,align:'center', templet: function(d){
 					var adm;
 					if('true'==d.isAdmin){
 						adm='<span style="font-size:5px;color:#009688;">是</span>'
@@ -44,12 +44,8 @@ layui.use(['table','form','tree'], function(){
 					}
 					return types;
 				}, unresize: true},
-				{field: 'createTime', title: '注册时间',templet: function(d) {
-                    return d.createTime.time;
-                }, unresize: true},
-                {field: 'updateTime', title: '最后修改时间',templet: function(d) {
-                    return d.updateTime.time;
-                }, unresize: true},
+				{field: 'createTimeStr', title: '注册时间', unresize: true},
+                {field: 'updateTimeStr', title: '最后修改时间', unresize: true},
 				{field: 'status', title:'状态', width:90,align:'center', templet: function(d){
 					var state;
 					if('0'==d.status){
@@ -89,8 +85,8 @@ layui.use(['table','form','tree'], function(){
 				var index= top.layer.msg('正在修改用户状态...请稍候',{icon: 16,time:false,shade:0.8});
 				$.ajax({
 	    	       type:"post",
-	    	       url:path+"userStatus",
-	    	       data: {"id":obj.data.id,"value":obj.data.status,"_method":"PUT"},
+	    	       url:path+"acc/switchs",
+	    	       data: {"name":obj.data.username,"_method":"PUT"},
 	    	       success:function(data){
 	    	    	   if(0==data.code){
 	    	    		   setTimeout(function(){
@@ -121,47 +117,7 @@ layui.use(['table','form','tree'], function(){
 						},1000);
 	    	       }
 		     	});
-			}else if(obj.event === 'del'){
-				layer.confirm('确定要删除么', function(index){
-		    	layer.close(index);
-		    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
-		    	$.ajax({
-	    	       type:"post",
-	    	       url:path+"userDelete",
-	    	       data: {"id":obj.data.id,"_method":"DELETE"},
-	    	       success:function(data){
-	    	    	   if(0==data.code){
-	    	    		   setTimeout(function(){
-		   			            top.layer.close(index);
-		   			        	top.layer.msg(data.msg,{icon:1});
-		   			        	table.reload('demo',{
-		   			        		where: {
-		   			        			name:null
-		   			        		}
-		   			        	});
-		   			        },1000);
-	    	    	   }else {
-	    	    		   setTimeout(function(){
-		   			            top.layer.close(index);
-		   			        	top.layer.msg(data.msg,{icon:2});
-		   			        	table.reload('demo',{
-		   			        		where: {
-		   			        			name:null
-		   			        		}
-		   			        	});
-		   			        },1000);
-	    	    	   }
-	    	       },error : function() {
-						setTimeout(function(){
-						    top.layer.close(index);
-						    top.layer.msg("异常",{icon:2});
-							location.reload();
-						},1000);
-	    	       }
-		     	});
-		      layer.close(index);
-		    });
-		  }else if(obj.event === 'edit'){
+			}else if(obj.event === 'edit'){
 			  var index = layui.layer.open({
 					title : "修改用户",
 					type : 2,
@@ -181,6 +137,41 @@ layui.use(['table','form','tree'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
+		  }else if(obj.event === 'resetPassword'){
+			  $.ajax({
+	    	       type:"post",
+	    	       url:path+"acc/reset",
+	    	       data: {"username":obj.data.username,"_method":"PUT"},
+	    	       success:function(data){
+	    	    	   if(0==data.code){
+	    	    		   setTimeout(function(){
+		   			            top.layer.close(index);
+		   			        	top.layer.msg(data.msg,{icon:1});
+		   			        	table.reload('demo',{
+		   			        		where: {
+		   			        			name:null
+		   			        		}
+		   			        	});
+		   			        },1000);
+	    	    	   }else {
+	    	    		   setTimeout(function(){
+		   			            top.layer.close(index);
+		   			        	top.layer.msg(data.msg,{icon:2});
+		   			        	table.reload('demo',{
+		   			        		where: {
+		   			        			name:null
+		   			        		}
+		   			        	});
+		   			        },1000);
+	    	    	   }
+	    	       },error : function() {
+						setTimeout(function(){
+						    top.layer.close(index);
+						    top.layer.msg("异常",{icon:2});
+							location.reload();
+						},1000);
+	    	       }
+			  });
 		  }
 		});
 		

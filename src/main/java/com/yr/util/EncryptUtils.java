@@ -166,7 +166,7 @@ public class EncryptUtils {
      * @param info 要加密的信息
      * @return String 加密后的字符串
      */
-    public String encryptToMD5(String info) {
+    public static String encryptToMD5(String info) {
         byte[] digesta = null;
         try {
             // 得到一个md5的消息摘要

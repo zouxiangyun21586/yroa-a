@@ -23,7 +23,7 @@ import com.yr.util.PageUtil;
  * 2018年5月22日 上午10:52:12
  */
 @Repository
-public class AccountDaoImpl implements AccountDao {
+public class RoleDaoImpl implements AccountDao {
 	private static final int TWO = 2;
 	@PersistenceContext
 	private EntityManager em;

@@ -1,20 +1,20 @@
-package com.yr.dao;
+package com.yr.service;
 
 import com.yr.entity.Account;
 
 /**
- * 用户dao接口
+ * 用户service实现类
  * @author 周业好
- * 2018年5月22日 上午10:51:19
+ * 2018年5月22日 上午10:53:54
  */
-public interface AccountDao {
+public interface RoleService {
 	/**
 	 * 添加
 	 * @param emp 用户对象
 	 * @param code 角色code
 	 * @return 操作是否成功
 	 */
-	int addId(Account emp, String code);
+	String addId(Account emp, String code);
 	/**
 	 * 删除
 	 * @param i 用户编号
@@ -64,16 +64,15 @@ public interface AccountDao {
      * 重置密码
      * @author 周业好
      * @param name 账号
-     * @param newPass 新密码
      * @return json
      */
-    String resetPassWord(String name, String newPass);
+    String resetPassWord(String name);
     
     /**
      * 启用停用
      * @author 周业好
      * @param name 账号
-     * @return 操作是否成功
+     * @return json
      */
-    int kaiguan(String name);
+    String kaiguan(String name);
 }
