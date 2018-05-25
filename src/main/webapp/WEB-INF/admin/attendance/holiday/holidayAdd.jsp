@@ -57,9 +57,6 @@
           <div class="layui-input-block editWidth">
               <select name="productList" lay-verify="required" id="claSelect">
                   <option value=""></option>
-                  <option value="0">轻松融</option>
-                  <option value="1">容易融</option>
-                  <option value="2">快乐融</option>
               </select>
           </div>
         </div>

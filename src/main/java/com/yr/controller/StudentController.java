@@ -1,6 +1,8 @@
 package com.yr.controller;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -104,24 +106,21 @@ public class StudentController {
 	
 	/**
 	 * 
-	 * @Date : 2018年5月24日下午7:12:54
+	 * @Date : 2018年5月25日上午8:57:31
 	 * 
-	 * @author : 唐子壕 
+	 * @author : 唐子壕
 	 *	
-	 * @return : String 
+	 * @return : String
 	 *
-	 * @param id 学生code 
+	 * @param id 
+	 * 
+	 * @param map 
 	 */
-	@ResponseBody
 	@RequestMapping(value = "/updateDisplay", produces = "text/json;charset=UTF-8")
-	public String updateDisplay(Integer id) {
+	public String updateDisplay(Integer id, Map<String, Object> map) {
 		String result = studentService.updateDisplay(id);
-		return result;
+		map.put("cls", studentService.queryCls());
+		map.put("student", result);
+		return "studentUpdate";
 	}
-	
-	
-	
-	
-	
-	 
 }

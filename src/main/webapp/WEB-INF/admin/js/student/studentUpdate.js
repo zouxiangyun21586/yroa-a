@@ -26,7 +26,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 			$.ajax({
 				type : "post",
 				url : path+"student",
-				data : $('#studentForm').serialize(),
+				data :('#studentForm').serialize(), "id":obj.data.id, "_method":"PUT",
 				success : function(data) {
 					if (0 == data.code) {
 						setTimeout(function() {

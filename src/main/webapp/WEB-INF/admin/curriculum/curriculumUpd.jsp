@@ -15,25 +15,12 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" id="clasForm">
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">班级名</label>
-		<div class="layui-input-block">
-			<input type="text" class="layui-input userName" lay-verify="required" placeholder="请输入" name="name" >
-		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-				<label class="layui-form-label">开班日期</label>
-				<div class="layui-input-block">
-					<input type="text" class="layui-input" placeholder="yyyy-MM-dd" lay-verify="required" name="startTime" id="entranceYear">
-				</div>
-			</div>
-	</div>
+<form class="layui-form" style="width:80%;" id="clasUpdForm">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">本届教师</label>
 			<div class="layui-input-block">
-				<select lay-filter="teacherCode" name="teacherCode">
+				<!-- <select name="userStatus" class="userStatus" lay-filter="userStatus" name="teacherCode" > -->
+				<select lay-filter="teacherCode" name="teacherCode" id="teacherCode">
 					<option value="T1001">钟林军</option>
 					<option value="T1002">林娟娟</option>
 				</select>
@@ -41,12 +28,12 @@
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
-			<button class="layui-btn layui-btn-sm" lay-submit="submit" lay-filter="addUser">立即添加</button>
+			<button class="layui-btn layui-btn-sm" lay-submit="submit" lay-filter="addUser">立即修改</button>
 			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
 		</div>
 	</div>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/curriculum/curriculumAdd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/curriculum/curriculumUpd.js"></script>
 </body>
 </html>

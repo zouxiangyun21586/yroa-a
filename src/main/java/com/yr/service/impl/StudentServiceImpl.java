@@ -2,6 +2,7 @@ package com.yr.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -193,5 +194,10 @@ public class StudentServiceImpl implements StudentService {
 		}
 		String result = JSONObject.fromObject(map).toString();
 		return result;
+	}
+
+	@Override
+	public List<Student> queryCls() {
+		return studentDao.queryCls();
 	}
 }
