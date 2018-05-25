@@ -178,14 +178,14 @@ public class TeacherDaoImpl implements TeacherDao {
 						.setParameter("name", "%" + name + "%").getResultList();
 				count = Integer
 				.parseInt(entityManager
-				 .createNativeQuery("select count(*) from yr_tearcher where name like :name ")
+				 .createNativeQuery("select count(*) from yr_teacher where name like :name ")
 				   .setParameter("name", "%" + name + "%").getSingleResult().toString());
 			} else {
 				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
 						.setMaxResults(limit).getResultList();
 				count = Integer
 						.parseInt(entityManager
-						   .createNativeQuery("select count(*) from yr_tearcher")
+						   .createNativeQuery("select count(*) from yr_teacher")
 							  .getSingleResult().toString());
 			}
 			pageUtil = new PageUtil(limit, page, count);		
