@@ -117,7 +117,7 @@ public class Teacher {
 		this.addr = addr == null ? null : addr.trim();
 	}
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "in_time")
 	public String getInTime() {
 		return inTime;
@@ -144,7 +144,7 @@ public class Teacher {
 		this.isLeave = isLeave == null ? null : isLeave.trim();
 	}
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "leave_time")
 	public Date getLeaveTime() {
 		return leaveTime;
@@ -162,7 +162,7 @@ public class Teacher {
 		this.info = info == null ? null : info.trim();
 	}
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public String getBirth() {
 		return birth;
 	}

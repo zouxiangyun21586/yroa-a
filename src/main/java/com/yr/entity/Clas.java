@@ -92,7 +92,7 @@ public class Clas {
 		this.teacherName = teacherName;
 	}
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "start_time")
     public String getStartTime() {
         return startTime;
@@ -121,7 +121,7 @@ public class Clas {
         this.isFinish = isFinish == null ? null : isFinish.trim();
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "finish_time")
     public String getFinishTime() {
         return finishTime;

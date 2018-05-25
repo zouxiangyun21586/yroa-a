@@ -17,7 +17,7 @@ public interface TeacherService {
 	 * 2018年5月22日 上午8:42:21
 	 * 
 	 * @param teacher 老师实体类
-	 * @return Boolean值  判断添加是否成功  true: 成功  false: 失败回滚
+	 * @return Boolean
 	 */
 	Boolean add(Teacher teacher);
 	
@@ -28,7 +28,7 @@ public interface TeacherService {
 	 * 2018年5月22日 上午8:46:11
 	 * 
 	 * @param teacher 老师对象
-	 * @return Boolean值 便于判断是否修改成功
+	 * @return Boolean
 	 */
 	Boolean update(Teacher teacher);
 	
@@ -39,7 +39,7 @@ public interface TeacherService {
 	 * 2018年5月22日 上午8:47:17
 	 * 
 	 * @param teacher 老师对象
-	 * @return Boolean值 便于判断是否删除成功
+	 * @return Boolean
 	 */
 	Boolean delete(Teacher teacher);
 	
