@@ -44,11 +44,6 @@
                 "href": "attendance/holiday",
                 "spread": false
             },{
-                "title": "添加考勤",
-                "icon": "&#xe612;",
-                "href": "attendance/attendanceAdd",
-                "spread": false
-            },{
                 "title": "考勤列表",
                 "icon": "&#xe612;",
                 "href": "attendance/attendanceList",
