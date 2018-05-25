@@ -105,9 +105,7 @@ public class HolidayController {
 	public String updates(Integer id) {
 		Map<String, Object> map = new HashMap<>();
 		Holiday holiday = holidayService.get(id);
-		List<Clas> clas = claService.query();
 		map.put("holiday", holiday);
-		map.put("clas", clas);
 		return addr1;
 	}
 	

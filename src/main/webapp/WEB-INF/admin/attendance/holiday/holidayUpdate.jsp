@@ -56,6 +56,8 @@
         <div class="magb15 layui-col-md4 layui-col-xs12">
            <label class="layui-form-label">届次名称</label>
           <div class="layui-input-block editWidth">
+              ${code}
+              <input type="hidden" id="code" name="code" value="${holiday.classCode}" />
               <select name="classCode" lay-verify="required" id="claSelect">
                   
               </select>
