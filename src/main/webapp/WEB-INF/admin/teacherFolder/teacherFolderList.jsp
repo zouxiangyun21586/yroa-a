@@ -18,7 +18,7 @@
 				<div class="demoTable">
 					<div class="layui-inline">
 						<div class="layui-input-inline">
-							<input type="text" class="layui-input searchVal" placeholder="根据账号搜索"
+							<input type="text" class="layui-input searchVal" placeholder="根据姓名搜索"
 							onkeydown="if(event.keyCode==13){document.getElementById('selectuser').click();return false;}"/>
 						</div>
 						<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>

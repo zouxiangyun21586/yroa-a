@@ -44,10 +44,9 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">教师等级</label>
 			<div class="layui-input-block">
-				<select name="userStatus" class="userStatus" lay-filter="userStatus" name="level" id="level">
-					<option value="1001">最强王者</option>
-					<option value="1002">顽固黄金</option>
-					<option value="1003">倔强青铜</option>
+				<select lay-filter="teacherCode" name="teacherCode">
+					<option value="T1001">钟林军</option>
+					<option value="T1002">林娟娟</option>
 				</select>
 			</div>
 		</div>
