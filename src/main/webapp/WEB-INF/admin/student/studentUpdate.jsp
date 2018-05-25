@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +54,7 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
-				<input class="layui-input" placeholder="请输入手机号" name="tel"lay-verify="required|phone" />
+				<input class="layui-input" placeholder="请输入手机号" name="tel" lay-verify="required|phone" />
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
@@ -87,35 +88,4 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/student/studentUpdate.js"></script>
 </body>
-<script>
-	<%-- $(document).ready(function(){
-		$.ajax({
-			type:"get",  // 请求方式(post或get)
-			async:false,  //默认true(异步请求),设置为false(同步请求)
-			url:"<%=request.getContextPath() %>/updateDisplay",
-			scriptCharset: 'utf-8', 
-			data:{
-				
-			},
-			success:function(userJson){
-				var result = eval("("+userJson+")");
-				if(result=="success"){
-					alert("添加成功");
-					window.location.reload();
-				}else if(result="fail"){
-					alert("该账号已存在,请重新添加");
-				}
-			},
-			error:function(XMLHttpRequest, textStatus, errorThrown){
-				alert(XMLHttpRequest.status);
-				alert(XMLHttpRequest.readyState);
-				alert(textStatus);
-	        }
-		}); 
-	})
-	 --%>
-
-
-</script>
-
 </html>
