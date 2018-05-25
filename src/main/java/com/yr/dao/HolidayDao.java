@@ -19,6 +19,15 @@ public interface HolidayDao {
 	Integer add(Holiday holiday);
 	
 	/**
+	 * 根据ID删除假期
+	 * @param id   假期ID
+	 * @return     0为未删除
+	 * Integer
+	 * @作者 林水桥2018年5月25日上午10:02:37
+	 */
+	Integer delete(Integer id);
+	
+	/**
 	 * 分页查询假期
 	 * @param page    当前页
 	 * @param limit   每页多少条数据

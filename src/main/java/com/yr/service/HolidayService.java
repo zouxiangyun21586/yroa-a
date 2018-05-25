@@ -13,10 +13,19 @@ public interface HolidayService {
 	 * 添加假期
 	 * @作者 林水桥
 	 * @param holiday 假期实体类
-	 * @return Integer 添加ID
+	 * @return String 添加状态0是成功
 	 * 2018年5月23日下午7:57:59
 	 */
-	Integer add(Holiday holiday);
+	String add(Holiday holiday);
+	
+	/**
+	 * 根据ID删除假期
+	 * @param id   假期ID
+	 * @return     0为未删除
+	 * Integer
+	 * @作者 林水桥2018年5月25日上午10:02:37
+	 */
+	String delete(Integer id);
 	
 	/**
 	 * 分页查询假期
@@ -33,10 +42,10 @@ public interface HolidayService {
 	 * 修改假期
 	 * @作者 林水桥
 	 * @param holiday 假期实体类
-	 * @return Integer 返回1为修改成功，0为修改失败
+	 * @return String 返回1为修改成功，0为修改失败
 	 * 2018年5月24日上午9:16:37
 	 */
-	Integer update(Holiday holiday);
+	String update(Holiday holiday);
 	
 	/**
 	 * 数据回显

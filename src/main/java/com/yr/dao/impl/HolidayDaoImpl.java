@@ -33,10 +33,23 @@ public class HolidayDaoImpl implements HolidayDao {
 	 * 2018年5月23日下午7:57:59
 	 */
 	public Integer add(Holiday holiday) {
-		
 		entityManager.persist(holiday);
-		
 		return holiday.getId();
+	}
+	
+	/**
+	 * 根据ID删除假期
+	 * @param id   假期ID
+	 * @return     0为未删除
+	 * Integer
+	 * @作者 林水桥2018年5月25日上午10:02:37
+	 */
+	public Integer delete(Integer id) {
+		
+		Integer delete = entityManager.createQuery("delete from Holiday where id = :id")
+				.setParameter("id", id).executeUpdate();
+		
+		return delete;
 	}
 	
 	/**
@@ -64,7 +77,6 @@ public class HolidayDaoImpl implements HolidayDao {
                 count = Integer.parseInt(entityManager.createNativeQuery(
                 		"SELECT COUNT(*) FROM Holiday where classCode like :classCode")
                                         .setParameter("classCode", "%" + classCode + "%").getSingleResult().toString());
-
             } else {
                 list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
                         .setMaxResults(limit).getResultList();
@@ -120,10 +132,8 @@ public class HolidayDaoImpl implements HolidayDao {
 	 * 2018年5月24日上午10:03:28
 	 */
 	public Holiday get(Integer id) {
-		
 		Holiday holiday = (Holiday) entityManager.createQuery("from Holiday ho where ho.id = :id")
 							.setParameter("id", id).getSingleResult();
-		
 		return holiday;
 	}
 	

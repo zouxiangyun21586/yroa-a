@@ -2,6 +2,7 @@ package com.yr.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,6 +74,19 @@ public final class DateUtils {
 	 */
 	public static String getCurrentDateTime() {
 		return dfymdhms.format(new Date());
+	}
+	
+	/**
+	 * 获得Date类型的当前日期和时间
+	 * @return yyyy-MM-dd HH:mm:ss
+	 * Date
+	 * @作者 林水桥2018年5月25日上午9:05:08
+	 */
+	public static Date getCurretDateTimeA() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		ParsePosition pos = new ParsePosition(0);
+		Date strtodate = formatter.parse(getCurrentDateTime(), pos);
+		return strtodate;
 	}
 
 	/**

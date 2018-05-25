@@ -53,12 +53,12 @@ layui.use(['table','form','tree','laytpl'], function(){
 		table.on('tool(demo)', function(obj){
 		  var data = obj.data;
 		  if(obj.event === 'del'){
-		    layer.confirm('确定要删除么', function(index){
+		    layer.confirm('确定要删除该假期?', function(index){
 		    	layer.close(index);
 		    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
 		    	$.ajax({
 	    	       type:"post",
-	    	       url:path+"userDelete",
+	    	       url:path+"holiday/delete",
 	    	       data: {"id":obj.data.id,"_method":"DELETE"},
 	    	       success:function(data){
 	    	    	   if(200==data.code){
@@ -94,10 +94,10 @@ layui.use(['table','form','tree','laytpl'], function(){
 		    });
 		  }else if(obj.event === 'edit'){
 			  var index = layui.layer.open({
-					title : "修改考勤",
+					title : "修改假期",
 					type : 2,
 					anim : 5,
-					content : "classUpdate",//修改学生的页面路径
+					content : "../holiday/updates?id="+obj.data.id,//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
