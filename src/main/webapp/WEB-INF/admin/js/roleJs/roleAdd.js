@@ -7,70 +7,45 @@ layui.use([ 'layer', 'form' ], function() {
 	pos = strFullPath.indexOf(strPath),
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
-	$.ajax({
-		type : "get",
-		url : path+"acc/qrole",
-		success : function(data) {
-			$("#code").append("<option value=''>请选择角色</option>");
-            for(var i in data){
-            	$("#code").append("<option value='"+data[i].code+"'>"+data[i].name+"</option>");
-            }
-            form.render('select');
-		},error : function() {
-			setTimeout(function() {
-				top.layer.close(index);
-				top.layer.msg("异常！", {
-					icon : 2
-				});
-				layer.closeAll("iframe");
-			}, 1000);
-		}
-	});
+	
 	form.on("submit(addUser)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
 			time : false,
 			shade : 0.8
 		});
-		var passWord=$(":input[name='passWord']").val();
-    	var passWords=$(":input[name='passWords']").val();
-    	if(passWord!=passWords){
-    		top.layer.close(index);
-			layer.msg("2次密码不一致",{icon:2,time:2000,shade:0.5});
-    	}else{
-			$.ajax({
-				type : "post",
-				url : path+"acc/add",
-				data : $('#accountAdd').serialize(),
-				success : function(data) {
-					if (0 == data.code) {
-						setTimeout(function() {
-							top.layer.close(index);
-							top.layer.msg(data.msg, {
-								icon : 1
-							});
-							layer.closeAll("iframe");
-							parent.location.reload();
-						}, 1000);
-					} else {
-						setTimeout(function() {
-							top.layer.close(index);
-							top.layer.msg(data.msg, {
-								icon : 2
-							});
-						}, 1000);
-					}
-				},error : function() {
+		$.ajax({
+			type : "post",
+			url : path+"role/add",
+			data : $('#roleAdd').serialize(),
+			success : function(data) {
+				if (0 == data.code) {
 					setTimeout(function() {
 						top.layer.close(index);
-						top.layer.msg("异常！", {
-							icon : 2
+						top.layer.msg(data.msg, {
+							icon : 1
 						});
 						layer.closeAll("iframe");
+						parent.location.reload();
+					}, 1000);
+				} else {
+					setTimeout(function() {
+						top.layer.close(index);
+						top.layer.msg(data.msg, {
+							icon : 2
+						});
 					}, 1000);
 				}
-			});
-		}
+			},error : function() {
+				setTimeout(function() {
+					top.layer.close(index);
+					top.layer.msg("异常！", {
+						icon : 2
+					});
+					layer.closeAll("iframe");
+				}, 1000);
+			}
+		});
 		return false;
 	});
 	form.verify({

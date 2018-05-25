@@ -33,17 +33,6 @@ layui.use(['table','form','tree'], function(){
 					}
 					return adm;
 				}, unresize: true},
-				{field: 'type', title: '用户类型', width:90,align:'center', templet: function(d){
-					var types;
-					if('T'==d.type){
-						types='<span style="font-size:5px;color:#009688;">老师</span>'
-					}else if('S'==d.type){
-						types='<span style="font-size:5px;color:#FFB800;">学生</span>'
-					}else if('P'==d.type){
-						types='<span style="font-size:5px;color:#ff0000;">家长</span>'
-					}
-					return types;
-				}, unresize: true},
 				{field: 'createTimeStr', title: '注册时间', unresize: true},
                 {field: 'updateTimeStr', title: '最后修改时间', unresize: true},
 				{field: 'status', title:'状态', width:90,align:'center', templet: function(d){

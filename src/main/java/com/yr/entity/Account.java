@@ -52,10 +52,6 @@ public class Account implements Serializable {
      */
     private String isAdmin;
     /**
-     * 用户类型
-     */
-    private String type;
-    /**
      * 状态
      */
     private String status;
@@ -132,14 +128,6 @@ public class Account implements Serializable {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
