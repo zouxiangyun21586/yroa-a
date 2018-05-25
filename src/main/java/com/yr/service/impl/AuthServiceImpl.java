@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yr.dao.AccountDao;
 import com.yr.entity.Account;
-import com.yr.service.AccountService;
+import com.yr.service.AuthService;
 import com.yr.util.EncryptUtils;
 import net.sf.json.JSONObject;
 
@@ -21,7 +21,7 @@ import net.sf.json.JSONObject;
  */
 @Transactional
 @Service
-public class AuthServiceImpl implements AccountService {
+public class AuthServiceImpl implements AuthService {
 	@Autowired
 	private AccountDao accDao;
 	

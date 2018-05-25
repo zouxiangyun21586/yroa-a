@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yr.dao.AccountDao;
 import com.yr.entity.Account;
-import com.yr.service.AccountService;
+import com.yr.service.RoleService;
 import com.yr.util.EncryptUtils;
 import net.sf.json.JSONObject;
 
@@ -21,7 +21,7 @@ import net.sf.json.JSONObject;
  */
 @Transactional
 @Service
-public class RoleServiceImpl implements AccountService {
+public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private AccountDao accDao;
 	
