@@ -1,12 +1,20 @@
 package com.yr.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yr.dao.ClasDao;
 import com.yr.dao.HolidayDao;
+import com.yr.entity.Clas;
 import com.yr.entity.Holiday;
 import com.yr.service.HolidayService;
+import com.yr.util.DateUtils;
+
+import net.sf.json.JSONObject;
 
 /**
  * 假期ServiceImpl
@@ -19,19 +27,56 @@ public class HolidayServiceImpl implements HolidayService {
 	
 	@Autowired
 	private HolidayDao holidayDao;
+	@Autowired
+	private ClasDao clasDao;
 	
 	/**
 	 * 添加假期
 	 * @作者 林水桥
 	 * @param holiday 假期实体类
-	 * @return Integer 添加ID
+	 * @return String 添加状态0是成功
 	 * 2018年5月23日下午7:57:59
 	 */
-	public Integer add(Holiday holiday) {
-		
-//		holiday.setCreateTime(DateUtils.getCurrentDateTime());
-		
-		return holidayDao.add(holiday);
+	public String add(Holiday holiday) {
+		Map<String, Object> map = new HashMap<>();
+		Clas clas = clasDao.get(holiday.getClassCode());
+		holiday.setClassCode(clas.getCode());
+		holiday.setClassName(clas.getName());
+		holiday.setCreateTime(DateUtils.getCurretDateTimeA());
+		holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
+		Integer b = holidayDao.add(holiday);
+		if (null == b || 0 == b) {
+			map.put("code", 1);
+			map.put("msg", "添加失败");
+		} else {
+			map.put("code", 0);
+			map.put("msg", "添加成功");
+		}
+		return JSONObject.fromObject(map).toString();
+	}
+	
+	/**
+	 * 根据ID删除假期
+	 * @param id   假期ID
+	 * @return     0为未删除
+	 * Integer
+	 * @作者 林水桥2018年5月25日上午10:02:37
+	 */
+	public String delete(Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		Holiday holiday = holidayDao.get(id);
+		Integer del = 0;
+		if (null != holiday) {
+			del = holidayDao.delete(id);
+		}
+		if (0 == del) {
+			map.put("code", 1);
+			map.put("msg", "删除失败");
+		} else {
+			map.put("code", 0);
+			map.put("msg", "删除成功");
+		}
+		return JSONObject.fromObject(map).toString();
 	}
 	
 	/**
@@ -53,13 +98,27 @@ public class HolidayServiceImpl implements HolidayService {
 	 * 修改假期
 	 * @作者 林水桥
 	 * @param holiday 假期实体类
-	 * @return Integer 返回1为修改成功，0为修改失败
+	 * @return String 返回1为修改成功，0为修改失败
 	 * 2018年5月24日上午9:16:37
 	 */
-	public Integer update(Holiday holiday) {
-		
-		
-		return holidayDao.update(holiday);
+	public String update(Holiday holiday) {
+		Map<String, Object> map = new HashMap<>();
+		Holiday holidays = holidayDao.get(holiday.getId());
+		Integer update = 0;
+		if (null != holidays) {
+			Clas clas = clasDao.get(holiday.getClassCode());
+			holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
+			holiday.setClassName(clas.getName());
+			update = holidayDao.update(holiday);
+		}
+		if (0 == update) {
+			map.put("code", 1);
+			map.put("msg", "修改失败");
+		} else {
+			map.put("code", 0);
+			map.put("msg", "修改成功");
+		}
+		return JSONObject.fromObject(map).toString();
 	}
 	
 	/**
