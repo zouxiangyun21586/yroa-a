@@ -37,7 +37,7 @@
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">放假开始时间</label>
             <div class="layui-input-block">
-                <input class="layui-input" placeholder="请输入放假开始时间" name="startTime" lay-verify="required">
+                <input class="layui-input" placeholder="请输入放假开始时间" name="startTime" id="startTime" lay-verify="required">
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
@@ -49,7 +49,7 @@
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">放假结束时间</label>
             <div class="layui-input-block">
-                <input class="layui-input" placeholder="请输入放假结束时间" name="endTime" lay-verify="required">
+                <input class="layui-input" placeholder="请输入放假结束时间" name="endTime" id="endTime" lay-verify="required">
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">

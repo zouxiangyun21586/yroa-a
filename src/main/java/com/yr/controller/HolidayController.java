@@ -108,7 +108,6 @@ public class HolidayController {
 		List<Clas> clas = claService.query();
 		map.put("holiday", holiday);
 		map.put("clas", clas);
-//		String b = JSONObject.fromObject(map).toString();
 		return addr1;
 	}
 	

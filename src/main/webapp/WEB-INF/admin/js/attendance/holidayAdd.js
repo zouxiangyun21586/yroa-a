@@ -15,6 +15,14 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		elem: '#endDate'
 	});
 	laydate.render({
+	    elem: '#startTime',
+	    type: 'time'
+	});
+	laydate.render({
+	    elem: '#endTime',
+	    type: 'time'
+	});
+	laydate.render({
 	    elem: '#date',
 	    type: 'datetime',
 	    range: true
