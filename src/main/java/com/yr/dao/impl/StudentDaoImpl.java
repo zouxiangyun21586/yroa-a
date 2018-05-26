@@ -295,4 +295,43 @@ public class StudentDaoImpl implements StudentDao {
 		String code = (String) entityManager.createQuery(jpql1).setParameter("name", val).getSingleResult();
 		return code;
 	}
+
+	/**
+	 * 
+	 * @Date : 2018年5月26日上午11:49:09
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return List<Student>
+	 * 
+	 * @describe 查询所有未毕业学生
+	 * 
+	 * @see com.yr.dao.StudentDao#queryNoGre()
+	 */
+	public List<Student> queryNoGre() {
+		String jpql = "from Studnet where isFinish=:isFinish";
+		List<Student> student = entityManager.createQuery(jpql).setParameter("isFinish", "0").getResultList();
+		return student;
+	}
+
+	/**
+	 * 
+	 * @Date : 2018年5月26日上午11:49:13
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @describe 根据code查询学生对象
+	 *  
+	 * @param code 
+	 *	
+	 * @return Student
+	 * 
+	 * @see com.yr.dao.StudentDao#querytoCode()
+	 */
+	public Student querytoCode(String code) {
+		String jpql = "from Student where code=:code";
+		Student student = (Student) entityManager.createQuery(jpql)
+				.setParameter("code", code).getSingleResult();
+		return student;
+	}
 }
