@@ -20,7 +20,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	
 	 $.ajax({
 	        type : "get",
-	        url : path + "teacherHX",
+	        url : path + "teacherHX?id="+$("#ids").val(),
 	        success : function(result) {
 	        	alert(result);
 	            var obj = eval(result);

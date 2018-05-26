@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
@@ -22,29 +21,28 @@
 </head>
 <body>
 <br/>
-<form:form class="layui-form" style="width:80%;" id="teacherUpdForm" modelAttribute="teacher">
+<form:form class="layui-form" style="width:80%;" modelAttribute="teacher" id="teacherUpdForm">
 	<form:hidden path="id"/>
+	<input type="hidden" name = "id1" id="id1" value="${teacher.id}"/>
     <input type="hidden" name="_method" value="PUT">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
-				<form:input type="text" class="layui-input" path="tel" lay-verify="required" placeholder="老师电话" />
+				<input type="text" class="layui-input" id="tel" name="tel" lay-verify="required" placeholder="老师电话" value="${teacher.tel}" />
 			</div>
 		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">教学等级</label>
 			<div class="layui-input-block">
 				<input type="hidden" id="level" name="level"/>
 				<select name="level" lay-verify="required" >
-                 	<option value="DEVHIG">高级</option>
+	               	<option value="DEVHIG">高级</option>
 					<option value="DEVMID">中级</option>
 					<option value="DEVELE">初级</option>
 					<option value="DBA">数据库</option>
 					<option value="UI">前台</option>
-            	</select>
+           		</select>
 			</div>
 		</div>
 	</div>

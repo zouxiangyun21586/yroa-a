@@ -39,6 +39,7 @@
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
+		  <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>删除</a></li>
       </ul>
   </div>
 </script>

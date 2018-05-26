@@ -29,7 +29,10 @@ public class ClasController {
 	
 	@Autowired
 	private ClasService clasService;
+	
 	final Integer number = 2;
+	
+	String jsp = "curriculum/curriculumUpd";
 	
 	/**
 	 * 添加
@@ -104,15 +107,15 @@ public class ClasController {
 	 * 
 	 * 2018年5月22日 下午5:58:00
 	 * 
-	 * @param code 需数据回显的老师code
+	 * @param id 需数据回显的老师id
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return Json格式的String数据
 	 */
-	@RequestMapping(value = "/getClasOnly?code", method = RequestMethod.GET)
-	public @ResponseBody String get(ModelMap map, @PathVariable(value = "code") String code) {
-		Clas listUser = clasService.get(code);
-		String str = JsonUtils.beanToJson(listUser);
-		return str;
+	@RequestMapping(value = "/getClasOnly", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public String get(ModelMap map, Integer id) {
+		Clas clas = clasService.get(id);
+		map.put("clas", clas);
+		return jsp;
 	}
 
 	/**
