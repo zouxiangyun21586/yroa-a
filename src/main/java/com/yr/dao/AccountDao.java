@@ -17,10 +17,9 @@ public interface AccountDao {
 	int addId(Account emp, String code);
 	/**
 	 * 删除
-	 * @param i 用户编号
-	 * @return 是否操作成功
+	 * @param name 用户账号
 	 */
-	int del(Integer i);
+	void del(String name);
 	/**
 	 * 修改
 	 * @param emp 用户对象

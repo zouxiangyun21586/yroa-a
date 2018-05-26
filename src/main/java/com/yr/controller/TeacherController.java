@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Teacher;
-import com.yr.service.AccountService;
 import com.yr.service.TeacherService;
 import com.yr.util.JsonUtils;
 
@@ -25,9 +24,6 @@ public class TeacherController {
 	
 	@Autowired
 	private TeacherService teacherService;
-	
-	@Autowired
-	private AccountService accountService;
 	
 	final Integer number = 2;
 	
@@ -98,24 +94,23 @@ public class TeacherController {
 	}
 
 	/**
-	 * 
+	 * 数据回显
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午4:04:50
 	 * 
 	 * @param code 需数据回显的老师code
-	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return Json格式的String数据
 	 */
-	@RequestMapping(value = "/getTeacher", method = RequestMethod.GET)
-	public @ResponseBody String get(String code, ModelMap map) {
+	@RequestMapping(value = "/getTeacher", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public @ResponseBody String get(String code) {
 		Teacher listUser = teacherService.get(code);
 		String str = JsonUtils.beanToJson(listUser);
 		return str;
 	}
 
 	/**
-	 * 查询
+	 * 查询 (提供给假期使用)
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午4:07:04

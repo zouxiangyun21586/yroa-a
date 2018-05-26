@@ -16,39 +16,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	}
 	$.getUrlParam('code');*/
 	
-	$.ajax({
-        type : "get",
-        url : path + "getClasOnly",
-        success : function(data) {
-            var obj = eval(data);
-            var objLength = obj.length;
-            if(objLength>0){
-                $('#claSelect').empty();
-                var a="";
-                $(obj).each(function (i) {
-                    a+='<option value="' + obj[i].code + '">' + obj[i].code+"-"+obj[i].name + '</option>';
-                });
-                $("#claSelect").append(a);
-                form.render('select');
-            }else{
-                alert("没有东西");
-                $('#claSelect').find('option').remove();
-                form.render('select');
-
-            }
-        },
-        error : function() {
-            setTimeout(function() {
-                top.layer.close(index);
-                top.layer.msg("异常！", {
-                    icon : 2
-                });
-                layer.closeAll("iframe");
-            }, 1000);
-        }
-    });
-	
-	form.on("submit(addUser)", function(data) {
+	form.on("submit(updCurr)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
 			time : false,

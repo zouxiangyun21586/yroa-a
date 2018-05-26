@@ -67,8 +67,8 @@ public class AuthServiceImpl implements AuthService {
 	 * @return 是否操作成功
 	 */
 	public int del(Integer i) {
-		int z = accDao.del(i);
-		return z;
+//		int z = accDao.del(i);
+		return 0;
 	}
 	/**
 	 * 修改

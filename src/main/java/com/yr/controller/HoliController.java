@@ -39,7 +39,7 @@ public class HoliController {
 	private static String addr1 = "attendance/holiday/holidayUpdate";
 	/**
 	 * 查询全部假期   带分页
-	 * @param page       当前页
+	 * @param page       当前页 
 	 * @param limit		   每页多少条数据
 	 * @param name       是否使用搜索框
 	 * @return  String   返回json类型      
