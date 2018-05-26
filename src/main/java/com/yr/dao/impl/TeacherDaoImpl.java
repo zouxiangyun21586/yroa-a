@@ -42,23 +42,22 @@ public class TeacherDaoImpl implements TeacherDao {
 	public void add(Teacher teacher) {
 		
 		try {
-		Teacher tch = new Teacher();
-		tch.setName(teacher.getName());
-		String strCode = code();
-		tch.setCode(strCode); // 需加1
-		tch.setSex(teacher.getSex());
-		tch.setBirth(teacher.getBirth());
-		tch.setAge(AgeUtils.birthTime(teacher.getBirth()));
-		tch.setTel(teacher.getTel());
-		tch.setAddr(teacher.getAddr());
-		tch.setInTime(teacher.getInTime());
-		tch.setLevel(levelMothed(teacher.getLevel()));
-		tch.setInfo(teacher.getInfo());
-		tch.setIsLeave("");
-		tch.setCreateTime(new Date());
-		tch.setTeacherAccount(teacher.getTeacherAccount());
-		entityManager.persist(tch); // 老师code  age需要算
-		
+			Teacher tch = new Teacher();
+			tch.setName(teacher.getName());
+			String code = code();
+			tch.setCode(code); // 需加1
+			tch.setSex(teacher.getSex());
+			tch.setBirth(teacher.getBirth());
+			tch.setAge(AgeUtils.birthTime(teacher.getBirth()));
+			tch.setTel(teacher.getTel());
+			tch.setAddr(teacher.getAddr());
+			tch.setInTime(teacher.getInTime());
+			tch.setLevel(levelMothed(teacher.getLevel()));
+			tch.setInfo(teacher.getInfo());
+			tch.setIsLeave(isLeave(teacher.getIsLeave()));
+			tch.setCreateTime(new Date());
+			tch.setTeacherAccount(teacher.getTeacherAccount());
+			entityManager.persist(tch); // 老师code  age需要算
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,6 +89,24 @@ public class TeacherDaoImpl implements TeacherDao {
 	}
 	
 	/**
+	 * 老师状态
+	 * @param leave 状态 1 离职   0或者"" 在职  2 试用 
+	 * @return String 状态
+	 * 2018年5月25日下午8:58:33
+	 */
+	public static String isLeave(String leave) {
+		String lea = "";
+		if (leave.equals("1")) {
+			lea = leave;
+		} else if (leave.equals("2")) {
+			lea = leave;
+		} else if (leave.equals("0") || leave.equals("")) {
+			lea = leave;
+		} 
+		return lea;
+	}
+	
+	/**
 	 * 获取届次编号
 	 * @author zxy
 	 * 
@@ -101,13 +118,13 @@ public class TeacherDaoImpl implements TeacherDao {
 		String code = "";
 		String jpql = "select count(*) from yr_teacher";
 		String value = entityManager.createNativeQuery(jpql).getSingleResult().toString();
-		if ("0".equals(value)) { // 如果数据中没有值 那么编号默认从 C1001 开始
-			code = "T1001";
+		if ("0".equals(value)) { // 如果数据中没有值 那么编号默认从 1001 开始
+			code = "1001";
 		} else { // 如果数据库中有值 那么将最大code 数查出 加1 成为下一个code数
 			String sql = "select max(`code`)  from yr_teacher";
 			String sqlCode = entityManager.createNativeQuery(sql).getSingleResult().toString();
-			Integer integer = Integer.valueOf(sqlCode.substring(1)) + 1;
-			code = "T" + integer;
+			Integer integer = Integer.parseInt(sqlCode) + 1;
+			code = String.valueOf(integer);
 		}
 		return code;
 	}
