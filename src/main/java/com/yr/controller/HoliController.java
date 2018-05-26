@@ -48,7 +48,7 @@ public class HoliController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/getHoliday", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
-	public String getTest(int page, int limit, String name) {
+	public String getHoliday(int page, int limit, String name) {
 		String a = holiService.getHoliday(page, limit, name);
 		return a;
 	}
@@ -61,7 +61,7 @@ public class HoliController {
      */
 	@ResponseBody
     @RequestMapping(value = "/clasList", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
-    public String adds() {
+    public String clasList() {
 		List<Clas> clas = claService.query();
 		String a = JsonUtils.beanListToJson(clas);
         return a;
