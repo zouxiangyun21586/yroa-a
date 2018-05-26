@@ -166,6 +166,20 @@ public class ClasServiceImpl implements ClasService {
 	}
 
 	/**
+	 * 提供方法给添加假期模块
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 下午5:48:57
+	 * 
+	 * @param code 根据届次code查询届次数据
+	 * @return 返回某届次的对象
+	 */
+	@Override
+	public Clas getCode(String code) {
+		return clasDao.getCode(code);
+	}
+	
+	/**
 	 * 查询指定值
 	 * @author zxy
 	 * 
