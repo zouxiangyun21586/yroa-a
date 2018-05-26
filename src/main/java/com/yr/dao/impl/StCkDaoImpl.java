@@ -5,6 +5,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
+import com.yr.dao.StCkDao;
 import com.yr.entity.StudentCheck;
 
 /**
@@ -13,7 +14,7 @@ import com.yr.entity.StudentCheck;
  * 2018年5月25日下午9:44:35
  */
 @Repository("stCkDaoImpl")
-public class StCkDaoImpl {
+public class StCkDaoImpl implements StCkDao {
 	
 	@PersistenceContext
 	private EntityManager entityManager;

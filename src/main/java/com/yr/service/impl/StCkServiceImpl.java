@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yr.dao.StCkDao;
 import com.yr.entity.StudentCheck;
+import com.yr.service.StCkService;
 
 /**
  * 学生考勤Service层
@@ -14,7 +15,7 @@ import com.yr.entity.StudentCheck;
  */
 @Transactional
 @Service("stCkServiceImpl")
-public class StCkServiceImpl {
+public class StCkServiceImpl implements StCkService {
 	
 	@Autowired
 	private StCkDao stCkDao;
