@@ -29,8 +29,7 @@ layui.config({
     base : 'js/'
 }).extend({
   selectN: 'layui_extends/selectN',
-  selectM: 'layui_extends/selectM',
-  echarts: 'echarts'
+  selectM: 'layui_extends/selectM'
 }).use(['form','element','layer','jquery','selectN','selectM'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
@@ -201,4 +200,3 @@ layui.config({
     myChart.setOption(option);
     
 });
-
