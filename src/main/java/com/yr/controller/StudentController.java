@@ -1,7 +1,6 @@
 package com.yr.controller;
 
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yr.entity.Clas;
 import com.yr.entity.Student;
 import com.yr.service.StudentService;
-import com.yr.util.JsonUtils;
 
 /**
  * 
@@ -38,6 +35,8 @@ public class StudentController {
 	 * @author : 唐子壕
 	 *	
 	 * @return : String 返回json格式
+	 * 
+	 * @describe : 分页查询
 	 *
 	 * @param page 第几页
 	 * @param limit 每页多少条
@@ -140,8 +139,7 @@ public class StudentController {
 	@ResponseBody
 	@RequestMapping(value = "/queryYear", produces = "text/json;charset=UTF-8")
 	public String queryYear() {
-		List<Clas> clasList = studentService.queryCls();
-		String result = JsonUtils.beanListToJson(clasList);
+		String result = studentService.queryCls();
 		return result;
 	}
 	

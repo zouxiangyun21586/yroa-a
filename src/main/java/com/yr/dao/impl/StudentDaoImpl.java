@@ -32,15 +32,18 @@ public class StudentDaoImpl implements StudentDao {
 	
 	
 	
-	/**
+	/**查询学生信息
 	 * 
 	 * @Date : 2018年5月22日下午7:19:40
 	 * 
 	 * @author : 唐子壕
-	 *	
+	 *
+	 * @describe   分页查询,模糊查询,查询结果根据入学时间进行升序查询	
+	 *
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
+	 * 
 	 * @return : PageUtil 返回查询结果,是一个集合
 	 *
 	 * @see com.yr.dao.StudentDao#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
@@ -85,7 +88,7 @@ public class StudentDaoImpl implements StudentDao {
 		return pageUtil;
 	}
 	
-	/**
+	/**添加学生信息
 	 * 
 	 * @Date : 2018年5月22日下午5:44:32
 	 * 
@@ -105,7 +108,7 @@ public class StudentDaoImpl implements StudentDao {
 		try {
 			String name = student.getName(); //学生姓名
 			String result1 = queyrIsName(name); //判断学生姓名是否已存在
-			if ("0".equals(result1)) {
+			if ("0".equals(result1)) { //判断添加的学是是否也存在 这里表示不存在
 				String code = code(); //学生编号
 				String clasCode = new String(student.getYear()
 						.getBytes("ISO8859-1"), "utf-8"); //届次 ,获取到的是届次表的code
@@ -131,27 +134,10 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		return result;
 	}
-
-	/**
-	 * 
-	 * @Date : 2018年5月23日下午7:12:24
-	 * 
-	 * @author : 唐子壕
-	 *	
-	 * @param name 学生姓名
-	 * 
-	 * @return String 
-	 * 
-	 * @describe 查询要插入的学生是否已存在
-	 */
-	private String queyrIsName(String name) {
-		String jpql = "select count(*) from yr_student where name =:name";
-		String result = entityManager.createNativeQuery(jpql)
-				.setParameter("name", name).getSingleResult().toString();
-		return result;
-	}
-
-	/**
+	
+	
+	
+	/**删除学生信息
 	 * 
 	 * @Date : 2018年5月23日下午3:20:42
 	 * 
@@ -168,8 +154,7 @@ public class StudentDaoImpl implements StudentDao {
 		entityManager.remove(student);
 	}
 	
-	
-	/**
+	/**修改学生信息
 	 * 
 	 * @Date : 2018年5月24日下午8:25:25
 	 * 
@@ -191,6 +176,27 @@ public class StudentDaoImpl implements StudentDao {
 		student1.setHomeTel(student.getHomeTel());
 		student1.setInTime(student.getInTime());
 		entityManager.merge(student1);
+	}
+	
+	
+
+	/** 
+	 * 
+	 * @Date : 2018年5月23日下午7:12:24
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param name 学生姓名
+	 * 
+	 * @return String 
+	 * 
+	 * @describe 查询要插入的学生是否已存在
+	 */
+	private String queyrIsName(String name) {
+		String jpql = "select count(*) from yr_student where name =:name";
+		String result = entityManager.createNativeQuery(jpql)
+				.setParameter("name", name).getSingleResult().toString();
+		return result;
 	}
 	
 	/**
