@@ -24,6 +24,7 @@ import com.yr.util.PageUtil;
 @Repository
 public class RoleDaoImpl implements RoleDao {
 	private static final int TWO = 2;
+	private static final int THREE = 3;
 	@PersistenceContext
 	private EntityManager em;
 	/**
@@ -50,7 +51,7 @@ public class RoleDaoImpl implements RoleDao {
 			return 1;
 		}
 		String sql = "select role_code from yr_account_role where role_code=?";
-		List list = em.createNativeQuery(sql).setParameter(0, code).getResultList();
+		List list = em.createNativeQuery(sql).setParameter(1, code).getResultList();
 		if (null != null && list.size() > 0) { //此角色有人在使用无法停用
 			return TWO;
 		}
@@ -61,10 +62,20 @@ public class RoleDaoImpl implements RoleDao {
 	/**
 	 * 修改
 	 * @param emp 角色对象
-	 * @return 操作是否成功
+	 * @return 1 不存在编号, 0成功
 	 */
 	public int upd(Role emp) {
-		// TODO Auto-generated method stub
+		Role role = (Role) em.createQuery("from Role r where r.code=?").setParameter(0, emp.getCode())
+				.getSingleResult();
+		if (null == role && "".equals(role)) { //判断编号是否存在
+			return 1;
+		}
+		Query qu = em.createQuery("update Role a set a.name=?,a.info=?,a.updateTime=? where a.code=?");
+		qu.setParameter(0, emp.getName());
+		qu.setParameter(1, emp.getInfo());
+		qu.setParameter(TWO, emp.getUpdateTime());
+		qu.setParameter(THREE, emp.getCode());
+		qu.executeUpdate();
 		return 0;
 	}
 	/**

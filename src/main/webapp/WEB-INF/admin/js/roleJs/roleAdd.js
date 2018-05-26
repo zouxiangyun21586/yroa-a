@@ -7,38 +7,6 @@ layui.use([ 'layer', 'form' ], function() {
 	pos = strFullPath.indexOf(strPath),
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
-	$.ajax({
-		type : "post",
-		url : path+"role/add",
-		data : $('#roleAdd').serialize(),
-		success : function(data) {
-			if (0 == data.code) {
-				setTimeout(function() {
-					top.layer.close(index);
-					top.layer.msg(data.msg, {
-						icon : 1
-					});
-					layer.closeAll("iframe");
-					parent.location.reload();
-				}, 1000);
-			} else {
-				setTimeout(function() {
-					top.layer.close(index);
-					top.layer.msg(data.msg, {
-						icon : 2
-					});
-				}, 1000);
-			}
-		},error : function() {
-			setTimeout(function() {
-				top.layer.close(index);
-				top.layer.msg("异常！", {
-					icon : 2
-				});
-				layer.closeAll("iframe");
-			}, 1000);
-		}
-	});
 	form.on("submit(addUser)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,

@@ -64,7 +64,7 @@ public class RoleServiceImpl implements RoleService {
 	public String del(String i) {
 		Map<String, Object> map = new HashMap<>(); 
 		int z = accDao.del(i);
-		if (1 == z) {
+		if (0 == z) {
 			map.put("code", 0);
 			map.put("msg", "删除成功");
 		} else if (TWO == z) {
@@ -81,9 +81,18 @@ public class RoleServiceImpl implements RoleService {
 	 * @param emp 角色对象
 	 * @return 操作是否成功
 	 */
-	public int upd(Role emp) {
+	public String upd(Role emp) {
+		emp.setUpdateTime(new Date());
 		int z = accDao.upd(emp);
-		return z;
+		Map<String, Object> map = new HashMap<>(); 
+		if (0 == z) {
+			map.put("code", 0);
+			map.put("msg", "修改成功");
+		} else {
+			map.put("code", 1);
+			map.put("msg", "错误,编号不存在");
+		}
+		return JSONObject.fromObject(map).toString();
 	}
 	/**
 	 * 查询单个
@@ -92,8 +101,8 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	@Override
 	public String query(String code) {
-		Map<String, Object> map = new HashMap<>(); 
 		String z = accDao.query(code);
+		Map<String, Object> map = new HashMap<>(); 
 		if ("1".equals(z)) {
 			map.put("code", 1);
 			map.put("msg", "错误,编号不存在");
