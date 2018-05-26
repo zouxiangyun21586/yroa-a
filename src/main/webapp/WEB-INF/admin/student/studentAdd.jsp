@@ -44,10 +44,9 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">届次</label>
 			<div class="layui-input-block">
-				<select lay-filter="year" name="year" />
-					<option value="2018届">2018届</option>
-					<option value="2017届">2017届</option>
-				</select>
+				<select name="year" lay-verify="required" id="claSelect">
+                  		
+              	</select>
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
@@ -56,14 +55,14 @@
 				<input class="layui-input" placeholder="请输入手机号" name="tel"lay-verify="required|phone" />
 			</div>
 		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">地址</label>
 			<div class="layui-input-block">
 				<input class="layui-input" placeholder="请输入地址" name="addr" lay-verify="required|addr">
 			</div>
 		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">家长电话</label>
 			<div class="layui-input-block">

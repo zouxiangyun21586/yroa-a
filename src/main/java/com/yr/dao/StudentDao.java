@@ -2,6 +2,7 @@ package com.yr.dao;
 
 import java.util.List;
 
+import com.yr.entity.Clas;
 import com.yr.entity.Student;
 import com.yr.util.PageUtil;
 
@@ -86,5 +87,18 @@ public interface StudentDao {
 	  * @return : List<String> 
 	  *
 	  */
-	 List<Student> queryCls();
+	 List<Clas> queryCls();
+	 
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月25日下午9:51:03
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : String 
+	  *
+	  * @describe 从角色表中查询出学生的code
+	  */
+	 String queryRoleCod();
 }

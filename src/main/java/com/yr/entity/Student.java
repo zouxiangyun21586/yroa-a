@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.yr.util.AgeUtils;
 
 /**
  * 学生实体类
@@ -44,6 +47,7 @@ public class Student {
 	private String birth;
 	
 	//年龄  age的值不需要存。在列表显示时不显示出生年月日，而是用当前时间－出生年月日得出年龄显示在列表中。
+	@Transient 
 	private Integer age;
 	
 	//学生电话
@@ -60,7 +64,6 @@ public class Student {
 	
 	//在校照片路径
 	private String inImgUrl;
-	
 	//入学时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String inTime;
@@ -149,7 +152,7 @@ public class Student {
 	}
 
 	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
+		this.name = name;
 	}
 
 	public String getCode() {
@@ -185,20 +188,21 @@ public class Student {
 		this.birth = birth;
 	}
 
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
 	public String getTel() {
 		return tel;
 	}
 
+
 	public void setTel(String tel) {
-		this.tel = tel == null ? null : tel.trim();
+		this.tel = tel;
+	}
+
+	public Integer getAge() {
+		return AgeUtils.birthTime(birth);
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 	public String getAddr() {
@@ -206,7 +210,7 @@ public class Student {
 	}
 
 	public void setAddr(String addr) {
-		this.addr = addr == null ? null : addr.trim();
+		this.addr = addr;
 	}
 	
 	@Column(name = "home_tel") 
@@ -215,7 +219,7 @@ public class Student {
 	}
 
 	public void setHomeTel(String homeTel) {
-		this.homeTel = homeTel == null ? null : homeTel.trim();
+		this.homeTel = homeTel;
 	}
 	
 	@Column(name = "in_time") 

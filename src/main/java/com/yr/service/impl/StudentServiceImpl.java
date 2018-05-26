@@ -1,6 +1,5 @@
 package com.yr.service.impl;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.yr.dao.StudentDao;
 import com.yr.entity.Account;
+import com.yr.entity.Clas;
 import com.yr.entity.Student;
 import com.yr.service.AccountService;
 import com.yr.service.StudentService;
@@ -78,7 +78,10 @@ public class StudentServiceImpl implements StudentService {
 		String resutl1 = studentDao.addStudent(student);
 		if ("addSuccess".equals(resutl1)) {
 			Account account = addAccount(student);
-//			accountService.addId(account, student.getCode());
+			//首先第一步：去yr_dic（字典表） 根据字段keyv  查出 字段 val：（学生）
+			//第二步 ：根据查出的字段val（角色） 去yr_role表根据name查出 对应的code
+			String studentCode = studentDao.queryRoleCod(); //从角色表中查询出学生的code
+			accountService.addId(account, studentCode);
 			map.put("code", 0);
 			map.put("msg", "添加成功");
 		} else if ("addFail".equals(resutl1)) {
@@ -136,19 +139,13 @@ public class StudentServiceImpl implements StudentService {
 		Account account = new Account();
 		HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
         String username = hanyuPinyinHelper.toHanyuPinyin(student.getName());
-        String password = "25d55ad283aa400af464c76d713c07ad";
-		String isAdmin = "false";
-		String type = "S";
-		String status = "0";
-		Date createTime = new Date();
-		Date updateTime = new Date();
+        String password = "12345678";
+		String isAdmin = "否";
+		String tel = student.getTel();
 		account.setUsername(username);
 		account.setIsAdmin(isAdmin);
 		account.setPassword(password);
-		account.setType(type);
-		account.setStatus(status);
-		account.setCreateTime(createTime);
-		account.setUpdateTime(updateTime);
+		account.setTel(tel);
 		return account;
 	}
 	
@@ -163,10 +160,9 @@ public class StudentServiceImpl implements StudentService {
 	 * @see com.yr.service.StudentService#updateDisplay(java.lang.Integer)
 	 */
 	@Override
-	public String updateDisplay(Integer id) {
+	public Student updateDisplay(Integer id) {
 		Student student = studentDao.updateDisplay(id);
-		String result = JsonUtils.beanToJson(student);
-		return result;
+		return student;
 	}
 	
 	/**
@@ -197,7 +193,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> queryCls() {
-		return studentDao.queryCls();
+	public List<Clas> queryCls() {
+		List<Clas> clasList =  studentDao.queryCls();
+		return clasList;
 	}
 }

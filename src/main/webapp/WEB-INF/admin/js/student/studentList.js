@@ -11,7 +11,7 @@ layui.use(['table','form','tree'], function(){
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"student", //请求路径
+		  url: path+"/student/student", //请求路径
 		  limit:7,
 		  limits:[4,7,10,15],
 		  page:true,
@@ -78,7 +78,7 @@ layui.use(['table','form','tree'], function(){
 		    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
 		    	$.ajax({
 	    	       type:"post",
-	    	       url:path+"student",
+	    	       url:path+"student/student",
 	    	       data: {"id":obj.data.id,"_method":"DELETE"},
 	    	       success:function(data){
 	    	    	   if(200==data.code){
@@ -117,7 +117,7 @@ layui.use(['table','form','tree'], function(){
 					title : "修改学生",
 					type : 2,
 					anim : 5,
-					content : "studentUpdate",//修改学生的页面路径
+					content : "../student/updateDisplay?id="+obj.data.id,//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
