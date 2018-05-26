@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yr.dao.ClasDao;
-import com.yr.dao.HolidayDao;
+import com.yr.dao.HoliDao;
 import com.yr.entity.Clas;
 import com.yr.entity.Holiday;
-import com.yr.service.HolidayService;
+import com.yr.service.HoliService;
 import com.yr.util.DateUtils;
 
 import net.sf.json.JSONObject;
@@ -22,11 +22,11 @@ import net.sf.json.JSONObject;
  * 2018年5月24日上午8:58:08
  */
 @Transactional
-@Service("holidayServiceImpl")
-public class HolidayServiceImpl implements HolidayService {
+@Service("holiServiceImpl")
+public class HoliServiceImpl implements HoliService {
 	
 	@Autowired
-	private HolidayDao holidayDao;
+	private HoliDao holiDao;
 	@Autowired
 	private ClasDao clasDao;
 	
@@ -44,7 +44,7 @@ public class HolidayServiceImpl implements HolidayService {
 		holiday.setClassName(clas.getName());
 		holiday.setCreateTime(DateUtils.getCurretDateTimeA());
 		holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
-		Integer b = holidayDao.add(holiday);
+		Integer b = holiDao.add(holiday);
 		if (null == b || 0 == b) {
 			map.put("code", 1);
 			map.put("msg", "添加失败");
@@ -64,10 +64,10 @@ public class HolidayServiceImpl implements HolidayService {
 	 */
 	public String delete(Integer id) {
 		Map<String, Object> map = new HashMap<>();
-		Holiday holiday = holidayDao.get(id);
+		Holiday holiday = holiDao.get(id);
 		Integer del = 0;
 		if (null != holiday) {
-			del = holidayDao.delete(id);
+			del = holiDao.delete(id);
 		}
 		if (0 == del) {
 			map.put("code", 1);
@@ -90,7 +90,7 @@ public class HolidayServiceImpl implements HolidayService {
 	 */
 	public String getHoliday(int page, int limit, String classCode) {
 		
-		return holidayDao.getHoliday(page, limit, classCode);
+		return holiDao.getHoliday(page, limit, classCode);
 		
 	}
 	
@@ -103,13 +103,13 @@ public class HolidayServiceImpl implements HolidayService {
 	 */
 	public String update(Holiday holiday) {
 		Map<String, Object> map = new HashMap<>();
-		Holiday holidays = holidayDao.get(holiday.getId());
+		Holiday holidays = holiDao.get(holiday.getId());
 		Integer update = 0;
 		if (null != holidays) {
 			Clas clas = clasDao.get(holiday.getClassCode());
 			holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
 			holiday.setClassName(clas.getName());
-			update = holidayDao.update(holiday);
+			update = holiDao.update(holiday);
 		}
 		if (0 == update) {
 			map.put("code", 1);
@@ -129,7 +129,7 @@ public class HolidayServiceImpl implements HolidayService {
 	 * 2018年5月24日上午10:03:28
 	 */
 	public Holiday get(Integer id) {
-		return holidayDao.get(id);
+		return holiDao.get(id);
 	}
 	
 }

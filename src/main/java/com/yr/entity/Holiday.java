@@ -55,7 +55,7 @@ public class Holiday {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = name == null ? null : name.trim();
 	}
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "start_date", nullable = false, length = 10)
@@ -78,21 +78,21 @@ public class Holiday {
 		return startTime;
 	}
 	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+		this.startTime = startTime == null ? null : startTime.trim();
 	}
 	@Column(name = "end_time", length = 20)
 	public String getEndTime() {
 		return endTime;
 	}
 	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+		this.endTime = endTime == null ? null : endTime.trim();
 	}
 	@Column(length = 255)
 	public String getInfo() {
 		return info;
 	}
 	public void setInfo(String info) {
-		this.info = info;
+		this.info = info == null ? null : info.trim();
 	}
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "create_time")

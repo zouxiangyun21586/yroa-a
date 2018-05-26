@@ -1,22 +1,22 @@
-package com.yr.service;
+package com.yr.dao;
 
 import com.yr.entity.Holiday;
 
 /**
- * 假期Service层
+ * 假期Dao
  * @作者 林水桥
- * 2018年5月24日上午8:57:22
+ * 2018年5月22日下午10:26:49
  */
-public interface HolidayService {
+public interface HoliDao {
 	
 	/**
 	 * 添加假期
 	 * @作者 林水桥
 	 * @param holiday 假期实体类
-	 * @return String 添加状态0是成功
+	 * @return Integer 添加ID
 	 * 2018年5月23日下午7:57:59
 	 */
-	String add(Holiday holiday);
+	Integer add(Holiday holiday);
 	
 	/**
 	 * 根据ID删除假期
@@ -25,7 +25,7 @@ public interface HolidayService {
 	 * Integer
 	 * @作者 林水桥2018年5月25日上午10:02:37
 	 */
-	String delete(Integer id);
+	Integer delete(Integer id);
 	
 	/**
 	 * 分页查询假期
@@ -42,10 +42,10 @@ public interface HolidayService {
 	 * 修改假期
 	 * @作者 林水桥
 	 * @param holiday 假期实体类
-	 * @return String 返回1为修改成功，0为修改失败
+	 * @return Integer 返回1为修改成功，0为修改失败
 	 * 2018年5月24日上午9:16:37
 	 */
-	String update(Holiday holiday);
+	Integer update(Holiday holiday);
 	
 	/**
 	 * 数据回显

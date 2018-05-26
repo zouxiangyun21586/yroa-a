@@ -19,7 +19,7 @@ public interface RoleService {
 	 * @param i 角色编号
 	 * @return 是否操作成功
 	 */
-	int del(Integer i);
+	String del(String i);
 	/**
 	 * 修改
 	 * @param emp 角色对象
@@ -28,20 +28,11 @@ public interface RoleService {
 	int upd(Role emp);
 	
 	/**
-	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @return 出错信息
-	 */
-	String updatePass(String oldpassword, String userN, Integer id, String passW);
-	/**
 	 * 查询单个
-	 * @param i 角色id
-	 * @return 查出的角色对象
+	 * @param code 角色编号
+	 * @return json
 	 */
-	Role query(Integer i);
+	String query(String code);
 	
 	/**
 	 * 班某人的分页
@@ -60,18 +51,10 @@ public interface RoleService {
     String queryRoleAll();
     
     /**
-     * 重置密码
-     * @author 周业好
-     * @param name 账号
-     * @return json
-     */
-    String resetPassWord(String name);
-    
-    /**
      * 启用停用
      * @author 周业好
-     * @param name 账号
+     * @param code 角色编号
      * @return json
      */
-    String kaiguan(String name);
+    String kaiguan(String code);
 }

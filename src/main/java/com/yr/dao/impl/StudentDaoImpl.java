@@ -10,8 +10,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import com.yr.dao.StudentDao;
+import com.yr.entity.Clas;
 import com.yr.entity.Student;
-import com.yr.util.AgeUtils;
 import com.yr.util.PageUtil;
 
 
@@ -101,41 +101,22 @@ public class StudentDaoImpl implements StudentDao {
 	 */
 	public String addStudent(Student student) {
 		String result = "";
-		String name = ""; //学生姓名
-		String code = ""; //学生编号
-		String birth = null; //出生年月
-		String sex = ""; //性别  0代表女,1代表男
-		String year = ""; //届次
-		String tel = ""; //学生电话
-		String addr = ""; //家庭地址
-		String homeTel = ""; //家长电话
-		String inTime = null; //入学时间
-		Date createTime = null; //创建时间
-		String isFinish = ""; //是否毕业  1代表已毕业,0代表未毕业,添加时默认是未毕业
 		try {
-			name = student.getName();
+			String name = student.getName(); //学生姓名
 			String result1 = queyrIsName(name);
 			if ("0".equals(result1)) {
-				code = code();
-				birth = student.getBirth();
-				sex = new String(student.getSex().getBytes("ISO8859-1"), "utf-8");
-				year = new String(student.getYear().getBytes("ISO8859-1"), "utf-8");
-				tel = new String(student.getTel().getBytes("ISO8859-1"), "utf-8");
-				addr = student.getAddr();
-				homeTel = new String(student.getHomeTel().getBytes("ISO8859-1"), "utf-8");
-				inTime = student.getInTime();
-				createTime = new Date();
-				isFinish = "0";
+				String code = code(); //学生编号
+				String clasCode = new String(student.getYear()
+						.getBytes("ISO8859-1"), "utf-8"); //届次 ,获取到的是届次表的code
+				Clas clas = queryClas(clasCode); //根据届次code查出届次
+				String year = clas.getYear(); //届次
+				String classCode = clas.getCode(); //所属批次Code 
+				Date createTime = new Date(); //添加这条信息的时间
+				String isFinish = "0"; //是否毕业  1代表已毕业,0代表未毕业,添加时默认是未毕业
 				student.setName(name);
-				student.setBirth(birth);
 				student.setCode(code);
-				student.setSex(sex);
-				student.setAge(AgeUtils.birthTime(birth));
 				student.setYear(year);
-				student.setTel(tel);
-				student.setAddr(addr);
-				student.setHomeTel(homeTel);
-				student.setInTime(inTime);
+				student.setClassCode(classCode);
 				student.setCreateTime(createTime);
 				student.setIsFinish(isFinish);
 				entityManager.persist(student);
@@ -262,10 +243,37 @@ public class StudentDaoImpl implements StudentDao {
 	 *
 	 */
 	@Override
-	public List<Student> queryCls() {
-		String jpql = "select * from yr_clas";
-		List<Student> yearList = new  ArrayList<Student>();
-		yearList = entityManager.createNativeQuery(jpql).getResultList();
+	public List<Clas> queryCls() {
+		 List<Clas> yearList = entityManager.createQuery("from Clas").getResultList();
 		return yearList;
+	}
+	
+	/**
+	 * 
+	 * @Date : 2018年5月25日下午9:25:42
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : Clas
+	 *
+	 * @param code 
+	 * 
+	 * @describe 根据
+	 */
+	public Clas queryClas(String code) {
+		String jpql = "from Clas where code=:code";
+		Clas clas = (Clas) entityManager.createQuery(jpql).setParameter("code", code).getSingleResult();
+		return clas;
+	}
+
+	@Override
+	public String queryRoleCod() {
+		//首先第一步：去yr_dic（字典表） 根据字段keyv  查出 字段 val：（学生）
+		//第二步 ：根据查出的字段val（角色） 去yr_role表根据name查出 对应的code
+		String jpql = "select val from Dic where keyv=:keyv";
+		String val = (String) entityManager.createQuery(jpql).setParameter("keyv", "stu").getSingleResult();
+		String jpql1 = "select code from Role where name=:name";
+		String code = (String) entityManager.createQuery(jpql1).setParameter("name", val).getSingleResult();
+		return code;
 	}
 }

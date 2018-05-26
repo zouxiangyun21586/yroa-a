@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.yr.dao.HolidayDao;
+import com.yr.dao.HoliDao;
 import com.yr.entity.Holiday;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
@@ -19,8 +19,8 @@ import com.yr.util.PageUtil;
  * @作者 林水桥
  * 2018年5月23日上午8:42:00
  */
-@Repository("holidayDaoImpl")
-public class HolidayDaoImpl implements HolidayDao {
+@Repository("holiDaoImpl")
+public class HoliDaoImpl implements HoliDao {
 	
 	@PersistenceContext
 	private EntityManager entityManager;

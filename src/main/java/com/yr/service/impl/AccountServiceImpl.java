@@ -63,12 +63,10 @@ public class AccountServiceImpl implements AccountService {
 	}
 	/**
 	 * 删除
-	 * @param i 用户编号
-	 * @return 是否操作成功
+	 * @param name 用户账号
 	 */
-	public int del(Integer i) {
-		int z = accDao.del(i);
-		return z;
+	public void del(String name) {
+		accDao.del(name);
 	}
 	/**
 	 * 修改
@@ -76,6 +74,7 @@ public class AccountServiceImpl implements AccountService {
 	 * @return 操作是否成功
 	 */
 	public int upd(Account emp) {
+		emp.setUpdateTime(new Date());
 		int z = accDao.upd(emp);
 		return z;
 	}

@@ -1,6 +1,7 @@
 package com.yr.controller;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yr.entity.Clas;
 import com.yr.entity.Student;
 import com.yr.service.StudentService;
+import com.yr.util.JsonUtils;
 
 /**
  * 
@@ -21,6 +24,7 @@ import com.yr.service.StudentService;
  * 学生管理controller层
  */
 @Controller
+@RequestMapping(value = "/student")
 public class StudentController {
 	
 	@Autowired
@@ -115,12 +119,30 @@ public class StudentController {
 	 * @param id 
 	 * 
 	 * @param map 
+	 * 
+	 * @describe     用map传入一个对象到页面用于修改数据回显  
 	 */
 	@RequestMapping(value = "/updateDisplay", produces = "text/json;charset=UTF-8")
 	public String updateDisplay(Integer id, Map<String, Object> map) {
-		String result = studentService.updateDisplay(id);
-		map.put("cls", studentService.queryCls());
-		map.put("student", result);
-		return "studentUpdate";
+		Student student = studentService.updateDisplay(id);
+		map.put("student", student);
+		return "student/studentUpdate";
+	}
+	
+	/**
+	 * @Date : 2018年5月25日上午8:57:31
+	 * 
+	 * @author : 唐子壕
+	 * 
+	 * @describe : 查询届次表到修改页面或添加页面进行修改回显和下拉选择
+	 * 
+	 *  @return : String 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryYear", produces = "text/json;charset=UTF-8")
+	public String queryYear() {
+		List<Clas> clasList = studentService.queryCls();
+		String result = JsonUtils.beanListToJson(clasList);
+		return result;
 	}
 }

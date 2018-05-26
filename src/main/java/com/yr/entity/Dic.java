@@ -1,5 +1,11 @@
 package com.yr.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * 参考数据库
  * @author Administrator
@@ -7,6 +13,8 @@ package com.yr.entity;
  * 2018年5月22日 上午9:04:59
  *
  */
+@Table(name = "yr_dic")
+@Entity
 public class Dic {
     private Integer id;
 
@@ -14,14 +22,16 @@ public class Dic {
 
     private String typeName;
 
-    private String keyw;
+    private String keyv;
 
     private String val;
 
     private String pKey;
 
     private String isUsed;
-
+    
+    @Id
+    @GeneratedValue
     public Integer getId() {
         return id;
     }
@@ -37,7 +47,7 @@ public class Dic {
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
     }
-
+    @Column(name = "type_name")
     public String getTypeName() {
         return typeName;
     }
@@ -46,12 +56,12 @@ public class Dic {
         this.typeName = typeName == null ? null : typeName.trim();
     }
 
-    public String getKeyw() {
-        return keyw;
+    public String getKeyv() {
+        return keyv;
     }
 
-    public void setKeyw(String keyw) {
-        this.keyw = keyw == null ? null : keyw.trim();
+    public void setKeyv(String keyv) {
+        this.keyv = keyv == null ? null : keyv.trim();
     }
 
     public String getVal() {
@@ -70,6 +80,7 @@ public class Dic {
      * 
      * @return String
      */
+    @Column(name = "p_key")
     public String getpKey() {
         return pKey;
     }
@@ -85,7 +96,7 @@ public class Dic {
     public void setpKey(String pKey) {
         this.pKey = pKey == null ? null : pKey.trim();
     }
-
+    @Column(name = "is_used")
     public String getIsUsed() {
         return isUsed;
     }

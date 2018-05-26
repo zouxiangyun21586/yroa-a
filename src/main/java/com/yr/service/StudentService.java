@@ -2,6 +2,7 @@ package com.yr.service;
 
 import java.util.List;
 
+import com.yr.entity.Clas;
 import com.yr.entity.Student;
 
 /**
@@ -63,7 +64,7 @@ public interface StudentService {
 	  *
 	  * @param id 
 	  */
-	 String updateDisplay(Integer id);
+	 Student updateDisplay(Integer id);
 	 
 	 /**
 	  * 
@@ -85,9 +86,9 @@ public interface StudentService {
 	  * 
 	  * @author : 唐子壕
 	  *	
-	  * @return : List<String> 
+	  * @return : List<Clas> 
 	  *
 	  */
-	 List<Student> queryCls();
-	 
+	 List<Clas> queryCls();
 }
+

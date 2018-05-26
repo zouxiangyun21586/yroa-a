@@ -47,20 +47,26 @@ public class AccountDaoImpl implements AccountDao {
 	}
 	/**
 	 * 删除
-	 * @param i 用户编号
-	 * @return 是否操作成功
+	 * @param name 用户账号
 	 */
-	public int del(Integer i) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void del(String name) {
+		//解除与角色的关系
+		Query jie = em.createNativeQuery("delete from yr_account_role where username=?").setParameter(1, name);
+		jie.executeUpdate();
+		Query qu = em.createQuery("delete from Account r where r.username=?").setParameter(0, name); //删除账户
+		qu.executeUpdate();
 	}
 	/**
-	 * 修改
+	 * 修改 
 	 * @param emp 用户对象
 	 * @return 操作是否成功
 	 */
 	public int upd(Account emp) {
-		// TODO Auto-generated method stub
+		Query qu = em.createQuery("update Account a set a.tel=?,a.updateTime=? where a.username=?");
+		qu.setParameter(0, emp.getTel());
+		qu.setParameter(1, emp.getUpdateTime());
+		qu.setParameter(TWO, emp.getUsername());
+		qu.executeUpdate();
 		return 0;
 	}
 	/**

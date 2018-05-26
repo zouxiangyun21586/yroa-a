@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yr.entity.Clas;
 import com.yr.entity.Holiday;
 import com.yr.service.ClasService;
-import com.yr.service.HolidayService;
+import com.yr.service.HoliService;
 import com.yr.util.DateJsonValueProcessor;
 import com.yr.util.JsonUtils;
 
@@ -28,18 +28,18 @@ import net.sf.json.util.CycleDetectionStrategy;
  * @作者 林水桥
  * 2018年5月24日上午9:00:07
  */
-@Controller("holidayController")
+@Controller("holiController")
 @RequestMapping("holiday")
-public class HolidayController {
+public class HoliController {
 
 	@Autowired
-	private HolidayService holidayService;
+	private HoliService holiService;
 	@Autowired
 	private ClasService claService;
 	private static String addr1 = "attendance/holiday/holidayUpdate";
 	/**
 	 * 查询全部假期   带分页
-	 * @param page       当前页
+	 * @param page       当前页 
 	 * @param limit		   每页多少条数据
 	 * @param name       是否使用搜索框
 	 * @return  String   返回json类型      
@@ -49,7 +49,7 @@ public class HolidayController {
 	@ResponseBody
     @RequestMapping(value = "/getHoliday", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
 	public String getTest(int page, int limit, String name) {
-		String a = holidayService.getHoliday(page, limit, name);
+		String a = holiService.getHoliday(page, limit, name);
 		return a;
 	}
 	
@@ -77,7 +77,7 @@ public class HolidayController {
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	public String add(Holiday holiday) {
-		return holidayService.add(holiday);
+		return holiService.add(holiday);
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public class HolidayController {
 	@ResponseBody
 	@RequestMapping(value = "delete", method = RequestMethod.DELETE, produces = "text/json;charset=UTF-8")
 	public String delete(Integer id) {
-		return holidayService.delete(id);
+		return holiService.delete(id);
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class HolidayController {
 	@RequestMapping(value = "updates", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
 	public String updates(Integer id) {
 		Map<String, Object> map = new HashMap<>();
-		Holiday holiday = holidayService.get(id);
+		Holiday holiday = holiService.get(id);
 		map.put("holiday", holiday);
 		return addr1;
 	}
@@ -119,7 +119,7 @@ public class HolidayController {
 	@ResponseBody
 	@RequestMapping(value = "update", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
 	public String update(Holiday holiday) {
-		return holidayService.update(holiday);
+		return holiService.update(holiday);
 	}
 	
 	/**
@@ -150,7 +150,7 @@ public class HolidayController {
 	@ModelAttribute
     public void getUser(@RequestParam(value = "id", required = false)Integer id, Map<String, Object> map) {
         if (id != null) {
-            map.put("holiday", holidayService.get(id));
+            map.put("holiday", holiService.get(id));
         }
     }
 }

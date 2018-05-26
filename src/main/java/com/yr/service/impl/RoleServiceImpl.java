@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yr.dao.RoleDao;
 import com.yr.entity.Role;
 import com.yr.service.RoleService;
-import com.yr.util.EncryptUtils;
 import net.sf.json.JSONObject;
 
 /**
@@ -22,6 +21,8 @@ import net.sf.json.JSONObject;
 @Transactional
 @Service
 public class RoleServiceImpl implements RoleService {
+	
+	private static final int TWO = 2;
 	@Autowired
 	private RoleDao accDao;
 	
@@ -35,15 +36,17 @@ public class RoleServiceImpl implements RoleService {
 		try {
 			emp.setCreateTime(new Date()); //添加开始时间
 			emp.setUpdateTime(new Date()); //添加最后修改时间
-			
 			emp.setUse(0);
 			int z = accDao.addId(emp);
 			if (1 == z) {
 				map.put("code", 0);
 				map.put("msg", "添加成功");
+			} else if (TWO == z) {
+				map.put("code", 1);
+				map.put("msg", "失败,角色有人使用");
 			} else {
 				map.put("code", 1);
-				map.put("msg", "错误,id已存在");
+				map.put("msg", "错误,编号已存在");
 			}
 		} catch (Exception e) {
 			map.put("code", 1);
@@ -56,11 +59,22 @@ public class RoleServiceImpl implements RoleService {
 	/**
 	 * 删除
 	 * @param i 角色编号
-	 * @return 是否操作成功
+	 * @return json
 	 */
-	public int del(Integer i) {
+	public String del(String i) {
+		Map<String, Object> map = new HashMap<>(); 
 		int z = accDao.del(i);
-		return z;
+		if (1 == z) {
+			map.put("code", 0);
+			map.put("msg", "删除成功");
+		} else if (TWO == z) {
+			map.put("code", 1);
+			map.put("msg", "失败,角色有人使用");
+		} else {
+			map.put("code", 1);
+			map.put("msg", "错误,编号不存在");
+		}
+		return JSONObject.fromObject(map).toString();
 	}
 	/**
 	 * 修改
@@ -72,26 +86,20 @@ public class RoleServiceImpl implements RoleService {
 		return z;
 	}
 	/**
-	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @return 出错信息
-	 */
-	public String updatePass(String oldpassword, String userN, Integer id,
-			String passW) {
-		String val = accDao.updatePass(oldpassword, userN, id, passW);
-		return val;
-	}
-	/**
 	 * 查询单个
-	 * @param i 角色id
-	 * @return 查出的角色对象
+	 * @param code 角色code
+	 * @return json
 	 */
-	public Role query(Integer i) {
-		Role acc = accDao.query(i);
-		return acc;
+	@Override
+	public String query(String code) {
+		Map<String, Object> map = new HashMap<>(); 
+		String z = accDao.query(code);
+		if ("1".equals(z)) {
+			map.put("code", 1);
+			map.put("msg", "错误,编号不存在");
+			return JSONObject.fromObject(map).toString();
+		}
+		return z;
 	}
 	/**
 	 * 班某人的分页
@@ -116,30 +124,6 @@ public class RoleServiceImpl implements RoleService {
 		return json;
 	}
 	/**
-     * 重置密码
-     * @author 周业好
-     * @param name 账号
-     * @return json
-     */
-	@Override
-	public String resetPassWord(String name) {
-		Map<String, Object> map = new HashMap<>();
-		try {
-			String breaMi = EncryptUtils.encryptBASE64("12345678".getBytes()); //BASE64位加密
-			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
-			String zhi = accDao.resetPassWord(name, mdFiveMi);
-			if ("1".equals(zhi)) {
-				map.put("code", 0);
-				map.put("msg", "重置失败");
-			}
-		} catch (Exception e) {
-			map.put("code", 1);
-			map.put("msg", "重置失败");
-			e.printStackTrace();
-		}
-		return JSONObject.fromObject(map).toString();
-	}
-	 /**
      * 启用停用
      * @author 周业好
      * @param name 账号
@@ -158,5 +142,4 @@ public class RoleServiceImpl implements RoleService {
 		}
 		return JSONObject.fromObject(map).toString();
 	}
-
 }

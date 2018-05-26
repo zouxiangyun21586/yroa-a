@@ -56,11 +56,11 @@ layui.use(['table','form','tree'], function(){
 		table.on('tool(demo)', function(obj){
 		  var data = obj.data;
 		  if(obj.event === 'state'){
-				var index= top.layer.msg('正在修改用户状态...请稍候',{icon: 16,time:false,shade:0.8});
+				var index= top.layer.msg('正在修改角色状态...请稍候',{icon: 16,time:false,shade:0.8});
 				$.ajax({
 	    	       type:"post",
 	    	       url:path+"role/switchs",
-	    	       data: {"name":obj.data.username,"_method":"PUT"},
+	    	       data: {"code":obj.data.code,"_method":"PUT"},
 	    	       success:function(data){
 	    	    	   if(0==data.code){
 	    	    		   setTimeout(function(){
@@ -98,6 +98,32 @@ layui.use(['table','form','tree'], function(){
 					anim : 5,
 					content : "userAdd",//修改用户的页面路径
 					success : function(layero, index) {
+						$.ajax({
+							type : "get",
+							url : path+"role/upd_echo",
+							data : {"code":obj.data.code},
+							success : function(data) {
+								if (1 == data.code) {
+									setTimeout(function() {
+										top.layer.close(index);
+										top.layer.msg(data.msg, {
+											icon : 2
+										});
+									}, 1000);
+								} else {
+									$("#name").val(data.name);
+									$("#info").val(data.info);
+								}
+							},error : function() {
+								setTimeout(function() {
+									top.layer.close(index);
+									top.layer.msg("异常！", {
+										icon : 2
+									});
+									layer.closeAll("iframe");
+								}, 1000);
+							}
+						});
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
 									'.layui-layer-setwin .layui-layer-close', {
@@ -111,11 +137,11 @@ layui.use(['table','form','tree'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
-		  }else if(obj.event === 'resetPassword'){
+		  }else if(obj.event === 'del'){ //删除角色
 			  $.ajax({
 	    	       type:"post",
-	    	       url:path+"role/reset",
-	    	       data: {"username":obj.data.username,"_method":"PUT"},
+	    	       url:path+"role/del",
+	    	       data: {"code":obj.data.code,"_method":"DELETE"},
 	    	       success:function(data){
 	    	    	   if(0==data.code){
 	    	    		   setTimeout(function(){
