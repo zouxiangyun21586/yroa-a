@@ -64,6 +64,25 @@ public class TeacherDaoImpl implements TeacherDao {
 	}
 
 	/**
+	 * 获取字段表 keyv  查出 val值     根据 val值在角色表中得到角色对应的 code
+	 * 
+	 * 第一步: 去yr_dic（字典表） 根据字段keyv  查出 字段 val：（学生）
+	 * 第二步: 根据查出的字段val（角色） 去yr_role表根据name查出 对应的code
+	 * @param keyv 键
+	 * @return String 角色code
+	 * 2018年5月26日上午8:40:05
+	 */
+	public String roleCode(String keyv) {
+		String teaVal = (String) entityManager
+				.createNativeQuery("select val from yr_dic where keyv = :keyv")
+				.setParameter("keyv", keyv).getSingleResult();
+		String teaCode = (String) entityManager
+				.createNativeQuery("select `code` from yr_role where `name` = :val")
+				.setParameter("val", teaVal).getSingleResult();
+		return teaCode;
+	}
+	
+	/**
 	 * 教学等级
 	 * @author zxy
 	 * 
@@ -248,7 +267,7 @@ public class TeacherDaoImpl implements TeacherDao {
 	}
 
 	/**
-	 * 
+	 * 数据回显
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:57:29

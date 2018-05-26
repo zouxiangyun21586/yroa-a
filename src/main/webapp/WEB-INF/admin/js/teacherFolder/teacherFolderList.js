@@ -82,7 +82,7 @@ layui.use(['table','form','tree'], function(){
 	    	$.ajax({
     	       type:"post",
     	       url:path+"teacher",
-    	       data: {"id":obj.data.id,"_method":"DELETE"},
+    	       data: {"code":obj.data.code,"_method":"DELETE"},
     	       success:function(data){
     	    	   if(200==data.code){
     	    		   setTimeout(function(){
@@ -120,7 +120,7 @@ layui.use(['table','form','tree'], function(){
 				title : "修改教师",
 				type : 2,
 				anim : 5,
-				content : "teacherFolderUpd",//修改学生的页面路径
+				content : "getTeacher?code="+obj.data.code,//修改教师的页面路径
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回',

@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>添加用户</title>
+	<title>修改届次</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,15 +16,21 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" id="clasUpdForm">
+<form class="layui-form" style="width:80%;" id="clasUpdForm" modelAttribute="clasGet">
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">地址</label>
+			<div class="layui-input-block">
+				<form:input type="text" class="layui-input" path="addr" lay-verify="required" placeholder="家庭地址" />
+			</div>
+		</div>
+	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">本届教师</label>
 			<div class="layui-input-block">
-				<!-- <select name="userStatus" class="userStatus" lay-filter="userStatus" name="teacherCode" > -->
-				<select lay-filter="teacherCode" name="teacherCode" id="teacherCode">
-					<option value="T1001">钟林军</option>
-					<option value="T1002">林娟娟</option>
-				</select>
+				<select name="code" lay-verify="required" id="teacherCode">
+              	
+              	</select>
 			</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">

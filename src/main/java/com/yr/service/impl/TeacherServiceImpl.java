@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yr.dao.TeacherDao;
+import com.yr.entity.Account;
 import com.yr.entity.Teacher;
+import com.yr.service.AccountService;
 import com.yr.service.TeacherService;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
@@ -23,10 +25,14 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Autowired
 	private TeacherDao teacherDao;
+	
+	@Autowired
+	private AccountService accountService;
+	
 	final Integer number = 2;
 
 	/**
-	 * 
+	 * 添加
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:58:15
@@ -36,6 +42,15 @@ public class TeacherServiceImpl implements TeacherService {
 	 */
 	public Boolean add(Teacher teacher) {
 		try {
+			//需提供Account对象内容:
+			//自动生成的账号 ,电话, isAdmin 值是'否',明文的密码 ,.第二个参数是角色的code
+			Account ac = new Account();
+			ac.setUsername(teacher.getTeacherAccount());
+			ac.setTel(teacher.getTel());
+			ac.setIsAdmin("否");
+			ac.setPassword("123456");
+			String teaCode = teacherDao.roleCode("tea");
+			accountService.addId(ac, teaCode);
 			teacherDao.add(teacher);
 			return true;
 		} catch (Exception e) {
@@ -45,7 +60,7 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	/**
-	 * 
+	 * 修改
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:58:56
@@ -64,7 +79,7 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	/**
-	 * 
+	 * 删除
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:59:01
@@ -86,7 +101,7 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	/**
-	 * 
+	 * 分页查询(页面显值)
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:59:07
@@ -104,7 +119,7 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	/**
-	 * 
+	 * 数据回显
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 下午2:59:21

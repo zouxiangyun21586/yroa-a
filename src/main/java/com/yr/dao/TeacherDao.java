@@ -12,7 +12,7 @@ import com.yr.util.PageUtil;
 public interface TeacherDao {
 	
 	/**
-	 * 
+	 * 添加
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 上午8:52:09
@@ -22,7 +22,7 @@ public interface TeacherDao {
 	void add(Teacher teacher);
 	
 	/**
-	 * 
+	 * 修改
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 上午8:52:21
@@ -32,7 +32,7 @@ public interface TeacherDao {
 	void update(Teacher teacher);
 	
 	/**
-	 * 
+	 * 删除 (有届次的老师不能删除)
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 上午8:52:33
@@ -43,7 +43,7 @@ public interface TeacherDao {
 	Integer delete(Teacher teacher);
 	
 	/**
-	 * 
+	 * 分页查询
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 上午8:52:40
@@ -56,7 +56,7 @@ public interface TeacherDao {
 	PageUtil query(Integer page, Integer limit, String name);
 	
 	/**
-	 * 
+	 * 数据回显
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 上午8:52:59
@@ -65,4 +65,14 @@ public interface TeacherDao {
 	 * @return 老师对象
 	 */
 	Teacher get(String code);
+	
+	/**
+	 * 获取角色Code
+	 * 
+	 * @param keyv 键
+	 * @return code
+	 * String
+	 * 2018年5月26日上午8:55:30
+	 */
+	String roleCode(String keyv);
 }
