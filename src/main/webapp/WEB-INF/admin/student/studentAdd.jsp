@@ -55,14 +55,14 @@
 				<input class="layui-input" placeholder="请输入手机号" name="tel"lay-verify="required|phone" />
 			</div>
 		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">地址</label>
 			<div class="layui-input-block">
 				<input class="layui-input" placeholder="请输入地址" name="addr" lay-verify="required|addr">
 			</div>
 		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">家长电话</label>
 			<div class="layui-input-block">
