@@ -1,6 +1,7 @@
 package com.yr.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,15 +26,44 @@ import javax.persistence.Transient;
 @Table(name = "yr_auth")
 @Entity
 public class Auth implements Serializable {
+	/**
+	 * 权限id
+	 */
 	private Integer id;
+	/**
+	 * 权限名字
+	 */
 	private String name;
+	/**
+	 * 权限编号
+	 */
 	private String code;
+	/**
+	 * 权限路径
+	 */
 	private String url;
-	private String use;
+	/**
+	 * 使用状态
+	 */
+	private Integer use;
+	/**
+	 * Shiro 操作
+	 */
 	private String caozuo;
+	/**
+	 * 创建时间
+	 */
 	private Date createTime;
+	 /**
+     * 最后修改时间
+     */
+    private Date updateTime;
+	
 	private Set<Role> perRoleItems = new HashSet<>();
+	private String createTimeStr = "";
+    private String updateTimeStr = "";
 	private boolean checked;
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,10 +92,10 @@ public class Auth implements Serializable {
 		this.url = url;
 	}
 	@Column(name = "is_use")
-	public String getUse() {
+	public Integer getUse() {
 		return use;
 	}
-	public void setUse(String use) {
+	public void setUse(Integer use) {
 		this.use = use;
 	}
 	public String getCaozuo() {
@@ -79,6 +109,14 @@ public class Auth implements Serializable {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	@Column(name = "updateTime")
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 	@ManyToMany(mappedBy = "rolePermItems", fetch = FetchType.LAZY)//多对多,多维护 mappedBy="不维护(内容要和dept的那个集合一样)"
 	public Set<Role> getPerRoleItems() {
@@ -94,5 +132,43 @@ public class Auth implements Serializable {
 	}
 	public void setChecked(boolean checked) {
 		this.checked = checked;
+	}
+	/**
+	 * 得到创建时间 的字符串
+	 * @return 时间的字符串
+	 */
+	@Transient
+	public String getCreateTimeStr() {
+		String fmt = "yyyy-MM-dd E HH:mm:ss";
+		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
+		String dateStr = sdf.format(createTime);
+		createTimeStr = dateStr;
+		return createTimeStr;
+	}
+
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
+	/**
+	 * 得到最后修改时间 的字符串
+	 * @return 时间的字符串
+	 */
+	@Transient
+	public String getUpdateTimeStr() {
+		String fmt = "yyyy-MM-dd E HH:mm:ss";
+		SimpleDateFormat sdf = new SimpleDateFormat(fmt);
+		String dateStr = sdf.format(updateTime);
+		updateTimeStr = dateStr;
+		return updateTimeStr;
+	}
+
+	public void setUpdateTimeStr(String updateTimeStr) {
+		this.updateTimeStr = updateTimeStr;
+	}
+	@Override
+	public String toString() {
+		return "Auth [id=" + id + ", name=" + name + ", code=" + code + ", url="
+				+ url + ", use=" + use + ", caozuo=" + caozuo + ", createTime="
+				+ createTime + ", updateTime=" + updateTime + "]";
 	}
 }

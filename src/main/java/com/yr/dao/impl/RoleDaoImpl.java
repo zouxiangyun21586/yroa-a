@@ -83,19 +83,6 @@ public class RoleDaoImpl implements RoleDao {
 		return 0;
 	}
 	/**
-	 * 修改密码
-	 * @param id 角色id
-	 * @param userN 角色
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @return 出错信息
-	 */
-	public String updatePass(String oldpassword, String userN, Integer id,
-			String passW) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	/**
 	 * 查询单个
 	 * @param code 角色编号
 	 * @return 1 角色编号不存在,json 成功
@@ -212,14 +199,14 @@ public class RoleDaoImpl implements RoleDao {
         Map<String, Object> map = new HashMap<>();
         try {
             Query query = em
-                    .createNativeQuery("DELETE FROM `resource_role` WHERE `role_id`=:role_id")
+                    .createNativeQuery("DELETE FROM `yr_role_auth` WHERE `role_code`=:role_id")
                     .setParameter("role_id", roleCode);
             query.executeUpdate();
             for (int i = 0; i < resourceId.length; i++) {
 
-                String insert = "INSERT INTO `resource_role` (`resource_id`, `role_id`) VALUES (:resource_id,:role_id)";
-                em.createNativeQuery(insert).setParameter("resource_id", resourceId[i])
-                        .setParameter("role_id", roleCode).executeUpdate();
+                String insert = "INSERT INTO `yr_role_auth` (`role_code`, `auth_code`) VALUES (:role_id,:resource_id)";
+                em.createNativeQuery(insert) .setParameter("role_id", roleCode)
+                .setParameter("resource_id", resourceId[i]).executeUpdate();
 
             }
             em.flush();

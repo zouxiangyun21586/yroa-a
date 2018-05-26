@@ -18,27 +18,27 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" id="authAdd">
+<form class="layui-form" style="width:80%;" id="authUpd">
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
+        <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">权限名</label>
             <div class="layui-input-block">
-                <input type="text" name="name" class="layui-input userName" lay-verify="required|username" placeholder="请输入角色名">
+                <input type="text" id="name" name="name" class="layui-input userName" lay-verify="required|username" placeholder="请输入角色名">
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">权限路径</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="url" value="yroa-a/" lay-verify="required" placeholder="权限路径">
+                <input type="text" class="layui-input" id="url" name="url" lay-verify="required" placeholder="权限路径">
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">shiro操作</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="caozuo" lay-verify="required" placeholder="anon放行,authc需验证等...">
+                <input type="text" class="layui-input" id="caozuo" name="caozuo" lay-verify="required" placeholder="anon放行,authc需验证等...">
             </div>
         </div>
-	</div>
+    </div>
 	<!-- <div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">用户简介</label>
 		<div class="layui-input-block">
@@ -47,12 +47,12 @@
 	</div> -->
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
-			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">立即添加</button>
+			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">立即修改</button>
 			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
 		</div>
 	</div>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/authJs/authAdd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/authJs/authUpd.js"></script>
 </body>
 </html>

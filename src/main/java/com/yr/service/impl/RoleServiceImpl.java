@@ -151,4 +151,15 @@ public class RoleServiceImpl implements RoleService {
 		}
 		return JSONObject.fromObject(map).toString();
 	}
+	/**
+     * 保存 权限
+     * @author 周业好
+     * @param resourceId 选中的权限id
+     * @param roleCode 角色code
+     * @return json
+     */
+	@Override
+	public String roleEmpowerment(String[] resourceId, String roleCode) {
+		return accDao.roleEmpowerment(resourceId, roleCode);
+	}
 }

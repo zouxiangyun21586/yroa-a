@@ -11,9 +11,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.yr.dao.AuthDao;
-import com.yr.entity.Account;
 import com.yr.entity.Auth;
-import com.yr.entity.Role;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
 
@@ -26,65 +24,73 @@ import com.yr.util.PageUtil;
 @Repository
 public class AuthDaoImpl implements AuthDao {
 	private static final int TWO = 2;
+	private static final int THREE = 3;
+	private static final int FOUR = 4;
 	@PersistenceContext
 	private EntityManager em;
 	/**
 	 * 添加
-	 * @param users 用户对象
-	 * @param code 角色code
+	 * @param users 权限对象
 	 * @return 操作是否成功
 	 */
-	public int addId(Account users, String code) {
-		List qu = em.createQuery("select u from Account u where u.id=?").setParameter(0, users.getId())
-				.getResultList();
-		if (qu.size() > 0) {
-			final int i = 2;
-			return i;
-		}
-		Role r = (Role) em.createQuery("from Role r where r.code=?").setParameter(0, code).getSingleResult();
-		users.getUsersRoleItems().add(r);
+	public int addId(Auth users) {
+		String code = em.createNativeQuery("select max(code) from yr_auth").getSingleResult().toString();
+		Integer codeInt = Integer.valueOf(code);
+		codeInt = codeInt + 1; //编号+1
+		users.setCode(codeInt.toString());
 		em.persist(users);
 		return 1;
 	}
 	/**
 	 * 删除
-	 * @param i 用户编号
-	 * @return 是否操作成功
+	 * @param code 权限编号
+	 * @return 1 编号不存在,2 有人在使用此角色
 	 */
-	public int del(Integer i) {
-		// TODO Auto-generated method stub
+	public int del(String code) {
+		Auth auth = (Auth) em.createQuery("from Auth r where r.code=?").setParameter(0, code).getSingleResult();
+		if (null == auth && "".equals(auth)) { //判断编号是否存在
+			return 1;
+		}
+		String sql = "select auth_code from yr_role_auth where auth_code=?";
+		List list = em.createNativeQuery(sql).setParameter(1, code).getResultList();
+		if (null != null && list.size() > 0) { //此权限有人在使用无法停用
+			return TWO;
+		}
+		Query qu = em.createQuery("delete from Auth r where r.code=?").setParameter(0, code); //删除角色
+		qu.executeUpdate();
 		return 0;
 	}
 	/**
 	 * 修改
-	 * @param emp 用户对象
-	 * @return 操作是否成功
+	 * @param emp 权限对象
+	 * @return 1 不存在编号, 0成功
 	 */
-	public int upd(Account emp) {
-		// TODO Auto-generated method stub
+	public int upd(Auth emp) {
+		Auth auth = (Auth) em.createQuery("from Auth r where r.code=?").setParameter(0, emp.getCode())
+				.getSingleResult();
+		if (null == auth && "".equals(auth)) { //判断编号是否存在
+			return 1;
+		}
+		Query q = em.createQuery("update Auth a set a.name=?,a.url=?,a.caozuo=?,a.updateTime=? where a.code=?");
+		q.setParameter(0, emp.getName());
+		q.setParameter(1, emp.getUrl());
+		q.setParameter(TWO, emp.getCaozuo());
+		q.setParameter(THREE, emp.getUpdateTime());
+		q.setParameter(FOUR, emp.getCode());
+		q.executeUpdate();
 		return 0;
 	}
 	/**
-	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @return 出错信息
-	 */
-	public String updatePass(String oldpassword, String userN, Integer id,
-			String passW) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	/**
 	 * 查询单个
-	 * @param i 用户id
-	 * @return 查出的用户对象
+	 * @param code 权限编号
+	 * @return 1 权限编号不存在,json 成功
 	 */
-	public Account query(Integer i) {
-		// TODO Auto-generated method stub
-		return null;
+	public String query(String code) {
+		Auth qu = (Auth) em.createQuery("from Auth r where r.code=?").setParameter(0, code).getSingleResult();
+		if ("".equals(qu) || null == qu) { //判断账号是否存在
+			return "1";
+		}
+		return JsonUtils.beanToJson(qu);
 	}
 	/**
 	 * 班某人的分页
@@ -98,24 +104,24 @@ public class AuthDaoImpl implements AuthDao {
         PageUtil pageUtil = new PageUtil();
         try {
             int count = 0;
-            String jpql = "FROM Account ORDER BY updateTime desc";
+            String jpql = "FROM Auth ORDER BY updateTime desc";
             if (null != name && !"".equals(name)) {
-                jpql = "FROM Account where username like :username ORDER BY updateTime desc";
+                jpql = "FROM Auth where name like :name ORDER BY updateTime desc";
             }
-            List<Account> list = new ArrayList<Account>();
+            List<Auth> list = new ArrayList<Auth>();
             name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
             if (null != name && !"".equals(name)) {
                 list = em.createQuery(jpql).setFirstResult((page - 1) * limit)
-                        .setMaxResults(limit).setParameter("username", "%" + name + "%").getResultList();
+                        .setMaxResults(limit).setParameter("name", "%" + name + "%").getResultList();
                 count = Integer.parseInt(em.createNativeQuery(
-                		"SELECT COUNT(*) FROM yr_account where username like :username")
-                                        .setParameter("username", "%" + name + "%").getSingleResult().toString());
+                		"SELECT COUNT(*) FROM yr_auth where name like :name")
+                                        .setParameter("name", "%" + name + "%").getSingleResult().toString());
 
             } else {
                 list = em.createQuery(jpql).setFirstResult((page - 1) * limit)
                         .setMaxResults(limit).getResultList();
                 count = Integer.parseInt(em
-                       .createNativeQuery("SELECT COUNT(*) FROM yr_account").getSingleResult().toString());
+                       .createNativeQuery("SELECT COUNT(*) FROM yr_auth").getSingleResult().toString());
             }
             pageUtil = new PageUtil(limit, page, count);
             pageUtil.setCount(count);
@@ -127,19 +133,19 @@ public class AuthDaoImpl implements AuthDao {
             pageUtil.setMsg("-----出错啦-----");
             e.printStackTrace();
         }
-        return JsonUtils.beanToJson(pageUtil, new String[] {"usersRoleItems" }, false);
+        return JsonUtils.beanToJson(pageUtil, new String[] {"perRoleItems"}, false);
     }
 	 /**
-     * 查询所有的角色
+     * 查询所有的权限
      * @author 周业好
      * @return json
      */
 	@Override
-	public String queryRoleAll() {
+	public String queryAuthAll() {
 		try {
-			List<Role> list = em.createQuery("from Role").getResultList();
+			List<Auth> list = em.createQuery("from Auth").getResultList();
 			String json = JsonUtils.beanListToJson(list, 
-					new String[] {"rolePermItems", "roleUsersItems", "createTime"}, false);
+					new String[] {"perRoleItems", "updateTime", "createTime"}, false);
 			return json;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,63 +153,51 @@ public class AuthDaoImpl implements AuthDao {
 		return null;
 	}
 	/**
-     * 重置密码
-     * @author 周业好
-     * @param name 账号
-     * @param newPass 新密码
-     * @return json
-     */
-	@Override
-	public String resetPassWord(String name, String newPass) {
-		Query qu = em.createQuery("update Account a set a.password = ?,a.updateTime=? where a.username=?");
-		
-		qu.setParameter(0, newPass);
-		qu.setParameter(1, new Date());
-		qu.setParameter(TWO, name);
-		qu.executeUpdate();
-		return "1";
-	}
-	 /**
      * 启用停用
      * @author 周业好
-     * @param name 账号
-     * @return 操作是否成功
+     * @param code 权限编号
+     * @return 操作是否成功 1 角色不存在 ,0成功
      */
 	@Override
-	public int kaiguan(String name) {
-		Account ac = (Account) em.createQuery("from Account where username=?").setParameter(0, name)
+	public int kaiguan(String code) {
+		Auth ac = (Auth) em.createQuery("from Auth where code=?").setParameter(0, code)
 				.getSingleResult();
-		if ("".equals(ac) && null == ac) {
+		if ("".equals(ac) && null == ac) { //判断账号是否存在
 			return 1;
 		}
-		String val = "";
-		if ("1".equals(ac.getStatus())) {
-			val = "0";
+		
+		Integer val = 0;
+		if (1 == ac.getUse()) {
+			val = 0;
 		} else {
-			val = "1";
+			val = 1;
+			List list = em.createNativeQuery("select auth_code from yr_role_auth where auth_code=?")
+					.setParameter(1, ac.getCode()).getResultList();
+			if (null != null && list.size() > 0) { //此角色有人在使用无法停用
+				return TWO;
+			}
 		}
-		Query qu = em.createQuery("update Account a set a.status=?,a.updateTime=? where a.username=?");
+		Query qu = em.createQuery("update Auth a set a.use=?,a.updateTime=? where a.code=?");
 		qu.setParameter(0, val);
 		qu.setParameter(1, new Date());
-		qu.setParameter(TWO, name);
+		qu.setParameter(TWO, code);
 		qu.executeUpdate();
 		return 0;
 	}
 	
 	/**
-     * 查询权限
-     * @return String
+     * 查询角色拥有的权限
+     * @return list
      */
 	@Override
     public List<Auth> getResource() {
         return em.createQuery("FROM Auth").getResultList();
-        
     }
 	
 	/**
      * 根据角色 code 查出 对应角色的  权限name
      * @author 周业好
-     * @param code 角色编号
+     * @param code 权限编号
      * @return list
      */
 	@Override
@@ -223,8 +217,8 @@ public class AuthDaoImpl implements AuthDao {
 	@Override
     public List<Auth> roleCodeTogetResource(String code) {
         String sql = "select  r2.* from yr_role r1,yr_auth r2,yr_role_auth rr where "
-        		+ "r1.code=rr.role_code and r2.code=rr.auth_code and r1.code=:roleCode";
-        return em.createNativeQuery(sql, Auth.class).setParameter("roleCode", code)
+        		+ "r1.code=rr.role_code and r2.code=rr.auth_code and r1.code=:AuthCode";
+        return em.createNativeQuery(sql, Auth.class).setParameter("AuthCode", code)
                 .getResultList();
     }
     /**
