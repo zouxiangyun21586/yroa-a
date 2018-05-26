@@ -74,11 +74,9 @@ public interface StudentService {
 	  *	
 	  * @return : String 
 	  *
-	  * @param id  
-	  * 
 	  * @param student 
 	  */
-	 String updateStudent(Integer id, Student student);
+	 String updateStudent(Student student);
 	 
 	 /**
 	  * 

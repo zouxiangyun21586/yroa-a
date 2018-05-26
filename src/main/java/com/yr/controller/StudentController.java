@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -97,14 +98,12 @@ public class StudentController {
 	 *
 	 * @describe : 根据学生id修改学生信息
 	 *
-	 * @param id 学生id
-	 * 
 	 * @param student 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/student", method = {RequestMethod.PUT}, produces = "text/json;charset=UTF-8")
-	public String updateStudent(Integer id, Student student) {
-		String result = studentService.updateStudent(id, student);
+	public String updateStudent(@ModelAttribute("student")Student student) {
+		String result = studentService.updateStudent(student);
 		return result;
 	}
 	
@@ -145,4 +144,24 @@ public class StudentController {
 		String result = JsonUtils.beanListToJson(clasList);
 		return result;
 	}
+	
+	
+	/**
+	 * 
+	 * @Date : 2018年5月26日上午9:53:41
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @describe 动态修改 不修改的字段不做变动
+	 * 
+	 * @param map 用来存放数据
+	 * 
+	 * @param student 用来得到id
+	 */
+	@ModelAttribute
+    public void getStudent(Student student, Map<String, Object> map) {
+		if (student.getId() != null) {
+			map.put("student", studentService.updateDisplay(student.getId()));
+		}
+    }
 }

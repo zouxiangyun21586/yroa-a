@@ -72,11 +72,9 @@ public interface StudentDao {
 	  * 
 	  * @author : 唐子壕
 	  *	
-	  * @param id 
-	  * 
 	  * @param student 
 	  */
-	 void updateStudent(Integer id, Student student);
+	 void updateStudent(Student student);
 	 
 	 /**
 	  * 
