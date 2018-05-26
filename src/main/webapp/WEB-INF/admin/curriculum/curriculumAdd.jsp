@@ -34,8 +34,17 @@
 		<label class="layui-form-label">本届教师</label>
 			<div class="layui-input-block">
 				<select lay-filter="teacherCode" name="teacherCode">
-					<option value="T1001">钟林军</option>
-					<option value="T1002">林娟娟</option>
+					<option value="1001">钟林军</option>
+					<option value="1002">林娟娟</option>
+				</select>
+			</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<label class="layui-form-label">是否毕业</label>
+			<div class="layui-input-block">
+				<select lay-filter="isFinish" name="isFinish">
+					<option value="0">未毕业</option>
+					<option value="1">毕业生</option>
 				</select>
 			</div>
 	</div>

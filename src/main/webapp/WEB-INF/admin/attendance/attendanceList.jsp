@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/layui/css/layui.css" media="all" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/public.css" media="all" />
-<title>Spting mvc-user</title>
+<title>考勤列表</title>
 <style>
 .layui-table-cell .layui-form-checkbox[lay-skin=primary], .layui-table-cell .layui-form-radio[lay-skin=primary]{top:5px;}
 </style>

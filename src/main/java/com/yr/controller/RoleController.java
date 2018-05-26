@@ -1,11 +1,8 @@
 package com.yr.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -14,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,7 +30,6 @@ public class RoleController  {
 	@Autowired
 	private RoleService role;
 	
-	private static final int THREE = 3;
 	/**
 	 * 
 	 * @author 周业好
@@ -45,7 +40,7 @@ public class RoleController  {
 	 * @return x
 	 */
 	@ResponseBody
-	@RequestMapping(value = "queryfy", produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/queryfy", produces = "text/json;charset=UTF-8")
 	public String queryFenye(int page, int limit, String name) {
 		String json = role.getFenye(page, limit, name);
 		return json;
@@ -75,23 +70,13 @@ public class RoleController  {
 	}
 	/**
 	 * 删除
-	 * @param i 1 
-	 * @param request 3
-	 * @param resp 4
+	 * @param code 角色编号
+	 * @return json
 	 */
-	@RequestMapping(value = "/del/{id}", method = RequestMethod.DELETE)
-	public void del(@PathVariable(value = "id") Integer i, HttpServletRequest request, HttpServletResponse resp) {
-		String pagesize = request.getParameter("pagesize");
-//		role.delroleRole(i); //解除关系
-//		int z = role.del(i); //删除
-//		if (0 == z) {
-//			mo.addAttribute("z", "删除失败,没有这个编号");
-//		}
-		try {
-			resp.getWriter().write(pagesize);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	@ResponseBody
+	@RequestMapping(value = "/del", method = RequestMethod.DELETE, produces = "text/json;charset=UTF-8")
+	public String del(String code) {
+		return role.del(code);
 	}
 	
 	/**
@@ -127,55 +112,23 @@ public class RoleController  {
 	}
 	/**
 	 * 查询单个(修改数据回显)
-	 * @param i 要修改的id
-	 * @param map 2
+	 * @param code 角色编号
 	 * @return 查出来的json
 	 */ 
-	@RequestMapping(value = "upd_echo")
-	public String query(@PathVariable(value = "id")Integer i, Map<String, Object> map) {
-		Role e = role.query(i);
-		map.put("users", e);
-		return "update";
-	}
-	/**
-	 * 
-	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @param resp 1
-	 *  0.修改成功  1.账号不存在  2.旧密码错误  
-	 */
-	@RequestMapping(value = "/updatePass", method = RequestMethod.POST)
-	public void updatePass(String oldpassword, Integer id, String passW, String userN, HttpServletResponse resp) {
-		String val = role.updatePass(oldpassword, userN, id, passW);
-		try {
-			resp.getWriter().write(val);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	 /**
-     * 重置密码
-     * @author 周业好
-     * @param username 账号
-     * @return json
-     */
 	@ResponseBody
-	@RequestMapping(value = "reset", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
-	public String resetPassWord(String username) {
-		return role.resetPassWord(username);
+	@RequestMapping(value = "upd_echo", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public String query(String code) {
+		return role.query(code);
 	}
 	/**
      * 启用停用
      * @author 周业好
-     * @param name 账号
+     * @param code 角色编号
      * @return json
      */
 	@ResponseBody
 	@RequestMapping(value = "switchs", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
-	public String kaiguan(String name) {
-		return role.kaiguan(name);
+	public String kaiguan(String code) {
+		return role.kaiguan(code);
 	}
 }

@@ -2,13 +2,13 @@ package com.yr.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Teacher;
+import com.yr.service.AccountService;
 import com.yr.service.TeacherService;
 import com.yr.util.JsonUtils;
 
@@ -25,6 +25,10 @@ public class TeacherController {
 	
 	@Autowired
 	private TeacherService teacherService;
+	
+	@Autowired
+	private AccountService accountService;
+	
 	final Integer number = 2;
 	
 	/**
@@ -37,7 +41,6 @@ public class TeacherController {
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return 返回到哪个界面
 	 */
-	@Transactional
 	@RequestMapping(value = "/teacher", method = RequestMethod.POST)
 	public String add(Teacher teacher, ModelMap map) {
 		Boolean boo = teacherService.add(teacher);
@@ -60,7 +63,6 @@ public class TeacherController {
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return 执行完这个方法后去到哪个页面
 	 */
-	@Transactional
 	@RequestMapping(value = "/teacher/{id}", method = RequestMethod.DELETE)
 	public String del(Teacher teacher, ModelMap map) {
 		Boolean bool = teacherService.delete(teacher);
@@ -83,7 +85,6 @@ public class TeacherController {
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return 执行完这个方法后去到哪个页面
 	 */
-	@Transactional
 	@RequestMapping(value = "/teacher", method = RequestMethod.PUT)
 	public String upd(Teacher teacher, ModelMap map) {
 		Boolean bool = teacherService.update(teacher);

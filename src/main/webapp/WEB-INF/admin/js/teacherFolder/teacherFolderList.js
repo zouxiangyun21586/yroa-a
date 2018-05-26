@@ -24,15 +24,31 @@ layui.use(['table','form','tree'], function(){
 			{field: 'sex', title: '性别', unresize: true},
 			{field: 'age', title: '年龄',  unresize: true},
 			{field: 'tel', title: '电话',  unresize: true},
-			{field: 'level', title: '教学等级',  unresize: true},
-			{field: 'inTime', title: '入职时间', unresize: true},
-			{field: 'isLevel', title:'是否离职', width:90,align:'center', templet: function(d){
+			{field: 'level', title: '教学等级', width:90,align:'center', templet: function(a){
+				var lev;
+				if('DEVELE'==a.level){
+					lev='<span style="font-size:5px;color:#009688;">初级</span>'
+				} else if('DEVMID' == a.level) {
+					lev='<span style="font-size:5px;color:#FFB800;">中级</span>'
+				} else if('DEVHIG' == a.level){
+					lev='<span style="font-size:5px;color:#FFB800;">高级</span>'
+				} else if('DBA' == a.level){
+					lev='<span style="font-size:5px;color:#FFB800;">数据库</span>'
+				} else if('UI' == a.level){
+					lev='<span style="font-size:5px;color:#FFB800;">前台</span>'
+				}
+				return lev;
+			}, unresize: true},
+			{field: 'inTime', title: '入职时间' ,unresize: true},
+			{field: 'isLevel', title:'任职状态', width:90,align:'center', templet: function(d){
 			var state;
-			if(1==d.is_level){
+			if(1==d.isLeave){
 				state='<span style="font-size:5px;color:#009688;">已离职</span>'
+			}else if(2==d.isLeave){
+				state='<span style="font-size:5px;color:#FFB800;">试用期</span>'
 			}else{
 				state='<span style="font-size:5px;color:#FFB800;">未离职</span>'
-				}
+			}
 				return state;
 			}, unresize: true},
 			{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
