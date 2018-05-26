@@ -1,5 +1,7 @@
 package com.yr.dao;
 
+import java.util.List;
+
 import com.yr.entity.Teacher;
 import com.yr.util.PageUtil;
 
@@ -20,6 +22,14 @@ public interface TeacherDao {
 	 * @param teacher 老师对象
 	 */
 	void add(Teacher teacher);
+	
+	/**
+	 * 查询所有(数据回显使用)
+	 * 
+	 * @return List<Teacher>
+	 * 2018年5月26日上午11:55:46
+	 */
+	List<Teacher> query();
 	
 	/**
 	 * 修改
@@ -61,10 +71,10 @@ public interface TeacherDao {
 	 * 
 	 * 2018年5月22日 上午8:52:59
 	 * 
-	 * @param code 需回显的老师code
+	 * @param id 需回显的老师id
 	 * @return 老师对象
 	 */
-	Teacher get(String code);
+	Teacher get(Integer id);
 	
 	/**
 	 * 获取角色Code
