@@ -39,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
 				map.put("msg", "添加成功");
 			} else {
 				map.put("code", 1);
-				map.put("msg", "错误,id已存在");
+				map.put("msg", "错误,账户已存在");
 			}
 		} catch (Exception e) {
 			map.put("code", 1);
