@@ -2,7 +2,6 @@ package com.yr.service;
 
 import java.util.List;
 
-import com.yr.entity.Clas;
 import com.yr.entity.Student;
 
 /**
@@ -22,6 +21,8 @@ public interface StudentService {
 	 *	
 	 * @return : PageUtil
 	 *
+	 * @describe 分页查询
+	 * 
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
@@ -49,6 +50,8 @@ public interface StudentService {
 	  * @author : 唐子壕
 	  *	
 	  * @return : String
+	  * 
+	  * @describe 根据学生id删除学生
 	  *
 	  * @param id 学生id
 	  */
@@ -62,7 +65,9 @@ public interface StudentService {
 	  *	
 	  * @return : String 
 	  *
-	  * @param id 
+	  * @param id 根据这个id查出一个对象，用来数据回显
+	  * 
+	  * @describe 修改数据回显
 	  */
 	 Student updateDisplay(Integer id);
 	 
@@ -74,11 +79,11 @@ public interface StudentService {
 	  *	
 	  * @return : String 
 	  *
-	  * @param id  
-	  * 
 	  * @param student 
+	  * 
+	  * @describe 执行修改学生信息
 	  */
-	 String updateStudent(Integer id, Student student);
+	 String updateStudent(Student student);
 	 
 	 /**
 	  * 
@@ -86,9 +91,41 @@ public interface StudentService {
 	  * 
 	  * @author : 唐子壕
 	  *	
-	  * @return : List<Clas> 
+	  * @return : String
+	  * 
+	  * @describe 查询届次用于回显到页面进行选择届次
 	  *
 	  */
-	 List<Clas> queryCls();
+	 String queryCls();
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月26日上午11:43:19
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : List<Student>
+	  *
+	  * @describe 供学生考勤模块调用
+	  */
+	 List<Student> queryNoGre();
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月26日上午11:46:32
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : Student
+	  * 
+	  * @param code 
+	  * 
+	  * @describe 供学生考勤模块调用
+	  *
+	  */
+	 Student querytoCode(String code);
+	 
+	 
+	 
 }
 

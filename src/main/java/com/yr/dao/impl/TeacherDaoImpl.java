@@ -158,39 +158,12 @@ public class TeacherDaoImpl implements TeacherDao {
 	 */
 	public void update(Teacher teacher) {
 		
-		Teacher t = entityManager.find(Teacher.class, teacher.getId());
-		
-		Integer id = teacher.getId();
-		String name = teacher.getName();
-		String sex = teacher.getSex();
-		Integer age = teacher.getAge();
-		String tel = teacher.getTel();
-		String addr = teacher.getAddr();
-		String birth = teacher.getBirth();
-		String inTime = teacher.getInTime();
-		String level = teacher.getLevel();
-		String isleaver = teacher.getIsLeave();
-		Date leavetime  = teacher.getLeaveTime();
-		String info = teacher.getInfo();
-		Date createTime = teacher.getCreateTime();
-		entityManager.remove(t);
-		
-		Teacher tc = new Teacher();
-		tc.setId(id);
-		tc.setName(name);
-		tc.setSex(sex);
-		tc.setAge(age);
-		tc.setTel(tel);
-		tc.setAddr(addr);
-		tc.setInTime(inTime);
-		tc.setLevel(level);
-		tc.setIsLeave(isleaver);
-		tc.setLeaveTime(leavetime);
-		tc.setInfo(info);
-		tc.setBirth(birth);
-		tc.setCreateTime(createTime);
-		entityManager.merge(tc);
-		
+		Query query = entityManager
+				.createQuery("update Teacher t set t.tel = :tel, t.level = :level,t.isLeave = :isLeave")
+				.setParameter("tel", teacher.getName())
+				.setParameter("level", teacher.getLevel())
+				.setParameter("isLeave", teacher.getIsLeave());
+		query.executeUpdate();
 	}
 
 	/**
@@ -265,6 +238,15 @@ public class TeacherDaoImpl implements TeacherDao {
 		
 		return pageUtil;
 	}
+	
+	/**
+	 * 查询所有(数据回显使用)
+	 * @return list<Teacher>
+	 * 2018年5月26日上午11:53:44
+	 */
+	public List<Teacher> query() {
+		return entityManager.createQuery("From Teacher").getResultList();
+	}
 
 	/**
 	 * 数据回显
@@ -272,13 +254,13 @@ public class TeacherDaoImpl implements TeacherDao {
 	 * 
 	 * 2018年5月22日 下午2:57:29
 	 * 
-	 * @param code 获取页面是老师code 用来数据回显
+	 * @param id 获取页面是老师id 用来数据回显
 	 * @return 返回某老师的对象
 	 */
-	public Teacher get(String code) {
-		Query q = entityManager.createQuery("from Teacher where code = :code").setParameter("code", code);
-		Teacher listUser = (Teacher) q.getSingleResult();
-		return listUser;
+	public Teacher get(Integer id) {
+		Teacher teacher =  (Teacher) entityManager.createQuery("From Teacher where id = :id")
+				.setParameter("id", id).getSingleResult();
+		return teacher;
 	}
 
 }

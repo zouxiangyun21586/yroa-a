@@ -124,12 +124,23 @@ public class TeacherServiceImpl implements TeacherService {
 	 * 
 	 * 2018年5月22日 下午2:59:21
 	 * 
-	 * @param code 某老师的code
+	 * @param id 某老师的id
 	 * @return 老师对象,用于数据回显
 	 */
-	public Teacher get(String code) {
-		Teacher listTeacher = teacherDao.get(code);
+	public Teacher get(Integer id) {
+		Teacher listTeacher = teacherDao.get(id);
 		return listTeacher;
+	}
+
+	@Override
+	public Boolean query() {
+		try {
+			teacherDao.query();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

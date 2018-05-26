@@ -120,7 +120,7 @@ layui.use(['table','form','tree'], function(){
 				title : "修改教师",
 				type : 2,
 				anim : 5,
-				content : "getTeacher?code="+obj.data.code,//修改教师的页面路径
+				content : "../getTeacher?id=" + obj.data.id,//修改教师的页面路径
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回',

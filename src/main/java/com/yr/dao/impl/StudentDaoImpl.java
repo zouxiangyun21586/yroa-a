@@ -1,6 +1,7 @@
 package com.yr.dao.impl;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -26,21 +27,23 @@ import com.yr.util.PageUtil;
  */
 @Repository
 public class StudentDaoImpl implements StudentDao {
-	
 	@PersistenceContext
 	private EntityManager entityManager;
 	
 	
 	
-	/**
+	/**查询学生信息
 	 * 
 	 * @Date : 2018年5月22日下午7:19:40
 	 * 
 	 * @author : 唐子壕
-	 *	
+	 *
+	 * @describe   分页查询,模糊查询,查询结果根据入学时间进行升序查询	
+	 *
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
+	 * 
 	 * @return : PageUtil 返回查询结果,是一个集合
 	 *
 	 * @see com.yr.dao.StudentDao#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
@@ -85,13 +88,14 @@ public class StudentDaoImpl implements StudentDao {
 		return pageUtil;
 	}
 	
-	/**
+	/**添加学生信息
 	 * 
 	 * @Date : 2018年5月22日下午5:44:32
 	 * 
 	 * @author : 唐子壕
 	 *	
 	 * @describe : 实现com.yr.dao.StudentDao接口,重写方法,进行操作数据库
+	 * 			   这里届次和所属批次code是根据届次code获取到的,添加到学生表里面
 	 *
 	 * @param student 方法重写，带参数
 	 * 
@@ -103,8 +107,8 @@ public class StudentDaoImpl implements StudentDao {
 		String result = "";
 		try {
 			String name = student.getName(); //学生姓名
-			String result1 = queyrIsName(name);
-			if ("0".equals(result1)) {
+			String result1 = queyrIsName(name); //判断学生姓名是否已存在
+			if ("0".equals(result1)) { //判断添加的学是是否也存在 这里表示不存在
 				String code = code(); //学生编号
 				String clasCode = new String(student.getYear()
 						.getBytes("ISO8859-1"), "utf-8"); //届次 ,获取到的是届次表的code
@@ -130,8 +134,53 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		return result;
 	}
+	
+	
+	
+	/**删除学生信息
+	 * 
+	 * @Date : 2018年5月23日下午3:20:42
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param id 学生id
+	 * 
+	 * @describe : 根据id删除学生信息
+	 * 
+	 * @see com.yr.dao.StudentDao#deleteStudent(java.lang.Integer)
+	 */
+	public void deleteStudent(Integer id) {
+		Student student = entityManager.find(Student.class, id);
+		entityManager.remove(student);
+	}
+	
+	/**修改学生信息
+	 * 
+	 * @Date : 2018年5月24日下午8:25:25
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @describe : 根据id修改学生信息
+	 * 
+	 * @see com.yr.dao.StudentDao#updateStudent(java.lang.Integer)
+	 */
+	@Override
+	public void updateStudent(Student student) {
+		Student student1 = entityManager.find(Student.class, student.getId());
+		student1.setAddr(student.getAddr());
+		student1.setBirth(student.getBirth());
+		student1.setClassCode(student.getClassCode());
+		Clas clas = queryClas(student.getClassCode());
+		student1.setYear(clas.getYear());
+		student1.setTel(student.getTel());
+		student1.setHomeTel(student.getHomeTel());
+		student1.setInTime(student.getInTime());
+		entityManager.merge(student1);
+	}
+	
+	
 
-	/**
+	/** 
 	 * 
 	 * @Date : 2018年5月23日下午7:12:24
 	 * 
@@ -149,43 +198,6 @@ public class StudentDaoImpl implements StudentDao {
 				.setParameter("name", name).getSingleResult().toString();
 		return result;
 	}
-
-	/**
-	 * 
-	 * @Date : 2018年5月23日下午3:20:42
-	 * 
-	 * @author : 唐子壕
-	 *	
-	 * @param id 学生id
-	 * 
-	 * @describe : 根据id删除学生信息
-	 * 
-	 * @see com.yr.dao.StudentDao#deleteStudent(java.lang.Integer)
-	 */
-	public void deleteStudent(Integer id) {
-		Student student = entityManager.find(Student.class, id);
-		entityManager.remove(student);
-	}
-	
-	
-	/**
-	 * 
-	 * @Date : 2018年5月24日下午8:25:25
-	 * 
-	 * @author : 唐子壕
-	 *	
-	 * @param id 
-	 * 
-	 * @describe : 根据id修改学生信息
-	 * 
-	 * @see com.yr.dao.StudentDao#updateStudent(java.lang.Integer)
-	 */
-	@Override
-	public void updateStudent(Integer id, Student student) {
-		Student student1 = entityManager.find(Student.class, id);
-		student1.setName(student.getName());
-		entityManager.merge(student);
-	}
 	
 	/**
 	 * 
@@ -202,12 +214,12 @@ public class StudentDaoImpl implements StudentDao {
 		String jpql = "select count(*) from yr_student";
 		String value = entityManager.createNativeQuery(jpql).getSingleResult().toString();
 		if ("0".equals(value)) {
-			code = "S1001";
+			code = "1001";
 		} else {
 			String sql = "select max(`code`)  from yr_student";
 			String sqlCode = entityManager.createNativeQuery(sql).getSingleResult().toString();
 			Integer integer = Integer.valueOf(sqlCode.substring(1)) + 1;
-			code = "S" + integer;
+			code = integer.toString();
 		}
 		return code;
 	}
@@ -240,7 +252,6 @@ public class StudentDaoImpl implements StudentDao {
 	 * @return : List<String> 
 	 * 
 	 * @describe : 查询出已有届次
-	 *
 	 */
 	@Override
 	public List<Clas> queryCls() {
@@ -265,15 +276,62 @@ public class StudentDaoImpl implements StudentDao {
 		Clas clas = (Clas) entityManager.createQuery(jpql).setParameter("code", code).getSingleResult();
 		return clas;
 	}
-
+	/**
+	 * 
+	 * @Date : 2018年5月26日上午10:43:36
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @describe  首先第一步：去yr_dic（字典表） 根据字段keyv  查出 字段 val：（学生）
+	 *            第二步 ：根据查出的字段val（角色） 去yr_role表根据name查出 对应的code
+	 * 
+	 * @see com.yr.dao.StudentDao#queryRoleCod()
+	 */
 	@Override
 	public String queryRoleCod() {
-		//首先第一步：去yr_dic（字典表） 根据字段keyv  查出 字段 val：（学生）
-		//第二步 ：根据查出的字段val（角色） 去yr_role表根据name查出 对应的code
 		String jpql = "select val from Dic where keyv=:keyv";
 		String val = (String) entityManager.createQuery(jpql).setParameter("keyv", "stu").getSingleResult();
 		String jpql1 = "select code from Role where name=:name";
 		String code = (String) entityManager.createQuery(jpql1).setParameter("name", val).getSingleResult();
 		return code;
+	}
+
+	/**
+	 * 
+	 * @Date : 2018年5月26日上午11:49:09
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return List<Student>
+	 * 
+	 * @describe 查询所有未毕业学生
+	 * 
+	 * @see com.yr.dao.StudentDao#queryNoGre()
+	 */
+	public List<Student> queryNoGre() {
+		String jpql = "from Studnet where isFinish=:isFinish";
+		List<Student> student = entityManager.createQuery(jpql).setParameter("isFinish", "0").getResultList();
+		return student;
+	}
+
+	/**
+	 * 
+	 * @Date : 2018年5月26日上午11:49:13
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @describe 根据code查询学生对象
+	 *  
+	 * @param code 
+	 *	
+	 * @return Student
+	 * 
+	 * @see com.yr.dao.StudentDao#querytoCode()
+	 */
+	public Student querytoCode(String code) {
+		String jpql = "from Student where code=:code";
+		Student student = (Student) entityManager.createQuery(jpql)
+				.setParameter("code", code).getSingleResult();
+		return student;
 	}
 }

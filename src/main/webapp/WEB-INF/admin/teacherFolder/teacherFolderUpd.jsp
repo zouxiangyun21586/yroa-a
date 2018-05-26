@@ -22,7 +22,7 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" id="teacherUpdForm" modelAttribute="teacherGet">
+<form:form class="layui-form" style="width:80%;" id="teacherUpdForm" modelAttribute="teacher">
 	<form:hidden path="id"/>
     <input type="hidden" name="_method" value="PUT">
 	<div class="layui-form-item layui-row layui-col-xs12">
@@ -35,27 +35,39 @@
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">地址</label>
+			<label class="layui-form-label">教学等级</label>
 			<div class="layui-input-block">
-				<form:input type="text" class="layui-input" path="addr" lay-verify="required" placeholder="家庭地址" />
+				<input type="hidden" id="level" name="level"/>
+				<select name="level" lay-verify="required" >
+                 	<option value="DEVHIG">高级</option>
+					<option value="DEVMID">中级</option>
+					<option value="DEVELE">初级</option>
+					<option value="DBA">数据库</option>
+					<option value="UI">前台</option>
+            	</select>
 			</div>
 		</div>
 	</div>
-	<div class="magb15 layui-col-md4 layui-col-xs12">
-           <label class="layui-form-label">届次名称</label>
-          <div class="layui-input-block editWidth">
-              <select name="code" lay-verify="required" id="level">
-              	
-              </select>
-          </div>
-        </div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">任职状态</label>
+			<div class="layui-input-block">
+				<input type="hidden" id="isLeave" name="isLeave"/>	
+				<select name="isLeave" lay-verify="required">
+					<option value="1">离职</option>
+					<option value="0">在职</option>
+					<option value="2">试用</option>
+            	</select>
+			</div>
+		</div>
+	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
 			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="updTeacher">立即修改</button>
 			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
 		</div>
 	</div>
-</form>
+</form:form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/teacherFolder/teacherFolderUpd.js"></script>
 </body>

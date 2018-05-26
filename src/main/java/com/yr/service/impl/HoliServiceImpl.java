@@ -40,11 +40,14 @@ public class HoliServiceImpl implements HoliService {
 	public String add(Holiday holiday) {
 		Map<String, Object> map = new HashMap<>();
 		Clas clas = clasDao.get(holiday.getClassCode());
-		holiday.setClassCode(clas.getCode());
-		holiday.setClassName(clas.getName());
-		holiday.setCreateTime(DateUtils.getCurretDateTimeA());
-		holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
-		Integer b = holiDao.add(holiday);
+		Integer b = 0;
+		if (null != clas) {
+			holiday.setClassCode(clas.getCode());
+			holiday.setClassName(clas.getName());
+			holiday.setCreateTime(DateUtils.getCurretDateTimeA());
+			holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
+			b = holiDao.add(holiday);
+		}
 		if (null == b || 0 == b) {
 			map.put("code", 1);
 			map.put("msg", "添加失败");

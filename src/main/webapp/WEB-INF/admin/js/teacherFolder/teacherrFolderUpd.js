@@ -18,6 +18,52 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		 $(":select[name='year']").val(data.value);
 	});
 	
+	 $.ajax({
+	        type : "get",
+	        url : path + "teacherHX",
+	        success : function(result) {
+	        	alert(result);
+	            var obj = eval(result);
+	            var objLength = obj.length;
+	            var code = $("#teacher").val();
+	            if(objLength>0){
+	                $('#levQuyer').empty();
+	                $('#isLeQuery').empty();
+	                var a="";
+	                $(obj).each(function (i) {
+	                    if (obj[i].level == level) {
+	                        a+='<option value="' + obj[i].level + '" selected>' + obj[i].level+"-"+obj[i].name + '</option>';
+	                    } else {
+	                        a+='<option value="' + obj[i].level + '">' + obj[i].level+"-"+obj[i].name + '</option>';
+	                    }
+	                    if (obj[i].isLeave == isLeave) {
+	                        b+='<option value="' + obj[i].isLeave + '" selected>' + obj[i].isLeave+"-"+obj[i].name + '</option>';
+	                    } else {
+	                        b+='<option value="' + obj[i].isLeave + '">' + obj[i].isLeave+"-"+obj[i].name + '</option>';
+	                    }
+	                });
+	                $("#levQuyer").append(a);
+	                $("#isLeQuery").append(b);
+	                form.render('select');
+	            }else{
+	                alert("没有东西");
+	                $('#levQuyer').find('option').remove();
+	                $('#isLeQuery').find('option').remove();
+	                form.render('select');
+	            }
+	        },
+	        error : function() {
+	            setTimeout(function() {
+	                top.layer.close(index);
+	                top.layer.msg("异常！", {
+	                    icon : 2
+	                });
+	                layer.closeAll("iframe");
+	            }, 1000);
+	        }
+	    });
+	
+	
     form.on("submit(updTeacher)", function(data) {
         var index = top.layer.msg('数据提交中，请稍候', {
             icon : 16,

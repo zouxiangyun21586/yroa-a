@@ -19,7 +19,6 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	        type : "get",
 	        url : path + "student/queryYear",
 	        success : function(result) {
-	        	alert(result);
 	            var obj = eval(result);
 	            var objLength = obj.length;
 	            var code = $("#code").val();
@@ -28,12 +27,12 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	                var a="";
 	                $(obj).each(function (i) {
 	                    if (obj[i].code == code) {
-	                        a+='<option value="' + obj[i].year + '" selected>' + obj[i].year+"-"+obj[i].name + '</option>';
+	                        a+='<option value="' + obj[i].code + '" selected>' + obj[i].year+"-"+obj[i].name + '</option>';
 	                    } else {
-	                        a+='<option value="' + obj[i].year + '">' + obj[i].year+"-"+obj[i].name + '</option>';
+	                        a+='<option value="' + obj[i].code + '">' + obj[i].year+"-"+obj[i].name + '</option>';
 	                    }
 	                });
-	                $("#claSelect").append(a);
+	                $("#claSelect").html(a);
 	                form.render('select');
 	            }else{
 	                alert("没有东西");
@@ -57,17 +56,19 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	
 	form.on('select(year)', function(data){
 		 $(":select[name='year']").val(data.value);
-	});  
+	});
+	
 	form.on("submit(update)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
 			time : false,
 			shade : 0.8
 		});
+		//alert("195378642");
 			$.ajax({
 				type : "post",
 				url : path+"student/student",
-				data :('#studentForm').serialize(), "id":obj.data.id, "_method":"PUT",
+				data :$('#studentForm').serialize(),
 				success : function(data) {
 					if (0 == data.code) {
 						setTimeout(function() {
