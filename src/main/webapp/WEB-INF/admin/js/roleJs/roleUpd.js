@@ -70,7 +70,7 @@ layui.use([ 'layer', 'form' ], function() {
 		$.ajax({
 			type : "post",
 			url : path+"role/upda",
-			data : $('#roleAdd').serialize(),
+			data : $('#roleUpd').serialize(),
 			success : function(data) {
 				if (0 == data.code) {
 					setTimeout(function() {

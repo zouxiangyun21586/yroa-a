@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yr.dao.AuthDao;
 import com.yr.entity.Account;
+import com.yr.entity.Auth;
 import com.yr.entity.Role;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
@@ -188,4 +189,53 @@ public class AuthDaoImpl implements AuthDao {
 		qu.executeUpdate();
 		return 0;
 	}
+	
+	/**
+     * 查询权限
+     * @return String
+     */
+	@Override
+    public List<Auth> getResource() {
+        return em.createQuery("FROM Auth").getResultList();
+        
+    }
+	
+	/**
+     * 根据角色 code 查出 对应角色的  权限name
+     * @author 周业好
+     * @param code 角色编号
+     * @return list
+     */
+	@Override
+    @SuppressWarnings("unchecked")
+    public List<Auth> codeTogetResource(String code) {
+        String sql = "select r2.name title from yr_role r1,yr_auth r2,yr_role_auth rr where r1.code=rr.role_code and"
+        		+ " r2.code=rr.auth_code and r1.code=:rcode";
+        return em.createNativeQuery(sql).setParameter("rcode", code).getResultList();
+    }
+	/**
+     * 根据角色 code 查出 对应角色的 全部权限信息
+     * @author 周业好
+     * @param code 角色编号
+     * @return list
+     */
+    @SuppressWarnings("unchecked")
+	@Override
+    public List<Auth> roleCodeTogetResource(String code) {
+        String sql = "select  r2.* from yr_role r1,yr_auth r2,yr_role_auth rr where "
+        		+ "r1.code=rr.role_code and r2.code=rr.auth_code and r1.code=:roleCode";
+        return em.createNativeQuery(sql, Auth.class).setParameter("roleCode", code)
+                .getResultList();
+    }
+    /**
+     * 查出权限表全部信息
+     * @author 周业好
+     * @return list 
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Auth> findAll() {
+        String hql = "from Auth";
+        return em.createQuery(hql).getResultList();
+    }
 }

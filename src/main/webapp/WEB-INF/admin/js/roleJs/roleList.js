@@ -146,9 +146,19 @@ layui.use(['table','form','tree'], function(){
 						},1000);
 	    	       }
 			  });
+		  }else if(obj.event === 'fuAuth'){ //赋权
+			  layer.open({
+				anim : 2,
+				title : '赋权',
+				type : 2, // 窗口类型
+				resize : false,// 禁止拉伸
+				maxmin : false,// 最大化,最小化
+				shade : [ 0.3, '#000' ],
+				area : [ '300px', '400px' ],// 窗口宽高
+				content : path+'role/fuAuth?code=' + obj.data.code
+			  });
 		  }
 		});
-		
 		 //添加用户
 	    $(".addUser_btn").click(function(){
 	    	var index = layui.layer.open({

@@ -173,11 +173,13 @@ public class Role implements Serializable {
 	public void setUpdateTimeStr(String updateTimeStr) {
 		this.updateTimeStr = updateTimeStr;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", name=" + name + ", code=" + code
 				+ ", info=" + info + ", use=" + use + ", createTime="
-				+ createTime + "]";
+				+ createTime + ", updateTime=" + updateTime + "]";
 	}
+	
+	
 }

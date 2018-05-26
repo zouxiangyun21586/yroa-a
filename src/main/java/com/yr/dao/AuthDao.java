@@ -1,6 +1,9 @@
 package com.yr.dao;
 
+import java.util.List;
+
 import com.yr.entity.Account;
+import com.yr.entity.Auth;
 
 /**
  * 用户dao接口
@@ -30,8 +33,8 @@ public interface AuthDao {
 	
 	/**
 	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
+	 * @param id 权限名id
+	 * @param userN 权限名
 	 * @param oldpassword 旧密码
 	 * @param passW 新密码
 	 * @return 出错信息
@@ -63,7 +66,7 @@ public interface AuthDao {
     /**
      * 重置密码
      * @author 周业好
-     * @param name 账号
+     * @param name 权限名
      * @param newPass 新密码
      * @return json
      */
@@ -72,8 +75,36 @@ public interface AuthDao {
     /**
      * 启用停用
      * @author 周业好
-     * @param name 账号
+     * @param name 权限名
      * @return 操作是否成功
      */
     int kaiguan(String name);
+    
+    
+    //---------------------------------------------
+    /**
+     * 查询权限
+     * @return String
+     */
+    List<Auth> getResource();
+    /**
+     * 根据角色 code 查出 对应角色的  权限name
+     * @author 周业好
+     * @param code 角色编号
+     * @return list
+     */
+    List<Auth> codeTogetResource(String code);
+    /**
+     * 根据角色 code 查出 对应角色的 全部权限信息
+     * @author 周业好
+     * @param code 角色编号
+     * @return list
+     */
+    List<Auth> roleCodeTogetResource(String code);
+    /**
+     * 查出权限表全部信息
+     * @author 周业好
+     * @return list 
+     */
+    List<Auth> findAll();
 }

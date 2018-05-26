@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 权限表
@@ -32,6 +33,8 @@ public class Auth implements Serializable {
 	private String caozuo;
 	private Date createTime;
 	private Set<Role> perRoleItems = new HashSet<>();
+	private boolean checked;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
@@ -83,5 +86,13 @@ public class Auth implements Serializable {
 	}
 	public void setPerRoleItems(Set<Role> perRoleItems) {
 		this.perRoleItems = perRoleItems;
+	}
+	
+	@Transient
+	public boolean isChecked() {
+		return checked;
+	}
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 }

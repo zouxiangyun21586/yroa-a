@@ -21,6 +21,7 @@
 <form class="layui-form" style="width:80%;" id="roleUpd">
 	<div class="layui-form-item layui-row layui-col-xs12">
 	   <input type="hidden" id="code" name="code"/>
+	   <input type="hidden" name="_method" value="PUT"/>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">角色名</label>
             <div class="layui-input-block">
@@ -42,7 +43,7 @@
 	</div> -->
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
-			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">立即添加</button>
+			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">立即修改</button>
 			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
 		</div>
 	</div>
