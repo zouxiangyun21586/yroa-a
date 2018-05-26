@@ -87,8 +87,7 @@
 			<blockquote class="layui-elem-quote title">Echarts</blockquote>
 			<div class="layui-elem-quote layui-quote-nm history_box magb0" id="main"></div>
 		</div>
-	</div>
-		<div class="layui-row layui-col-space10 panel_box">
+		<div class="layui-row layui-col-space12">
 			<blockquote class="layui-elem-quote title">select级联/多选</blockquote>
 			<div class="layui-elem-quote layui-quote-nm history_box magb0">
 				<form class="layui-form">
@@ -108,11 +107,18 @@
 					    <button type="reset" class="layui-btn layui-btn-primary">重置</button></div>
 				  </div>
 				</form>
+			</div>
 		</div>
-	
-
+		<div class="layui-col-lg6 layui-col-md12">
+			<blockquote class="layui-elem-quote title">树菜单</blockquote>
+			<div class="layui-elem-quote layui-quote-nm history_box magb0">
+				<form class="layui-form">
+					<div id="treeTest" style="background-color: #fff; padding: 10px 0 25px 5px;height:200px;overflow:auto;"></div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript" src="layui/layui.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
-	<script type="text/javascript" src="js/echarts.js"></script>
+	<script type="text/javascript" src="js/main.js"></script> 
 </body>
 </html>
