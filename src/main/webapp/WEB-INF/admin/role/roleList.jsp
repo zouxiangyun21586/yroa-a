@@ -40,6 +40,7 @@
       <ul class="layui-dropdown-menu">
 		  <<li><a lay-event="state"><i class="layui-icon" style="font-size:18px;">&#xe612; </i>{{d.use==0?'禁用账号':'启用用户'}}</a></li>
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
+		  <li><a lay-event="fuAuth"><i class="layui-icon" style="font-size:18px;">&#xe672; </i>赋权</a></li>
           <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除角色</a></li>
       </ul>
   </div>

@@ -2,7 +2,9 @@ package com.yr.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +16,8 @@ import com.yr.dao.RoleDao;
 import com.yr.entity.Role;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
+
+import net.sf.json.JSONObject;
 
 
 /**
@@ -195,4 +199,38 @@ public class RoleDaoImpl implements RoleDao {
 		qu.executeUpdate();
 		return 0;
 	}
+	
+	/**
+     * 保存权限
+     * @author 周业好
+     * @param resourceId 选中的权限id
+     * @param roleCode 角色code
+     * @return json
+     */
+	@Override
+    public String roleEmpowerment(String[] resourceId, String roleCode) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            Query query = em
+                    .createNativeQuery("DELETE FROM `resource_role` WHERE `role_id`=:role_id")
+                    .setParameter("role_id", roleCode);
+            query.executeUpdate();
+            for (int i = 0; i < resourceId.length; i++) {
+
+                String insert = "INSERT INTO `resource_role` (`resource_id`, `role_id`) VALUES (:resource_id,:role_id)";
+                em.createNativeQuery(insert).setParameter("resource_id", resourceId[i])
+                        .setParameter("role_id", roleCode).executeUpdate();
+
+            }
+            em.flush();
+            em.clear();
+            map.put("code", 0);
+            map.put("msg", "修改成功");
+        } catch (Exception e) {
+            map.put("code", 1);
+            map.put("msg", "修改失败");
+            e.printStackTrace();
+        }
+        return JSONObject.fromObject(map).toString();
+    }
 }

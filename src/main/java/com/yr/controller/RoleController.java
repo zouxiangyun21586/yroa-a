@@ -75,7 +75,7 @@ public class RoleController  {
 	 * @return json
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/upda", method = RequestMethod.PUT)
+	@RequestMapping(value = "/upda", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
 	public String upd(Role ro) {
 		String i  = role.upd(ro);
 		return i;

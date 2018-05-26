@@ -2,16 +2,20 @@ package com.yr.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yr.dao.AccountDao;
+import com.yr.dao.AuthDao;
 import com.yr.entity.Account;
+import com.yr.entity.Auth;
 import com.yr.service.AuthService;
 import com.yr.util.EncryptUtils;
+import com.yr.util.JsonUtils;
+
 import net.sf.json.JSONObject;
 
 /**
@@ -23,7 +27,7 @@ import net.sf.json.JSONObject;
 @Service
 public class AuthServiceImpl implements AuthService {
 	@Autowired
-	private AccountDao accDao;
+	private AuthDao accDao;
 	
 	/**
 	 * 添加
@@ -165,6 +169,31 @@ public class AuthServiceImpl implements AuthService {
 			map.put("msg", "操作成功");
 		}
 		return JSONObject.fromObject(map).toString();
+	}
+	
+	/**
+     * 查询权限
+     * @param code  角色code
+     * @return json
+     */
+	@Override
+	public String getResource(String code) {
+		List<Auth> list = accDao.getResource();
+		List object = accDao.codeTogetResource(code);
+        String json = "[";
+        for (Auth resource : list) {
+            String d = null;
+            for (int i = 0; i < object.size(); i++) {
+                String values = (String) object.get(i);
+                if (resource.getName().equals(values)) {
+                    resource.setChecked(true);
+                }
+                d = ((i < object.size()) ? "," : "");
+            }
+            json += JsonUtils.sendObject(resource,
+                    new String[] {"first", "last", "children", "perRoleItems" }) + d;
+        }
+        return json + "]";
 	}
 
 }

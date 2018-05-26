@@ -1,6 +1,5 @@
 package com.yr.service.impl;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,17 +33,6 @@ public class AccountServiceImpl implements AccountService {
 	public String addId(Account emp, String code) {
 		Map<String, Object> map = new HashMap<>(); 
 		try {
-			String breaMi = EncryptUtils.encryptBASE64(emp.getPassword().getBytes()); //BASE64位加密
-			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
-			emp.setCreateTime(new Date()); //添加开始时间
-			emp.setUpdateTime(new Date()); //添加最后修改时间
-			emp.setPassword(mdFiveMi);
-			emp.setStatus("0");
-			if ("否".equals(emp.getIsAdmin())) {
-				emp.setIsAdmin("false");
-			} else {
-				emp.setIsAdmin("true");
-			}
 			int z = accDao.addId(emp, code);
 			if (1 == z) {
 				map.put("code", 0);
@@ -74,7 +62,6 @@ public class AccountServiceImpl implements AccountService {
 	 * @return 操作是否成功
 	 */
 	public int upd(Account emp) {
-		emp.setUpdateTime(new Date());
 		int z = accDao.upd(emp);
 		return z;
 	}

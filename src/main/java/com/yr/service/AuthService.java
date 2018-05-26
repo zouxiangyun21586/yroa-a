@@ -30,8 +30,8 @@ public interface AuthService {
 	
 	/**
 	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
+	 * @param id 权限id
+	 * @param userN 权限
 	 * @param oldpassword 旧密码
 	 * @param passW 新密码
 	 * @return 出错信息
@@ -63,7 +63,7 @@ public interface AuthService {
     /**
      * 重置密码
      * @author 周业好
-     * @param name 账号
+     * @param name 权限
      * @return json
      */
     String resetPassWord(String name);
@@ -71,8 +71,15 @@ public interface AuthService {
     /**
      * 启用停用
      * @author 周业好
-     * @param name 账号
+     * @param name 权限
      * @return json
      */
     String kaiguan(String name);
+    
+    /**
+     * 查询权限
+     * @param code  角色code
+     * @return String
+     */
+    String getResource(String code);
 }

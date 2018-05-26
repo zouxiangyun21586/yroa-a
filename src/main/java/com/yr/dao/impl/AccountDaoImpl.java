@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.yr.dao.AccountDao;
 import com.yr.entity.Account;
 import com.yr.entity.Role;
+import com.yr.util.EncryptUtils;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
 
@@ -34,15 +35,31 @@ public class AccountDaoImpl implements AccountDao {
 	 * @return 操作是否成功
 	 */
 	public int addId(Account users, String code) {
-		List qu = em.createQuery("select u from Account u where u.id=?").setParameter(0, users.getId())
-				.getResultList();
-		if (qu.size() > 0) {
-			final int i = 2;
-			return i;
+		try {
+			String breaMi = EncryptUtils.encryptBASE64(users.getPassword().getBytes()); //BASE64位加密
+			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
+			users.setCreateTime(new Date()); //添加开始时间
+			users.setUpdateTime(new Date()); //添加最后修改时间
+			users.setPassword(mdFiveMi);
+			users.setStatus("0");
+			if ("否".equals(users.getIsAdmin())) {
+				users.setIsAdmin("false");
+			} else {
+				users.setIsAdmin("true");
+			}
+			List qu = em.createQuery("select u from Account u where u.id=?").setParameter(0, users.getId())
+					.getResultList();
+			if (qu.size() > 0) {
+				final int i = 2;
+				return i;
+			}
+			Role r = (Role) em.createQuery("from Role r where r.code=?")
+					.setParameter(0, code).getSingleResult();
+			users.getUsersRoleItems().add(r);
+			em.persist(users);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		Role r = (Role) em.createQuery("from Role r where r.code=?").setParameter(0, code).getSingleResult();
-		users.getUsersRoleItems().add(r);
-		em.persist(users);
 		return 1;
 	}
 	/**
@@ -62,6 +79,7 @@ public class AccountDaoImpl implements AccountDao {
 	 * @return 操作是否成功
 	 */
 	public int upd(Account emp) {
+		emp.setUpdateTime(new Date());
 		Query qu = em.createQuery("update Account a set a.tel=?,a.updateTime=? where a.username=?");
 		qu.setParameter(0, emp.getTel());
 		qu.setParameter(1, emp.getUpdateTime());
