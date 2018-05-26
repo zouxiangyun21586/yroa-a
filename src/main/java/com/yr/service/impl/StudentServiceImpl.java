@@ -9,11 +9,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yr.dao.AccountDao;
 import com.yr.dao.StudentDao;
 import com.yr.entity.Account;
 import com.yr.entity.Clas;
 import com.yr.entity.Student;
-import com.yr.service.AccountService;
 import com.yr.service.StudentService;
 import com.yr.util.HanyuPinyinHelper;
 import com.yr.util.JsonUtils;
@@ -35,7 +35,8 @@ public class StudentServiceImpl implements StudentService {
 	private StudentDao studentDao;
 	
 	@Autowired
-	private AccountService accountService;
+	private AccountDao accountDao;
+	
 	
 	/**查询学生信息
 	 * 
@@ -80,7 +81,7 @@ public class StudentServiceImpl implements StudentService {
 		if ("addSuccess".equals(resutl1)) {
 			Account account = addAccount(student);
 			String studentCode = studentDao.queryRoleCod(); //从角色表中查询出学生的code
-			accountService.addId(account, studentCode);
+			Integer value = accountDao.addId(account, studentCode);
 			map.put("code", 0);
 			map.put("msg", "添加成功");
 		} else if ("addFail".equals(resutl1)) {
@@ -112,7 +113,8 @@ public class StudentServiceImpl implements StudentService {
 	public String deleteStudent(Integer id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			studentDao.deleteStudent(id);
+			String account = studentDao.deleteStudent(id);
+			accountDao.del(account);
 			map.put("code", 0);
 			map.put("msg", "删除成功");
 		} catch (Exception e) {
