@@ -107,8 +107,7 @@ public class StudentDaoImpl implements StudentDao {
 	public String addStudent(Student student) {
 		String result = "";
 		try {
-			String name = student.getName(); //学生姓名
-			String result1 = queyrIsName(name); //判断学生姓名是否已存在
+			String result1 = queyrIsName(student.getName()); //判断学生姓名是否已存在
 			if ("0".equals(result1)) { //判断添加的学是是否也存在 这里表示不存在
 				String code = code(); //学生编号
 				String clasCode = new String(student.getYear()
@@ -117,16 +116,13 @@ public class StudentDaoImpl implements StudentDao {
 				String year = clas.getYear(); //届次
 				String classCode = clas.getCode(); //所属批次Code 
 				Date createTime = new Date(); //添加这条信息的时间
-				String isFinish = "0"; //是否毕业  1代表已毕业,0代表未毕业,添加时默认是未毕业
 				HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
 		        String account = hanyuPinyinHelper.toHanyuPinyin(student.getName());
 		        student.setAccount(account);
-				student.setName(name);
 				student.setCode(code);
 				student.setYear(year);
 				student.setClassCode(classCode);
 				student.setCreateTime(createTime);
-				student.setIsFinish(isFinish);
 				entityManager.persist(student);
 				result = "addSuccess";
 			} else {
@@ -182,6 +178,7 @@ public class StudentDaoImpl implements StudentDao {
 		Clas clas = queryClas(student.getClassCode());
 		student1.setYear(clas.getYear());
 		student1.setTel(student.getTel());
+		student1.setIsFinish(student.getIsFinish());
 		student1.setHomeTel(student.getHomeTel());
 		student1.setInTime(student.getInTime());
 		entityManager.merge(student1);

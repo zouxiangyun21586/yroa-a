@@ -75,6 +75,13 @@
 				<input type="text" class="layui-input" id="entranceYear" placeholder="yyyy-MM-dd" lay-verify="required" name="inTime">
 			</div>
 		</div>
+		<div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">是否毕业</label>
+			<div class="layui-input-block userSex">
+				<input type="radio" name="isFinish" value="0" title="未毕业" checked>
+				<input type="radio" name="isFinish" value="1" title="已毕业">
+			</div>
+		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
