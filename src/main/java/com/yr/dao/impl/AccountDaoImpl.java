@@ -47,8 +47,8 @@ public class AccountDaoImpl implements AccountDao {
 			} else {
 				users.setIsAdmin("true");
 			}
-			List qu = em.createQuery("select u from Account u where u.id=?").setParameter(0, users.getId())
-					.getResultList();
+			List qu = em.createQuery("select u from Account u where u.username=?")
+					.setParameter(0, users.getUsername()).getResultList();
 			if (qu.size() > 0) {
 				final int i = 2;
 				return i;
