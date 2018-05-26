@@ -78,8 +78,6 @@ public class StudentServiceImpl implements StudentService {
 		String resutl1 = studentDao.addStudent(student);
 		if ("addSuccess".equals(resutl1)) {
 			Account account = addAccount(student);
-			//首先第一步：去yr_dic（字典表） 根据字段keyv  查出 字段 val：（学生）
-			//第二步 ：根据查出的字段val（角色） 去yr_role表根据name查出 对应的code
 			String studentCode = studentDao.queryRoleCod(); //从角色表中查询出学生的code
 			accountService.addId(account, studentCode);
 			map.put("code", 0);
@@ -171,16 +169,15 @@ public class StudentServiceImpl implements StudentService {
 	 * 
 	 * @author : 唐子壕
 	 *	
-	 * @param id 
-	 * 
 	 * @see com.yr.service.StudentService#updateStudent(java.lang.Integer)
 	 */
+	@Transactional
 	@Override
-	public String updateStudent(Integer id, Student student) {
+	public String updateStudent(Student student) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			studentDao.updateStudent(id, student);
+			studentDao.updateStudent(student);
 			map.put("code", 0);
 			map.put("msg", "修改成功");
 		} catch (Exception e) {

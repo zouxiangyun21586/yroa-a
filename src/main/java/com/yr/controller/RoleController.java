@@ -1,20 +1,10 @@
 package com.yr.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
-
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.yr.entity.Role;
 import com.yr.service.RoleService;
@@ -81,34 +71,14 @@ public class RoleController  {
 	
 	/**
 	 * 修改角色信息
-	 * @param ro 3
-	 * @param result 2 
-	 * @param map 1
-	 * @return modelandview
+	 * @param ro 角色信息
+	 * @return json
 	 */
-	@RequestMapping(value = "upda", method = RequestMethod.PUT)
-	public ModelAndView upd(@Valid @ModelAttribute("roleou")Role ro, BindingResult result, 
-			Map<String, Object>map) {
-		ModelAndView mv = new ModelAndView();
-		if (result.getErrorCount() > 0) {
-            List<ObjectError> allErrors = result.getAllErrors();
-            if (!CollectionUtils.isEmpty(allErrors)) {
-                for (ObjectError allError : allErrors) {
-                	//allError.getDefaultMessage() 可看见错误
-                	String er = allError.getDefaultMessage();
-                }
-//                map.put("user", y);
-                map.put("roleou", ro);
-                mv.setViewName("update");
-                return mv;
-            }
-        }
-		int i  = role.upd(ro);
-		if (0 == i) {
-			mv.addObject("z", "修改失败,检查输入");
-		}
-		mv.setViewName("redirect:/jsp/list.jsp");
-		return mv;
+	@ResponseBody
+	@RequestMapping(value = "/upda", method = RequestMethod.PUT)
+	public String upd(Role ro) {
+		String i  = role.upd(ro);
+		return i;
 	}
 	/**
 	 * 查询单个(修改数据回显)

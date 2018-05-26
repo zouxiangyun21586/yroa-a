@@ -96,34 +96,8 @@ layui.use(['table','form','tree'], function(){
 					title : "修改用户",
 					type : 2,
 					anim : 5,
-					content : "userAdd",//修改用户的页面路径
+					content : "roleUpd?code="+obj.data.code,//修改用户的页面路径
 					success : function(layero, index) {
-						$.ajax({
-							type : "get",
-							url : path+"role/upd_echo",
-							data : {"code":obj.data.code},
-							success : function(data) {
-								if (1 == data.code) {
-									setTimeout(function() {
-										top.layer.close(index);
-										top.layer.msg(data.msg, {
-											icon : 2
-										});
-									}, 1000);
-								} else {
-									$("#name").val(data.name);
-									$("#info").val(data.info);
-								}
-							},error : function() {
-								setTimeout(function() {
-									top.layer.close(index);
-									top.layer.msg("异常！", {
-										icon : 2
-									});
-									layer.closeAll("iframe");
-								}, 1000);
-							}
-						});
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
 									'.layui-layer-setwin .layui-layer-close', {

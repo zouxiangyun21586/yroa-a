@@ -20,6 +20,7 @@
 <br/>
 <form class="layui-form" style="width:80%;" id="roleUpd">
 	<div class="layui-form-item layui-row layui-col-xs12">
+	   <input type="hidden" id="code" name="code"/>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">角色名</label>
             <div class="layui-input-block">
@@ -47,6 +48,6 @@
 	</div>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/roleJs/roleAdd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/roleJs/roleUpd.js"></script>
 </body>
 </html>

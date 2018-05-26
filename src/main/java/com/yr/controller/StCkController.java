@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yr.service.StCkService;
+import com.yr.service.StudentService;
 
 /**
  * 学生考勤Controller层
@@ -17,6 +18,8 @@ public class StCkController {
 	
 	@Autowired
 	private StCkService stCkService;
+	@Autowired
+	private StudentService studService;
 	
 	/**
 	 * 查询所有签到人员数据
@@ -26,6 +29,8 @@ public class StCkController {
 	 */
 	@RequestMapping(value = "/atteList", produces = "text/json;charset=UTF-8")
 	public String atteList() {
+		
+		
 		
 		return null;
 	}

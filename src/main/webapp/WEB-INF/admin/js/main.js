@@ -24,11 +24,13 @@ function getLangDate(){
 }
 var tagData = [{"id":12,"name":"长者"},{"id":13,"name":"工厂"},{"id":14,"name":"小学生"},{"id":15,"name":"大学生"},{"id":16,"name":"研究生"},{"id":17,"name":"教师"},{"id":18,"name":"记者"}];    
 var catData = [{"id":1,"name":"周边旅游","children":[{"id":24,"name":"广东","children":[{"id":7,"name":"广州"},{"id":23,"name":"潮州"}]}]},{"id":5,"name":"国内旅游","children":[{"id":8,"name":"华北地区","children":[{"id":9,"name":"北京"}]}]},{"id":6,"name":"出境旅游","children":[{"id":10,"name":"东南亚","children":[{"id":11,"name":"马来西亚","children":[{"id":20,"name":"沙巴","children":[{"id":21,"name":"美人鱼岛","children":[{"id":22,"name":"潜水"}]}]}]}]}]}];
+var treeData = [{title: "节点1", value: "jd1", data: [{ title: "节点1.1", checked: true, disabled: true, value: "jd1.1", data: [] },{ title: "节点1.2", value: "jd1.2", checked: true, data: [] }, { title: "节点1.3", value: "jd1.3", disabled: true, data: [] }, { title: "节点1.4", value: "jd1.4", data: [] }]},{title: "节点2", value: "jd2", data: [{ title: "节点2.1", value: "jd2.1", data: [] }, { title: "节点2.2", value: "jd2.2", data: [] }, { title: "节点2.3", value: "jd2.3", data: [] }, { title: "节点2.4", value: "jd2.4", data: [] }]}, { title: "节点3", value: "jd3", data: [] }, { title: "节点4", value: "jd4", data: [] }];
 layui.config({
     base : 'js/'
 }).extend({
   selectN: 'layui_extends/selectN',
   selectM: 'layui_extends/selectM',
+  echarts: 'echarts'
 }).use(['form','element','layer','jquery','selectN','selectM'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
@@ -36,7 +38,20 @@ layui.config({
 	    selectN = layui.selectN,
 	    selectM = layui.selectM,
         $ = layui.jquery;
-        
+    
+    	//数菜单
+	    var xtree = new layuiXtree({
+			elem : 'treeTest',
+			data : treeData,
+			form : form,
+			ckall: true,
+			icon: {        
+	            end: "&#xe612;" 
+	        }, color: {      
+	            end: "#009688"   
+	        }
+		});
+    
         //无限级分类-基本配置
         var catIns1 = selectN({
           //元素容器【必填】
@@ -44,7 +59,7 @@ layui.config({
           //候选数据【必填】
           ,data: catData
         });     
-        //多选标签-基本配置
+        //多选下拉框标签-基本配置
         var tagIns1 = selectM({
           //元素容器【必填】
           elem: '#tag_ids'
