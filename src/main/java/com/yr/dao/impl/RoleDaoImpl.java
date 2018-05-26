@@ -158,7 +158,7 @@ public class RoleDaoImpl implements RoleDao {
      * 启用停用
      * @author 周业好
      * @param code 角色编号
-     * @return 操作是否成功 1 角色不存在 ,0成功
+     * @return 操作是否成功 1 角色不存在 ,0成功,2 已经有人在使用
      */
 	@Override
 	public int kaiguan(String code) {
@@ -169,15 +169,15 @@ public class RoleDaoImpl implements RoleDao {
 		}
 		
 		Integer val = 0;
-		if (1 == ac.getUse()) {
-			val = 0;
-		} else {
+		if (0 == ac.getUse()) { //请求过来是0 表示他想要停用
 			val = 1;
 			List list = em.createNativeQuery("select role_code from yr_account_role where role_code=?")
 					.setParameter(1, ac.getCode()).getResultList();
-			if (null != null && list.size() > 0) { //此角色有人在使用无法停用
+			if (null != list && list.size() > 0) { //此角色有人在使用无法停用
 				return TWO;
 			}
+		} else {
+			val = 0;
 		}
 		Query qu = em.createQuery("update Role a set a.use=?,a.updateTime=? where a.code=?");
 		qu.setParameter(0, val);

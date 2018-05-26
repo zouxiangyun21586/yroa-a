@@ -167,15 +167,15 @@ public class AuthDaoImpl implements AuthDao {
 		}
 		
 		Integer val = 0;
-		if (1 == ac.getUse()) {
-			val = 0;
-		} else {
+		if (0 == ac.getUse()) {
 			val = 1;
 			List list = em.createNativeQuery("select auth_code from yr_role_auth where auth_code=?")
 					.setParameter(1, ac.getCode()).getResultList();
-			if (null != null && list.size() > 0) { //此角色有人在使用无法停用
+			if (null != list && list.size() > 0) { //此角色有人在使用无法停用
 				return TWO;
 			}
+		} else {
+			val = 0;
 		}
 		Query qu = em.createQuery("update Auth a set a.use=?,a.updateTime=? where a.code=?");
 		qu.setParameter(0, val);

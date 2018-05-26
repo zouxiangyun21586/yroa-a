@@ -21,6 +21,7 @@ import net.sf.json.JSONObject;
 @Transactional
 @Service
 public class AccountServiceImpl implements AccountService {
+	private static final int TWO = 2;
 	@Autowired
 	private AccountDao accDao;
 	
@@ -133,16 +134,16 @@ public class AccountServiceImpl implements AccountService {
 		}
 		return JSONObject.fromObject(map).toString();
 	}
-	 /**
+	/**
      * 启用停用
      * @author 周业好
-     * @param name 账号
+     * @param code 角色编号
      * @return json
      */
 	@Override
-	public String kaiguan(String name) {
+	public String kaiguan(String code) {
 		Map<String, Object> map = new HashMap<>();
-		int i = accDao.kaiguan(name);
+		int i = accDao.kaiguan(code);
 		if (1 == i) {
 			map.put("code", 1);
 			map.put("msg", "操作失败");
