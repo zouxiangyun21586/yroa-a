@@ -21,19 +21,17 @@
 <body>
 <br/>
 <form class="layui-form" style="width:80%;" id = "AttendanceForm">
-    <div class="layui-form-item layui-row layui-col-xs12">
-        <div class="magb15 layui-col-md4 layui-col-xs12">
+         <div class="layui-form-item">
            <label class="layui-form-label">签到人员</label>
-          <div class="layui-input-block editWidth">
+          <div class="layui-input-block">
               <select name="studentCode" lay-verify="required" id="atteSelect">
                   
               </select>
           </div>
         </div>
-    </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-input-block">
-            <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="attendance">签到</button>
+            <button class="layui-btn" style="width:100%;" lay-submit="" lay-filter="attendance">签到</button>
         </div>
     </div>
 </form>
