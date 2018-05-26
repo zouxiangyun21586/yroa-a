@@ -75,10 +75,10 @@ public interface ClasService {
 	 * 
 	 * 2018年5月22日 下午5:39:00
 	 * 
-	 * @param code 获取页面上需回显的届次code
+	 * @param id 获取页面上需回显的届次id
 	 * @return 返回届次对象
 	 */
-	Clas get(String code);
+	Clas get(Integer id);
 	
 	/**
 	 * 毕业
@@ -101,6 +101,17 @@ public interface ClasService {
 	 * @return Integer 判断
 	 */
 	Integer openClss(String code);
+	
+	/**
+	 * 提供方法给添加假期模块
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 下午5:48:57
+	 * 
+	 * @param code 根据届次code查询届次数据
+	 * @return 返回某届次的对象
+	 */
+	Clas getCode(String code);
 	
 	/**
 	 * 

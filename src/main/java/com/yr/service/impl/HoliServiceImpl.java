@@ -39,7 +39,7 @@ public class HoliServiceImpl implements HoliService {
 	 */
 	public String add(Holiday holiday) {
 		Map<String, Object> map = new HashMap<>();
-		Clas clas = clasDao.get(holiday.getClassCode());
+		Clas clas = clasDao.getCode(holiday.getClassCode());
 		Integer b = 0;
 		if (null != clas) {
 			holiday.setClassCode(clas.getCode());
@@ -109,7 +109,7 @@ public class HoliServiceImpl implements HoliService {
 		Holiday holidays = holiDao.get(holiday.getId());
 		Integer update = 0;
 		if (null != holidays) {
-			Clas clas = clasDao.get(holiday.getClassCode());
+			Clas clas = clasDao.getCode(holiday.getClassCode());
 			holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
 			holiday.setClassName(clas.getName());
 			update = holiDao.update(holiday);

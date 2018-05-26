@@ -83,19 +83,6 @@ public class RoleDaoImpl implements RoleDao {
 		return 0;
 	}
 	/**
-	 * 修改密码
-	 * @param id 角色id
-	 * @param userN 角色
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @return 出错信息
-	 */
-	public String updatePass(String oldpassword, String userN, Integer id,
-			String passW) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	/**
 	 * 查询单个
 	 * @param code 角色编号
 	 * @return 1 角色编号不存在,json 成功
@@ -171,7 +158,7 @@ public class RoleDaoImpl implements RoleDao {
      * 启用停用
      * @author 周业好
      * @param code 角色编号
-     * @return 操作是否成功 1 角色不存在 ,0成功
+     * @return 操作是否成功 1 角色不存在 ,0成功,2 已经有人在使用
      */
 	@Override
 	public int kaiguan(String code) {
@@ -182,15 +169,15 @@ public class RoleDaoImpl implements RoleDao {
 		}
 		
 		Integer val = 0;
-		if (1 == ac.getUse()) {
-			val = 0;
-		} else {
+		if (0 == ac.getUse()) { //请求过来是0 表示他想要停用
 			val = 1;
 			List list = em.createNativeQuery("select role_code from yr_account_role where role_code=?")
 					.setParameter(1, ac.getCode()).getResultList();
-			if (null != null && list.size() > 0) { //此角色有人在使用无法停用
+			if (null != list && list.size() > 0) { //此角色有人在使用无法停用
 				return TWO;
 			}
+		} else {
+			val = 0;
 		}
 		Query qu = em.createQuery("update Role a set a.use=?,a.updateTime=? where a.code=?");
 		qu.setParameter(0, val);
@@ -212,14 +199,14 @@ public class RoleDaoImpl implements RoleDao {
         Map<String, Object> map = new HashMap<>();
         try {
             Query query = em
-                    .createNativeQuery("DELETE FROM `resource_role` WHERE `role_id`=:role_id")
+                    .createNativeQuery("DELETE FROM `yr_role_auth` WHERE `role_code`=:role_id")
                     .setParameter("role_id", roleCode);
             query.executeUpdate();
             for (int i = 0; i < resourceId.length; i++) {
 
-                String insert = "INSERT INTO `resource_role` (`resource_id`, `role_id`) VALUES (:resource_id,:role_id)";
-                em.createNativeQuery(insert).setParameter("resource_id", resourceId[i])
-                        .setParameter("role_id", roleCode).executeUpdate();
+                String insert = "INSERT INTO `yr_role_auth` (`role_code`, `auth_code`) VALUES (:role_id,:resource_id)";
+                em.createNativeQuery(insert) .setParameter("role_id", roleCode)
+                .setParameter("resource_id", resourceId[i]).executeUpdate();
 
             }
             em.flush();

@@ -16,7 +16,9 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" id="clasUpdForm" modelAttribute="clasGet">
+<form:form class="layui-form" style="width:80%;" id="clasUpdForm" modelAttribute="clas">
+	<form:hidden path="id"/>
+    <input type="hidden" name="_method" value="PUT">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">地址</label>
@@ -35,11 +37,11 @@
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
-			<button class="layui-btn layui-btn-sm" lay-submit="submit" lay-filter="addUser">立即修改</button>
+			<button class="layui-btn layui-btn-sm" lay-submit="submit" lay-filter="updCurr">立即修改</button>
 			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
 		</div>
 	</div>
-</form>
+</form:form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/curriculum/curriculumUpd.js"></script>
 </body>

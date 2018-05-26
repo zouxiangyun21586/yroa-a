@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yr.dao.AuthDao;
-import com.yr.entity.Account;
 import com.yr.entity.Auth;
 import com.yr.service.AuthService;
-import com.yr.util.EncryptUtils;
 import com.yr.util.JsonUtils;
 
 import net.sf.json.JSONObject;
@@ -26,36 +24,31 @@ import net.sf.json.JSONObject;
 @Transactional
 @Service
 public class AuthServiceImpl implements AuthService {
+	private static final int TWO = 2;
 	@Autowired
 	private AuthDao accDao;
 	
 	/**
 	 * 添加
-	 * @param emp 用户对象
-	 * @param code 角色code
+	 * @param emp 权限对象
 	 * @return 操作是否成功
 	 */
-	public String addId(Account emp, String code) {
+	public String addId(Auth emp) {
 		Map<String, Object> map = new HashMap<>(); 
 		try {
-			String breaMi = EncryptUtils.encryptBASE64(emp.getPassword().getBytes()); //BASE64位加密
-			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
 			emp.setCreateTime(new Date()); //添加开始时间
 			emp.setUpdateTime(new Date()); //添加最后修改时间
-			emp.setPassword(mdFiveMi);
-			emp.setStatus("0");
-			if ("否".equals(emp.getIsAdmin())) {
-				emp.setIsAdmin("false");
-			} else {
-				emp.setIsAdmin("true");
-			}
-			int z = accDao.addId(emp, code);
+			emp.setUse(0);
+			int z = accDao.addId(emp);
 			if (1 == z) {
 				map.put("code", 0);
 				map.put("msg", "添加成功");
+			} else if (TWO == z) {
+				map.put("code", 1);
+				map.put("msg", "失败,权限有人使用");
 			} else {
 				map.put("code", 1);
-				map.put("msg", "错误,id已存在");
+				map.put("msg", "错误,编号已存在");
 			}
 		} catch (Exception e) {
 			map.put("code", 1);
@@ -67,43 +60,57 @@ public class AuthServiceImpl implements AuthService {
 	}
 	/**
 	 * 删除
-	 * @param i 用户编号
-	 * @return 是否操作成功
+	 * @param i 权限编号
+	 * @return json
 	 */
-	public int del(Integer i) {
-//		int z = accDao.del(i);
-		return 0;
+	public String del(String i) {
+		Map<String, Object> map = new HashMap<>(); 
+		int z = accDao.del(i);
+		if (0 == z) {
+			map.put("code", 0);
+			map.put("msg", "删除成功");
+		} else if (TWO == z) {
+			map.put("code", 1);
+			map.put("msg", "失败,权限有人使用");
+		} else {
+			map.put("code", 1);
+			map.put("msg", "错误,编号不存在");
+		}
+		return JSONObject.fromObject(map).toString();
 	}
 	/**
 	 * 修改
-	 * @param emp 用户对象
+	 * @param emp 权限对象
 	 * @return 操作是否成功
 	 */
-	public int upd(Account emp) {
+	public String upd(Auth emp) {
+		emp.setUpdateTime(new Date());
 		int z = accDao.upd(emp);
-		return z;
-	}
-	/**
-	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @return 出错信息
-	 */
-	public String updatePass(String oldpassword, String userN, Integer id,
-			String passW) {
-		String val = accDao.updatePass(oldpassword, userN, id, passW);
-		return val;
+		Map<String, Object> map = new HashMap<>(); 
+		if (0 == z) {
+			map.put("code", 0);
+			map.put("msg", "修改成功");
+		} else {
+			map.put("code", 1);
+			map.put("msg", "错误,编号不存在");
+		}
+		return JSONObject.fromObject(map).toString();
 	}
 	/**
 	 * 查询单个
-	 * @param i 用户id
-	 * @return 查出的用户对象
+	 * @param code 权限code
+	 * @return json
 	 */
-	public Account query(Integer i) {
-		Account acc = accDao.query(i);
-		return acc;
+	@Override
+	public String query(String code) {
+		String z = accDao.query(code);
+		Map<String, Object> map = new HashMap<>(); 
+		if ("1".equals(z)) {
+			map.put("code", 1);
+			map.put("msg", "错误,编号不存在");
+			return JSONObject.fromObject(map).toString();
+		}
+		return z;
 	}
 	/**
 	 * 班某人的分页
@@ -118,43 +125,19 @@ public class AuthServiceImpl implements AuthService {
 		return json;
 	}
 	 /**
-     * 查询所有的角色
+     * 查询所有的权限
      * @author 周业好
      * @return json
      */
 	@Override
-	public String queryRoleAll() {
-		String json = accDao.queryRoleAll();
+	public String queryAuthAll() {
+		String json = accDao.queryAuthAll();
 		return json;
 	}
 	/**
-     * 重置密码
-     * @author 周业好
-     * @param name 账号
-     * @return json
-     */
-	@Override
-	public String resetPassWord(String name) {
-		Map<String, Object> map = new HashMap<>();
-		try {
-			String breaMi = EncryptUtils.encryptBASE64("12345678".getBytes()); //BASE64位加密
-			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
-			String zhi = accDao.resetPassWord(name, mdFiveMi);
-			if ("1".equals(zhi)) {
-				map.put("code", 0);
-				map.put("msg", "重置失败");
-			}
-		} catch (Exception e) {
-			map.put("code", 1);
-			map.put("msg", "重置失败");
-			e.printStackTrace();
-		}
-		return JSONObject.fromObject(map).toString();
-	}
-	 /**
      * 启用停用
      * @author 周业好
-     * @param name 账号
+     * @param name 权限code
      * @return json
      */
 	@Override
@@ -172,7 +155,7 @@ public class AuthServiceImpl implements AuthService {
 	}
 	
 	/**
-     * 查询权限
+     * 查询角色拥有的权限
      * @param code  角色code
      * @return json
      */

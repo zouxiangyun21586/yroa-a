@@ -69,7 +69,7 @@ $.getUrlParam = function (name) {
                 }else{
                     $.ajax({
                        type:"post",
-                       url:path+"roleEmpowerment",
+                       url:path+"role/roleEmpowerment",
                        traditional: true,
                        data: {'resourceId':value,'roleId':role_id,'_method':'PUT'},
                        success:function(data){

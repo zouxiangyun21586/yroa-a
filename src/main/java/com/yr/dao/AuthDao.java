@@ -2,7 +2,6 @@ package com.yr.dao;
 
 import java.util.List;
 
-import com.yr.entity.Account;
 import com.yr.entity.Auth;
 
 /**
@@ -13,39 +12,29 @@ import com.yr.entity.Auth;
 public interface AuthDao {
 	/**
 	 * 添加
-	 * @param emp 用户对象
-	 * @param code 角色code
+	 * @param emp 角色对象
 	 * @return 操作是否成功
 	 */
-	int addId(Account emp, String code);
+	int addId(Auth emp);
 	/**
 	 * 删除
-	 * @param i 用户编号
+	 * @param code 角色编号
 	 * @return 是否操作成功
 	 */
-	int del(Integer i);
+	int del(String code);
 	/**
 	 * 修改
-	 * @param emp 用户对象
+	 * @param emp 角色对象
 	 * @return 操作是否成功
 	 */
-	int upd(Account emp);
+	int upd(Auth emp);
 	
 	/**
-	 * 修改密码
-	 * @param id 权限名id
-	 * @param userN 权限名
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @return 出错信息
-	 */
-	String updatePass(String oldpassword, String userN, Integer id, String passW);
-	/**
 	 * 查询单个
-	 * @param i 用户id
-	 * @return 查出的用户对象
+	 * @param code 角色编号
+	 * @return 1 角色编号不存在,json 成功
 	 */
-	Account query(Integer i);
+	String query(String code);
 	
 	/**
 	 * 班某人的分页
@@ -61,21 +50,12 @@ public interface AuthDao {
      * @author 周业好
      * @return json
      */
-    String queryRoleAll();
-    
-    /**
-     * 重置密码
-     * @author 周业好
-     * @param name 权限名
-     * @param newPass 新密码
-     * @return json
-     */
-    String resetPassWord(String name, String newPass);
+    String queryAuthAll();
     
     /**
      * 启用停用
      * @author 周业好
-     * @param name 权限名
+     * @param name 账号
      * @return 操作是否成功
      */
     int kaiguan(String name);
@@ -83,7 +63,7 @@ public interface AuthDao {
     
     //---------------------------------------------
     /**
-     * 查询权限
+     * 查询角色拥有的权限
      * @return String
      */
     List<Auth> getResource();

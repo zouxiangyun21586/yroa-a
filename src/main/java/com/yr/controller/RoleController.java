@@ -101,4 +101,18 @@ public class RoleController  {
 	public String kaiguan(String code) {
 		return role.kaiguan(code);
 	}
+	
+
+    /**
+     * 修改权限
+     * 
+     * @param resourceId 权限id
+     * @param roleId 角色id
+     * @return String
+     */
+    @ResponseBody
+    @RequestMapping(value = "/roleEmpowerment", method = { RequestMethod.PUT }, produces = "text/json;charset=UTF-8")
+    public String roleEmpowerment(String[] resourceId, String roleId) {
+        return role.roleEmpowerment(resourceId, roleId);
+    }
 }

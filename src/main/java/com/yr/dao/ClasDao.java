@@ -73,10 +73,10 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月22日 上午8:52:59
 	 * 
-	 * @param code 需回显的届次code
+	 * @param id 需回显的届次id
 	 * @return 届次对象
 	 */
-	Clas get(String code);
+	Clas get(Integer id);
 	
 	/**
 	 * 毕业
@@ -99,6 +99,17 @@ public interface ClasDao {
 	 * @return Integer 判断
 	 */
 	Integer openClss(String code);
+	
+	/**
+	 * 提供方法给添加假期模块
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 下午5:48:57
+	 * 
+	 * @param code 根据届次code查询届次数据
+	 * @return 返回某届次的对象
+	 */
+	Clas getCode(String code);
 	
 	/**
 	 * 查询指定届次下的所有批次
