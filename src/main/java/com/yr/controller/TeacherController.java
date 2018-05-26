@@ -1,15 +1,18 @@
 package com.yr.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Teacher;
 import com.yr.service.TeacherService;
-import com.yr.util.JsonUtils;
 
 /**
  * 老师controller层
@@ -26,6 +29,7 @@ public class TeacherController {
 	private TeacherService teacherService;
 	
 	final Integer number = 2;
+	String jsp = "teacherFolder/teacherFolderUpd";
 	
 	/**
 	 * 添加
@@ -99,16 +103,28 @@ public class TeacherController {
 	 * 
 	 * 2018年5月22日 下午4:04:50
 	 * 
-	 * @param code 需数据回显的老师code
+	 * @param id 需数据回显的老师id
 	 * @return Json格式的String数据
 	 */
 	@RequestMapping(value = "/getTeacher", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
-	public @ResponseBody String get(String code) {
-		Teacher listUser = teacherService.get(code);
-		String str = JsonUtils.beanToJson(listUser);
-		return str;
+	public String get(Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		Teacher teacherGet = teacherService.get(id);
+		map.put("teacher", teacherGet);
+		return jsp;
 	}
 
+	/**
+	 * 查询所有数据回显使用
+	 * @param map 数据返回到页面
+	 * 2018年5月26日上午11:51:01
+	 */
+	@ModelAttribute
+	@RequestMapping(value = "/teacherHX", produces = "text/json;charset=UTF-8")
+	public void huixian(Map<String, Object> map) {
+		map.put("teacher", teacherService.query());
+	}
+	
 	/**
 	 * 查询 (提供给假期使用)
 	 * @author zxy

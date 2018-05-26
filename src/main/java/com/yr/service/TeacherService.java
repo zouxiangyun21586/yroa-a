@@ -22,6 +22,14 @@ public interface TeacherService {
 	Boolean add(Teacher teacher);
 	
 	/**
+	 * 查询所有(数据回显使用)
+	 * 
+	 * @return Boolean
+	 * 2018年5月26日上午11:56:58
+	 */
+	Boolean query();
+	
+	/**
 	 * 
 	 * @author zxy
 	 * 
@@ -62,8 +70,8 @@ public interface TeacherService {
 	 * 
 	 * 2018年5月22日 上午8:50:01
 	 * 
-	 * @param code 获取页面上需回显的老师code
+	 * @param id 获取页面上需回显的老师id
 	 * @return 返回老师对象
 	 */
-	Teacher get(String code);
+	Teacher get(Integer id);
 }
