@@ -20,6 +20,8 @@
 <br/>
 <form class="layui-form" style="width:80%;" id="authUpd">
 	<div class="layui-form-item layui-row layui-col-xs12">
+	   <input type="hidden" id="code" name="code"/>
+       <input type="hidden" name="_method" value="PUT"/>
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">权限名</label>
             <div class="layui-input-block">

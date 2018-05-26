@@ -21,7 +21,7 @@ layui.use(['table','form','tree'], function(){
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
 				{type:'numbers',title:'编号',width:50},
-				{field: 'name', title: '权限名', unresize: true},
+				{field: 'name', title: '权限描述', unresize: true},
 				{field: 'code', title: '编号', unresize: true},
 				{field: 'url', title: '权限路径',  unresize: true},
 				{field: 'createTimeStr', title: '注册时间', unresize: true},

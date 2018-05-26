@@ -53,10 +53,10 @@ public interface RoleDao {
     /**
      * 启用停用
      * @author 周业好
-     * @param name 账号
-     * @return 操作是否成功
+     * @param code 角色编号
+     * @return json
      */
-    int kaiguan(String name);
+    int kaiguan(String code);
     
     /**
      * 保存 权限

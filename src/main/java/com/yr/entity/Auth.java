@@ -31,7 +31,7 @@ public class Auth implements Serializable {
 	 */
 	private Integer id;
 	/**
-	 * 权限名字
+	 * 权限信息
 	 */
 	private String name;
 	/**

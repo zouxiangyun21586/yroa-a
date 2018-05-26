@@ -21,15 +21,15 @@
 <form class="layui-form" style="width:80%;" id="authAdd">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">权限名</label>
+            <label class="layui-form-label">权限信息</label>
             <div class="layui-input-block">
-                <input type="text" name="name" class="layui-input userName" lay-verify="required|username" placeholder="请输入角色名">
+                <input type="text" name="name" class="layui-input userName" lay-verify="required|username" placeholder="请输入权限信息">
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">权限路径</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="url" value="yroa-a/" lay-verify="required" placeholder="权限路径">
+                <input type="text" class="layui-input" name="url" value="/yroa-a/" lay-verify="required" placeholder="权限路径">
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
