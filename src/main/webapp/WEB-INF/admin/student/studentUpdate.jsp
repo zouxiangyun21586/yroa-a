@@ -14,8 +14,9 @@
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/layui/css/layui.css" media="all" />
 	<style>
-	.layui-col-xs12{margin-bottom:15px;}
-</style>
+		.layui-col-xs12{margin-bottom:15px;}
+		.layui-form-radio{margin:6px -5px 5px 15px;padding-right:0px;}
+	</style>
 </head>
 <body>
 <br/>
@@ -38,8 +39,7 @@
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">性别</label>
 				<div class="layui-input-block userSex">
-					<input type="radio" name="sex" value="1" title="男" checked>
-					<input type="radio" name="sex" value="0" title="女">
+					<form:radiobuttons path="sex" items="${sex}"/>   
 				</div>
 			</div>
 		</div>
@@ -47,6 +47,7 @@
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">届次</label>
 				<div class="layui-input-block">
+				 	<input type="hidden" id="code" name="code" value="${student.classCode}" />
 					<select name="classCode" lay-verify="required" id="claSelect">
                   		
               		</select>							

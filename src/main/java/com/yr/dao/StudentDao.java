@@ -56,8 +56,10 @@ public interface StudentDao {
 	  * @author : 唐子壕
 	  *	
 	  * @param id 学生id
+	  * 
+	  * @return String
 	  */
-	 void deleteStudent(Integer id);
+	 String deleteStudent(Integer id);
 	 
 	 /**修改数据回显
 	  * 

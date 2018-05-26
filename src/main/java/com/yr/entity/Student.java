@@ -29,7 +29,9 @@ public class Student {
 	//学生姓名
 	private String name;
 	
-
+	//学生账号
+	private String account;
+	
 	//学生编号
 	private String code;
 
@@ -47,7 +49,7 @@ public class Student {
 	private String birth;
 	
 	//年龄  age的值不需要存。在列表显示时不显示出生年月日，而是用当前时间－出生年月日得出年龄显示在列表中。
-	@Transient 
+	
 	private Integer age;
 	
 	//学生电话
@@ -196,7 +198,7 @@ public class Student {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-
+	@Transient
 	public Integer getAge() {
 		return AgeUtils.birthTime(birth);
 	}
@@ -273,6 +275,14 @@ public class Student {
 		this.offerIncome = offerIncome;
 	}
 	
+	
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", name=" + name 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.yr.dao.StudentDao;
 import com.yr.entity.Clas;
 import com.yr.entity.Student;
+import com.yr.util.HanyuPinyinHelper;
 import com.yr.util.PageUtil;
 
 
@@ -117,6 +118,9 @@ public class StudentDaoImpl implements StudentDao {
 				String classCode = clas.getCode(); //所属批次Code 
 				Date createTime = new Date(); //添加这条信息的时间
 				String isFinish = "0"; //是否毕业  1代表已毕业,0代表未毕业,添加时默认是未毕业
+				HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
+		        String account = hanyuPinyinHelper.toHanyuPinyin(student.getName());
+		        student.setAccount(account);
 				student.setName(name);
 				student.setCode(code);
 				student.setYear(year);
@@ -147,11 +151,15 @@ public class StudentDaoImpl implements StudentDao {
 	 * 
 	 * @describe : 根据id删除学生信息
 	 * 
+	 * @return String
+	 * 
 	 * @see com.yr.dao.StudentDao#deleteStudent(java.lang.Integer)
 	 */
-	public void deleteStudent(Integer id) {
+	public String deleteStudent(Integer id) {
 		Student student = entityManager.find(Student.class, id);
+		String account = student.getAccount();
 		entityManager.remove(student);
+		return account;
 	}
 	
 	/**修改学生信息
@@ -169,6 +177,7 @@ public class StudentDaoImpl implements StudentDao {
 		Student student1 = entityManager.find(Student.class, student.getId());
 		student1.setAddr(student.getAddr());
 		student1.setBirth(student.getBirth());
+		student1.setSex(student.getSex());
 		student1.setClassCode(student.getClassCode());
 		Clas clas = queryClas(student.getClassCode());
 		student1.setYear(clas.getYear());
@@ -218,7 +227,7 @@ public class StudentDaoImpl implements StudentDao {
 		} else {
 			String sql = "select max(`code`)  from yr_student";
 			String sqlCode = entityManager.createNativeQuery(sql).getSingleResult().toString();
-			Integer integer = Integer.valueOf(sqlCode.substring(1)) + 1;
+			Integer integer = Integer.valueOf(sqlCode) + 1;
 			code = integer.toString();
 		}
 		return code;
