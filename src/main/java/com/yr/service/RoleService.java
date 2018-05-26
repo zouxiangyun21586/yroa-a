@@ -23,9 +23,9 @@ public interface RoleService {
 	/**
 	 * 修改
 	 * @param emp 角色对象
-	 * @return 操作是否成功
+	 * @return json
 	 */
-	int upd(Role emp);
+	String upd(Role emp);
 	
 	/**
 	 * 查询单个
