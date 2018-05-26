@@ -318,7 +318,7 @@ public class StudentDaoImpl implements StudentDao {
 	 * @see com.yr.dao.StudentDao#queryNoGre()
 	 */
 	public List<Student> queryNoGre() {
-		String jpql = "from Studnet where isFinish=:isFinish";
+		String jpql = "from Student where isFinish =:isFinish";
 		List<Student> student = entityManager.createQuery(jpql).setParameter("isFinish", "0").getResultList();
 		return student;
 	}
@@ -341,6 +341,6 @@ public class StudentDaoImpl implements StudentDao {
 		String jpql = "from Student where code=:code";
 		Student student = (Student) entityManager.createQuery(jpql)
 				.setParameter("code", code).getSingleResult();
-		return student;
+ 		return student;
 	}
 }
