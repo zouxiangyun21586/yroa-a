@@ -54,7 +54,7 @@ public class RoleDaoImpl implements RoleDao {
 		if (null != null && list.size() > 0) { //此角色有人在使用无法停用
 			return TWO;
 		}
-		Query qu = em.createQuery("from Role r where r.code=?").setParameter(0, code); //删除角色
+		Query qu = em.createQuery("delete from Role r where r.code=?").setParameter(0, code); //删除角色
 		qu.executeUpdate();
 		return 0;
 	}
