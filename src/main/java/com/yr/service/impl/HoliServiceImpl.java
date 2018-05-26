@@ -44,8 +44,8 @@ public class HoliServiceImpl implements HoliService {
 		if (null != clas) {
 			holiday.setClassCode(clas.getCode());
 			holiday.setClassName(clas.getName());
-			holiday.setCreateTime(DateUtils.getCurretDateTimeA());
-			holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
+			holiday.setCreateTime(DateUtils.getCurrentDateTimeA());
+			holiday.setUpdateTime(DateUtils.getCurrentDateTimeA());
 			b = holiDao.add(holiday);
 		}
 		if (null == b || 0 == b) {
@@ -110,7 +110,7 @@ public class HoliServiceImpl implements HoliService {
 		Integer update = 0;
 		if (null != holidays) {
 			Clas clas = clasDao.getCode(holiday.getClassCode());
-			holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
+			holiday.setUpdateTime(DateUtils.getCurrentDateTimeA());
 			holiday.setClassName(clas.getName());
 			update = holiDao.update(holiday);
 		}

@@ -12,11 +12,11 @@ public interface StCkService {
 	/**
 	 * 签到
 	 * @author 林水桥
-	 * @param stCk     学生考勤实体数据
-	 * @return Integer 返回签到ID
+	 * @param code     学生代码
+	 * @return String 返回签到状态 0为签到成功
 	 * 2018年5月25日下午10:26:04
 	 */
-	Integer duty(StudentCheck stCk);
+	String duty(String code);
 	
 	/**
 	 * 添加考勤

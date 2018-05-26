@@ -66,6 +66,19 @@ public final class DateUtils {
 	public static String getCurrentDate() {
 		return dfymd.format(new Date());
 	}
+	
+	/**
+	 * 获得Date类型的当前日期
+	 * @return yyyy-MM-dd HH:mm:ss
+	 * Date
+	 * @作者 林水桥2018年5月25日上午9:05:08
+	 */
+	public static Date getCurrentDateA() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		ParsePosition pos = new ParsePosition(0);
+		Date strtodate = formatter.parse(getCurrentDate(), pos);
+		return strtodate;
+	}
 
 	/**
 	 * 得到当前日期和时间
@@ -82,7 +95,7 @@ public final class DateUtils {
 	 * Date
 	 * @作者 林水桥2018年5月25日上午9:05:08
 	 */
-	public static Date getCurretDateTimeA() {
+	public static Date getCurrentDateTimeA() {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		ParsePosition pos = new ParsePosition(0);
 		Date strtodate = formatter.parse(getCurrentDateTime(), pos);
