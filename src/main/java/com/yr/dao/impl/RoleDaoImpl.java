@@ -32,33 +32,30 @@ public class RoleDaoImpl implements RoleDao {
 	 * @return 操作是否成功
 	 */
 	public int addId(Role users) {
-//		List qu = em.createQuery("select u from Role u where u.id=?").setParameter(0, users.getId())
-//				.getResultList();
-//		if (qu.size() > 0) {
-//			final int i = 2;
-//			return i;
-//		}
-//		Role r = (Role) em.createQuery("from Role r where r.code=?").setParameter(0, code).getSingleResult();
-//		if (r != null && !"".equals(r)) {
-//			if ("老师".equals(r.getName())) {
-//				users.setType("T");
-//			} else if ("学生".equals(r.getName())) {
-//				users.setType("S");
-//			} else {
-//				users.setType("P");
-//			}
-//		}
-//		users.getUsersRoleItems().add(r);
-//		em.persist(users);
+		String code = em.createNativeQuery("select max(code) from yr_role").getSingleResult().toString();
+		Integer codeInt = Integer.valueOf(code);
+		codeInt = codeInt + 1; //编号+1
+		users.setCode(codeInt.toString());
+		em.persist(users);
 		return 1;
 	}
 	/**
 	 * 删除
-	 * @param i 角色编号
-	 * @return 是否操作成功
+	 * @param code 角色编号
+	 * @return 1 编号不存在,2 有人在使用此角色
 	 */
-	public int del(Integer i) {
-		// TODO Auto-generated method stub
+	public int del(String code) {
+		Role role = (Role) em.createQuery("from Role r where r.code=?").setParameter(0, code).getSingleResult();
+		if (null == role && "".equals(role)) { //判断编号是否存在
+			return 1;
+		}
+		String sql = "select role_code from yr_account_role where role_code=?";
+		List list = em.createNativeQuery(sql).setParameter(0, code).getResultList();
+		if (null != null && list.size() > 0) { //此角色有人在使用无法停用
+			return TWO;
+		}
+		Query qu = em.createQuery("from Role r where r.code=?").setParameter(0, code); //删除角色
+		qu.executeUpdate();
 		return 0;
 	}
 	/**
@@ -72,8 +69,8 @@ public class RoleDaoImpl implements RoleDao {
 	}
 	/**
 	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
+	 * @param id 角色id
+	 * @param userN 角色
 	 * @param oldpassword 旧密码
 	 * @param passW 新密码
 	 * @return 出错信息
@@ -85,12 +82,15 @@ public class RoleDaoImpl implements RoleDao {
 	}
 	/**
 	 * 查询单个
-	 * @param i 角色id
-	 * @return 查出的角色对象
+	 * @param code 角色编号
+	 * @return 1 角色编号不存在,json 成功
 	 */
-	public Role query(Integer i) {
-		// TODO Auto-generated method stub
-		return null;
+	public String query(String code) {
+		Role qu = (Role) em.createQuery("from Role r where r.code=?").setParameter(0, code).getSingleResult();
+		if ("".equals(qu) || null == qu) { //判断账号是否存在
+			return "1";
+		}
+		return JsonUtils.beanToJson(qu);
 	}
 	/**
 	 * 班某人的分页
@@ -153,45 +153,34 @@ public class RoleDaoImpl implements RoleDao {
 		return null;
 	}
 	/**
-     * 重置密码
-     * @author 周业好
-     * @param name 账号
-     * @param newPass 新密码
-     * @return json
-     */
-	@Override
-	public String resetPassWord(String name, String newPass) {
-		Query qu = em.createQuery("update Role a set a.password = ?,a.updateTime=? where a.username=?");
-		
-		qu.setParameter(0, newPass);
-		qu.setParameter(1, new Date());
-		qu.setParameter(TWO, name);
-		qu.executeUpdate();
-		return "1";
-	}
-	 /**
      * 启用停用
      * @author 周业好
-     * @param name 账号
-     * @return 操作是否成功
+     * @param code 角色编号
+     * @return 操作是否成功 1 角色不存在 ,0成功
      */
 	@Override
-	public int kaiguan(String name) {
-		Role ac = (Role) em.createQuery("from Role where username=?").setParameter(0, name)
+	public int kaiguan(String code) {
+		Role ac = (Role) em.createQuery("from Role where code=?").setParameter(0, code)
 				.getSingleResult();
-		if ("".equals(ac) && null == ac) {
+		if ("".equals(ac) && null == ac) { //判断账号是否存在
 			return 1;
 		}
-		String val = "";
-//		if ("1".equals(ac.getStatus())) {
-//			val = "0";
-//		} else {
-//			val = "1";
-//		}
-		Query qu = em.createQuery("update Role a set a.status=?,a.updateTime=? where a.username=?");
+		
+		Integer val = 0;
+		if (1 == ac.getUse()) {
+			val = 0;
+		} else {
+			val = 1;
+			List list = em.createNativeQuery("select role_code from yr_account_role where role_code=?")
+					.setParameter(1, ac.getCode()).getResultList();
+			if (null != null && list.size() > 0) { //此角色有人在使用无法停用
+				return TWO;
+			}
+		}
+		Query qu = em.createQuery("update Role a set a.use=?,a.updateTime=? where a.code=?");
 		qu.setParameter(0, val);
 		qu.setParameter(1, new Date());
-		qu.setParameter(TWO, name);
+		qu.setParameter(TWO, code);
 		qu.executeUpdate();
 		return 0;
 	}

@@ -38,9 +38,9 @@
 <div class="layui-dropdown">
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
-		  <<li><a lay-event="state"><i class="layui-icon" style="font-size:18px;">&#xe612; </i>{{d.status==0?'禁用账号':'启用用户'}}</a></li>
+		  <<li><a lay-event="state"><i class="layui-icon" style="font-size:18px;">&#xe612; </i>{{d.use==0?'禁用账号':'启用用户'}}</a></li>
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
-          <li><a lay-event="resetPassword"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>重置密码</a></li>
+          <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除角色</a></li>
       </ul>
   </div>
 </script>

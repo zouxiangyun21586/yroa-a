@@ -18,18 +18,18 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" id="roleAdd">
+<form class="layui-form" style="width:80%;" id="roleUpd">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">角色名</label>
             <div class="layui-input-block">
-                <input type="text" name="name" class="layui-input userName" lay-verify="required|username" placeholder="请输入角色名">
+                <input type="text" id="name" name="name" class="layui-input userName" lay-verify="required|username" placeholder="请输入角色名">
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">角色描述</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="info" lay-verify="required" placeholder="描述">
+                <input type="text" class="layui-input" id="info" name="info" lay-verify="required" placeholder="描述">
             </div>
         </div>
 	</div>
