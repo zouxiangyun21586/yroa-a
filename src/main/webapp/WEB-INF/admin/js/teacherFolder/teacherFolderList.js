@@ -81,7 +81,7 @@ layui.use(['table','form','tree'], function(){
 	    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
 	    	$.ajax({
     	       type:"post",
-    	       url:path+"teacher",
+    	       url:path+"teacher?cod="+ obj.data.code,
     	       data: {"code":obj.data.code,"_method":"DELETE"},
     	       success:function(data){
     	    	   if(200==data.code){
@@ -108,7 +108,7 @@ layui.use(['table','form','tree'], function(){
     	       },error : function() {
 					setTimeout(function(){
 					    top.layer.close(index);
-					    top.layer.msg("异常",{icon:2});
+					    top.layer.msg("此老师有届次关联不能删除!",{icon:2});
 						location.reload();
 					},1000);
     	       }

@@ -117,13 +117,13 @@ public class ClasServiceImpl implements ClasService {
 	 * 
 	 * 2018年5月22日 下午2:59:21
 	 * 
-	 * @param code 某届次的code
+	 * @param id 某届次的id
 	 * @return 届次对象,用于数据回显
 	 */
 	@Transactional
 	@Override
-	public Clas get(String code) {
-		Clas listClas = clasDao.get(code);
+	public Clas get(Integer id) {
+		Clas listClas = clasDao.get(id);
 		return listClas;
 	}
 

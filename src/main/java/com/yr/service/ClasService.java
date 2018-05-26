@@ -75,10 +75,10 @@ public interface ClasService {
 	 * 
 	 * 2018年5月22日 下午5:39:00
 	 * 
-	 * @param code 获取页面上需回显的届次code
+	 * @param id 获取页面上需回显的届次id
 	 * @return 返回届次对象
 	 */
-	Clas get(String code);
+	Clas get(Integer id);
 	
 	/**
 	 * 毕业
