@@ -36,7 +36,7 @@ layui.use([ 'layer', 'form' ], function() {
 	var val = getPar("code");
 	$.ajax({
 		type : "get",
-		url : path+"role/upd_echo",
+		url : path+"auth/upd_echo",
 		data : {"code":val},
 		success : function(data) {
 			if (1 == data.code) {
@@ -49,7 +49,8 @@ layui.use([ 'layer', 'form' ], function() {
 			} else {
 				$("#code").val(val);
 				$("#name").val(data.name);
-				$("#info").val(data.info);
+				$("#url").val(data.url);
+				$("#caozuo").val(data.caozuo);
 			}
 		},error : function() {
 			setTimeout(function() {
@@ -69,8 +70,8 @@ layui.use([ 'layer', 'form' ], function() {
 		});
 		$.ajax({
 			type : "post",
-			url : path+"role/upda",
-			data : $('#roleUpd').serialize(),
+			url : path+"auth/upda",
+			data : $('#authUpd').serialize(),
 			success : function(data) {
 				if (0 == data.code) {
 					setTimeout(function() {

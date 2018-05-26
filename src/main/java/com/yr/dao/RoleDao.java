@@ -57,4 +57,13 @@ public interface RoleDao {
      * @return 操作是否成功
      */
     int kaiguan(String name);
+    
+    /**
+     * 保存 权限
+     * @author 周业好
+     * @param resourceId 选中的权限id
+     * @param roleCode 角色code
+     * @return json
+     */
+    String roleEmpowerment(String[] resourceId, String roleCode);
 }

@@ -17,64 +17,82 @@
 </style>
 </head>
 <body>
-<br/>
-<form class="layui-form" style="width:80%;" id="accountAdd">
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">登录名</label>
-            <div class="layui-input-block">
-                <input type="text" name="username" class="layui-input userName" lay-verify="required|username" placeholder="请输入登录名">
-            </div>
-        </div>
-        <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">电话</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="tel" lay-verify="required|phone" placeholder="请输入正确的电话号码">
-            </div>
-        </div>
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">设为管理员?</label>
-			<div class="layui-input-block userSex">
-				<input type="radio" name="isAdmin" value="是" title="是">
-				<input type="radio" name="isAdmin" value="否" title="否" checked>
-			</div>
-		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">密码</label>
-			<div class="layui-input-block">
-				<input type="password" name="password" class="layui-input linksPassWrod" lay-verify="required|password" placeholder="请输入" maxlength="16">
-			</div>
-		</div>
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">确定密码</label>
-			<div class="layui-input-block">
-				<input type="password" name="passwords" class="layui-input linksPassWrods" lay-verify="required|password" placeholder="请输入" maxlength="16">
-			</div>
-		</div>
-	    <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">所属角色</label>
-            <div class="layui-input-block">
-                <select id="code" name="code" lay-verify="required">
-                </select>
-            </div> 
-        </div>
-	</div>
-	<!-- <div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">用户简介</label>
-		<div class="layui-input-block">
-			<textarea placeholder="请输入用户简介" class="layui-textarea userDesc"></textarea>
-		</div>
-	</div> -->
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="layui-input-block">
-			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">立即添加</button>
-			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
-		</div>
-	</div>
-</form>
-<script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/user/userAdd.js"></script>
+    <form class="layui-form">
+        <div id="resource" style="background-color: #fff; padding: 10px 0 25px 5px;height:270px;overflow:auto;"></div>
+    </form>
+    <ul class="layui-fixbar">
+        <a class="layui-btn layui-btn-small layui-btn-normal" id="btn"><i class="layui-icon">&#xe618;</i> 确定</a>
+    </ul>
 </body>
+<script type="text/javascript" src="<%= this.getServletContext().getContextPath() %>/layui/layui.js"></script>
+<script src="<%= this.getServletContext().getContextPath() %>/js/layui-xtree.js"></script>
+<script src="<%= this.getServletContext().getContextPath() %>/js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript">
+$.getUrlParam = function (name) {  
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数  
+    if (r != null) return decodeURI(r[2]); return null; //返回参数值  
+}
+    layui.use(['form','layer'], function() {
+        var form = layui.form,
+            layer = layui.layer,
+            index = parent.layer.getFrameIndex(window.name),
+            role_id = $.getUrlParam('code'),
+            strFullPath = window.document.location.href,
+            strPath = window.document.location.pathname,
+            pos = strFullPath.indexOf(strPath),
+            prePath = strFullPath.substring(0, pos),
+            path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";;
+            
+            var xtree = new layuiXtree({
+                elem : 'resource',
+                data : path+'auth/getResource?code='+role_id,
+                form : form,
+                ckall: true,
+                icon: {        
+                    end: "&#xe672;" 
+                }, color: {      
+                    end: "#009688"   
+                }
+            });
+            $('#btn').click(function(){
+                var roleid = xtree.GetChecked(); 
+                var value = [];
+                for (var i = 0; i < roleid.length; i++) {
+                    value.push(roleid[i].value);
+                }
+                var index = top.layer.msg('修改权限中，请稍候',{icon: 16,time:false,shade:0.8});
+                if(null==value || ''==value){
+                    top.layer.close(index);
+                    layer.msg("至少要选择一项权限",{icon:3});
+                    return;
+                }else{
+                    $.ajax({
+                       type:"post",
+                       url:path+"role/roleEmpowerment",
+                       traditional: true,
+                       data: {'resourceId':value,'roleId':role_id,'_method':'PUT'},
+                       success:function(data){
+                           if(0==data.code){
+                               setTimeout(function(){
+                                    top.layer.msg(data.msg,{icon:1});
+                                    layer.closeAll("iframe");
+                                    parent.location.reload();
+                                },1000);
+                           }else{
+                               setTimeout(function(){
+                                    top.layer.msg(data.msg,{icon:2});
+                                },1000);
+                           }
+                       } ,error : function() {
+                            setTimeout(function(){
+                                top.layer.msg("异常！",{icon:2});
+                                layer.closeAll("iframe");
+                            },1000);
+                       }
+                    });
+                }
+            });
+    });
+</script>
 </html>

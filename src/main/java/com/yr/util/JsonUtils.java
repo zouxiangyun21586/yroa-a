@@ -11,6 +11,7 @@ import java.util.Set;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 
 /**
  * Json与javaBean之间的转换工具类
@@ -374,4 +375,20 @@ public final class JsonUtils {
 		}
 		return doubleArray;
 	}
+	
+	/**
+	 * 
+	 * @author 周业好
+	 * @param object 权限对象
+	 * @param gl 不需要转为json的字段
+	 * @return json
+	 */
+	public static String sendObject(Object object, String[] gl) {
+        JsonConfig jsonConfig = new JsonConfig(); // 建立配置文件
+        jsonConfig.setExcludes(gl); // 只要将所需忽略字段加到数组中即可
+        jsonConfig.setIgnoreDefaultExcludes(false); // 设置默认忽略
+        jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+        JSONObject json = JSONObject.fromObject(object, jsonConfig);
+        return json.toString();
+    }
 }

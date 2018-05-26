@@ -1,6 +1,7 @@
 package com.yr.controller;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +123,10 @@ public class StudentController {
 	 */
 	@RequestMapping(value = "/updateDisplay", produces = "text/json;charset=UTF-8")
 	public String updateDisplay(Integer id, Map<String, Object> map) {
+		HashMap<String, String> sex = new HashMap<String, String>();
+		sex.put("0", "女");
+		sex.put("1", "男");
+		map.put("sex", sex);
 		Student student = studentService.updateDisplay(id);
 		map.put("student", student);
 		return "student/studentUpdate";

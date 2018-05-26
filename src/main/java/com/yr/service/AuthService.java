@@ -1,6 +1,6 @@
 package com.yr.service;
 
-import com.yr.entity.Account;
+import com.yr.entity.Auth;
 
 /**
  * 用户service实现类
@@ -10,39 +10,29 @@ import com.yr.entity.Account;
 public interface AuthService {
 	/**
 	 * 添加
-	 * @param emp 用户对象
-	 * @param code 角色code
+	 * @param emp 权限对象
 	 * @return 操作是否成功
 	 */
-	String addId(Account emp, String code);
+	String addId(Auth emp);
 	/**
 	 * 删除
-	 * @param i 用户编号
+	 * @param i 权限编号
 	 * @return 是否操作成功
 	 */
-	int del(Integer i);
+	String del(String i);
 	/**
 	 * 修改
-	 * @param emp 用户对象
-	 * @return 操作是否成功
+	 * @param emp 权限对象
+	 * @return json
 	 */
-	int upd(Account emp);
+	String upd(Auth emp);
 	
 	/**
-	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @return 出错信息
-	 */
-	String updatePass(String oldpassword, String userN, Integer id, String passW);
-	/**
 	 * 查询单个
-	 * @param i 用户id
-	 * @return 查出的用户对象
+	 * @param code 权限编号
+	 * @return json
 	 */
-	Account query(Integer i);
+	String query(String code);
 	
 	/**
 	 * 班某人的分页
@@ -54,25 +44,24 @@ public interface AuthService {
     String getFenye(int page, int limit, String name);
     
     /**
-     * 查询所有的角色
+     * 查询所有的权限
      * @author 周业好
      * @return json
      */
-    String queryRoleAll();
-    
-    /**
-     * 重置密码
-     * @author 周业好
-     * @param name 账号
-     * @return json
-     */
-    String resetPassWord(String name);
+    String queryAuthAll();
     
     /**
      * 启用停用
      * @author 周业好
-     * @param name 账号
+     * @param code 权限编号
      * @return json
      */
-    String kaiguan(String name);
+    String kaiguan(String code);
+    
+    /**
+     * 查询角色拥有的权限
+     * @param code  角色code
+     * @return String
+     */
+    String getResource(String code);
 }

@@ -57,4 +57,13 @@ public interface RoleService {
      * @return json
      */
     String kaiguan(String code);
+    
+    /**
+     * 保存 权限
+     * @author 周业好
+     * @param resourceId 选中的权限id
+     * @param roleCode 角色code
+     * @return json
+     */
+    String roleEmpowerment(String[] resourceId, String roleCode);
 }

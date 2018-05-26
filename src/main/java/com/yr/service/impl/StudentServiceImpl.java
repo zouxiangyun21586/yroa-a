@@ -9,11 +9,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yr.dao.AccountDao;
 import com.yr.dao.StudentDao;
 import com.yr.entity.Account;
 import com.yr.entity.Clas;
 import com.yr.entity.Student;
-import com.yr.service.AccountService;
 import com.yr.service.StudentService;
 import com.yr.util.HanyuPinyinHelper;
 import com.yr.util.JsonUtils;
@@ -35,9 +35,10 @@ public class StudentServiceImpl implements StudentService {
 	private StudentDao studentDao;
 	
 	@Autowired
-	private AccountService accountService;
+	private AccountDao accountDao;
 	
-	/**
+	
+	/**查询学生信息
 	 * 
 	 * @Date : 2018年5月22日下午7:15:23
 	 * 
@@ -47,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
 	 *
-	 * @return : PageUtil 返回查询的结果,是一个集合
+	 * @return : PageUtil 返回分页查询或模糊查询的结果,是一个集合
 	 * 
 	 * @see com.yr.service.StudentService#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
 	 */
@@ -57,13 +58,14 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 	
-	/**
+	/**添加学生信息
 	 * 
 	 * @Date : 2018年5月22日下午5:40:11
 	 * 
 	 * @author : 唐子壕
 	 * 
-	 * @describe : 实现com.yr.service.StudentService接口,重写方法
+	 * @describe : 添加学生：添加成功后去自动生成一个学生账号用于登入,
+	 * 			       账号为学生姓名的拼音字母,密码默认12345678
 	 *	
 	 * @param student 方法重写，带参数
 	 *
@@ -79,7 +81,7 @@ public class StudentServiceImpl implements StudentService {
 		if ("addSuccess".equals(resutl1)) {
 			Account account = addAccount(student);
 			String studentCode = studentDao.queryRoleCod(); //从角色表中查询出学生的code
-			accountService.addId(account, studentCode);
+			Integer value = accountDao.addId(account, studentCode);
 			map.put("code", 0);
 			map.put("msg", "添加成功");
 		} else if ("addFail".equals(resutl1)) {
@@ -93,7 +95,7 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
-	/**
+	/**删除学生信息
 	 * 
 	 * @Date : 2018年5月23日下午3:08:34
 	 * 
@@ -103,13 +105,16 @@ public class StudentServiceImpl implements StudentService {
 	 * 
 	 * @return : String
 	 * 
+	 * @describe  将删除是否成功信息放进map里转为json格式返回到controller层
+	 * 
 	 * @see com.yr.service.StudentService#deleteStudent(java.lang.Integer)
 	 */
 	@Transactional
 	public String deleteStudent(Integer id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			studentDao.deleteStudent(id);
+			String account = studentDao.deleteStudent(id);
+			accountDao.del(account);
 			map.put("code", 0);
 			map.put("msg", "删除成功");
 		} catch (Exception e) {
@@ -120,6 +125,56 @@ public class StudentServiceImpl implements StudentService {
 		String result = JSONObject.fromObject(map).toString();
 		return result;
 	}
+	
+	/**修改学生信息
+	 * 
+	 * @Date : 2018年5月24日下午8:23:07
+	 * 
+	 * @author : 唐子壕
+	 * 
+	 * @return String 
+	 * 
+	 * @param student 
+	 * 
+	 * @describe 将修改是否成功信息放进map里转为json格式返回到controller层
+	 *	
+	 * @see com.yr.service.StudentService#updateStudent(java.lang.Integer)
+	 */
+	@Transactional
+	public String updateStudent(Student student) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			studentDao.updateStudent(student);
+			map.put("code", 0);
+			map.put("msg", "修改成功");
+		} catch (Exception e) {
+			map.put("code", 1);
+			map.put("msg", "修改失败");
+			map.put("error", e);
+		}
+		String result = JSONObject.fromObject(map).toString();
+		return result;
+	}
+	/**
+	 * 
+	 * @Date : 2018年5月26日上午11:13:58
+	 * 
+	 * @author : 唐子壕
+	 * 
+	 * @return List<Clas> 届次所有信息
+	 * 
+	 * @describe 将查询出的所有信息转为json格式返回给controller层
+	 * 
+	 * @see com.yr.service.StudentService#queryCls()
+	 */
+	public String queryCls() {
+		List<Clas> clasList =  studentDao.queryCls();
+		String result = JsonUtils.beanListToJson(clasList);
+		return result;
+	}
+	
+	
 	/**
 	 * 
 	 * @Date : 2018年5月23日下午8:47:35
@@ -130,7 +185,7 @@ public class StudentServiceImpl implements StudentService {
 	 *
 	 * @param student 学生实体
 	 * 
-	 * @describe 添加学生时添加一个默认的账号
+	 * @describe 添加学生时该学生的账号信息(传入账号模块所提供的方法内),
 	 * 
 	 */
 	public Account addAccount(Student student) {
@@ -147,17 +202,18 @@ public class StudentServiceImpl implements StudentService {
 		return account;
 	}
 	
-	/**
+	/**修改数据回显
 	 * 
 	 * @Date : 2018年5月24日下午8:22:51
 	 * 
 	 * @author : 唐子壕
-	 *	
-	 * @param id
+	 *	 
+	 * @return Student 学生对象
+	 * 
+	 * @param id 根据id查询出一个学生对象用于数据回显 
 	 * 
 	 * @see com.yr.service.StudentService#updateDisplay(java.lang.Integer)
 	 */
-	@Override
 	public Student updateDisplay(Integer id) {
 		Student student = studentDao.updateDisplay(id);
 		return student;
@@ -165,33 +221,33 @@ public class StudentServiceImpl implements StudentService {
 	
 	/**
 	 * 
-	 * @Date : 2018年5月24日下午8:23:07
+	 * @Date : 2018年5月26日上午11:44:22
 	 * 
 	 * @author : 唐子壕
 	 *	
-	 * @see com.yr.service.StudentService#updateStudent(java.lang.Integer)
+	 * @return : List<Student>
+	 *
+	 * @see com.yr.service.StudentService#queryNoGre()
 	 */
-	@Transactional
-	@Override
-	public String updateStudent(Student student) {
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		try {
-			studentDao.updateStudent(student);
-			map.put("code", 0);
-			map.put("msg", "修改成功");
-		} catch (Exception e) {
-			map.put("code", 1);
-			map.put("msg", "修改失败");
-			map.put("error", e);
-		}
-		String result = JSONObject.fromObject(map).toString();
-		return result;
+	public List<Student> queryNoGre() {
+		List<Student> studentList = studentDao.queryNoGre();
+		return studentList;
 	}
 
-	@Override
-	public List<Clas> queryCls() {
-		List<Clas> clasList =  studentDao.queryCls();
-		return clasList;
+	/**
+	 * 
+	 * @Date : 2018年5月26日上午11:47:54
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param code 
+	 * 
+	 * @return : Student
+	 * 
+	 * @see com.yr.service.StudentService#querytoCode()
+	 */
+	public Student querytoCode(String code) {
+		Student studentList = studentDao.querytoCode(code);
+		return studentList;
 	}
 }

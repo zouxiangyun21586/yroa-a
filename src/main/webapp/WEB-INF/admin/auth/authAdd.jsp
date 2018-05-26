@@ -18,47 +18,25 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" id="accountAdd">
+<form class="layui-form" style="width:80%;" id="authAdd">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">登录名</label>
+            <label class="layui-form-label">权限名</label>
             <div class="layui-input-block">
-                <input type="text" name="username" class="layui-input userName" lay-verify="required|username" placeholder="请输入登录名">
+                <input type="text" name="name" class="layui-input userName" lay-verify="required|username" placeholder="请输入角色名">
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">电话</label>
+            <label class="layui-form-label">权限路径</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="tel" lay-verify="required|phone" placeholder="请输入正确的电话号码">
+                <input type="text" class="layui-input" name="url" value="yroa-a/" lay-verify="required" placeholder="权限路径">
             </div>
         </div>
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">设为管理员?</label>
-			<div class="layui-input-block userSex">
-				<input type="radio" name="isAdmin" value="是" title="是">
-				<input type="radio" name="isAdmin" value="否" title="否" checked>
-			</div>
-		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">密码</label>
-			<div class="layui-input-block">
-				<input type="password" name="password" class="layui-input linksPassWrod" lay-verify="required|password" placeholder="请输入" maxlength="16">
-			</div>
-		</div>
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">确定密码</label>
-			<div class="layui-input-block">
-				<input type="password" name="passwords" class="layui-input linksPassWrods" lay-verify="required|password" placeholder="请输入" maxlength="16">
-			</div>
-		</div>
-	    <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">所属角色</label>
+        <div class="magb15 layui-col-md4 layui-col-xs12">
+            <label class="layui-form-label">shiro操作</label>
             <div class="layui-input-block">
-                <select id="code" name="code" lay-verify="required">
-                </select>
-            </div> 
+                <input type="text" class="layui-input" name="caozuo" lay-verify="required" placeholder="anon放行,authc需验证等...">
+            </div>
         </div>
 	</div>
 	<!-- <div class="layui-form-item layui-row layui-col-xs12">
@@ -75,6 +53,6 @@
 	</div>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/user/userAdd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/authJs/authAdd.js"></script>
 </body>
 </html>

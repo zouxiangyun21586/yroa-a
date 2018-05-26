@@ -56,8 +56,10 @@ public interface StudentDao {
 	  * @author : 唐子壕
 	  *	
 	  * @param id 学生id
+	  * 
+	  * @return String
 	  */
-	 void deleteStudent(Integer id);
+	 String deleteStudent(Integer id);
 	 
 	 /**修改数据回显
 	  * 
@@ -105,4 +107,34 @@ public interface StudentDao {
 	  * @describe 从角色表中查询出学生的code
 	  */
 	 String queryRoleCod();
+	 
+	 
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月26日上午11:43:19
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : List<Student>
+	  *
+	  * @describe 供学生考勤模块调用
+	  */
+	 List<Student> queryNoGre();
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月26日上午11:46:32
+	  * 
+	  * @author : 唐子壕
+	  * 
+	  * @param code 
+	  *	
+	  * @return : Student
+	  * 
+	  * @describe 供学生考勤模块调用
+	  *
+	  */
+	 Student querytoCode(String code);
+	 
 }

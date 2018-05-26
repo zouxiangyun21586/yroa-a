@@ -18,23 +18,27 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" id="roleUpd">
+<form class="layui-form" style="width:80%;" id="authUpd">
 	<div class="layui-form-item layui-row layui-col-xs12">
-	   <input type="hidden" id="code" name="code"/>
-	   <input type="hidden" name="_method" value="PUT"/>
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">角色名</label>
+        <div class="magb15 layui-col-md4 layui-col-xs12">
+            <label class="layui-form-label">权限名</label>
             <div class="layui-input-block">
                 <input type="text" id="name" name="name" class="layui-input userName" lay-verify="required|username" placeholder="请输入角色名">
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">角色描述</label>
+            <label class="layui-form-label">权限路径</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" id="info" name="info" lay-verify="required" placeholder="描述">
+                <input type="text" class="layui-input" id="url" name="url" lay-verify="required" placeholder="权限路径">
             </div>
         </div>
-	</div>
+        <div class="magb15 layui-col-md4 layui-col-xs12">
+            <label class="layui-form-label">shiro操作</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="caozuo" name="caozuo" lay-verify="required" placeholder="anon放行,authc需验证等...">
+            </div>
+        </div>
+    </div>
 	<!-- <div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">用户简介</label>
 		<div class="layui-input-block">
@@ -49,6 +53,6 @@
 	</div>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/roleJs/roleUpd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/authJs/authUpd.js"></script>
 </body>
 </html>

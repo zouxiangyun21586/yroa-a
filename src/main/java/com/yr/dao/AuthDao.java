@@ -1,6 +1,8 @@
 package com.yr.dao;
 
-import com.yr.entity.Account;
+import java.util.List;
+
+import com.yr.entity.Auth;
 
 /**
  * 用户dao接口
@@ -10,39 +12,29 @@ import com.yr.entity.Account;
 public interface AuthDao {
 	/**
 	 * 添加
-	 * @param emp 用户对象
-	 * @param code 角色code
+	 * @param emp 角色对象
 	 * @return 操作是否成功
 	 */
-	int addId(Account emp, String code);
+	int addId(Auth emp);
 	/**
 	 * 删除
-	 * @param i 用户编号
+	 * @param code 角色编号
 	 * @return 是否操作成功
 	 */
-	int del(Integer i);
+	int del(String code);
 	/**
 	 * 修改
-	 * @param emp 用户对象
+	 * @param emp 角色对象
 	 * @return 操作是否成功
 	 */
-	int upd(Account emp);
+	int upd(Auth emp);
 	
 	/**
-	 * 修改密码
-	 * @param id 账号id
-	 * @param userN 账号
-	 * @param oldpassword 旧密码
-	 * @param passW 新密码
-	 * @return 出错信息
-	 */
-	String updatePass(String oldpassword, String userN, Integer id, String passW);
-	/**
 	 * 查询单个
-	 * @param i 用户id
-	 * @return 查出的用户对象
+	 * @param code 角色编号
+	 * @return 1 角色编号不存在,json 成功
 	 */
-	Account query(Integer i);
+	String query(String code);
 	
 	/**
 	 * 班某人的分页
@@ -58,16 +50,7 @@ public interface AuthDao {
      * @author 周业好
      * @return json
      */
-    String queryRoleAll();
-    
-    /**
-     * 重置密码
-     * @author 周业好
-     * @param name 账号
-     * @param newPass 新密码
-     * @return json
-     */
-    String resetPassWord(String name, String newPass);
+    String queryAuthAll();
     
     /**
      * 启用停用
@@ -76,4 +59,32 @@ public interface AuthDao {
      * @return 操作是否成功
      */
     int kaiguan(String name);
+    
+    
+    //---------------------------------------------
+    /**
+     * 查询角色拥有的权限
+     * @return String
+     */
+    List<Auth> getResource();
+    /**
+     * 根据角色 code 查出 对应角色的  权限name
+     * @author 周业好
+     * @param code 角色编号
+     * @return list
+     */
+    List<Auth> codeTogetResource(String code);
+    /**
+     * 根据角色 code 查出 对应角色的 全部权限信息
+     * @author 周业好
+     * @param code 角色编号
+     * @return list
+     */
+    List<Auth> roleCodeTogetResource(String code);
+    /**
+     * 查出权限表全部信息
+     * @author 周业好
+     * @return list 
+     */
+    List<Auth> findAll();
 }
