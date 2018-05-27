@@ -53,7 +53,7 @@ public class AuthDaoImpl implements AuthDao {
 		}
 		String sql = "select auth_code from yr_role_auth where auth_code=?";
 		List list = em.createNativeQuery(sql).setParameter(1, code).getResultList();
-		if (null != null && list.size() > 0) { //此权限有人在使用无法停用
+		if (null != list && list.size() > 0) { //此权限有人在使用无法停用
 			return TWO;
 		}
 		Query qu = em.createQuery("delete from Auth r where r.code=?").setParameter(0, code); //删除角色
@@ -171,7 +171,7 @@ public class AuthDaoImpl implements AuthDao {
 			val = 1;
 			List list = em.createNativeQuery("select auth_code from yr_role_auth where auth_code=?")
 					.setParameter(1, ac.getCode()).getResultList();
-			if (null != list && list.size() > 0) { //此角色有人在使用无法停用
+			if (null != list && list.size() > 0) { //此权限有人在使用无法停用
 				return TWO;
 			}
 		} else {

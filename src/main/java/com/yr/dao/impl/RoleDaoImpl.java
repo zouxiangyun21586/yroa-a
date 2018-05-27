@@ -60,7 +60,7 @@ public class RoleDaoImpl implements RoleDao {
 		}
 		String sql = "select role_code from yr_account_role where role_code=?";
 		List list = em.createNativeQuery(sql).setParameter(1, code).getResultList();
-		if (null != null && list.size() > 0) { //此角色有人在使用无法停用
+		if (null != list && list.size() > 0) { //此角色有人在使用无法停用
 			return TWO;
 		}
 		Query qu = em.createQuery("delete from Role r where r.code=?").setParameter(0, code); //删除角色

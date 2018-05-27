@@ -147,6 +147,9 @@ public class AuthServiceImpl implements AuthService {
 		if (1 == i) {
 			map.put("code", 1);
 			map.put("msg", "操作失败");
+		} else if (TWO == i) {
+			map.put("code", 1);
+			map.put("msg", "失败,此权限被使用");
 		} else {
 			map.put("code", 0);
 			map.put("msg", "操作成功");
