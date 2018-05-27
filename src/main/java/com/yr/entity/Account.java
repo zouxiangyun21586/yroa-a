@@ -38,11 +38,11 @@ public class Account implements Serializable {
     /**
      * 用户账号
      */
-    private String username;
+    private String userName;
     /**
      * 用户密码
      */
-    private String password;
+    private String passWord;
     /**
      * 电话
      */
@@ -78,12 +78,12 @@ public class Account implements Serializable {
         this.id = id;
     }
     
-    @Column(name = "username")
-    public String getUsername() {
-        return username;
+    @Column(name = "userName")
+    public String getUserName() {
+        return userName;
     }
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
     @Column(name = "createTime")
     public Date getCreateTime() {
@@ -101,12 +101,12 @@ public class Account implements Serializable {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	@Column(name = "password")
-	public String getPassword() {
-        return password;
+	@Column(name = "passWord")
+	public String getPassWord() {
+        return passWord;
     }
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setPassWord(String passWord) {
+        this.passWord = passWord == null ? null : passWord.trim();
     }
     @Column(name = "is_admin")
     public String getIsAdmin() {

@@ -24,7 +24,7 @@
             <div class="kit-login-col">
               <i class="layui-icon">&#xe612;</i>
               <span class="kit-login-input">
-				  <input type="text" name="loginName" lay-verify="required" placeholder="用户名/邮箱/手机号" maxlength="16"/>
+				  <input type="text" name="userName" lay-verify="required" placeholder="用户名/邮箱/手机号" maxlength="16"/>
 			  </span>
             </div>
             <div class="kit-login-col"></div>
@@ -33,7 +33,7 @@
             <div class="kit-login-col">
               <i class="layui-icon">&#xe64c;</i>
               <span class="kit-login-input">
-				  <input type="password" name="password" lay-verify="required" placeholder="密码" maxlength="16"/>
+				  <input type="password" name="passWord" lay-verify="required" placeholder="密码" maxlength="16"/>
 			  </span>
             </div>
             <div class="kit-login-col"></div>
@@ -77,11 +77,6 @@
         var layIndex = layer.load(2, {
           shade: [0.1, '#393D49']
         });
-        console.log(data.field);
-        setTimeout(function() {
-          location.href = 'index.html';
-        }, 2000);
-        return false;
 		//ajax请求
 		//返回json格式	{"code":0,"msg":"登录成功"} code代码状态码,msg显示提示内容
 		setTimeout(function(){
