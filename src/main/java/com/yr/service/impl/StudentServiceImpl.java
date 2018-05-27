@@ -195,9 +195,9 @@ public class StudentServiceImpl implements StudentService {
         String password = "12345678";
 		String isAdmin = "否";
 		String tel = student.getTel();
-		account.setUsername(username);
+		account.setUserName(username);
 		account.setIsAdmin(isAdmin);
-		account.setPassword(password);
+		account.setPassWord(password);
 		account.setTel(tel);
 		return account;
 	}
