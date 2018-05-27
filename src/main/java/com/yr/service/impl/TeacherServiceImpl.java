@@ -1,5 +1,9 @@
 package com.yr.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +15,8 @@ import com.yr.service.AccountService;
 import com.yr.service.TeacherService;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
+
+import net.sf.json.JSONObject;
 
 /**
  * 
@@ -40,23 +46,34 @@ public class TeacherServiceImpl implements TeacherService {
 	 * @param teacher 老师对象
 	 * @return 返回boolean 判断是否成功
 	 */
-	public Boolean add(Teacher teacher) {
+	@Transactional
+	public String add(Teacher teacher) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			//需提供Account对象内容:
-			//自动生成的账号 ,电话, isAdmin 值是'否',明文的密码 ,.第二个参数是角色的code
-			Account ac = new Account();
-			ac.setUsername(teacher.getTeacherAccount());
-			ac.setTel(teacher.getTel());
-			ac.setIsAdmin("否");
-			ac.setPassword("123456");
-			String teaCode = teacherDao.roleCode("tea");
-			accountService.addId(ac, teaCode);
-			teacherDao.add(teacher);
-			return true;
+			String str = teacherDao.add(teacher);
+			if (str.equals("succ")) {
+				//需提供Account对象内容:
+				//自动生成的账号 ,电话, isAdmin 值是'否',明文的密码 ,.第二个参数是角色的code
+				Account ac = new Account();
+				ac.setUserName(teacher.getTeacherAccount());
+				ac.setTel(teacher.getTel());
+				ac.setIsAdmin("否");
+				ac.setPassWord("123456");
+				String teaCode = teacherDao.roleCode("tea");
+				accountService.addId(ac, teaCode);
+				map.put("code", 0);
+				map.put("msg", "添加成功");
+			} else if (str.equals("error")) {
+				map.put("code", 1);
+				map.put("msg", "添加失败");
+			}
+			String result = JSONObject.fromObject(map).toString();
+			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
+			map.put("code", 1);
+			map.put("msg", "添加失败");
 		}
-		return false;
+		return null;
 	}
 
 	/**
@@ -66,16 +83,22 @@ public class TeacherServiceImpl implements TeacherService {
 	 * 2018年5月22日 下午2:58:56
 	 * 
 	 * @param teacher 老师对象
-	 * @return 返回boolean 判断是否成功
+	 * @return 返回String 判断是否成功
 	 */
-	public Boolean update(Teacher teacher) {
+	@Transactional
+	public String update(Teacher teacher) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			teacherDao.update(teacher);
-			return true;
+			map.put("code", 0);
+			map.put("msg", "修改成功");
 		} catch (Exception e) {
-			e.printStackTrace();
+			map.put("code", 1);
+			map.put("msg", "修改失败");
+			map.put("error", e);
 		}
-		return false;
+		String result = JSONObject.fromObject(map).toString();
+		return result;
 	}
 
 	/**
@@ -87,17 +110,17 @@ public class TeacherServiceImpl implements TeacherService {
 	 * @param teacher 老师对象
 	 * @return 返回boolean 判断是否成功
 	 */
-	public Boolean delete(Teacher teacher) {
+	@Transactional
+	public String delete(Teacher teacher) {
 		try {
 			Integer code = teacherDao.delete(teacher);
 			if (code == number) { // 如果返回的是 2 那么代表可以删除
-				return true;
+				return "succ";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		}
-		return false;
+		return "error";
 	}
 
 	/**
@@ -132,15 +155,32 @@ public class TeacherServiceImpl implements TeacherService {
 		return listTeacher;
 	}
 
+	/**
+	 * 数据回显老师等级
+	 * @author zxy
+	 * 
+	 * 2018年5月26日 下午5:30:17
+	 * 
+	 * @return List<Teacher>
+	 */
 	@Override
-	public Boolean query() {
-		try {
-			teacherDao.query();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+	public List<Teacher> query() {
+		List<Teacher> listTeacher = teacherDao.query();
+		return listTeacher;
+	}
+	
+	/**
+	 * 数据回显老师状态
+	 * @author zxy
+	 * 
+	 * 2018年5月26日 下午10:19:01
+	 * 
+	 * @return List<Teacher>
+	 */
+	@Override
+	public List<Teacher> queryIs() {
+		List<Teacher> listTeacher = teacherDao.queryIs();
+		return listTeacher;
 	}
 
 }

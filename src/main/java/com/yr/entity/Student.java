@@ -61,8 +61,8 @@ public class Student {
 	//家长电话
 	private String homeTel;
 	
-	//在校学生是否展示 1代表展示,其他代表不展示
-	private String isInPublish;
+	//是否展示该学生  1代表展示,其他代表不展示
+	private String isItDisplayed;
 	
 	//在校照片路径
 	private String inImgUrl;
@@ -88,18 +88,6 @@ public class Student {
 	//是否毕业
 	private String isFinish;
 	
-	//该毕业生是否展示 1代表展示,其他代表不展示
-	private String isFinishPublishl;
-	
-	
-	@Column(name = "is_in_publish") 
-	public String getIsInPublish() {
-		return isInPublish;
-	}
-
-	public void setIsInPublish(String isInPublish) {
-		this.isInPublish = isInPublish;
-	}
 
 	@Column(name = "in_img_url") 
 	public String getInImgUrl() {
@@ -119,14 +107,6 @@ public class Student {
 		this.isFinish = isFinish;
 	}
 	
-	@Column(name = "is_finish_publishl") 
-	public String getIsFinishPublishl() {
-		return isFinishPublishl;
-	}
-
-	public void setIsFinishPublishl(String isFinishPublishl) {
-		this.isFinishPublishl = isFinishPublishl;
-	}
 	@Column(name = "finish_img_url") 
 	public String getFinishImgUrl() {
 		return finishImgUrl;
@@ -237,6 +217,21 @@ public class Student {
 		return createTime;
 	}
 
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", account="
+				+ account + ", code=" + code + ", year=" + year
+				+ ", classCode=" + classCode + ", sex=" + sex 
+				+ ", birth=" + birth + ", age=" + age + ", tel=" + tel
+				+ ", addr=" + addr + ", homeTel=" + homeTel 
+				+ ", isItDisplayed=" + isItDisplayed + ", inImgUrl="
+				+ inImgUrl + ", inTime=" + inTime + ", createTime=" 
+				+ createTime + ", finishTime=" + finishTime
+				+ ", offerTime=" + offerTime + ", offerIncome=" 
+				+ offerIncome + ", isFinish=" + isFinish
+				+ ", finishImgUrl=" + finishImgUrl + "]";
+	}
+
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
@@ -266,7 +261,7 @@ public class Student {
 		this.offerTime = offerTime;
 	}
 	
-	@Column(name = "offer_in_come") 
+	@Column(name = "offer_income") 
 	public String getOfferIncome() {
 		return offerIncome;
 	}
@@ -283,20 +278,13 @@ public class Student {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	@Override
-	public String toString() {
-		return "Student [id=" + id + ", name=" + name 
-				+ ", code=" + code + ", year=" + year 
-				+ ", classCode=" + classCode
-				+ ", sex=" + sex + ", birth=" 
-				+ birth + ", age=" + age + ", tel=" 
-				+ tel + ", addr=" + addr
-				+ ", homeTel=" + homeTel + ", isInPublish=" 
-				+ isInPublish + ", inImgUrl=" + inImgUrl + ", inTime="
-				+ inTime + ", createTime=" + createTime 
-				+ ", finishTime=" + finishTime + ", offerTime=" + offerTime
-				+ ", offerIncome=" + offerIncome 
-				+ ", isFinish=" + isFinish + ", isFinishPublishl=" + isFinishPublishl
-				+ ", finishImgUrl=" + finishImgUrl + "]";
+	
+	@Column(name = "is_it_displayed") 
+	public String getIsItDisplayed() {
+		return isItDisplayed;
+	}
+
+	public void setIsItDisplayed(String isItDisplayed) {
+		this.isItDisplayed = isItDisplayed;
 	}
 }

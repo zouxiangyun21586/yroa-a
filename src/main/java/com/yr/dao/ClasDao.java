@@ -14,17 +14,18 @@ import com.yr.util.PageUtil;
  */
 public interface ClasDao {
 	/**
-	 * 
+	 * 添加
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 上午8:52:09
 	 * 
 	 * @param clas 届次对象
+	 * @return String
 	 */
-	void add(Clas clas);
+	String add(Clas clas);
 	
 	/**
-	 * 
+	 * 修改
 	 * @author zxy
 	 * 
 	 * 2018年5月22日 上午8:52:21

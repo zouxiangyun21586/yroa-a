@@ -37,9 +37,10 @@ public class TeacherDaoImpl implements TeacherDao {
 	 * 2018年5月22日 下午2:55:59
 	 * 
 	 * @param teacher 老师对象
+	 * @return String 判断是否成功
 	 * @throws Exception 
 	 */
-	public void add(Teacher teacher) {
+	public String add(Teacher teacher) {
 		
 		try {
 			Teacher tch = new Teacher();
@@ -58,9 +59,11 @@ public class TeacherDaoImpl implements TeacherDao {
 			tch.setCreateTime(new Date());
 			tch.setTeacherAccount(teacher.getTeacherAccount());
 			entityManager.persist(tch); // 老师code  age需要算
+			return "succ";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return "error";
 	}
 
 	/**
@@ -157,13 +160,12 @@ public class TeacherDaoImpl implements TeacherDao {
 	 * @param teacher 老师对象
 	 */
 	public void update(Teacher teacher) {
+		Teacher teacher1 = entityManager.find(Teacher.class, teacher.getId());
+		teacher1.setTel(teacher.getTel());
+		teacher1.setLevel(teacher.getLevel());
+		teacher1.setIsLeave(teacher.getIsLeave());
+		entityManager.merge(teacher1);
 		
-		Query query = entityManager
-				.createQuery("update Teacher t set t.tel = :tel, t.level = :level,t.isLeave = :isLeave")
-				.setParameter("tel", teacher.getName())
-				.setParameter("level", teacher.getLevel())
-				.setParameter("isLeave", teacher.getIsLeave());
-		query.executeUpdate();
 	}
 
 	/**
@@ -176,7 +178,8 @@ public class TeacherDaoImpl implements TeacherDao {
 	 * @return 返回 Integer类型 判断是否删除	1 表示此老师有届次(Clas届次表)不能删除  0 表示可以删除
 	 */
 	public Integer delete(Teacher teacher) {
-		Query query = entityManager.createNativeQuery("select count(*) from yr_clas where teacher_code = :code")
+		Query query = entityManager
+				.createNativeQuery("select count(*) from yr_clas c where c.teacher_code = :code")
 				.setParameter("code", teacher.getCode());
 		BigInteger big = (BigInteger) query.getSingleResult();
 		int uid = big.intValue();
@@ -240,12 +243,32 @@ public class TeacherDaoImpl implements TeacherDao {
 	}
 	
 	/**
-	 * 查询所有(数据回显使用)
+	 * 查询等级(数据回显使用)
 	 * @return list<Teacher>
 	 * 2018年5月26日上午11:53:44
 	 */
 	public List<Teacher> query() {
-		return entityManager.createQuery("From Teacher").getResultList();
+		List<Teacher> listTeacher = entityManager.createQuery("From Dic where type = :type")
+				.setParameter("type", "level").getResultList();
+//		List<Teacher> listTeacher = entityManager.createNativeQuery(
+//				"select * from yr_teacher where `code` in "
+//				+ "(select max(`code`) from yr_teacher group by `level`)")
+//				.getResultList();
+		return listTeacher;
+	}
+	
+	/**
+	 * 老师状态
+	 * @author zxy
+	 * 
+	 * 2018年5月26日 下午10:22:45
+	 * 
+	 * @return list<Teacher>
+	 */
+	public List<Teacher> queryIs() {
+		List<Teacher> listTeacher = entityManager.createQuery("From Dic where type = :type")
+				.setParameter("type", "isLeave").getResultList();
+		return listTeacher;
 	}
 
 	/**

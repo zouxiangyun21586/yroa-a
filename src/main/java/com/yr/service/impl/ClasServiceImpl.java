@@ -1,6 +1,8 @@
 package com.yr.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,8 @@ import com.yr.entity.Clas;
 import com.yr.service.ClasService;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
+
+import net.sf.json.JSONObject;
 
 /**
  * 届次 Service实现类
@@ -37,14 +41,23 @@ public class ClasServiceImpl implements ClasService {
 	 */
 	@Transactional
 	@Override
-	public Boolean add(Clas clas) {
+	public String add(Clas clas) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			clasDao.add(clas);
-			return true;
+			String str = clasDao.add(clas);
+			if (str.equals("succ")) {
+				map.put("code", 0);
+				map.put("msg", "添加成功");
+			} else if (str.equals("error")) {
+				map.put("code", 1);
+				map.put("msg", "添加失败");
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			map.put("code", 1);
+			map.put("msg", "添加失败");
 		}
-		return false;
+		String result = JSONObject.fromObject(map).toString();
+		return result;
 	}
 
 	/**
@@ -58,14 +71,19 @@ public class ClasServiceImpl implements ClasService {
 	 */
 	@Transactional
 	@Override
-	public Boolean update(Clas clas) {
+	public String update(Clas clas) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			clasDao.update(clas);
-			return true;
+			map.put("code", 0);
+			map.put("msg", "修改成功");
 		} catch (Exception e) {
-			e.printStackTrace();
+			map.put("code", 1);
+			map.put("msg", "修改失败");
+			map.put("error", e);
 		}
-		return false;
+		String result = JSONObject.fromObject(map).toString();
+		return result;
 	}
 
 	/**
@@ -77,18 +95,10 @@ public class ClasServiceImpl implements ClasService {
 	 * @param clas 届次对象
 	 * @return 返回boolean 判断是否成功
 	 */
+	@Transactional
 	@Override
-	public Boolean delete(Clas clas) {
-//		try {
-//			Integer code = clasDao.delete(clas);
-//			if (code == number) { // 如果返回的是 2 那么代表可以删除
-//				return true;
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return false;
-//		}
-		return false;
+	public String delete(Clas clas) {
+		return "error";
 	}
 
 	/**
