@@ -40,10 +40,11 @@
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
-		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>开课</a></li>
-		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>毕业</a></li>
-		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>进度</a></li>
-		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>详情</a></li>
+		  <li><a lay-event="openClass"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>开课</a></li>
+		  <li><a lay-event="graduation"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>毕业</a></li>
+		  <li><a lay-event="sop"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>进度</a></li>
+		  <li><a lay-event="details"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>详情</a></li>
+		  <li><a lay-event="addStudent"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>添加学生</a></li>
       </ul>
   </div>
 </script>

@@ -122,7 +122,7 @@ public class TeacherController {
 	}
 	
 	/**
-	 * 查询等级
+	 * 查询状态
 	 * @return String   老师数据,json格式
 	 * 2018年5月26日上午11:51:01
 	 */
@@ -148,6 +148,6 @@ public class TeacherController {
 	public @ResponseBody String sel(Integer page, Integer limit, String name) {
 		String str = teacherService.query(page, limit, name);
 		return str;
-		
 	}
+	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Clas;
 import com.yr.service.ClasService;
+import com.yr.service.TeacherService;
 import com.yr.util.JsonUtils;
 
 /**
@@ -30,6 +31,9 @@ public class ClasController {
 	
 	@Autowired
 	private ClasService clasService;
+	
+	@Autowired
+	private TeacherService teacherService;
 	
 	final Integer number = 2;
 	
@@ -63,14 +67,6 @@ public class ClasController {
 	 */
 	@RequestMapping(value = "/clas/{id}", method = RequestMethod.DELETE)
 	public String del(Clas clas, ModelMap map) {
-//		Boolean bool = clasService.delete(clas);
-//		if (bool) {
-//			map.put("succ", number);
-//			return "show";
-//		} else {
-//			map.put("error", 1);
-//			return "show";
-//		}
 		return "";
 	}
 
@@ -199,6 +195,19 @@ public class ClasController {
 			e.printStackTrace();
 		}
 		return str;
-		
+	}
+	
+	/**
+	 * 查询所有 (用于届次添加下拉框显示)
+	 * @author zxy
+	 * 
+	 * 2018年5月27日 上午10:44:03
+	 * 
+	 * @return 是否成功
+	 */
+	@RequestMapping(value = "/clasTeacher", produces = "text/json;charset=UTF-8")
+	public @ResponseBody String queryTc() {
+		String str = teacherService.queryTeacher();
+		return str;
 	}
 }

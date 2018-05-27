@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>添加用户</title>
+	<title>添加届次</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,6 +13,11 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/layui/css/layui.css" media="all" />
+	<style>
+		.layui-col-xs12{margin-bottom:15px;}
+		.layui-form-label{width:90px;}
+	    .layui-input-block{margin-left:120px;}
+	</style>
 </head>
 <body>
 <br/>
@@ -33,9 +39,7 @@
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">本届教师</label>
 			<div class="layui-input-block">
-				<select lay-filter="teacherCode" name="teacherCode">
-					<option value="1001">钟林军</option>
-					<option value="1002">林娟娟</option>
+				<select lay-filter="teacherCode" name="teacherCode" id="teacherCode">
 				</select>
 			</div>
 	</div>

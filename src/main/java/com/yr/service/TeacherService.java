@@ -86,4 +86,14 @@ public interface TeacherService {
 	 * @return 返回老师对象
 	 */
 	Teacher get(Integer id);
+	
+	/**
+	 * 查询所有 (届次使用)
+	 * @author zxy
+	 * 
+	 * 2018年5月27日 上午10:45:28
+	 * 
+	 * @return String
+	 */
+	String queryTeacher();
 }
