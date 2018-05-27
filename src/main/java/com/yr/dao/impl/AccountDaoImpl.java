@@ -212,4 +212,36 @@ public class AccountDaoImpl implements AccountDao {
 		qu.executeUpdate();
 		return 0;
 	}
+	
+	/**
+	 * 判断用户是否存在
+	 * @param name 账号
+	 * @return null 不存在 , 1存在
+	 */
+	public String yanUs(String name) {
+		//验证用户
+		Query qu = em.createQuery("select u from Account u where u.userName=?");
+		qu.setParameter(0, name);
+		Account user = (Account) qu.getSingleResult();
+		if (null == user) {
+			return null;
+		} else {
+			return "1";
+		}
+	}
+	
+	/**
+	 * 根据用户名查询密码
+	 * @param us 账号
+	 * @return 密码
+	 */
+	public String yanPs(String us) {
+		Account list1 = (Account) em.createQuery("select u from Account u where u.userName=?")
+				.setParameter(0, us).getSingleResult();
+		if (null == list1) {
+			return null;
+		} else {
+			return list1.getPassWord();
+		}
+	}
 }
