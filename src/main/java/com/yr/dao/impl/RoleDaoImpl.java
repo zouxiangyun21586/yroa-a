@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.yr.dao.RoleDao;
+import com.yr.entity.Auth;
 import com.yr.entity.Role;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
@@ -34,13 +35,16 @@ public class RoleDaoImpl implements RoleDao {
 	/**
 	 * 添加
 	 * @param users 角色对象
+	 * @param authcode 权限表 查询学生的code
 	 * @return 操作是否成功
 	 */
-	public int addId(Role users) {
+	public int addId(Role users, String authcode) {
 		String code = em.createNativeQuery("select max(code) from yr_role").getSingleResult().toString();
 		Integer codeInt = Integer.valueOf(code);
 		codeInt = codeInt + 1; //编号+1
 		users.setCode(codeInt.toString());
+		Auth a = (Auth) em.createQuery("from Auth a from a.code=?").setParameter(0, authcode).getSingleResult();
+		users.getRolePermItems().add(a);
 		em.persist(users);
 		return 1;
 	}
@@ -220,4 +224,14 @@ public class RoleDaoImpl implements RoleDao {
         }
         return JSONObject.fromObject(map).toString();
     }
+	
+	/**
+     * 权限表 查询学生的code
+     * @author 周业好
+     * @return code
+     */
+	@Override
+	public String querydic() {
+		return em.createNativeQuery("select val from yr_dic where keyv='stuCode'").getSingleResult().toString();
+	}
 }

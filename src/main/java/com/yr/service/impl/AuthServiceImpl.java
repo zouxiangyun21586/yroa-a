@@ -162,21 +162,38 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public String getResource(String code) {
 		List<Auth> list = accDao.getResource();
-		List object = accDao.codeTogetResource(code);
+		List<?> object = accDao.codeTogetResource(code);
         String json = "[";
-        for (Auth resource : list) {
-            String d = null;
+        for (int x = 0; x < list.size(); x++) {
+        	String d = "";
+        	Auth resource = list.get(x);
             for (int i = 0; i < object.size(); i++) {
                 String values = (String) object.get(i);
                 if (resource.getName().equals(values)) {
                     resource.setChecked(true);
                 }
-                d = ((i < object.size()) ? "," : "");
             }
+            d = x < list.size() ? "," : "";
             json += JsonUtils.sendObject(resource,
-                    new String[] {"first", "last", "children", "perRoleItems" }) + d;
+                    new String[] {"first", "last", "children", "perRoleItems", "createTime", 
+                    		"updateTime", "createTimeStr", "updateTimeStr", "caozuo", 
+                    		"use", "url", "id"}) + d;
         }
+        int i = json.lastIndexOf(",");
+        json = json.substring(0, i) + json.substring(i + 1);
         return json + "]";
 	}
-
+	
+	/**
+     * 根据角色 code 查出 对应角色的 权限name
+     * @author 周业好
+     * @param code 角色code
+     * @return json
+     */
+	@Override
+	public String lookResource(String code) {
+		return JsonUtils.beanListToJson(accDao.roleCodeTogetResource(code), new String[] {"perRoleItems",  
+				"createTime", "updateTime", "createTimeStr", "updateTimeStr", "caozuo", "data", 
+        		"use", "url", "id", "checked"}, false);
+	}
 }

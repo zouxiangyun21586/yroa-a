@@ -11,9 +11,10 @@ public interface RoleDao {
 	/**
 	 * 添加
 	 * @param emp 角色对象
+	 * @param authcode 权限表 查询学生的code
 	 * @return 操作是否成功
 	 */
-	int addId(Role emp);
+	int addId(Role emp, String authcode);
 	/**
 	 * 删除
 	 * @param code 角色编号
@@ -66,4 +67,11 @@ public interface RoleDao {
      * @return json
      */
     String roleEmpowerment(String[] resourceId, String roleCode);
+    
+    /**
+     * 权限表 查询学生的code
+     * @author 周业好
+     * @return code
+     */
+    String querydic();
 }

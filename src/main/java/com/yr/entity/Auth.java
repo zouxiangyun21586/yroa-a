@@ -58,6 +58,8 @@ public class Auth implements Serializable {
      * 最后修改时间
      */
     private Date updateTime;
+    //子级数据
+    private String[] data;
 	
 	private Set<Role> perRoleItems = new HashSet<>();
 	private String createTimeStr = "";
@@ -171,4 +173,12 @@ public class Auth implements Serializable {
 				+ url + ", use=" + use + ", caozuo=" + caozuo + ", createTime="
 				+ createTime + ", updateTime=" + updateTime + "]";
 	}
+	@Transient
+	public String[] getData() {
+		return data;
+	}
+	public void setData(String[] data) {
+		this.data = data;
+	}
+	
 }

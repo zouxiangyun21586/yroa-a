@@ -105,13 +105,27 @@ public class AuthController  {
 	}
 	
 	/**
-     * 查询角色拥有的权限
+     * 查询角色拥有的权限 (用于复选框)
      * @param code  角色code
      * @return json
      */
 	@ResponseBody
 	@RequestMapping(value = "/getResource", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
 	public String getResource(String code) {
-		return aut.getResource(code);
+		String json = aut.getResource(code);
+		return json;
 	}
+	
+	/**
+     * 查询角色拥有的权限 (用于查看)
+     * @author 周业好
+     * @param code 角色code
+     * @return json
+     */
+	@ResponseBody
+	@RequestMapping(value = "/lookResource", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public String lookResource(String code) {
+		return aut.lookResource(code);
+	}
+	
 }

@@ -64,4 +64,12 @@ public interface AuthService {
      * @return String
      */
     String getResource(String code);
+    
+    /**
+     * 根据角色 code 查出 对应角色的 权限name
+     * @author 周业好
+     * @param code 角色code
+     * @return json
+     */
+	String lookResource(String code);
 }
