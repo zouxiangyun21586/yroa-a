@@ -32,6 +32,28 @@ public final class Constant {
 		
 	}
 	
+	/**
+	 * 根据时间状态获取时间名称
+	 * @author 林水桥
+	 * @param code     时间状态
+	 * @return String  时间名称
+	 * 2018年5月26日下午9:43:42
+	 */
+	public static String getTimeName(String code) {
+		return ctMap.get(code);
+	}
+	
+	/**
+	 * 根据考勤状态获取考勤名称
+	 * @author 林水桥
+	 * @param isLate    考勤状态
+	 * @return String   考勤名称
+	 * 2018年5月26日下午9:46:35
+	 */
+	public static String getIsLate(String isLate) {
+		return isLateMap.get(isLate);
+	}
+	
 	public static final String SOURCE = "客户端";
 
 	public static final String SUCCESS = "0000";

@@ -127,6 +127,10 @@ public class StudentController {
 		sex.put("0", "女");
 		sex.put("1", "男");
 		map.put("sex", sex);
+		HashMap<String, String> isFinish = new HashMap<String, String>();
+		isFinish.put("0", "未毕业");
+		isFinish.put("1", "已毕业");
+		map.put("isFinish", isFinish);
 		Student student = studentService.updateDisplay(id);
 		map.put("student", student);
 		return "student/studentUpdate";

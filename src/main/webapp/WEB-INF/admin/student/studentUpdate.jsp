@@ -79,10 +79,16 @@
 					<form:input path="inTime" class="layui-input" id="entranceYear" placeholder="yyyy-MM-dd" lay-verify="required" />
 				</div>
 			</div>
+			<div class="magb15 layui-col-md4 layui-col-xs12">
+				<label class="layui-form-label">是否毕业</label>
+				<div class="layui-input-block userSex">
+					<form:radiobuttons path="isFinish" items="${isFinish}"/>   
+				</div>
+			</div>
 		</div>
 		<div class="layui-form-item layui-row layui-col-xs12">
 			<div class="layui-input-block">
-				<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="update">立即添加</button>
+				<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="update">保存</button>
 				<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
 			</div>
 		</div>

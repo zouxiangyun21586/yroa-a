@@ -103,6 +103,17 @@ public interface ClasService {
 	Integer openClss(String code);
 	
 	/**
+	 * 提供方法给添加假期模块
+	 * @author zxy
+	 * 
+	 * 2018年5月22日 下午5:48:57
+	 * 
+	 * @param code 根据届次code查询届次数据
+	 * @return 返回某届次的对象
+	 */
+	Clas getCode(String code);
+	
+	/**
 	 * 
 	 * @author zxy
 	 * 

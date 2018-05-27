@@ -31,7 +31,7 @@
             {
                 "title": "签到",
                 "icon": "&#xe612;",
-                "href": "attendance/signIn",
+                "href": "attendance/punch",
                 "spread": false
             },{
                 "title": "请假",
