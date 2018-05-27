@@ -70,6 +70,7 @@ public class HoliDaoImpl implements HoliDao {
                 jpql = "FROM Holiday where classCode like :classCode ORDER BY updateTime desc";
             }
             List<Holiday> list = new ArrayList<Holiday>();
+            List<Holiday> list1 = new ArrayList<Holiday>();
             classCode = pageUtil.decodeSpecialCharsWhenLikeUseSlash(classCode);
             if (null != classCode && !"".equals(classCode)) {
                 list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
@@ -83,9 +84,17 @@ public class HoliDaoImpl implements HoliDao {
                 count = Integer.parseInt(entityManager
                        .createNativeQuery("SELECT COUNT(*) FROM yr_holiday").getSingleResult().toString());
             }
+            for (Holiday holiday : list) {
+				if (1 == holiday.getStatus()) {
+					holiday.setStatusName("已发布");
+				} else {
+					holiday.setStatusName("未发布");
+				}
+				list1.add(holiday);
+			}
             pageUtil = new PageUtil(limit, page, count);
             pageUtil.setCount(count);
-            pageUtil.setData(list);
+            pageUtil.setData(list1);
             pageUtil.setCode(0);
             pageUtil.setMsg("OK");
         } catch (Exception e) {

@@ -1,5 +1,7 @@
 package com.yr.service;
 
+import java.util.List;
+
 import com.yr.entity.Teacher;
 
 /**
@@ -17,17 +19,27 @@ public interface TeacherService {
 	 * 2018年5月22日 上午8:42:21
 	 * 
 	 * @param teacher 老师实体类
-	 * @return Boolean
+	 * @return String
 	 */
-	Boolean add(Teacher teacher);
+	String add(Teacher teacher);
 	
 	/**
-	 * 查询所有(数据回显使用)
+	 * 查询等级(数据回显使用)
 	 * 
-	 * @return Boolean
+	 * @return List<Teacher>
 	 * 2018年5月26日上午11:56:58
 	 */
-	Boolean query();
+	List<Teacher> query();
+	
+	/**
+	 * 查询是否离职(数据回显使用)
+	 * @author zxy
+	 * 
+	 * 2018年5月26日 下午10:18:05
+	 * 
+	 * @return List<Teacher>
+	 */
+	List<Teacher> queryIs();
 	
 	/**
 	 * 
@@ -36,9 +48,9 @@ public interface TeacherService {
 	 * 2018年5月22日 上午8:46:11
 	 * 
 	 * @param teacher 老师对象
-	 * @return Boolean
+	 * @return String
 	 */
-	Boolean update(Teacher teacher);
+	String update(Teacher teacher);
 	
 	/**
 	 * 
@@ -49,7 +61,7 @@ public interface TeacherService {
 	 * @param teacher 老师对象
 	 * @return Boolean
 	 */
-	Boolean delete(Teacher teacher);
+	String delete(Teacher teacher);
 	
 	/**
 	 * 

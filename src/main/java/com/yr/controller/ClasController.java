@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,14 +47,8 @@ public class ClasController {
 	 */
 	@RequestMapping(value = "/clas", method = RequestMethod.POST)
 	public String add(Clas clas, ModelMap map) {
-		Boolean boo = clasService.add(clas);
-		if (boo) {
-			map.put("succ", number);
-			return "show";
-		} else {
-			map.put("error", 1);
-			return "show";
-		}
+		String str = clasService.add(clas);
+		return str;
 	}
 
 	/**
@@ -86,19 +81,13 @@ public class ClasController {
 	 * 2018年5月22日 下午5:58:07
 	 * 
 	 * @param clas 老师对象
-	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return 执行完这个方法后去到哪个页面
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/clas", method = RequestMethod.PUT)
-	public String upd(Clas clas, ModelMap map) {
-		Boolean bool = clasService.update(clas);
-		if (bool) {
-			map.put("succ", number);
-			return "show";
-		} else {
-			map.put("error", 1);
-			return "show";
-		}
+	public String upd(@ModelAttribute("clas")Clas clas) {
+		String str = clasService.update(clas);
+		return str;
 	}
 
 	/**
@@ -118,6 +107,19 @@ public class ClasController {
 		return jsp;
 	}
 
+	/**
+	 * 查询所有数据回显使用
+	 * @return String   老师数据,json格式
+	 * 2018年5月26日上午11:51:01
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/clasHX", produces = "text/json;charset=UTF-8")
+	public String huixian() {
+		List<Clas> listTeacher = clasService.query();
+		String str = JsonUtils.beanListToJson(listTeacher);
+		return str;
+	}
+	
 	/**
 	 * 查询
 	 * @author zxy

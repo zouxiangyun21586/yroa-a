@@ -38,7 +38,7 @@ public class StudentCheck {
     /**标准上课时间*/
     private String startTime;
     /**实际到达时间*/
-    private Date retyTime;
+    private String retyTime;
     /**迟到时间(分钟)*/
     private Integer lateTime;
     /**考勤状态(0没迟到,1迟到,2旷课,3请假,4早退)*/
@@ -47,8 +47,6 @@ public class StudentCheck {
     private Integer isNote;
     /**创建时间*/
     private Date createTime;
-    /**修改时间*/
-    private Date updateTime;
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
@@ -123,13 +121,12 @@ public class StudentCheck {
     public void setStartTime(String startTime) {
         this.startTime = startTime == null ? null : startTime.trim();
     }
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "rety_time")
-    public Date getRetyTime() {
+    public String getRetyTime() {
         return retyTime;
     }
 
-    public void setRetyTime(Date retyTime) {
+    public void setRetyTime(String retyTime) {
         this.retyTime = retyTime;
     }
     @Column(name = "late_time")
@@ -164,14 +161,5 @@ public class StudentCheck {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name = "update_time")
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 }

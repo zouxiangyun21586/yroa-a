@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,6 +34,12 @@ public class Holiday {
 	private String endTime;
 	/**备注（注意事项）*/
 	private String info;
+	/**发布状态0未发布，1已发布*/
+	private Integer status;
+	/**发布状态名称,不映射到数据库*/
+	private String statusName;
+	/**发布时间*/
+	private Date releaseTime;
 	/**创建时间*/
 	private Date createTime;
 	/**修改时间*/
@@ -93,6 +100,28 @@ public class Holiday {
 	}
 	public void setInfo(String info) {
 		this.info = info == null ? null : info.trim();
+	}
+	@Column(name = "status")
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	@Transient
+	public String getStatusName() {
+		return statusName;
+	}
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "release_time")
+	public Date getReleaseTime() {
+		return releaseTime;
+	}
+	public void setReleaseTime(Date releaseTime) {
+		this.releaseTime = releaseTime;
 	}
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "create_time")

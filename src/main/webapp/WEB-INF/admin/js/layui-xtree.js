@@ -129,7 +129,7 @@ layuiXtree.prototype.dataBind = function (d) {
                 xtree_ischecked = d[i].checked ? ' checked ' : '';
                 xtree_isdisabled = d[i].disabled ? ' disabled="disabled" ' : '';
             }
-            _this._domStr += '<input type="checkbox" class="layui-xtree-checkbox" ' + xtree_isend + xtree_ischecked + xtree_isdisabled + ' value="' + d[i].id + '" title="' + d[i].title + '" lay-skin="primary" lay-filter="xtreeck' + _this._containerid + '">';
+            _this._domStr += '<input type="checkbox" class="layui-xtree-checkbox" ' + xtree_isend + xtree_ischecked + xtree_isdisabled + ' value="' + d[i].code + '" title="' + d[i].name + '" lay-skin="primary" lay-filter="xtreeck' + _this._containerid + '">';
             _this.dataBind(d[i].data);
             _this._domStr += '</div>';
         }

@@ -44,15 +44,17 @@ public class StCkController {
 	/**
 	 * 学生签到
 	 * @author 林水桥
-	 * 
+	 * @param code   学生code
 	 * @return String 学生签到状态 0为成功
 	 * 2018年5月26日下午2:54:25
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/signIn", produces = "text/json;charset=UTF-8")
-	public String signIn() {
+	public String signIn(String code) {
 		
-		return null;
+		String stuCk = stCkService.duty(code);
+		
+		return stuCk;
 	}
 	
 	

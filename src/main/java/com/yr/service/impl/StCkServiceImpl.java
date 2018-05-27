@@ -1,12 +1,20 @@
 package com.yr.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yr.dao.ClasDao;
 import com.yr.dao.StCkDao;
+import com.yr.dao.StudentDao;
+import com.yr.entity.CheckTime;
+import com.yr.entity.Clas;
+import com.yr.entity.Student;
 import com.yr.entity.StudentCheck;
 import com.yr.service.StCkService;
+import com.yr.util.DateUtils;
 
 /**
  * 学生考勤Service层
@@ -19,17 +27,52 @@ public class StCkServiceImpl implements StCkService {
 	
 	@Autowired
 	private StCkDao stCkDao;
+	@Autowired
+	private StudentDao studentDao;
+	@Autowired
+	private ClasDao clasDao;
 	
 	/**
 	 * 签到
 	 * @author 林水桥
-	 * @param stCk     学生考勤实体数据
-	 * @return Integer 返回签到ID
+	 * @param code     学生代码
+	 * @return String 返回签到状态 0为签到成功
 	 * 2018年5月25日下午10:26:04
 	 */
-	public Integer duty(StudentCheck stCk) {
+	public String duty(String code) {
+		Student student = studentDao.querytoCode(code);
+		Clas clas = clasDao.getCode(student.getClassCode());
 		
-		stCkDao.add(stCk);
+		String checkTimeCode = DateUtils.getAmPmNt();
+		Date nowDay = DateUtils.getCurrentDateA();
+		String nowsDay = DateUtils.getCurrentDate();
+		CheckTime checkTime = stCkDao.getCheckTime(checkTimeCode);
+		String nowTime = DateUtils.getCurrentTime();
+		
+		Long lateTime = DateUtils.getDistanceYear(nowsDay + " " + checkTime.getStartTime(), 
+						nowsDay + " " + nowTime);
+		Integer status = 1;
+		if (lateTime < 0) {
+			status = 1;
+		} else {
+			status = 0;
+		}
+		
+		StudentCheck studentCheck = new StudentCheck();
+		studentCheck.setClassCode(clas.getCode());
+		studentCheck.setClassName(clas.getName());
+		studentCheck.setStudentCode(student.getCode());
+		studentCheck.setStudentName(student.getName());
+		studentCheck.setCheckTimeCode(checkTime.getCode());
+		studentCheck.setCheckTimeDesc(checkTime.getTimeName());
+		studentCheck.setCheckTime(nowDay);
+		studentCheck.setStartTime(checkTime.getStartTime());
+		studentCheck.setRetyTime(nowTime);
+		studentCheck.setStatus(status);
+		studentCheck.setCreateTime(DateUtils.getCurrentDateTimeA());
+		
+		
+		stCkDao.add(studentCheck);
 		
 		return null;
 	}
@@ -89,5 +132,4 @@ public class StCkServiceImpl implements StCkService {
 		
 		return null;
 	}
-	
 }

@@ -35,6 +35,17 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
             var obj = eval(data);
             var objLength = obj.length;
             var code = $("#code").val();
+            var stauts = $("#statusQ").val();
+            $('#statusSelect').empty();
+            var b = "";
+            if (1 == status) {
+            	b += '<option value=0>不发布</option>';
+            	b += '<option value=1 selected>发布</option>';
+            } else {
+            	b += '<option value=0 selected>不发布</option>';
+            	b += '<option value=1>发布</option>';
+            }
+            $("#statusSelect").append(b);
             if(objLength>0){
                 $('#claSelect').empty();
                 var a="";

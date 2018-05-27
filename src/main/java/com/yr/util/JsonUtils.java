@@ -91,7 +91,6 @@ public final class JsonUtils {
 
 			json = JSONObject.fromObject(bean, configJson(noryChanges));
 		}
-
 		return json.toString();
 
 	}

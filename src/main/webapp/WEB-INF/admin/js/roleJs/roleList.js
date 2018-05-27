@@ -157,6 +157,33 @@ layui.use(['table','form','tree'], function(){
 				area : [ '300px', '400px' ],// 窗口宽高
 				content : path+'role/fuAuth?code=' + obj.data.code
 			  });
+		  }else if(obj.event === 'lookAuth'){
+				$.ajax({
+					type : "get",
+					url : path+"auth/lookResource",
+					data : {"code" : obj.data.code},
+					success : function(data) {
+						var role="";
+						for (var i=0;i<data.length;i++){
+							if(0==i%3&&0!=i){
+								role+="<br/>"
+							}
+							role+='<span class="layui-badge layui-bg-green" style="height:23px;line-height:23px;margin:5px 5px 0px 0px;">'+data[i].name+'</span>';
+						}
+						layer.open({
+						  title: '查看权限'
+						  ,content: role
+						});     
+					},
+					error : function() {
+						setTimeout(function() {
+							top.layer.msg("异常", {
+								icon : 2
+							});
+							location.reload();
+						}, 1000);
+					}
+				});
 		  }
 		});
 		 //添加用户

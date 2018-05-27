@@ -60,6 +60,14 @@
               </select>
           </div>
         </div>
+        <div class="magb15 layui-col-md4 layui-col-xs12">
+           <label class="layui-form-label">是否发布</label>
+          <div class="layui-input-block editWidth">
+              <select name="status" lay-verify="required" id="statusSelect">
+                  
+              </select>
+          </div>
+        </div>
         <div class="layui-form-item layui-row layui-col-xs12">
 	        <label class="layui-form-label">备注</label>
 	        <div class="layui-input-block">

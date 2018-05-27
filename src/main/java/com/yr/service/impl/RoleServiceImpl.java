@@ -37,7 +37,8 @@ public class RoleServiceImpl implements RoleService {
 			emp.setCreateTime(new Date()); //添加开始时间
 			emp.setUpdateTime(new Date()); //添加最后修改时间
 			emp.setUse(0);
-			int z = accDao.addId(emp);
+			String code = accDao.querydic();
+			int z = accDao.addId(emp, code);
 			if (1 == z) {
 				map.put("code", 0);
 				map.put("msg", "添加成功");

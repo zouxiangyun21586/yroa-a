@@ -41,11 +41,14 @@ public class HoliServiceImpl implements HoliService {
 		Map<String, Object> map = new HashMap<>();
 		Clas clas = clasDao.getCode(holiday.getClassCode());
 		Integer b = 0;
+		if (1 == holiday.getStatus()) {
+			holiday.setReleaseTime(DateUtils.getCurrentDateTimeA());
+		}
 		if (null != clas) {
 			holiday.setClassCode(clas.getCode());
 			holiday.setClassName(clas.getName());
-			holiday.setCreateTime(DateUtils.getCurretDateTimeA());
-			holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
+			holiday.setCreateTime(DateUtils.getCurrentDateTimeA());
+			holiday.setUpdateTime(DateUtils.getCurrentDateTimeA());
 			b = holiDao.add(holiday);
 		}
 		if (null == b || 0 == b) {
@@ -107,10 +110,13 @@ public class HoliServiceImpl implements HoliService {
 	public String update(Holiday holiday) {
 		Map<String, Object> map = new HashMap<>();
 		Holiday holidays = holiDao.get(holiday.getId());
+		if (1 == holiday.getStatus()) {
+			holiday.setReleaseTime(DateUtils.getCurrentDateTimeA());
+		}
 		Integer update = 0;
 		if (null != holidays) {
 			Clas clas = clasDao.getCode(holiday.getClassCode());
-			holiday.setUpdateTime(DateUtils.getCurretDateTimeA());
+			holiday.setUpdateTime(DateUtils.getCurrentDateTimeA());
 			holiday.setClassName(clas.getName());
 			update = holiDao.update(holiday);
 		}

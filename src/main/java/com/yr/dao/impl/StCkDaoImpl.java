@@ -1,11 +1,14 @@
 package com.yr.dao.impl;
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
 import com.yr.dao.StCkDao;
+import com.yr.entity.CheckTime;
 import com.yr.entity.StudentCheck;
 
 /**
@@ -65,6 +68,41 @@ public class StCkDaoImpl implements StCkDao {
 	public StudentCheck get(Integer id) {
 		
 		return null;
+	}
+	
+	/**
+	 * 判断重复签到
+	 * @author 林水桥
+	 * @param stuCode  		学生编码
+	 * @param checkTimeCode 考勤时间编码
+	 * @param checkDate     考勤日期
+	 * @return StudentCheck 返回考勤对象，null为无重复  
+	 * 2018年5月26日下午8:45:53
+	 */
+	public StudentCheck repeatSign(String stuCode, String checkTimeCode, Date checkDate) {
+		
+		StudentCheck stuCk = (StudentCheck) entityManager.createQuery("from StudentCheck where "
+						  + "studentCode = :studentCode and checkTimeCode = :checkTimeCode and "
+						  + "checkTime = :checkTime")
+						 .setParameter("studentCode", stuCode)
+						 .setParameter("checkTimeCode", checkTimeCode)
+						 .setParameter("checkTime", checkDate)
+						 .getSingleResult();
+		
+		return stuCk;
+	}
+	
+	/**
+	 * 根据考勤时间code，获取考勤时间对象
+	 * @author 林水桥
+	 * @param code     考勤时间code
+	 * @return CheckTime 考勤时间数据
+	 * 2018年5月26日下午9:50:44
+	 */
+	public CheckTime getCheckTime(String code) {
+		CheckTime checkTime = (CheckTime) entityManager.createQuery("from CheckTime where code = :code")
+						       .getSingleResult();
+		return checkTime;
 	}
 	
 }
