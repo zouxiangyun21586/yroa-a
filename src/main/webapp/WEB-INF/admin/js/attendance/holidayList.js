@@ -28,6 +28,7 @@ layui.use(['table','form','tree','laytpl'], function(){
 				{field: 'info', title: '备注',  unresize: true},
 				{field: 'classCode', title: '所属届次',  unresize: true},
 				{field: 'createTime', title: '创建时间', unresize: true, templet: '<div>{{ layui.laytpl.toDateTimeString(d.createTime.time) }}</div>'},
+				{field: 'statusName', title: '发布状态',  unresize: true},
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
 		});
