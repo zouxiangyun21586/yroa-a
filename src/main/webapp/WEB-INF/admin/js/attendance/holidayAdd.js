@@ -33,11 +33,16 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		success : function(data) {
 			var obj = eval(data);
             var objLength = obj.length;
+            $('#statusSelect').empty();
+            var b = "";
+            b += '<option value=0>不发布</option>';
+            b += '<option value=1>发布</option>';
+            $("#statusSelect").append(b);
             if(objLength>0){
                 $('#claSelect').empty();
-                var a="";
+                var a = "";
                 $(obj).each(function (i) {
-                    a+='<option value="' + obj[i].code + '">' + obj[i].code+"-"+obj[i].name + '</option>';
+                    a += '<option value="' + obj[i].code + '">' + obj[i].code+"-"+obj[i].name + '</option>';
                 });
                 $("#claSelect").append(a);
                 form.render('select');
