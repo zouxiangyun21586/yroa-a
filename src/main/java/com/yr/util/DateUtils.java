@@ -68,6 +68,35 @@ public final class DateUtils {
 	}
 	
 	/**
+	 * 根据String转时间戳
+	 * @author 林水桥
+	 * @param date  传入的String时间
+	 * @return String yyyy-MM-dd
+	 * 2018年5月27日上午11:04:57
+	 */
+	public static Long getCurrentDateE(String date) {
+		SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");  
+	    Date dates = null;
+		try {
+			dates = format.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+		return dates.getTime();
+	}
+	
+	/**
+	 * 根据Date转String
+	 * @author 林水桥
+	 * @param date  传入的Date日期
+	 * @return String yyyy-MM-dd
+	 * 2018年5月27日上午11:04:57
+	 */
+	public static String getCurrentDateT(Date date) {
+		return dfymd.format(date);
+	}
+	
+	/**
 	 * 获得Date类型的当前日期
 	 * @return yyyy-MM-dd HH:mm:ss
 	 * Date

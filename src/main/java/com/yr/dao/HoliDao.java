@@ -56,4 +56,13 @@ public interface HoliDao {
 	 */
 	Holiday get(Integer id);
 	
+	/**
+	 * 根据届次编码，假期状态，发布时间 查询假期
+	 * @author 林水桥
+	 * @param clasCode 届次编码
+	 * @return Holiday 假期数据
+	 * 2018年5月27日上午10:27:34
+	 */
+	Holiday getDuty(String clasCode);
+	
 }

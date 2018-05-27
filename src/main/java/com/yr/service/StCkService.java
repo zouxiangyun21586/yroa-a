@@ -28,15 +28,6 @@ public interface StCkService {
 	Integer add(StudentCheck stCk);
 	
 	/**
-	 * 删除考勤数据
-	 * @author 林水桥
-	 * @param id     考勤表ID
-	 * @return Integer 返回删除状态 0为未删除
-	 * 2018年5月25日下午10:06:02
-	 */
-	Integer delete(Integer id);
-	
-	/**
 	 * 修改考勤数据
 	 * @author 林水桥
 	 * @param stCk    学生考勤修改数据
