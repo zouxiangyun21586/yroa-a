@@ -36,11 +36,11 @@ public class AccountDaoImpl implements AccountDao {
 	 */
 	public int addId(Account users, String code) {
 		try {
-			String breaMi = EncryptUtils.encryptBASE64(users.getPassword().getBytes()); //BASE64位加密
+			String breaMi = EncryptUtils.encryptBASE64(users.getPassWord().getBytes()); //BASE64位加密
 			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
 			users.setCreateTime(new Date()); //添加开始时间
 			users.setUpdateTime(new Date()); //添加最后修改时间
-			users.setPassword(mdFiveMi);
+			users.setPassWord(mdFiveMi);
 			users.setStatus("0");
 			if ("否".equals(users.getIsAdmin())) {
 				users.setIsAdmin("false");
@@ -48,7 +48,7 @@ public class AccountDaoImpl implements AccountDao {
 				users.setIsAdmin("true");
 			}
 			List qu = em.createQuery("select u from Account u where u.username=?")
-					.setParameter(0, users.getUsername()).getResultList();
+					.setParameter(0, users.getUserName()).getResultList();
 			if (qu.size() > 0) {
 				final int i = 2;
 				return i;
@@ -83,7 +83,7 @@ public class AccountDaoImpl implements AccountDao {
 		Query qu = em.createQuery("update Account a set a.tel=?,a.updateTime=? where a.username=?");
 		qu.setParameter(0, emp.getTel());
 		qu.setParameter(1, emp.getUpdateTime());
-		qu.setParameter(TWO, emp.getUsername());
+		qu.setParameter(TWO, emp.getUserName());
 		qu.executeUpdate();
 		return 0;
 	}
