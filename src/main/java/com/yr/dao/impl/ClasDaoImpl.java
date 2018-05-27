@@ -1,5 +1,3 @@
-
-
 package com.yr.dao.impl;
 
 import java.util.Date;
@@ -38,23 +36,32 @@ public class ClasDaoImpl implements ClasDao {
 	 * 2018年5月22日 下午5:48:16
 	 * 
 	 * @param clas 届次对象
+	 * @return String 判断是否成功
 	 */
 	@Override
-	public void add(Clas clas) {
-		Clas cla = new Clas();
-		cla.setName(clas.getName()); // 此届 批次名
-		cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数)
-		String strCode = code(); // 获取code数
-		cla.setCode(strCode);
-		cla.setCreateTime(new Date()); // 创建时间(获取当前时间)
-		cla.setTeacherCode(clas.getTeacherCode()); // 设置这批届次老师的code(获取页面上填写的老师code)
-		String strName = (String) entityManager
-				.createNativeQuery("select DISTINCT teacher_name from yr_clas where teacher_code = ?1")
-				.setParameter(1, clas.getTeacherCode()).getSingleResult();
-		cla.setTeacherName(strName); // 设置这批届次老师的名字(获取页面上填写的老师code获取到老师名字)
-		cla.setIsFinish(ifs(clas.getIsFinish()));
-		cla.setStartTime(clas.getStartTime());
-		entityManager.persist(cla);
+	public String add(Clas clas) {
+		try {
+			Clas cla = new Clas();
+			cla.setName(clas.getName()); // 此届 批次名
+			cla.setYear(String.valueOf(DateUtils.getCurrentYear())); // 当前年(当前届数)
+			String strCode = code(); // 获取code数
+			cla.setCode(strCode);
+			cla.setCreateTime(new Date()); // 创建时间(获取当前时间)
+			cla.setTeacherCode(clas.getTeacherCode()); // 设置这批届次老师的code(获取页面上填写的老师code)
+			String strName = (String) entityManager
+					.createNativeQuery("select DISTINCT teacher_name from"
+							+ " yr_clas where teacher_code = ?1")
+					.setParameter(1, clas.getTeacherCode()).getSingleResult();
+			cla.setTeacherName(strName); // 设置这批届次老师的名字(获取页面上填写的老师code获取到老师名字)
+			cla.setIsFinish(ifs(clas.getIsFinish()));
+			cla.setStartTime(clas.getStartTime());
+			entityManager.persist(cla);
+			return "succ";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		
 	}
 
 	/**
@@ -106,18 +113,9 @@ public class ClasDaoImpl implements ClasDao {
 	 */
 	@Override
 	public void update(Clas clas) {
-		
-		Clas c = entityManager.getReference(Clas.class, clas.getCode());
-		
-		String teacherCode = clas.getTeacherCode();
-		String teacherName = clas.getTeacherName();
-		entityManager.remove(c);
-		
-		Clas cl = new Clas();
-		cl.setTeacherCode(teacherCode);
-		cl.setTeacherName(teacherName);
-		entityManager.merge(cl);
-		
+		Clas cla = entityManager.find(Clas.class, clas.getId());
+		cla.setTeacherName(clas.getTeacherName());
+		entityManager.merge(cla);
 	}
 
 	/**
@@ -131,18 +129,6 @@ public class ClasDaoImpl implements ClasDao {
 	 */
 	@Override
 	public Integer delete(Clas clas) {
-//		Query query = entityManager.createNativeQuery("select count(*) from Clas where Clas_code ="
-//				+ clas.getCode());
-//		BigInteger big = (BigInteger) query.getSingleResult();
-//		int uid = big.intValue();
-//		if (query != null && uid != 0) { // 如果届次表中有数据那么不能进行删除届次
-//			return 1;
-//		} else {
-//			Query qu = entityManager.createNativeQuery("delete from Clas where id ="
-//					+ clas.getId());
-//			qu.executeUpdate();
-//			return number;
-//		}
 		return 0;
 	}
 
@@ -275,6 +261,14 @@ public class ClasDaoImpl implements ClasDao {
 		return listUser;
 	}
 
+	/**
+	 * 数据回显查询
+	 * @author zxy
+	 * 
+	 * 2018年5月26日 下午7:14:15
+	 * 
+	 * @return
+	 */
 	@Override
 	public List<Clas> query() {
 		List<Clas> listClas = entityManager.createQuery("from Clas").getResultList();

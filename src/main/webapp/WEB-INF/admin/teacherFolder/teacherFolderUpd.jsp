@@ -23,25 +23,19 @@
 <br/>
 <form:form class="layui-form" style="width:80%;" modelAttribute="teacher" id="teacherUpdForm">
 	<form:hidden path="id"/>
-	<input type="hidden" name = "id1" id="id1" value="${teacher.id}"/>
     <input type="hidden" name="_method" value="PUT">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input" id="tel" name="tel" lay-verify="required" placeholder="老师电话" value="${teacher.tel}" />
+				<form:input path="tel" class="layui-input" lay-verify="required" placeholder="请输入老师电话"/>
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">教学等级</label>
 			<div class="layui-input-block">
-				<input type="hidden" id="level" name="level"/>
-				<select name="level" lay-verify="required" >
-	               	<option value="DEVHIG">高级</option>
-					<option value="DEVMID">中级</option>
-					<option value="DEVELE">初级</option>
-					<option value="DBA">数据库</option>
-					<option value="UI">前台</option>
+				<input type="hidden" id="tealevel" name="tealevel" value="${teacher.level}"/>
+				<select name="level" lay-verify="required" id="levQuyer">
            		</select>
 			</div>
 		</div>
@@ -50,11 +44,8 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">任职状态</label>
 			<div class="layui-input-block">
-				<input type="hidden" id="isLeave" name="isLeave"/>	
-				<select name="isLeave" lay-verify="required">
-					<option value="1">离职</option>
-					<option value="0">在职</option>
-					<option value="2">试用</option>
+				<input type="hidden" id="teacherisLeave" name="teacherisLeave" value="${teacher.isLeave}"/>
+				<select name="isLeave" lay-verify="required" id="islea">
             	</select>
 			</div>
 		</div>

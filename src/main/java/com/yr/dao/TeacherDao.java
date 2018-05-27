@@ -20,16 +20,27 @@ public interface TeacherDao {
 	 * 2018年5月22日 上午8:52:09
 	 * 
 	 * @param teacher 老师对象
+	 * @return String
 	 */
-	void add(Teacher teacher);
+	String add(Teacher teacher);
 	
 	/**
-	 * 查询所有(数据回显使用)
+	 * 查询等级(数据回显使用)
 	 * 
 	 * @return List<Teacher>
 	 * 2018年5月26日上午11:55:46
 	 */
 	List<Teacher> query();
+	
+	
+	/**
+	 * 查询老师状态(数据回显使用)
+	 * 0 在职     1 离职     2 实习期
+	 * 
+	 * @return List<Teacher>
+	 * 2018年5月26日下午21:55:46
+	 */
+	List<Teacher> queryIs();
 	
 	/**
 	 * 修改

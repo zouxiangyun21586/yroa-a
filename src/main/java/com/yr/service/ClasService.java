@@ -22,7 +22,7 @@ public interface ClasService {
 	 * @param clas 届次实体类
 	 * @return String
 	 */
-	Boolean add(Clas clas);
+	String add(Clas clas);
 	
 	/**
 	 * 
@@ -33,7 +33,7 @@ public interface ClasService {
 	 * @param clas 届次对象
 	 * @return String
 	 */
-	Boolean update(Clas clas);
+	String update(Clas clas);
 	
 	/**
 	 * 
@@ -44,7 +44,7 @@ public interface ClasService {
 	 * @param clas 届次对象
 	 * @return Boolean
 	 */
-	Boolean delete(Clas clas);
+	String delete(Clas clas);
 	
 	/**
 	 * 
