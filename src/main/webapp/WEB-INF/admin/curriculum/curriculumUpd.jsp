@@ -20,15 +20,8 @@
 	<form:hidden path="id"/>
     <input type="hidden" name="_method" value="PUT">
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">地址</label>
-			<div class="layui-input-block">
-				<form:input type="text" class="layui-input" path="addr" lay-verify="required" placeholder="家庭地址" />
-			</div>
-		</div>
-	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">本届教师</label>
+			<input type="hidden" id="teacherName" name="teacherName" value="${clas.teacherName}"/>
 			<div class="layui-input-block">
 				<select name="code" lay-verify="required" id="teacherCode">
               	

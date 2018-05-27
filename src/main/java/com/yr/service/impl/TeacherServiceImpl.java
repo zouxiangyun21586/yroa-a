@@ -183,4 +183,11 @@ public class TeacherServiceImpl implements TeacherService {
 		return listTeacher;
 	}
 
+	@Override
+	public String queryTeacher() {
+		List<Teacher> listTeacher = teacherDao.queryTeacher();
+		String strTch = JsonUtils.beanListToJson(listTeacher);
+		return strTch;
+	}
+
 }

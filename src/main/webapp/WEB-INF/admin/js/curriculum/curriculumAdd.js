@@ -17,6 +17,38 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	form.on('select(year)', function(data){
 		 $(":select[name='year']").val(data.value);
 	});
+	
+	$.ajax({
+        type : "get",
+        url : path + "clasTeacher",
+        success : function(result) {
+            var obj = eval(result);
+            var objLength = obj.length;
+            if(objLength>0){
+                $('#teacherCode').empty();
+                var a="";
+                $(obj).each(function (i) {
+                    a+='<option value="' + obj[i].code + '" selected>' + obj[i].name + '</option>';
+                });
+                $("#teacherCode").append(a);
+                form.render('select');
+            }else{
+                alert("没有东西");
+                $('#teacherCode').find('option').remove();
+                form.render('select');
+            }
+        },
+        error : function() {
+            setTimeout(function() {
+                top.layer.close(index);
+                top.layer.msg("异常！", {
+                    icon : 2
+                });
+                layer.closeAll("iframe");
+            }, 1000);
+        }
+    });
+	
 	form.on("submit(addUser)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,

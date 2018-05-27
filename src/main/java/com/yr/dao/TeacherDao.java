@@ -96,4 +96,14 @@ public interface TeacherDao {
 	 * 2018年5月26日上午8:55:30
 	 */
 	String roleCode(String keyv);
+	
+	/**
+	 * 查询所有 (届次使用)
+	 * @author zxy
+	 * 
+	 * 2018年5月27日 上午10:50:51
+	 * 
+	 * @return 老师集合
+	 */
+	List<Teacher> queryTeacher();
 }
