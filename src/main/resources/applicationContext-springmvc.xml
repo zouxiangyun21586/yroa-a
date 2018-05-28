@@ -60,10 +60,10 @@
     </bean>
     
     <!--自定义拦截器 -->
-    <mvc:interceptors>
+   <!--  <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <!-- 不拦截指定路径 -->
+            不拦截指定路径
             <mvc:exclude-mapping path="/log/loginYan"/>
             <mvc:exclude-mapping path="/log/zhux"/>
             <mvc:exclude-mapping path="/log/add"/>
@@ -75,7 +75,7 @@
             <mvc:exclude-mapping path="/**/*.gif"/>
             <bean class="com.yr.util.Lanjieqi"></bean>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors> -->
 	
     <!-- 处理静态资源 -->
     <bean id="viewMappings" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" >
