@@ -47,13 +47,14 @@ public class StudentServiceImpl implements StudentService {
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
+	 * @param modules 搜索条件 
 	 *
 	 * @return : PageUtil 返回分页查询或模糊查询的结果,是一个集合
 	 * 
 	 * @see com.yr.service.StudentService#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
 	 */
-	public String queryStudent(Integer page, Integer limit, String name) {
-		PageUtil pageUtil = studentDao.queryStudent(page, limit, name);
+	public String queryStudent(Integer page, Integer limit, String name, String modules) {
+		PageUtil pageUtil = studentDao.queryStudent(page, limit, name, modules);
 		String result = JsonUtils.beanToJson(pageUtil);
 		return result;
 	}

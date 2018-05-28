@@ -56,7 +56,8 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		var i ="";
 		var a ="";
 		if(data.value=="0"){
-			
+			$('#aaa').empty();
+			$('#bbb').empty();
 		}else if(data.value=="1"){
 			i+="<div class='magb15 layui-col-md4 layui-col-xs12'>" +
 						"<label class='layui-form-label'>毕业日期</label>" +
