@@ -232,4 +232,19 @@ public class AuthDaoImpl implements AuthDao {
         String hql = "from Auth";
         return em.createQuery(hql).getResultList();
     }
+    
+   /**
+    * 根据账号查询对应权限
+    * @author 周业好
+    * @param name 账号
+    * @return 此账号的权限
+    */
+	public List<String> queryPermOne(String name) {
+		Query qu = em.createNativeQuery("select sp.url from yr_account u,yr_role sr,yr_auth sp,"
+				+ "yr_account_role sur,yr_role_auth srp where u.username=sur.username and "
+				+ "sr.code=sur.role_code and sr.code=srp.role_code and "
+				+ "sp.code=srp.auth_code and u.username=?").setParameter(1, name);
+		List<String> roleList = qu.getResultList();
+		return roleList;
+	}
 }

@@ -16,6 +16,42 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	}
 	$.getUrlParam('code');*/
 	
+	$.ajax({
+        type : "get",
+        url : path + "clasTeacher",
+        success : function(result) {
+            var obj = eval(result);
+            var objLength = obj.length;
+            var tchName = $("#teacherName").val();// jsp 页面的id
+            if(objLength>0){
+                $('#teacherCode').empty();
+                var a="";
+                $(obj).each(function (i) {
+                    if (obj[i].name == tchName) { // 如果与查询出来的数据一致就作为默认值
+                        a+='<option value="' + obj[i].code + '" selected>' + obj[i].name + '</option>';
+                    } else {
+                        a+='<option value="' + obj[i].code + '">' + obj[i].name + '</option>';
+                    }
+                });
+                $("#teacherCode").append(a);
+                form.render('select');
+            }else{
+                alert("没有东西");
+                $('#teacherCode').find('option').remove();
+                form.render('select');
+            }
+        },
+        error : function() {
+            setTimeout(function() {
+                top.layer.close(index);
+                top.layer.msg("异常！", {
+                    icon : 2
+                });
+                layer.closeAll("iframe");
+            }, 1000);
+        }
+    });
+	
 	form.on("submit(updCurr)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,

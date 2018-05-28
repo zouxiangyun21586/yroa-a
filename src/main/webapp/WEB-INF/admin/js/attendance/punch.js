@@ -12,7 +12,6 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		type : "get",
 		url : path + "attendance/atteList",
 		success : function(data) {
-			alert(data);
 			var obj = eval(data);
             var objLength = obj.length;
             if(objLength>0){

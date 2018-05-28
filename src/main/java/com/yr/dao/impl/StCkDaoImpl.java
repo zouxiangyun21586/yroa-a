@@ -35,18 +35,6 @@ public class StCkDaoImpl implements StCkDao {
 	}
 	
 	/**
-	 * 删除考勤数据
-	 * @author 林水桥
-	 * @param id     考勤表ID
-	 * @return Integer 返回删除状态 0为未删除
-	 * 2018年5月25日下午10:06:02
-	 */
-	public Integer delete(Integer id) {
-		
-		return null;
-	}
-	
-	/**
 	 * 修改考勤数据
 	 * @author 林水桥
 	 * @param stCk    学生考勤修改数据
@@ -80,15 +68,18 @@ public class StCkDaoImpl implements StCkDao {
 	 * 2018年5月26日下午8:45:53
 	 */
 	public StudentCheck repeatSign(String stuCode, String checkTimeCode, Date checkDate) {
-		
-		StudentCheck stuCk = (StudentCheck) entityManager.createQuery("from StudentCheck where "
-						  + "studentCode = :studentCode and checkTimeCode = :checkTimeCode and "
-						  + "checkTime = :checkTime")
-						 .setParameter("studentCode", stuCode)
-						 .setParameter("checkTimeCode", checkTimeCode)
-						 .setParameter("checkTime", checkDate)
-						 .getSingleResult();
-		
+		StudentCheck stuCk = new StudentCheck();
+		try {
+			stuCk = (StudentCheck) entityManager.createQuery("from StudentCheck where "
+					+ "studentCode = :studentCode and checkTimeCode = :checkTimeCode and "
+					+ "checkTime = :checkTime")
+					.setParameter("studentCode", stuCode)
+					.setParameter("checkTimeCode", checkTimeCode)
+					.setParameter("checkTime", checkDate)
+					.getSingleResult();
+		} catch (Exception e) {
+			stuCk = null;
+		}
 		return stuCk;
 	}
 	
@@ -101,7 +92,8 @@ public class StCkDaoImpl implements StCkDao {
 	 */
 	public CheckTime getCheckTime(String code) {
 		CheckTime checkTime = (CheckTime) entityManager.createQuery("from CheckTime where code = :code")
-						       .getSingleResult();
+						      .setParameter("code", code) 
+							  .getSingleResult();
 		return checkTime;
 	}
 	

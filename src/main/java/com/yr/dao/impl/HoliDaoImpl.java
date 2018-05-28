@@ -146,4 +146,27 @@ public class HoliDaoImpl implements HoliDao {
 		return holiday;
 	}
 	
+	/**
+	 * 根据届次编码，假期状态，发布时间 查询假期
+	 * @author 林水桥
+	 * @param clasCode 届次编码
+	 * @return Holiday 假期数据
+	 * 2018年5月27日上午10:27:34
+	 */
+	public Holiday getDuty(String clasCode) {
+		Holiday holiday = new Holiday();
+		try {
+			holiday = (Holiday) entityManager.createQuery("from Holiday where status=:status and "
+					+ "classCode=:classCode order by releaseTime desc")
+					.setParameter("status", 1)
+					.setParameter("classCode", clasCode)
+					.setFirstResult(0)
+					.setMaxResults(1)
+					.getSingleResult();
+		} catch (Exception e) {
+			holiday = null;
+		}
+		return holiday;
+	}
+	
 }

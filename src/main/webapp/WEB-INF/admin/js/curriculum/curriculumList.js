@@ -103,7 +103,107 @@ layui.use(['table','form','tree'], function(){
 					title : "修改届次",
 					type : 2,
 					anim : 5,
-					content: "getClasOnly?code="+data.code,//修改学生的页面路径
+					content: "../getClasOnly?id="+obj.data.id,//修改学生的页面路径
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
+		  }else if(obj.event === 'openClass'){
+			  var index = layui.layer.open({
+					title : "开课",
+					type : 2,
+					anim : 5,
+					content: " ----- ",
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
+		  }else if(obj.event === 'graduation'){
+			  var index = layui.layer.open({
+					title : "毕业",
+					type : 2,
+					anim : 5,
+					content: " ----- ",
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
+		  }else if(obj.event === 'sop'){
+			  var index = layui.layer.open({
+					title : "进度",
+					type : 2,
+					anim : 5,
+					content: " ----- ",
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
+		  }else if(obj.event === 'details'){
+			  var index = layui.layer.open({
+					title : "详情",
+					type : 2,
+					anim : 5,
+					content: " ----- ",
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
+		  }else if(obj.event === 'addStudent'){
+			  var index = layui.layer.open({
+					title : "添加学生",
+					type : 2,
+					anim : 5,
+					content: " ----- ",
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',

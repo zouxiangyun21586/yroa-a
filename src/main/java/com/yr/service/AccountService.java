@@ -38,10 +38,10 @@ public interface AccountService {
 	String updatePass(String oldpassword, String userN, Integer id, String passW);
 	/**
 	 * 查询单个
-	 * @param i 用户id
+	 * @param i 用户账号
 	 * @return 查出的用户对象
 	 */
-	Account query(Integer i);
+	Account query(String i);
 	
 	/**
 	 * 班某人的分页
@@ -51,13 +51,6 @@ public interface AccountService {
 	 * @return json
 	 */
     String getFenye(int page, int limit, String name);
-    
-    /**
-     * 查询所有的角色
-     * @author 周业好
-     * @return json
-     */
-    String queryRoleAll();
     
     /**
      * 重置密码

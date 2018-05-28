@@ -98,6 +98,18 @@ public class RoleDaoImpl implements RoleDao {
 		}
 		return JsonUtils.beanToJson(qu);
 	}
+	
+	/**
+	 * 查询角色全部信息  单个(根据账号)
+	 * @param name 用户账号
+	 * @return list
+	 */
+	public List<Role> queryR(String name) {
+		List<Role> qu = em.createQuery("from Role r,Account ac where r.use=0 and ac.userName=?")
+				.setParameter(0, name).getResultList();
+		return qu;
+	}
+	
 	/**
 	 * 班某人的分页
 	 * @param page 当前页 
@@ -141,7 +153,8 @@ public class RoleDaoImpl implements RoleDao {
         }
         return JsonUtils.beanToJson(pageUtil, new String[] {"rolePermItems", "roleUsersItems" }, false);
     }
-	 /**
+	
+	/**
      * 查询所有的角色
      * @author 周业好
      * @return json
@@ -158,6 +171,7 @@ public class RoleDaoImpl implements RoleDao {
 		}
 		return null;
 	}
+	
 	/**
      * 启用停用
      * @author 周业好

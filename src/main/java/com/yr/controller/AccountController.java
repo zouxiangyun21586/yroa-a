@@ -34,7 +34,6 @@ public class AccountController  {
 	@Autowired
 	private AccountService acc;
 	
-	private static final int THREE = 3;
 	/**
 	 * 
 	 * @author 周业好
@@ -48,17 +47,6 @@ public class AccountController  {
 	@RequestMapping(value = "queryfy", produces = "text/json;charset=UTF-8")
 	public String queryFenye(int page, int limit, String name) {
 		String json = acc.getFenye(page, limit, name);
-		return json;
-	}
-	/**
-	 * 查出所有的角色
-	 * @author 周业好
-	 * @return json
-	 */
-	@ResponseBody
-	@RequestMapping(value = "qrole", produces = "text/json;charset=UTF-8")
-	public String queryRoleAll() {
-		String json = acc.queryRoleAll();
 		return json;
 	}
 	
@@ -132,12 +120,12 @@ public class AccountController  {
 	 * @param map 2
 	 * @return 查出来的json
 	 */ 
-	@RequestMapping(value = "upd_echo")
-	public String query(@PathVariable(value = "id")Integer i, Map<String, Object> map) {
-		Account e = acc.query(i);
-		map.put("users", e);
-		return "update";
-	}
+//	@RequestMapping(value = "upd_echo")
+//	public String query(@PathVariable(value = "id")Integer i, Map<String, Object> map) {
+//		Account e = acc.query(i);
+//		map.put("users", e);
+//		return "update";
+//	}
 	/**
 	 * 
 	 * 修改密码

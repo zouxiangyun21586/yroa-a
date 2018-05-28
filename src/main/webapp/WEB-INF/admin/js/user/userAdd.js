@@ -9,7 +9,7 @@ layui.use([ 'layer', 'form' ], function() {
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
 	$.ajax({
 		type : "get",
-		url : path+"acc/qrole",
+		url : path+"role/qrole",
 		success : function(data) {
 			$("#code").append("<option value=''>请选择角色</option>");
             for(var i in data){

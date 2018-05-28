@@ -286,4 +286,10 @@ public class TeacherDaoImpl implements TeacherDao {
 		return teacher;
 	}
 
+	@Override
+	public List<Teacher> queryTeacher() {
+		List<Teacher> listTeacher = entityManager.createQuery("From Teacher").getResultList();
+		return listTeacher;
+	}
+
 }

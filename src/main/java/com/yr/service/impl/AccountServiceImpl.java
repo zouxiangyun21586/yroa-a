@@ -21,7 +21,6 @@ import net.sf.json.JSONObject;
 @Transactional
 @Service
 public class AccountServiceImpl implements AccountService {
-	private static final int TWO = 2;
 	@Autowired
 	private AccountDao accDao;
 	
@@ -81,10 +80,10 @@ public class AccountServiceImpl implements AccountService {
 	}
 	/**
 	 * 查询单个
-	 * @param i 用户id
+	 * @param i 用户账号
 	 * @return 查出的用户对象
 	 */
-	public Account query(Integer i) {
+	public Account query(String i) {
 		Account acc = accDao.query(i);
 		return acc;
 	}
@@ -98,16 +97,6 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public String getFenye(int page, int limit, String name) {
 		String json = accDao.getFenye(page, limit, name);
-		return json;
-	}
-	 /**
-     * 查询所有的角色
-     * @author 周业好
-     * @return json
-     */
-	@Override
-	public String queryRoleAll() {
-		String json = accDao.queryRoleAll();
 		return json;
 	}
 	/**
