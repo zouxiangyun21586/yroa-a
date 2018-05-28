@@ -54,7 +54,6 @@ layui.use(['table','form','tree'], function(){
 		});
 		//搜索
 		$(".search_btn").on("click",function(){
-			alert($(".searchVal").val()+"---"+$("select[name=modules]").val());
 				table.reload('demo',{
 					where: {
 					   name:$(".searchVal").val(),
