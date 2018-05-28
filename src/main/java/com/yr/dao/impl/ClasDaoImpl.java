@@ -1,7 +1,7 @@
 package com.yr.dao.impl;
 
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -113,9 +113,12 @@ public class ClasDaoImpl implements ClasDao {
 	 */
 	@Override
 	public void update(Clas clas) {
-		Clas cla = entityManager.find(Clas.class, clas.getId());
-		cla.setTeacherName(clas.getTeacherName());
-		entityManager.merge(cla);
+		String t = entityManager.createNativeQuery(""
+				+ "select `name` from yr_teacher where `code` = :tCode")
+				.setParameter("tCode", clas.getTeacherCode()).getSingleResult().toString();
+		Query q = entityManager.createQuery("update Clas set teacherName = :tName where code = :code")
+				.setParameter("tName", t).setParameter("code", clas.getCode());
+		q.executeUpdate();
 	}
 
 	/**
@@ -236,13 +239,13 @@ public class ClasDaoImpl implements ClasDao {
 	 * 2018年5月24日 上午10:59:49
 	 * 
 	 * @param year
-	 * @return 查询某届下的所有批次
+	 * @return 查询某届下的批次
 	 */
 	@Override
-	public List<Clas> getOnly(String year) {
-		List<Clas> listClas = entityManager.createNativeQuery("select * from yr_clas where year = ?1")
-				.setParameter(1, year).getResultList();
-		return listClas;
+	public String getOnly(String code) {
+		String str = entityManager.createNativeQuery("select `code` from yr_clas where `code` = ?1")
+				.setParameter(1, code).getSingleResult().toString();
+		return str;
 	}
 	
 	/**

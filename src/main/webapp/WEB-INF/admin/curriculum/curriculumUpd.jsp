@@ -13,17 +13,22 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/layui/css/layui.css" media="all" />
+	<style>
+		.layui-col-xs12{margin-bottom:15px;}
+		.layui-form-label{width:90px;}
+	    .layui-input-block{margin-left:120px;}
+	</style>
 </head>
 <body>
 <br/>
 <form:form class="layui-form" style="width:80%;" id="clasUpdForm" modelAttribute="clas">
-	<form:hidden path="id"/>
+	<form:hidden id="teacherIdCode" path="code"/>
     <input type="hidden" name="_method" value="PUT">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">本届教师</label>
 			<input type="hidden" id="teacherName" name="teacherName" value="${clas.teacherName}"/>
 			<div class="layui-input-block">
-				<select name="code" lay-verify="required" id="teacherCode">
+				<select name="teacherCode" lay-verify="required" id="teacherCode">
               	
               	</select>
 			</div>
