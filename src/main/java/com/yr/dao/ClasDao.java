@@ -122,4 +122,18 @@ public interface ClasDao {
 	 * @return Clas 所查询出来的批次
 	 */
 	String getOnly(String code);
+	
+	/**
+	 * 查看某届次详情
+	 * @author zxy
+	 * 
+	 * 2018年5月28日 下午7:16:07
+	 * 
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 分页条件
+	 * @param code 查询某届批次的学生信息
+	 * @return PageUtil 返回查询的结果,是一个集合
+	 */
+	PageUtil details(Integer page, Integer limit, String name, String code);
 }

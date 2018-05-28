@@ -239,13 +239,14 @@ public class ClasController {
 	 * 
 	 * @param page 第几页
 	 * @param limit 每页多少条
-	 * @param year 分页条件
+	 * @param name 分页条件
 	 * @param code 此届批次code,用于查询所属批次下的所有学生情况
 	 * @return 页面展示
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/clasDetails", method = {RequestMethod.GET}, produces = "text/json;charset=UTF-8")
-	public String clasDetails(Integer page, Integer limit, String year, String code) {
-		return "";
+	public String clasDetails(Integer page, Integer limit, String name, String code) {
+		String str = clasService.details(page, limit, name, code);
+		return str;
 	}
 }

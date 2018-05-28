@@ -297,5 +297,60 @@ public class ClasDaoImpl implements ClasDao {
 		List<Clas> listClas = entityManager.createQuery("from Clas").getResultList();
 		return listClas;
 	}
+
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月28日 下午7:27:11
+	 * 
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 分页条件
+	 * @param code 某届批次code,用户分辨
+	 * @return 分页工具类
+	 */
+	@Override
+	public PageUtil details(Integer page, Integer limit, String name, String code) {
+		PageUtil pageUtil = new PageUtil();
+		try {
+			int count = 0;
+			String jpql = "From Student order by inTime desc";
+			if (null  != name && !"".equals(name)) {
+				jpql = "from Student where name like :sName order by inTime desc";
+			}
+			List<Clas> studentList = new ArrayList<Clas>();
+			name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
+			if (null  != name && !"".equals(name)) {
+				studentList = entityManager.createQuery(jpql)
+						.setMaxResults(limit).setFirstResult((page - 1) * limit)
+						.setParameter("sName", "%" + name + "%").getResultList();
+				count = Integer
+				.parseInt(entityManager
+				 .createNativeQuery("select count(*) from yr_student where name like :sName ")
+				   .setParameter("sName", "%" + name + "%").getSingleResult().toString());
+			} else {
+				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
+						.setMaxResults(limit).getResultList();
+				count = Integer
+						.parseInt(entityManager
+						   .createNativeQuery("select count(*) from yr_student where"
+						   					+ " class_code = :class_code")
+						   .setParameter("class_code", code)
+						   .getSingleResult().toString());
+			}
+			pageUtil = new PageUtil(limit, page, count);		
+			pageUtil.setCount(count);
+			pageUtil.setCode(0);
+			pageUtil.setData(studentList);
+			pageUtil.setMsg("OK");
+		} catch (Exception e) {
+			pageUtil.setCode(1);
+			pageUtil.setMsg("---出错了!----");
+			e.printStackTrace();
+		}
+		
+		return pageUtil;
+	}
 	
 }

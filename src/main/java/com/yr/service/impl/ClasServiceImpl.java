@@ -241,4 +241,25 @@ public class ClasServiceImpl implements ClasService {
 		List<Clas> listClas = clasDao.query();
 		return listClas;
 	}
+	
+	/**
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月28日 下午7:39:34
+	 * 
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 分页条件
+	 * @param code
+	 *
+	 * @return : PageUtil 返回查询的结果,是一个集合
+	 */
+	@Transactional
+	@Override
+	public String details(Integer page, Integer limit, String name, String code) {
+		PageUtil pu = clasDao.details(page, limit, name, code);
+		String result = JsonUtils.beanToJson(pu);
+		return result;
+	}
 }
