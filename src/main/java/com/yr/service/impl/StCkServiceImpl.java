@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yr.dao.ClasDao;
+import com.yr.dao.HoliDao;
 import com.yr.dao.StCkDao;
 import com.yr.dao.StudentDao;
 import com.yr.entity.CheckTime;
 import com.yr.entity.Clas;
+import com.yr.entity.Holiday;
 import com.yr.entity.Student;
 import com.yr.entity.StudentCheck;
 import com.yr.service.StCkService;
@@ -31,6 +33,8 @@ public class StCkServiceImpl implements StCkService {
 	private StudentDao studentDao;
 	@Autowired
 	private ClasDao clasDao;
+	@Autowired
+	private HoliDao holiDao;
 	
 	/**
 	 * 签到
@@ -40,17 +44,24 @@ public class StCkServiceImpl implements StCkService {
 	 * 2018年5月25日下午10:26:04
 	 */
 	public String duty(String code) {
-		Student student = studentDao.querytoCode(code);
-		Clas clas = clasDao.getCode(student.getClassCode());
+		Student student = studentDao.querytoCode(code); //根据学生编码查询学生
+		Clas clas = clasDao.getCode(student.getClassCode()); //根据届次编码查询届次
 		
-		String checkTimeCode = DateUtils.getAmPmNt();
-		Date nowDay = DateUtils.getCurrentDateA();
-		String nowsDay = DateUtils.getCurrentDate();
-		CheckTime checkTime = stCkDao.getCheckTime(checkTimeCode);
-		String nowTime = DateUtils.getCurrentTime();
+		String checkTimeCode = DateUtils.getAmPmNt(); //获得当前考勤时间编码
+		CheckTime checkTime = stCkDao.getCheckTime(checkTimeCode); //根据考勤时间编码查询考勤时间数据
+		Date nowDay = DateUtils.getCurrentDateA(); //获取当前日期Date类型
+		String nowsDay = DateUtils.getCurrentDate(); //获取当前日期String类型
+		String nowTime = DateUtils.getCurrentTime(); //获取当前时间
+		
+		
+		StudentCheck studentCheck = new StudentCheck(); //学生考勤实体
+		Holiday holiday = holiDao.getDuty(clas.getCode()); //获取对应届次发布假期数据
+//		if (null != holiday && nowsDay > DateUtils.getCurrentDateT(holiday.getStartDate())) {
+//			
+//		}
 		
 		Long lateTime = DateUtils.getDistanceYear(nowsDay + " " + checkTime.getStartTime(), 
-						nowsDay + " " + nowTime);
+				nowsDay + " " + nowTime);
 		Integer status = 1;
 		if (lateTime < 0) {
 			status = 1;
@@ -58,7 +69,6 @@ public class StCkServiceImpl implements StCkService {
 			status = 0;
 		}
 		
-		StudentCheck studentCheck = new StudentCheck();
 		studentCheck.setClassCode(clas.getCode());
 		studentCheck.setClassName(clas.getName());
 		studentCheck.setStudentCode(student.getCode());
@@ -87,20 +97,6 @@ public class StCkServiceImpl implements StCkService {
 	public Integer add(StudentCheck stCk) {
 		
 		stCkDao.add(stCk);
-		
-		return null;
-	}
-	
-	/**
-	 * 删除考勤数据
-	 * @author 林水桥
-	 * @param id     考勤表ID
-	 * @return Integer 返回删除状态 0为未删除
-	 * 2018年5月25日下午10:06:02
-	 */
-	public Integer delete(Integer id) {
-		
-		stCkDao.delete(id);
 		
 		return null;
 	}

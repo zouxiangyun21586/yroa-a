@@ -24,7 +24,7 @@
          <div class="layui-form-item">
            <label class="layui-form-label">签到人员</label>
           <div class="layui-input-block">
-              <select name="studentCode" lay-verify="required" id="atteSelect">
+              <select name="code" lay-verify="required" id="atteSelect">
                   
               </select>
           </div>
