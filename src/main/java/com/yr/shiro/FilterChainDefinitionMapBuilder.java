@@ -18,18 +18,30 @@ public class FilterChainDefinitionMapBuilder {
     private AuthDaoImpl authDao;
     /**
      * 得到所有的权限信息
-     * @author 周业好
+     * @author 周业好 
      * @return list
      */
     public LinkedHashMap<String, String> buildFilterChainDefinitionMap() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        
         List<Auth> auths = authDao.findAll();
+        map.put("/css/**", " anon");
+        map.put("/js/**", " anon");
+        map.put("/layui/**", "anon");
+        map.put("/images/**", "anon");
+        map.put("/log/loginYan*", "anon");
         for (Auth auth : auths) {
             map.put(auth.getUrl(), auth.getCaozuo());
         }
-//        map.put("/js/**", "anon");
-//        map.put("/layui/**", "anon");
+        map.put("/**", "authc");
+        return map;
+        
+//        List<Auth> auths = authDao.findAll();
+//        for (Auth auth : auths) {
+//            map.put(auth.getUrl(), auth.getCaozuo());
+//        }
+//        map.put("js/**", "anon");
+//        map.put("css/**", "anon");
+//        map.put("layui/**", "anon");
 //        map.put("/testSql/out", "logout");
 //        map.put("/testLogin/**", "anon");
 //        map.put("/testSql/testUaRegistered", "anon");
@@ -38,6 +50,6 @@ public class FilterChainDefinitionMapBuilder {
 //        map.put("/login.jsp", "anon");
 //        map.put("/**", "authc");
 //        map.put("/testSql/adds", "perms[testSql/adds]");
-        return map;  
+//        return map;  
     }  
 }

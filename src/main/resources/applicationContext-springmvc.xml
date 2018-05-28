@@ -63,7 +63,6 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <!-- 不拦截指定路径 -->
             <mvc:exclude-mapping path="/log/loginYan"/>
             <mvc:exclude-mapping path="/log/zhux"/>
             <mvc:exclude-mapping path="/log/add"/>
@@ -73,6 +72,8 @@
             <mvc:exclude-mapping path="/**/*.json"/>
             <mvc:exclude-mapping path="/**/*.jpg"/>
             <mvc:exclude-mapping path="/**/*.gif"/>
+            <mvc:exclude-mapping path="/layui/**"/>
+            <mvc:exclude-mapping path="/login"/>
             <bean class="com.yr.util.Lanjieqi"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

@@ -37,8 +37,8 @@ public class Lanjieqi implements HandlerInterceptor {
 			return true;
 		}
 		if (null == use || "".equals(use)) {
-			response.sendRedirect("/yroa-a/login.html");
-			return false;
+			//response.sendRedirect("/yroa-a/login.html");
+			return true;
 		}
 		//此角色的所有 权限路径
 //		List<String> ri = (List<String>) session.getAttribute("right");
