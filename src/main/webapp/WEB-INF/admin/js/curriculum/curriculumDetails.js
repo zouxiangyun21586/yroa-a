@@ -223,7 +223,7 @@ layui.use(['table','form','tree'], function(){
 					title : "详情",
 					type : 2,
 					anim : 5,
-					content: "../clasDetails?code="+obj.data.code,
+					content: " ----- ",
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
