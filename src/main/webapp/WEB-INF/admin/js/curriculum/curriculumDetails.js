@@ -14,13 +14,13 @@ layui.use(['table','form','tree'], function(){
 			var r = window.location.search.substr(1).match(reg);  //匹配目标参数  
 			if (r != null) return decodeURI(r[2]); return null; //返回参数值  
 		}
-		$.getUrlParam('code');
+		var deCode = $.getUrlParam('code');
 
   
 		table.render({
 		  elem: '#sous',
 		  loading:true,
-		  url: path+"clasDetails?code="+data.code, //请求路径
+		  url: path+"clasDetails?code="+deCode, //请求路径
 		  limit:7,
 		  limits:[4,7,10,15],
 		  page:true,
