@@ -54,20 +54,21 @@ layui.use(['table','form','tree'], function(){
 		});
 		//搜索
 		$(".search_btn").on("click",function(){
-			if($(".searchVal").val() != ''){
+			alert($(".searchVal").val()+"---"+$("select[name=modules]").val());
 				table.reload('demo',{
 					where: {
-					   name:$(".searchVal").val()
+					   name:$(".searchVal").val(),
+					   modules:$("select[name=modules]").val()
 					 },page:{
 						 curr:1
 					 }
 				});
-			}else{
-                layui.layer.tips('请输入内容', '.searchVal', {
-                    tips: 3
-                });
-			}
 		});
+		
+		
+		//查询已毕业或未毕业学生
+		
+		
 		
 		 //监听工具条
 		table.on('tool(demo)', function(obj){
@@ -132,9 +133,9 @@ layui.use(['table','form','tree'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
-		  }else if(obj.event === 'jy'){
+		  }else if(obj.event === 'jyxq'){
 			  var index = layui.layer.open({
-					title : "就业",
+					title : "就业详情",
 					type : 2,
 					anim : 5,
 					content : "../student/jyDisplay?id="+obj.data.id,//修改学生的页面路径
@@ -152,6 +153,8 @@ layui.use(['table','form','tree'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
+		  }else if(obj.event === 'jy'){
+			  alert("该学生还在就读！");
 		  }
 		});
 		

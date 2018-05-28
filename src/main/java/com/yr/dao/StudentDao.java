@@ -30,10 +30,11 @@ public interface StudentDao {
 	 * 
 	 * @param limit 每页多少条
 	 * 
+	 * @param modules 搜索条件
 	 * 
 	 * @param name 搜索条件
 	 */
-	PageUtil queryStudent(Integer page, Integer limit, String name);
+	PageUtil queryStudent(Integer page, Integer limit, String name, String modules);
 	 
 	 /**添加学生信息
 	  * 

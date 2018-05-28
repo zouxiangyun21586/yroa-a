@@ -41,12 +41,13 @@ public class StudentController {
 	 *
 	 * @param page 第几页
 	 * @param limit 每页多少条
-	 * @param name 搜索条件
+	 * @param name 搜索条件,模糊查询
+	 * @param modules 搜索条件,根据是否毕业查询
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/student", produces = "text/json;charset=UTF-8")
-	public String queryStudent(Integer page, Integer limit, String name) {
-		String result = studentService.queryStudent(page, limit, name);
+	public String queryStudent(Integer page, Integer limit, String name, String modules) {
+		String result = studentService.queryStudent(page, limit, name, modules);
 		return result;
 	}
 	
@@ -192,6 +193,7 @@ public class StudentController {
 	 * @describe 修改已就业学生信息
 	 *
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/employmentEditors", produces = "text/json;charset=UTF-8")
 	public String employmentEditors(@ModelAttribute("student")Student student) {
 		String result = studentService.employmentEditors(student);

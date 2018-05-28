@@ -26,8 +26,10 @@ public interface StudentService {
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
+	 * @param modules 搜索条件
+	 * 
 	 */
-	 String queryStudent(Integer page, Integer limit, String name);
+	 String queryStudent(Integer page, Integer limit, String name, String modules);
 	 
 	 /**
 	  * 

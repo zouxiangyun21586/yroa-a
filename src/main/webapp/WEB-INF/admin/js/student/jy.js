@@ -56,6 +56,4 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 			});
 		return false;
 	});
-	
-	
-})
+});

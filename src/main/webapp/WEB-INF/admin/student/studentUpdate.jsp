@@ -90,11 +90,18 @@
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">是否毕业</label>
 				<div class="layui-input-block">
-					<form:radiobuttons path="isFinish" items="${isFinish}"/>   
+					<form:radiobuttons path="isFinish" items="${isFinish}" lay-filter="isFinish"/>   
 				</div>
 			</div>
+			<div id="aaa">
+			
+			</div>
 		</div>
-				
+		<div id="bbb">
+		
+		</div>	
+		
+			
 		<div class="layui-form-item layui-row layui-col-xs12">
 			<div class="layui-input-block">
 				<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="update">保存</button>
