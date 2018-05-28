@@ -25,12 +25,12 @@
 	</filter>
     
     <filter>
-        <filter-name>FilterTest</filter-name><!-- 用于为过滤器指定一个名字，该元素的内容不能为空。 -->
-        <filter-class>com.yr.util.FilterTest</filter-class><!-- 指定过滤器的完整的类名。 -->
+        <filter-name>FilterTest</filter-name>
+        <filter-class>com.yr.util.FilterTest</filter-class>
     </filter>
-    <filter-mapping><!-- 所负责拦截的资源 -->
-        <filter-name>FilterTest</filter-name><!-- 该值必须是在<filter-name>元素中声明过的过滤器的名字  在上面↑-->
-        <url-pattern>/WEB-INF/admin/*</url-pattern><!-- 拦截的范围  这里是拦截所有请求,你可以设置成/aa/*  这样写就是拦截aa文件下的请求 -->
+    <filter-mapping>
+        <filter-name>FilterTest</filter-name>
+        <url-pattern>/WEB-INF/admin/*</url-pattern>
     </filter-mapping>
     
 	<listener>
