@@ -1,7 +1,8 @@
 package com.yr.dao.impl;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -49,8 +50,7 @@ public class ClasDaoImpl implements ClasDao {
 			cla.setCreateTime(new Date()); // 创建时间(获取当前时间)
 			cla.setTeacherCode(clas.getTeacherCode()); // 设置这批届次老师的code(获取页面上填写的老师code)
 			String strName = (String) entityManager
-					.createNativeQuery("select DISTINCT teacher_name from"
-							+ " yr_clas where teacher_code = ?1")
+					.createNativeQuery("select `name` from yr_teacher where code = ?1")
 					.setParameter(1, clas.getTeacherCode()).getSingleResult();
 			cla.setTeacherName(strName); // 设置这批届次老师的名字(获取页面上填写的老师code获取到老师名字)
 			cla.setIsFinish(ifs(clas.getIsFinish()));
@@ -113,9 +113,14 @@ public class ClasDaoImpl implements ClasDao {
 	 */
 	@Override
 	public void update(Clas clas) {
-		Clas cla = entityManager.find(Clas.class, clas.getId());
-		cla.setTeacherName(clas.getTeacherName());
-		entityManager.merge(cla);
+		String t = entityManager.createNativeQuery(""
+				+ "select `name` from yr_teacher where `code` = :tCode")
+				.setParameter("tCode", clas.getTeacherCode()).getSingleResult().toString();
+		Query q = entityManager.createQuery("update Clas set teacherName = :tName ,"
+				+ "teacher_code = :tCode where code = :code")
+				.setParameter("tName", t).setParameter("tCode", clas.getTeacherCode()).
+				setParameter("code", clas.getCode());
+		q.executeUpdate();
 	}
 
 	/**
@@ -204,13 +209,20 @@ public class ClasDaoImpl implements ClasDao {
 	 * 2018年5月23日 上午9:36:50
 	 * 
 	 * @param code 届次code
-	 * @return Integer 判断是否毕业  1表示毕业 其余表示未毕业
 	 */
 	@Override
-	public Integer graduation(String code) {
-		String str = (String) entityManager.createNativeQuery("select isFinish from yr_clas where code = :code")
-				.setParameter("code", code).getSingleResult();
-		return Integer.valueOf(str);
+	public String graduation(String code) {
+		try {
+			Query q = entityManager.createQuery(""
+					+ "update Clas set isFinish = :isFinish where code = :code")
+					.setParameter("isFinish", "1")
+					.setParameter("code", code);
+			q.executeUpdate();
+			return "succ";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 
 	/**
@@ -223,10 +235,21 @@ public class ClasDaoImpl implements ClasDao {
 	 * @return 判断是否开课
 	 */
 	@Override
-	public Integer openClss(String code) {
-		String str = (String) entityManager.createNativeQuery("select start_time from yr_clas where code = ?1")
-				.setParameter(1, code).getSingleResult();
-		return Integer.valueOf(str);
+	public String openClss(String code) {
+		Date date = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String curdate = simpleDateFormat.format(date);
+		try {
+			Query q = entityManager.createQuery(""
+					+ "update Clas set startTime = :startTime where code = :code")
+					.setParameter("startTime", curdate)
+					.setParameter("code", code);
+			q.executeUpdate();
+			return "succ";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 
 	/**
@@ -236,13 +259,13 @@ public class ClasDaoImpl implements ClasDao {
 	 * 2018年5月24日 上午10:59:49
 	 * 
 	 * @param year
-	 * @return 查询某届下的所有批次
+	 * @return 查询某届下的批次
 	 */
 	@Override
-	public List<Clas> getOnly(String year) {
-		List<Clas> listClas = entityManager.createNativeQuery("select * from yr_clas where year = ?1")
-				.setParameter(1, year).getResultList();
-		return listClas;
+	public String getOnly(String code) {
+		String str = entityManager.createNativeQuery("select `code` from yr_clas where `code` = ?1")
+				.setParameter(1, code).getSingleResult().toString();
+		return str;
 	}
 	
 	/**

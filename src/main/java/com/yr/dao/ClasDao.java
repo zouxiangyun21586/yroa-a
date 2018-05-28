@@ -86,9 +86,9 @@ public interface ClasDao {
 	 * 2018年5月23日 上午9:34:37
 	 * 
 	 * @param code 届次Code
-	 * @return Integer 用于判断
+	 * @return String str
 	 */
-	Integer graduation(String code);
+	String graduation(String code);
 	
 	/**
 	 * 开课
@@ -97,9 +97,9 @@ public interface ClasDao {
 	 * 2018年5月23日 上午10:24:42
 	 * 
 	 * @param code 届次
-	 * @return Integer 判断
+	 * @return String 判断
 	 */
-	Integer openClss(String code);
+	String openClss(String code);
 	
 	/**
 	 * 提供方法给添加假期模块
@@ -118,8 +118,8 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月24日 上午10:56:02
 	 * 
-	 * @param year 指定届次
-	 * @return List<Clas> 所查询出来的所有批次
+	 * @param code 指定届次code
+	 * @return Clas 所查询出来的批次
 	 */
-	List<Clas> getOnly(String year);
+	String getOnly(String code);
 }

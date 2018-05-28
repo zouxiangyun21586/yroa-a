@@ -41,14 +41,7 @@
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">届次</label>
-			<div class="layui-input-block">
-				<select name="year" lay-verify="required" id="claSelect">
-                  		
-              	</select>
-			</div>
-		</div>
+		<input type="hidden" name="year" value="${clasStu}" id="clasYear">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
@@ -95,9 +88,9 @@
 			
 		</div>
 	</div>
-	<div id="bbb">
-		
-	</div>
+		<div id="bbb">
+			
+		</div>
 	
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
@@ -107,6 +100,6 @@
 	</div>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/student/studentAdd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/curriculum/studentAdd.js"></script>
 </body>
 </html>

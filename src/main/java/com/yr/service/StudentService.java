@@ -26,8 +26,10 @@ public interface StudentService {
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
+	 * @param modules 搜索条件
+	 * 
 	 */
-	 String queryStudent(Integer page, Integer limit, String name);
+	 String queryStudent(Integer page, Integer limit, String name, String modules);
 	 
 	 /**
 	  * 
@@ -124,6 +126,20 @@ public interface StudentService {
 	  *
 	  */
 	 Student querytoCode(String code);
+	 
+	 /**
+	  * 
+	  * @Date : 2018年5月28日上午8:18:17
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : String 
+	  *
+	  * @param student 
+	  * 
+	  * @describe 修改已就业学生信息
+	  */
+	 String employmentEditors(Student student);
 	 
 	 
 	 

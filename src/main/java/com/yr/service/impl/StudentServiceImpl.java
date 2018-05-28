@@ -47,13 +47,14 @@ public class StudentServiceImpl implements StudentService {
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
+	 * @param modules 搜索条件 
 	 *
 	 * @return : PageUtil 返回分页查询或模糊查询的结果,是一个集合
 	 * 
 	 * @see com.yr.service.StudentService#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
 	 */
-	public String queryStudent(Integer page, Integer limit, String name) {
-		PageUtil pageUtil = studentDao.queryStudent(page, limit, name);
+	public String queryStudent(Integer page, Integer limit, String name, String modules) {
+		PageUtil pageUtil = studentDao.queryStudent(page, limit, name, modules);
 		String result = JsonUtils.beanToJson(pageUtil);
 		return result;
 	}
@@ -249,5 +250,32 @@ public class StudentServiceImpl implements StudentService {
 	public Student querytoCode(String code) {
 		Student studentList = studentDao.querytoCode(code);
 		return studentList;
+	}
+	/**
+	 * 
+	 * @Date : 2018年5月28日上午8:19:43
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param student 
+	 *  
+	 * @return : String 
+	 *  
+	 * @see com.yr.service.StudentService#employmentEditors(com.yr.entity.Student)
+	 */
+	@Transactional
+	public String employmentEditors(Student student) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			studentDao.employmentEditors(student);
+			map.put("code", 0);
+			map.put("msg", "修改成功");
+		} catch (Exception e) {
+			map.put("code", 1);
+			map.put("msg", "修改失败");
+			map.put("error", e);
+		}
+		String result = JSONObject.fromObject(map).toString();
+		return result;
 	}
 }

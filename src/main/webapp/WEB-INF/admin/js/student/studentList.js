@@ -43,6 +43,7 @@ layui.use(['table','form','tree'], function(){
 					var state;
 					if('1'==d.isFinish){
 						state='<span style="font-size:5px;color:#009688;">已毕业</span>';
+						
 					}else if('0'==d.isFinish){
 						state='<span style="font-size:5px;color:#FFB800;">未毕业</span>';
 					}
@@ -51,23 +52,22 @@ layui.use(['table','form','tree'], function(){
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
 		});
-		
 		//搜索
 		$(".search_btn").on("click",function(){
-			if($(".searchVal").val() != ''){
 				table.reload('demo',{
 					where: {
-					   name:$(".searchVal").val()
+					   name:$(".searchVal").val(),
+					   modules:$("select[name=modules]").val()
 					 },page:{
 						 curr:1
 					 }
 				});
-			}else{
-                layui.layer.tips('请输入内容', '.searchVal', {
-                    tips: 3
-                });
-			}
 		});
+		
+		
+		//查询已毕业或未毕业学生
+		
+		
 		
 		 //监听工具条
 		table.on('tool(demo)', function(obj){
@@ -132,12 +132,12 @@ layui.use(['table','form','tree'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
-		  }else if(obj.event === 'jy'){
+		  }else if(obj.event === 'jyxq'){
 			  var index = layui.layer.open({
-					title : "就业",
+					title : "就业详情",
 					type : 2,
 					anim : 5,
-					content : "jy",//修改学生的页面路径
+					content : "../student/jyDisplay?id="+obj.data.id,//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
@@ -152,6 +152,8 @@ layui.use(['table','form','tree'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
+		  }else if(obj.event === 'jy'){
+			  alert("该学生还在就读！");
 		  }
 		});
 		

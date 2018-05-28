@@ -32,7 +32,7 @@ public class StudentDaoImpl implements StudentDao {
 	private EntityManager entityManager;
 	
 	
-	
+		
 	/**查询学生信息
 	 * 
 	 * @Date : 2018年5月22日下午7:19:40
@@ -44,37 +44,43 @@ public class StudentDaoImpl implements StudentDao {
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param name 搜索条件
+	 * @param modules 搜索条件
 	 * 
 	 * @return : PageUtil 返回查询结果,是一个集合
 	 *
 	 * @see com.yr.dao.StudentDao#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
 	 */
-	public PageUtil queryStudent(Integer page, Integer limit, String name) {
+	public PageUtil queryStudent(Integer page, Integer limit, String name, String modules) {
 		PageUtil pageUtil = new PageUtil(); 
-		try {
+		try { 
 			name = new String(name.getBytes("ISO8859-1"), "utf-8");
 			int count = 0;
 			String jpql = "From Student order by inTime desc";
-			if (null  != name && !"".equals(name)) {
+			if (null  != name && !"".equals(name) && null != modules && !"".equals(modules)) {
+				jpql = "from Student where name like :name and isFinish=:isFinish order by inTime desc";
+			} else if (null  != name && !"".equals(name)) { 
 				jpql = "from Student where name like :name order by inTime desc";
+			} else if (null != modules && !"".equals(modules)) {
+				jpql = "from Student where isFinish=:isFinish order by inTime desc";
 			}
 			List<Student> studentList = new ArrayList<Student>();
 			name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
-			if (null  != name && !"".equals(name)) {
-				studentList = entityManager.createQuery(jpql)
-						.setMaxResults(limit).setFirstResult((page - 1) * limit)
-						.setParameter("name", "%" + name + "%").getResultList();
-				count = Integer
-				.parseInt(entityManager
-				 .createNativeQuery("select count(*) from yr_student where name like :name ")
-				   .setParameter("name", "%" + name + "%").getSingleResult().toString());
+			if (null  != name && !"".equals(name) &&  null != modules && !"".equals(modules)) {
+			   studentList = entityManager.createQuery(jpql).setMaxResults(limit).setFirstResult((page - 1) * limit)
+					   		.setParameter("name", "%" + name + "%").setParameter("isFinish", modules).getResultList();
+			   count = Integer.parseInt(entityManager.createNativeQuery("select count(*) from yr_student where name like :name and is_finish=:isFinish")
+		    		 				.setParameter("name", "%" + name + "%").setParameter("isFinish", modules).getSingleResult().toString());
+			} else if (null  != name && !"".equals(name)) {
+				studentList = entityManager.createQuery(jpql).setMaxResults(limit).setFirstResult((page - 1) * limit).setParameter("name", "%" + name + "%").getResultList();
+				count = Integer.parseInt(entityManager.createNativeQuery("select count(*) from yr_student where"
+				 + " name like :name").setParameter("name", "%" + name + "%").getSingleResult().toString());
+			} else if (null != modules && !"".equals(modules)) {
+			    studentList = entityManager.createQuery(jpql).setMaxResults(limit).setFirstResult((page - 1) * limit).setParameter("isFinish", modules).getResultList();
+				count = Integer.parseInt(entityManager.createNativeQuery("select count(*) from yr_student where is_finish=:isFinish").setParameter("isFinish", modules)
+										.getSingleResult().toString());
 			} else {
-				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
-						.setMaxResults(limit).getResultList();
-				count = Integer
-						.parseInt(entityManager
-						   .createNativeQuery("select count(*) from yr_student")
-							  .getSingleResult().toString());
+				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
+				count = Integer.parseInt(entityManager.createNativeQuery("select count(*) from yr_student").getSingleResult().toString());
 			}
 			pageUtil = new PageUtil(limit, page, count);		
 			pageUtil.setCount(count);
@@ -88,7 +94,7 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		return pageUtil;
 	}
-	
+		
 	/**添加学生信息
 	 * 
 	 * @Date : 2018年5月22日下午5:44:32
@@ -179,13 +185,14 @@ public class StudentDaoImpl implements StudentDao {
 		student1.setYear(clas.getYear());
 		student1.setTel(student.getTel());
 		student1.setIsFinish(student.getIsFinish());
+		student1.setIsItDisplayed(student.getIsItDisplayed()); //是否展示该学生
 		student1.setHomeTel(student.getHomeTel());
 		student1.setInTime(student.getInTime());
 		entityManager.merge(student1);
 	}
 	
 	
-
+	
 	/** 
 	 * 
 	 * @Date : 2018年5月23日下午7:12:24
@@ -248,7 +255,7 @@ public class StudentDaoImpl implements StudentDao {
 		Student student = entityManager.find(Student.class, id);
 		return student;
 	}
-
+	
 	/**
 	 * 
 	 * @Date : 2018年5月24日下午10:16:00
@@ -301,7 +308,7 @@ public class StudentDaoImpl implements StudentDao {
 		String code = (String) entityManager.createQuery(jpql1).setParameter("name", val).getSingleResult();
 		return code;
 	}
-
+	
 	/**
 	 * 
 	 * @Date : 2018年5月26日上午11:49:09
@@ -319,7 +326,7 @@ public class StudentDaoImpl implements StudentDao {
 		List<Student> student = entityManager.createQuery(jpql).setParameter("isFinish", "0").getResultList();
 		return student;
 	}
-
+	
 	/**
 	 * 
 	 * @Date : 2018年5月26日上午11:49:13
@@ -338,6 +345,24 @@ public class StudentDaoImpl implements StudentDao {
 		String jpql = "from Student where code=:code";
 		Student student = (Student) entityManager.createQuery(jpql)
 				.setParameter("code", code).getSingleResult();
- 		return student;
+		return student;
+	}
+	
+	/**
+	 * 
+	 * @Date : 2018年5月28日上午8:21:43
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param student 
+	 * 
+	 * @see com.yr.dao.StudentDao#employmentEditors(com.yr.entity.Student)
+	 */
+	public void employmentEditors(Student student) {
+		Student stu = entityManager.find(Student.class, student.getId());
+		stu.setFinishTime(student.getFinishTime()); //修改毕业时间
+		stu.setOfferTime(student.getOfferTime()); //修改就业时间
+		stu.setOfferIncome(student.getOfferIncome());
+		entityManager.merge(stu);
 	}
 }
