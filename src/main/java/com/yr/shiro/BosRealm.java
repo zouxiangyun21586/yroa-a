@@ -105,11 +105,8 @@ public class BosRealm extends AuthorizingRealm {
         //方式2：通过参数获取首长(推荐)
 //        Users user = (Users) principals.getPrimaryPrincipal();
         String usName = userDao.yanUs(currentUsername);
-        
-        
         //实际：需要根据当前用户的角色和功能权限来构建一个授权信息对象，交给安全管理器
-
-        if (!currentUsername.equals(usName)) {
+        if (!currentUsername.equals(usName)) { //判断当前账户是否存在
             throw new AuthenticationException("msg:用户不存在。");
         }
         List<Role> roleList = roleDao.queryR(currentUsername);

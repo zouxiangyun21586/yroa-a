@@ -21,9 +21,10 @@ layui.use(['table','form','tree'], function(){
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
 				{type:'numbers',title:'编号',width:50},
-				{field: 'username', title: '账号', unresize: true},
-				{field: 'password', title: '密码', unresize: true},
+				{field: 'userName', title: '账号', unresize: true},
+				{field: 'passWord', title: '密码', unresize: true},
 				{field: 'tel', title: '电话',  unresize: true},
+				{field: 'strRole', title: '所属角色',  unresize: true},
 				{field: 'isAdmin', title: '管理员?', width:90,align:'center', templet: function(d){
 					var adm;
 					if('true'==d.isAdmin){
@@ -69,7 +70,7 @@ layui.use(['table','form','tree'], function(){
 				$.ajax({
 	    	       type:"post",
 	    	       url:path+"acc/switchs",
-	    	       data: {"name":obj.data.username,"_method":"PUT"},
+	    	       data: {"name":obj.data.userName,"_method":"PUT"},
 	    	       success:function(data){
 	    	    	   if(0==data.code){
 	    	    		   setTimeout(function(){
@@ -124,7 +125,7 @@ layui.use(['table','form','tree'], function(){
 			  $.ajax({
 	    	       type:"post",
 	    	       url:path+"acc/reset",
-	    	       data: {"username":obj.data.username,"_method":"PUT"},
+	    	       data: {"username":obj.data.userName,"_method":"PUT"},
 	    	       success:function(data){
 	    	    	   if(0==data.code){
 	    	    		   setTimeout(function(){

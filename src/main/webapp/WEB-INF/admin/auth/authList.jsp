@@ -24,7 +24,7 @@
 						<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
 					</div>
 					<div class="layui-inline">
-						<a class="layui-btn layui-btn-normal addUser_btn">添加用户</a>
+						<a class="layui-btn layui-btn-normal addUser_btn">添加权限</a>
 					</div>
 				</div>
 			</form>
