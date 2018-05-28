@@ -87,9 +87,9 @@ public interface ClasService {
 	 * 2018年5月23日 上午9:46:35
 	 * 
 	 * @param code 届次
-	 * @return Integer 用于判断
+	 * @return String 返回消息
 	 */
-	Integer graduation(String code);
+	String graduation(String code);
 	
 	/**
 	 * 开课
@@ -98,9 +98,9 @@ public interface ClasService {
 	 * 2018年5月23日 上午10:28:54
 	 * 
 	 * @param code 届次
-	 * @return Integer 判断
+	 * @return String 是否成功
 	 */
-	Integer openClss(String code);
+	String openClss(String code);
 	
 	/**
 	 * 提供方法给添加假期模块

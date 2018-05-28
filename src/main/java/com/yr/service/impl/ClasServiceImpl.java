@@ -148,12 +148,23 @@ public class ClasServiceImpl implements ClasService {
 	 */
 	@Transactional
 	@Override
-	public Integer graduation(String code) {
-		Integer gd = clasDao.graduation(code);
-		if (gd == 1) {
-			return 1;
+	public String graduation(String code) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			String str = clasDao.graduation(code);
+			if (str.equals("succ")) {
+				map.put("code", 0);
+				map.put("msg", "毕业啦");
+			} else if (str.equals("error")) {
+				map.put("code", 1);
+				map.put("msg", "毕业提交失败");
+			}
+		} catch (Exception e) {
+			map.put("code", 1);
+			map.put("msg", "毕业提交失败");
 		}
-		return 0;
+		String result = JSONObject.fromObject(map).toString();
+		return result;
 	}
 
 	/**
@@ -163,16 +174,27 @@ public class ClasServiceImpl implements ClasService {
 	 * 2018年5月23日 上午10:29:20
 	 * 
 	 * @param code 届次
-	 * @return Integer 有值表示已开课,如果没有值代表还未开
+	 * @return String 开课
 	 */
 	@Transactional
 	@Override
-	public Integer openClss(String code) {
-		Integer oc = clasDao.openClss(code);
-		if (oc == 1) {
-			return 1;
+	public String openClss(String code) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			String str = clasDao.openClss(code);
+			if (str.equals("succ")) {
+				map.put("code", 0);
+				map.put("msg", "开课成功");
+			} else if (str.equals("error")) {
+				map.put("code", 1);
+				map.put("msg", "开课失败");
+			}
+		} catch (Exception e) {
+			map.put("code", 1);
+			map.put("msg", "开课失败");
 		}
-		return 0;
+		String result = JSONObject.fromObject(map).toString();
+		return result;
 	}
 
 	/**

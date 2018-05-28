@@ -52,7 +52,7 @@ public class ClasController {
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return 返回到哪个界面
 	 */
-	@RequestMapping(value = "/clas", method = RequestMethod.POST)
+	@RequestMapping(value = "/clas", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	public String add(Clas clas, ModelMap map) {
 		String str = clasService.add(clas);
 		return str;
@@ -68,7 +68,7 @@ public class ClasController {
 	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @return 执行完这个方法后去到哪个页面
 	 */
-	@RequestMapping(value = "/clas/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/clas/{id}", method = RequestMethod.DELETE, produces = "text/json;charset=UTF-8")
 	public String del(Clas clas, ModelMap map) {
 		return "";
 	}
@@ -83,7 +83,7 @@ public class ClasController {
 	 * @return 执行完这个方法后去到哪个页面
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/clas", method = RequestMethod.PUT)
+	@RequestMapping(value = "/clas", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
 	public String upd(@ModelAttribute("clas")Clas clas) {
 		String str = clasService.update(clas);
 		return str;
@@ -128,7 +128,7 @@ public class ClasController {
 	 * @param page 第几页
 	 * @param limit 每页多少条
 	 * @param year 分页条件
-	 * @return Json格式的String数据
+	 * @return 页面展示
 	 */
 	@RequestMapping(value = "/clas", produces = "text/json;charset=UTF-8")
 	public @ResponseBody String sel(Integer page, Integer limit, String year) {
@@ -154,25 +154,33 @@ public class ClasController {
 	}
 	
 	/**
-	 * 毕业或者开课
+	 * 毕业
 	 * @author zxy
 	 * 
 	 * 2018年5月23日 上午9:52:53
 	 * 
 	 * @param code 届次
-	 * @param map 传送值
 	 * @return JsonString
 	 */
-	@RequestMapping(value = "/graduation", method = RequestMethod.GET)
-	public @ResponseBody String graduation(String code, ModelMap map) {
-		Integer gd = clasService.graduation(code);
-		Integer oc = clasService.openClss(code);
-		if (gd == 1) {
-			return "已毕业";
-		} else if (oc == 1) {
-			return "已开课";
-		}
-		return "灰色按钮";
+	@RequestMapping(value = "/graduation", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public @ResponseBody String graduation(String code) {
+		String gread = clasService.graduation(code);
+		return gread;
+	}
+	
+	/**
+	 * 开课
+	 * @author zxy
+	 * 
+	 * 2018年5月23日 上午10:55:12
+	 * 
+	 * @param code 届次
+	 * @return JsonString
+	 */
+	@RequestMapping(value = "/openClass", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public @ResponseBody String openClass(String code) {
+		String openC = clasService.openClss(code);
+		return openC;
 	}
 	
 	/**
@@ -185,7 +193,7 @@ public class ClasController {
 	 * @param code 届次
 	 * @return JsonString
 	 */
-	@RequestMapping(value = "/clasGet", method = RequestMethod.GET)
+	@RequestMapping(value = "/clasGet", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
 	public String query(ModelMap map, String code) {
 		String str = clasService.getOnly(code);
 		map.put("clasStu", str);
@@ -221,5 +229,23 @@ public class ClasController {
 	public String addStudent(Student student, String code) {
 		String result = studentService.addStudent(student);
 		return result;
+	}
+	
+	/**
+	 * 查看此届学生详情
+	 * @author zxy
+	 * 
+	 * 2018年5月28日 下午5:05:32
+	 * 
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param year 分页条件
+	 * @param code 此届批次code,用于查询所属批次下的所有学生情况
+	 * @return 页面展示
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/clasDetails", method = {RequestMethod.GET}, produces = "text/json;charset=UTF-8")
+	public String clasDetails(Integer page, Integer limit, String year, String code) {
+		return "";
 	}
 }
