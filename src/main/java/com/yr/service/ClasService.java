@@ -119,8 +119,8 @@ public interface ClasService {
 	 * 
 	 * 2018年5月24日 上午11:01:09
 	 * 
-	 * @param year 届次
+	 * @param code 届次code
 	 * @return 查询出来的批次
 	 */
-	List<Clas> getOnly(String year);
+	String getOnly(String code);
 }

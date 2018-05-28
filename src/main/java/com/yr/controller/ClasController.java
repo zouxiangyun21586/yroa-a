@@ -2,20 +2,18 @@ package com.yr.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Clas;
+import com.yr.entity.Student;
 import com.yr.service.ClasService;
+import com.yr.service.StudentService;
 import com.yr.service.TeacherService;
 import com.yr.util.JsonUtils;
 
@@ -35,9 +33,14 @@ public class ClasController {
 	@Autowired
 	private TeacherService teacherService;
 	
+	@Autowired
+	private StudentService studentService;
+	
 	final Integer number = 2;
 	
 	String jsp = "curriculum/curriculumUpd";
+	
+	String strStu = "curriculum/studentAdd";
 	
 	/**
 	 * 添加
@@ -178,23 +181,15 @@ public class ClasController {
 	 * 
 	 * 2018年5月24日 上午11:03:30
 	 * 
-	 * @param response 发送
-	 * @param request 接收
-	 * @param year 届次
+	 * @param map 发送
+	 * @param code 届次
 	 * @return JsonString
 	 */
-	@RequestMapping(value = "/clas/year", method = RequestMethod.GET)
-	public @ResponseBody String query(HttpServletResponse response, HttpServletRequest request,
-			@PathVariable(value = "year") String year) {
-		List<Clas> listUser = clasService.getOnly(year);
-		String str = "";
-		try {
-			// false表示数组中的属性不需要转成json,如果是true代表只将数组中的属性转成json格式
-			str = JsonUtils.beanListToJson(listUser);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return str;
+	@RequestMapping(value = "/clasGet", method = RequestMethod.GET)
+	public String query(ModelMap map, String code) {
+		String str = clasService.getOnly(code);
+		map.put("clasStu", str);
+		return strStu;
 	}
 	
 	/**
@@ -209,5 +204,22 @@ public class ClasController {
 	public @ResponseBody String queryTc() {
 		String str = teacherService.queryTeacher();
 		return str;
+	}
+	
+	/**
+	 * 添加学生
+	 * @author zxy
+	 * 
+	 * 2018年5月28日 上午10:49:04
+	 * 
+	 * @param student 学生信息
+	 * @param code 本届次code
+	 * @return String Josn
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/student", method = {RequestMethod.POST}, produces = "text/json;charset=UTF-8")
+	public String addStudent(Student student, String code) {
+		String result = studentService.addStudent(student);
+		return result;
 	}
 }

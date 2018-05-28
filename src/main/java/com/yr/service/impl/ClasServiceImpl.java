@@ -200,9 +200,9 @@ public class ClasServiceImpl implements ClasService {
 	 */
 	@Transactional
 	@Override
-	public List<Clas> getOnly(String year) {
-		List<Clas> listClas = clasDao.getOnly(year);
-		return listClas;
+	public String getOnly(String year) {
+		String cla = clasDao.getOnly(year);
+		return cla;
 	}
 
 	/**

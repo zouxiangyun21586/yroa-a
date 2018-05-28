@@ -118,8 +118,8 @@ public interface ClasDao {
 	 * 
 	 * 2018年5月24日 上午10:56:02
 	 * 
-	 * @param year 指定届次
-	 * @return List<Clas> 所查询出来的所有批次
+	 * @param code 指定届次code
+	 * @return Clas 所查询出来的批次
 	 */
-	List<Clas> getOnly(String year);
+	String getOnly(String code);
 }

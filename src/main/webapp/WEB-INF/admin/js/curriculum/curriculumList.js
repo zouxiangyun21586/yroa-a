@@ -203,7 +203,7 @@ layui.use(['table','form','tree'], function(){
 					title : "添加学生",
 					type : 2,
 					anim : 5,
-					content: " ----- ",
+					content: "../clasGet?code="+obj.data.code,
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
