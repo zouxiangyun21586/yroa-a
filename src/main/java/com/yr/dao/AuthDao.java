@@ -61,6 +61,14 @@ public interface AuthDao {
     int kaiguan(String name);
     
     
+    /**
+   	 * 根据账号查询对应权限 url
+   	 * @author 周业好
+   	 * @param userName 账号
+   	 * @return 此账号的权限
+   	 */
+   	List<String> queryPermOne(String userName);
+    
     //---------------------------------------------
     /**
      * 查询角色拥有的权限

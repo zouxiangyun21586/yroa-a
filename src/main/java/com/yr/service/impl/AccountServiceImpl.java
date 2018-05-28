@@ -126,13 +126,13 @@ public class AccountServiceImpl implements AccountService {
 	/**
      * 启用停用
      * @author 周业好
-     * @param code 角色编号
+     * @param name 账户
      * @return json
      */
 	@Override
-	public String kaiguan(String code) {
+	public String kaiguan(String name) {
 		Map<String, Object> map = new HashMap<>();
-		int i = accDao.kaiguan(code);
+		int i = accDao.kaiguan(name);
 		if (1 == i) {
 			map.put("code", 1);
 			map.put("msg", "操作失败");

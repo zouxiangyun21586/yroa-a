@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,9 +39,9 @@
 <div class="layui-dropdown">
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
-		  <<li><a lay-event="state"><i class="layui-icon" style="font-size:18px;">&#xe612; </i>{{d.status==0?'禁用账号':'启用用户'}}</a></li>
+		  <shiro:hasPermission name="/yroa-a/acc/add"><li><a lay-event="state"><i class="layui-icon" style="font-size:18px;">&#xe612; </i>{{d.status==0?'禁用账号':'启用用户'}}</a></li></shiro:hasPermission>
 		  
-          <li><a lay-event="resetPassword"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>重置密码</a></li>
+          <shiro:hasPermission name="/yroa-a/acc/reset"><li><a lay-event="resetPassword"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>重置密码</a></li></shiro:hasPermission>
       </ul>
   </div>
 </script>

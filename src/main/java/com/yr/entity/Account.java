@@ -31,6 +31,7 @@ import javax.persistence.Transient;
 @Table(name = "yr_account")
 @Entity
 public class Account implements Serializable {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 用户编号
 	 */
@@ -64,6 +65,10 @@ public class Account implements Serializable {
      */
     private Date updateTime;
     
+    /**
+     * 所属角色
+     */
+    private String strRole = "";
     private Set<Role> usersRoleItems = new HashSet<>();
 	private String createTimeStr = "";
     private String updateTimeStr = "";
@@ -171,6 +176,23 @@ public class Account implements Serializable {
 
 	public void setUpdateTimeStr(String updateTimeStr) {
 		this.updateTimeStr = updateTimeStr;
+	}
+	/**
+	 * 获取此账号扮演的角色
+	 * @author 周业好
+	 * @return 角色名
+	 */
+	@Transient
+	public String getStrRole() {
+		for (Role role : usersRoleItems) {
+			strRole = strRole + role.getName() + ",";
+		} if (strRole != null && !strRole.equals("")) {
+			strRole = strRole.substring(0, (strRole.length() - 1));
+		}
+		return strRole;
+	}
+	public void setStrRole(String strRole) {
+		this.strRole = strRole;
 	}
 	
 }

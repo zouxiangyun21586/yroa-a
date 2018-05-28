@@ -44,7 +44,7 @@ public class AccountController  {
 	 * @return x
 	 */
 	@ResponseBody
-	@RequestMapping(value = "queryfy", produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/queryfy", produces = "text/json;charset=UTF-8")
 	public String queryFenye(int page, int limit, String name) {
 		String json = acc.getFenye(page, limit, name);
 		return json;
@@ -57,7 +57,7 @@ public class AccountController  {
 	 * @return json
 	 */
 	@ResponseBody
-	@RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/add", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	//@Valid   BindingResult result
 	public String addId(Account account, String code) {
 		return acc.addId(account, code);
@@ -152,7 +152,7 @@ public class AccountController  {
      * @return json
      */
 	@ResponseBody
-	@RequestMapping(value = "reset", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/reset", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
 	public String resetPassWord(String username) {
 		return acc.resetPassWord(username);
 	}
@@ -163,7 +163,7 @@ public class AccountController  {
      * @return json
      */
 	@ResponseBody
-	@RequestMapping(value = "switchs", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/switchs", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
 	public String kaiguan(String name) {
 		return acc.kaiguan(name);
 	}

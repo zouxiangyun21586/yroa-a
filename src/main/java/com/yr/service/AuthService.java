@@ -1,5 +1,7 @@
 package com.yr.service;
 
+import java.util.List;
+
 import com.yr.entity.Auth;
 
 /**
@@ -72,4 +74,12 @@ public interface AuthService {
      * @return json
      */
 	String lookResource(String code);
+	
+    /**
+	 * 根据账号查询对应权限 url
+	 * @author 周业好
+	 * @param userName 账号
+	 * @return 此账号的权限
+	 */
+	List<String> queryPermOne(String userName);
 }

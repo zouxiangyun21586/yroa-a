@@ -88,7 +88,7 @@ public class AuthController  {
 	 * @return 查出来的json
 	 */ 
 	@ResponseBody
-	@RequestMapping(value = "upd_echo", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/upd_echo", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
 	public String updEcho(String code) {
 		return aut.query(code);
 	}
@@ -99,7 +99,7 @@ public class AuthController  {
      * @return json
      */
 	@ResponseBody
-	@RequestMapping(value = "switchs", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/switchs", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
 	public String switchs(String code) {
 		return aut.kaiguan(code);
 	}

@@ -47,7 +47,7 @@ public class AccountDaoImpl implements AccountDao {
 			} else {
 				users.setIsAdmin("true");
 			}
-			List qu = em.createQuery("select u from Account u where u.username=?")
+			List qu = em.createQuery("select u from Account u where u.userName=?")
 					.setParameter(0, users.getUserName()).getResultList();
 			if (qu.size() > 0) {
 				final int i = 2;
@@ -68,9 +68,9 @@ public class AccountDaoImpl implements AccountDao {
 	 */
 	public void del(String name) {
 		//解除与角色的关系
-		Query jie = em.createNativeQuery("delete from yr_account_role where username=?").setParameter(1, name);
+		Query jie = em.createNativeQuery("delete from yr_account_role where userName=?").setParameter(1, name);
 		jie.executeUpdate();
-		Query qu = em.createQuery("delete from Account r where r.username=?").setParameter(0, name); //删除账户
+		Query qu = em.createQuery("delete from Account r where r.userName=?").setParameter(0, name); //删除账户
 		qu.executeUpdate();
 	}
 	/**
@@ -80,7 +80,7 @@ public class AccountDaoImpl implements AccountDao {
 	 */
 	public int upd(Account emp) {
 		emp.setUpdateTime(new Date());
-		Query qu = em.createQuery("update Account a set a.tel=?,a.updateTime=? where a.username=?");
+		Query qu = em.createQuery("update Account a set a.tel=?,a.updateTime=? where a.userName=?");
 		qu.setParameter(0, emp.getTel());
 		qu.setParameter(1, emp.getUpdateTime());
 		qu.setParameter(TWO, emp.getUserName());
@@ -124,16 +124,16 @@ public class AccountDaoImpl implements AccountDao {
             int count = 0;
             String jpql = "FROM Account ORDER BY updateTime desc";
             if (null != name && !"".equals(name)) {
-                jpql = "FROM Account where username like :username ORDER BY updateTime desc";
+                jpql = "FROM Account where userName like :userName ORDER BY updateTime desc";
             }
             List<Account> list = new ArrayList<Account>();
             name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
             if (null != name && !"".equals(name)) {
                 list = em.createQuery(jpql).setFirstResult((page - 1) * limit)
-                        .setMaxResults(limit).setParameter("username", "%" + name + "%").getResultList();
+                        .setMaxResults(limit).setParameter("userName", "%" + name + "%").getResultList();
                 count = Integer.parseInt(em.createNativeQuery(
-                		"SELECT COUNT(*) FROM yr_account where username like :username")
-                                        .setParameter("username", "%" + name + "%").getSingleResult().toString());
+                		"SELECT COUNT(*) FROM yr_account where userName like :userName")
+                                        .setParameter("userName", "%" + name + "%").getSingleResult().toString());
 
             } else {
                 list = em.createQuery(jpql).setFirstResult((page - 1) * limit)
@@ -163,7 +163,7 @@ public class AccountDaoImpl implements AccountDao {
      */
 	@Override
 	public String resetPassWord(String name, String newPass) {
-		Query qu = em.createQuery("update Account a set a.password = ?,a.updateTime=? where a.username=?");
+		Query qu = em.createQuery("update Account a set a.password = ?,a.updateTime=? where a.userName=?");
 		
 		qu.setParameter(0, newPass);
 		qu.setParameter(1, new Date());
@@ -179,7 +179,8 @@ public class AccountDaoImpl implements AccountDao {
      */
 	@Override
 	public int kaiguan(String name) {
-		Account ac = (Account) em.createQuery("from Account where username=?").setParameter(0, name)
+		Account ac = (Account) em.createQuery("select a from Account a where a.userName=?")
+				.setParameter(0, name)
 				.getSingleResult();
 		if ("".equals(ac) && null == ac) {
 			return 1;
@@ -190,7 +191,7 @@ public class AccountDaoImpl implements AccountDao {
 		} else {
 			val = "1";
 		}
-		Query qu = em.createQuery("update Account a set a.status=?,a.updateTime=? where a.username=?");
+		Query qu = em.createQuery("update Account a set a.status=?,a.updateTime=? where a.userName=?");
 		qu.setParameter(0, val);
 		qu.setParameter(1, new Date());
 		qu.setParameter(TWO, name);
@@ -211,7 +212,7 @@ public class AccountDaoImpl implements AccountDao {
 		if (null == user) {
 			return null;
 		} else {
-			return "1";
+			return user.getUserName();
 		}
 	}
 	

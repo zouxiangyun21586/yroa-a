@@ -41,7 +41,7 @@ public class RoleController  {
 	 * @return json
 	 */
 	@ResponseBody
-	@RequestMapping(value = "qrole", produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/qrole", produces = "text/json;charset=UTF-8")
 	public String queryRoleAll() {
 		String json = role.queryRoleAll();
 		return json;
@@ -53,7 +53,7 @@ public class RoleController  {
 	 * @return json
 	 */
 	@ResponseBody
-	@RequestMapping(value = "add", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/add", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	//@Valid   BindingResult result
 	public String addId(Role ro) {
 		return role.addId(ro);
@@ -86,7 +86,7 @@ public class RoleController  {
 	 * @return 查出来的json
 	 */ 
 	@ResponseBody
-	@RequestMapping(value = "upd_echo", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/upd_echo", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
 	public String query(String code) {
 		return role.query(code);
 	}
@@ -97,7 +97,7 @@ public class RoleController  {
      * @return json
      */
 	@ResponseBody
-	@RequestMapping(value = "switchs", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/switchs", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
 	public String kaiguan(String code) {
 		return role.kaiguan(code);
 	}
