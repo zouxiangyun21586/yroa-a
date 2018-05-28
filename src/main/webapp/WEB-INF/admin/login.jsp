@@ -19,12 +19,12 @@
       <h2 class="kit-login-slogan">欢迎使用 <br> 一容软件 后台管理模板</h2>
       <div class="kit-login-form">
         <h4 class="kit-login-title">登录</h4>
-        <form class="layui-form">
+        <form class="layui-form" id="login">
           <div class="kit-login-row">
             <div class="kit-login-col">
               <i class="layui-icon">&#xe612;</i>
               <span class="kit-login-input">
-				  <input type="text" name="userName" lay-verify="required" placeholder="用户名/邮箱/手机号" maxlength="16"/>
+				  <input type="text" name="userName" lay-verify="required" placeholder="账号/手机号" maxlength="16"/>
 			  </span>
             </div>
             <div class="kit-login-col"></div>
@@ -54,7 +54,7 @@
             </div>
           </div>
           <div class="kit-login-row">
-            <button class="layui-btn kit-login-btn" lay-submit="submit" lay-filter="login_hash">登录</button>
+            <button class="layui-btn kit-login-btn" lay-submit="submit" lay-filter="login" id="denglu">登录</button>
           </div>
         </form>
       </div>
@@ -63,49 +63,53 @@
 
   <script src="<%=request.getContextPath() %>/js/polyfill.min.js"></script>
   <script src="<%=request.getContextPath() %>/layui/layui.js"></script>
-  <script>
-    //'axios', 'lodash'
-    layui.use(['layer', 'form'], function() {
-      var form = layui.form,
-        //axios = layui.axios,
-        $ = layui.jquery;
-      //_ = layui.lodash;
-
-
-      //监听提交
-      form.on('submit(login_hash)', function(data) {
-        var layIndex = layer.load(2, {
-          shade: [0.1, '#393D49']
-        });
-		//ajax请求
-		//返回json格式	{"code":0,"msg":"登录成功"} code代码状态码,msg显示提示内容
-		setTimeout(function(){
-        	$.ajax({
-    	       type:"get",
-    	       url:"login",
-    	       data: $('#login').serialize(),
-    	       success:function(data){
-    	    	   if(0==data.code){
-    	    		   top.layer.msg(data.msg,{icon:1});
-    	    		   layer.msg('跳转中...，请稍候',{icon: 16,time:false,shade:0.5})
-    	    		   setTimeout(function(){
-    	    		    	window.location.href = "index";//登录成功后的页面
-    			       },1000);
-    	    	   }else{
-    	    		   layer.close(index);
-    	    		   layer.msg(data.msg,{icon:2,time:2000,shade:0.5});
-    	    		   setTimeout(function(){
-    	    			   location.reload();
-    	    		   },1000);
-    	    	   }
-    	       },error : function() {
-					layer.msg("异常！",{icon:2});
-    	       }
-         	});
-        },1000);
-      });
-    });
-  </script>
 </body>
+<script>
+layui.use(['form','layer','jquery','element'],function(){
+    var form = layui.form,
+        element = layui.element,
+        layer = parent.layer === undefined ? layui.layer : top.layer
+        $ = layui.jquery;
 
+    //登录按钮
+    form.on("submit(login)",function(data){
+        var index=layer.msg('登录中...，请稍候',{icon: 16,time:false,shade:0.5});
+        setTimeout(function(){
+            $.ajax({
+               type:"post",
+               url:"log/loginYan",
+               data: $('#login').serialize(),
+               success:function(data){
+                   if(0==data.code){
+                       top.layer.msg(data.msg,{icon:1});
+                       layer.msg('跳转中...，请稍候',{icon: 16,time:false,shade:0.5})
+                       setTimeout(function(){
+                            window.location.href = "index";
+                       },1000);
+                   }else{
+                       layer.close(index);
+                       layer.msg(data.msg,{icon:2,time:2000,shade:0.5});
+                       setTimeout(function(){
+                           location.reload();
+                       },1000);
+                   }
+               },error : function() {
+                layer.msg("异常！",{icon:2});
+               }
+            });
+        },1000);
+        return false;
+    });
+});
+/**
+ *刷新验证码
+ */
+function changeValidateCode() {
+    var obj = $('#Login_code_img');
+    var timenow = new Date().getTime();
+    var url = "ImageServlet?d=" + timenow;
+    $(obj).attr("src", url);
+}
+
+</script>
 </html>

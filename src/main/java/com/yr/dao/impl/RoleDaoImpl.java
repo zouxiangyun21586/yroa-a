@@ -105,7 +105,7 @@ public class RoleDaoImpl implements RoleDao {
 	 * @return list
 	 */
 	public List<Role> queryR(String name) {
-		List<Role> qu = em.createQuery("from Role r,Account ac where r.use=0 and ac.userName=?")
+		List<Role> qu = em.createQuery("select r from Role r,Account ac where r.use=0 and ac.userName=?")
 				.setParameter(0, name).getResultList();
 		return qu;
 	}
@@ -227,6 +227,10 @@ public class RoleDaoImpl implements RoleDao {
                 .setParameter("resource_id", resourceId[i]).executeUpdate();
 
             }
+            Query qu = em.createQuery("update Role a set a.updateTime=? where a.code=?");
+    		qu.setParameter(0, new Date());
+    		qu.setParameter(1, roleCode);
+    		qu.executeUpdate();
             em.flush();
             em.clear();
             map.put("code", 0);

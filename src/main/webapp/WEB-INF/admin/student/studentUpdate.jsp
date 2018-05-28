@@ -27,7 +27,7 @@
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">学生姓名</label>
 				<div class="layui-input-block">
-					<form:input path="name" class="layui-input" lay-verify="required" placeholder="请输入学生姓名"/>
+					<form:input path="name" class="layui-input" lay-verify="required" placeholder="请输入学生姓名" readonly="readonly"/>
 				</div>
 			</div>
 			<div class="magb15 layui-col-md4 layui-col-xs12">
@@ -105,7 +105,7 @@
 		<div class="layui-form-item layui-row layui-col-xs12">
 			<div class="layui-input-block">
 				<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="update">保存</button>
-				<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
+				<!-- <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button> -->
 			</div>
 		</div>
 	</form:form>

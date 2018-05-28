@@ -1,6 +1,8 @@
 package com.yr.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Account;
-import com.yr.service.AccountService;
+import com.yr.service.AuthService;
+import com.yr.util.EncryptUtils;
 
 import net.sf.json.JSONObject;
 
@@ -27,10 +30,11 @@ import net.sf.json.JSONObject;
  * 2018年5月27日 上午9:32:53
  */
 @Controller
+@RequestMapping(value = "log")
 public class LoginController {
-	private static Account u = new Account();
+	private static List<String> u = new ArrayList<>();
 	@Autowired
-	private AccountService accService;
+	private AuthService authService;
 	/**
 	 * 验证登录方法
 	 * @author 周业好
@@ -39,9 +43,10 @@ public class LoginController {
 	 * @return json
 	 */
 	@ResponseBody
-	@RequestMapping(value = "qrole", produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/loginYan", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	public String verifyLogin(Account acc, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<>();
+		
 		HttpSession session = request.getSession();
 		String errNumce = request.getParameter("errNumce"); //输入错误次数
 		//判断输入框是否输入
@@ -51,11 +56,18 @@ public class LoginController {
 			map.put("msg", "输入框不能不填");
 			return JSONObject.fromObject(map).toString();
 		}
+		try {
+			String breaMi = EncryptUtils.encryptBASE64(acc.getPassWord().getBytes()); //BASE64位加密
+			String mdFiveMi = EncryptUtils.encryptToMD5(breaMi); //密文再次 MD5加密
+			acc.setPassWord(mdFiveMi);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		UsernamePasswordToken token = new UsernamePasswordToken(acc.getUserName(), acc.getPassWord());  
         Subject currentUser = SecurityUtils.getSubject();
         try {
         	currentUser.login(token);
-        	u = accService.query(acc.getUserName()); //根据账户查权限
+        	u = authService.queryPermOne(acc.getUserName()); //根据账户查权限
 			final int i = 30;
 			final int j = 60;
 			session.setMaxInactiveInterval(i * j); //设置session 的时间
@@ -68,8 +80,8 @@ public class LoginController {
         	map.put("code", 1);
 			map.put("msg", "账号不存在");
         } catch (Exception e) {
-        	Integer er = Integer.valueOf(errNumce);
-			er += er;
+//        	Integer er = Integer.valueOf(errNumce);
+//			er += er;
 			map.put("code", 1);
 			map.put("msg", "密码错误");
 //        	e.printStackTrace();
@@ -97,5 +109,18 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * 注销
+	 * @author 周业好
+	 * @param request request
+	 * @return 登录页面
+	 */
+	@RequestMapping(value = "/zhux", method = RequestMethod.GET)
+	public String zhux(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("use");
+		session.removeAttribute("right");
+		return "redirect:login";
 	}
 }

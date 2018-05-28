@@ -199,4 +199,14 @@ public class AuthServiceImpl implements AuthService {
 				"createTime", "updateTime", "createTimeStr", "updateTimeStr", "caozuo", "data", 
         		"use", "url", "id", "checked"}, false);
 	}
+	/**
+     * 根据账号查询对应权限
+     * @author 周业好
+     * @param userName 账号
+     * @return 此账号的权限
+     */
+	@Override
+	public List<String> queryPermOne(String userName) {
+		return accDao.queryPermOne(userName);
+	}
 }
