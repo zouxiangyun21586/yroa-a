@@ -15,6 +15,13 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	    elem: '#offerTime'
 	});
 	
+
+	form.on('input(name)', function(data){
+		 alert(date.value);
+		 document.myform.one.readOnly = true;  
+         document.myform.one.disabled = true;    
+	});
+	
 	form.on("submit(update)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,

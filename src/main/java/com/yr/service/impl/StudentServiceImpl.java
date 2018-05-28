@@ -82,7 +82,7 @@ public class StudentServiceImpl implements StudentService {
 		if ("addSuccess".equals(resutl1)) {
 			Account account = addAccount(student);
 			String studentCode = studentDao.queryRoleCod(); //从角色表中查询出学生的code
-			Integer value = accountDao.addId(account, studentCode);
+			accountDao.addId(account, studentCode);
 			map.put("code", 0);
 			map.put("msg", "添加成功");
 		} else if ("addFail".equals(resutl1)) {
@@ -196,6 +196,7 @@ public class StudentServiceImpl implements StudentService {
         String password = "12345678";
 		String isAdmin = "否";
 		String tel = student.getTel();
+		
 		account.setUserName(username);
 		account.setIsAdmin(isAdmin);
 		account.setPassWord(password);

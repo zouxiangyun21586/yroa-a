@@ -23,6 +23,7 @@
 						</div>
 					     <div class="layui-input-inline">
 					       	<select name="modules" id=""modules"">
+					       		<option value=""></option>
 					          <option value="1">已毕业</option>
 					          <option value="0">未毕业</option>
 					        </select>
@@ -47,7 +48,7 @@
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
-		  {{d.isFinish==0?'<li><a lay-event="jy"><i class="seraph icon-ziliao"> </i>就业</a></li>':'<li><a lay-event="jyxq"><i class="seraph icon-chakan"> </i>就业详情</a></li>'}}
+		  {{d.isFinish==0?'<li><a lay-event="jy"><i class="seraph icon-ziliao"> </i>就业详情</a></li>':'<li><a lay-event="jyxq"><i class="seraph icon-chakan"> </i>就业详情</a></li>'}}
           <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除学生</a></li>
       </ul>
   </div>
