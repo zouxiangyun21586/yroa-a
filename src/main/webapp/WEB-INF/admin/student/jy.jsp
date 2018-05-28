@@ -20,55 +20,45 @@
 </head>
 <body>
 <br/>
-	<form class="layui-form" style="width:80%;" id="studentForm" modelAttribute="student">
-		<input type="hidden" name="_method" value="PUT">
+	<form:form class="layui-form" style="width:80%;" id="studentForm" modelAttribute="jy">
+		<form:hidden path="id" />
 		<div class="layui-form-item layui-row layui-col-xs12">
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">学生姓名</label>
 				<div class="layui-input-block">
-					<input class="layui-input" readonly="readonly" value="唐子豪">
+					<form:input path="name" class="layui-input" lay-verify="required" placeholder="请输入学生姓名" readonly="readonly"/>
 				</div>
 			</div>
 			<div class="magb15 layui-col-md4 layui-col-xs12">
-				<label class="layui-form-label">就业日期</label>
+				<label class="layui-form-label">毕业时间</label>
 				<div class="layui-input-block">
-					<input class="layui-input" id="year">
+					<form:input path="finishTime" class="layui-input" id="finishTime" placeholder="yyyy-MM-dd" lay-verify="required" />
 				</div>
 			</div>
 			<div class="magb15 layui-col-md4 layui-col-xs12">
-				<label class="layui-form-label">届次</label>
+				<label class="layui-form-label">入职时间</label>
 				<div class="layui-input-block">
-				 	<input class="layui-input" value="2017" readonly="readonly">						
+					<form:input path="offerTime" class="layui-input" id="offerTime" placeholder="yyyy-MM-dd" lay-verify="required" />
+				</div>
+			</div>
+		</div>	
+		<div class="layui-form-item layui-row layui-col-xs12">
+			<div class="magb15 layui-col-md4 layui-col-xs12">
+				<label class="layui-form-label">工资</label>
+				<div class="layui-input-block">
+					<form:input path="offerIncome" class="layui-input" placeholder="yyyy-MM-dd" lay-verify="required" />
 				</div>
 			</div>
 		</div>
 		<div class="layui-form-item layui-row layui-col-xs12">
-			<div class="magb15 layui-col-md4 layui-col-xs12">
-				<label class="layui-form-label">公司名称</label>
-				<div class="layui-input-block">
-				 	<input class="layui-input">
-				</div>
-			</div>
-			<div class="magb15 layui-col-md4 layui-col-xs12">
-				<label class="layui-form-label">资薪</label>
-				<div class="layui-input-block">
-				 	<input class="layui-input">
-				</div>
-			</div>
-			<div class="magb15 layui-col-md4 layui-col-xs12">
-				<label class="layui-form-label">公司地址</label>
-				<div class="layui-input-block">
-				 	<input class="layui-input">
-				</div>
+			<div class="layui-input-block">
+				<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="update">保存</button>
+				<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
 			</div>
 		</div>
-		<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="layui-input-block">
-			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="add">立即添加</button>
-			<button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
-		</div>
-	</div>
-	</form>
+	</form:form>
+
+
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/student/jy.js"></script>
 </body>

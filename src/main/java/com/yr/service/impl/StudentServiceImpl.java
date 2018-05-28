@@ -250,4 +250,31 @@ public class StudentServiceImpl implements StudentService {
 		Student studentList = studentDao.querytoCode(code);
 		return studentList;
 	}
+	/**
+	 * 
+	 * @Date : 2018年5月28日上午8:19:43
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param student 
+	 *  
+	 * @return : String 
+	 *  
+	 * @see com.yr.service.StudentService#employmentEditors(com.yr.entity.Student)
+	 */
+	@Transactional
+	public String employmentEditors(Student student) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			studentDao.employmentEditors(student);
+			map.put("code", 0);
+			map.put("msg", "修改成功");
+		} catch (Exception e) {
+			map.put("code", 1);
+			map.put("msg", "修改失败");
+			map.put("error", e);
+		}
+		String result = JSONObject.fromObject(map).toString();
+		return result;
+	}
 }

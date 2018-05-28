@@ -137,4 +137,16 @@ public interface StudentDao {
 	  */
 	 Student querytoCode(String code);
 	 
+	 /**
+	  * 
+	  * @Date : 2018年5月28日上午8:18:17
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @param student 
+	  * 
+	  * @describe 修改已就业学生信息
+	  */
+	 void employmentEditors(Student student);
+	 
 }

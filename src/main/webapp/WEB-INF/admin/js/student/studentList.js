@@ -43,6 +43,7 @@ layui.use(['table','form','tree'], function(){
 					var state;
 					if('1'==d.isFinish){
 						state='<span style="font-size:5px;color:#009688;">已毕业</span>';
+						
 					}else if('0'==d.isFinish){
 						state='<span style="font-size:5px;color:#FFB800;">未毕业</span>';
 					}
@@ -51,7 +52,6 @@ layui.use(['table','form','tree'], function(){
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
 		});
-		
 		//搜索
 		$(".search_btn").on("click",function(){
 			if($(".searchVal").val() != ''){
@@ -137,7 +137,7 @@ layui.use(['table','form','tree'], function(){
 					title : "就业",
 					type : 2,
 					anim : 5,
-					content : "jy",//修改学生的页面路径
+					content : "../student/jyDisplay?id="+obj.data.id,//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',

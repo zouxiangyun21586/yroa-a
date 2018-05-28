@@ -179,6 +179,7 @@ public class StudentDaoImpl implements StudentDao {
 		student1.setYear(clas.getYear());
 		student1.setTel(student.getTel());
 		student1.setIsFinish(student.getIsFinish());
+		student1.setIsItDisplayed(student.getIsItDisplayed()); //是否展示该学生
 		student1.setHomeTel(student.getHomeTel());
 		student1.setInTime(student.getInTime());
 		entityManager.merge(student1);
@@ -339,5 +340,23 @@ public class StudentDaoImpl implements StudentDao {
 		Student student = (Student) entityManager.createQuery(jpql)
 				.setParameter("code", code).getSingleResult();
  		return student;
+	}
+
+	/**
+	 * 
+	 * @Date : 2018年5月28日上午8:21:43
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param student 
+	 * 
+	 * @see com.yr.dao.StudentDao#employmentEditors(com.yr.entity.Student)
+	 */
+	public void employmentEditors(Student student) {
+		Student stu = entityManager.find(Student.class, student.getId());
+		stu.setFinishTime(student.getFinishTime()); //修改毕业时间
+		stu.setOfferTime(student.getOfferTime()); //修改就业时间
+		stu.setOfferIncome(student.getOfferIncome());
+		entityManager.merge(stu);
 	}
 }

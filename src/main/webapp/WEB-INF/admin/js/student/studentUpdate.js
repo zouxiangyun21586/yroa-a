@@ -64,7 +64,6 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 			time : false,
 			shade : 0.8
 		});
-		//alert("195378642");
 			$.ajax({
 				type : "post",
 				url : path+"student/student",

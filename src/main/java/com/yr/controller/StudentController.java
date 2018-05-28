@@ -131,10 +131,37 @@ public class StudentController {
 		isFinish.put("0", "未毕业");
 		isFinish.put("1", "已毕业");
 		map.put("isFinish", isFinish);
+		HashMap<String, String> isItDisplayed = new HashMap<String, String>();
+		isItDisplayed.put("1", "是");
+		isItDisplayed.put("0", "否");
+		map.put("isItDisplayed", isItDisplayed);
+		
 		Student student = studentService.updateDisplay(id);
 		map.put("student", student);
 		return "student/studentUpdate";
 	}
+	
+	/**
+	 * 
+	 * @Date : 2018年5月25日上午8:57:31
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : String
+	 *
+	 * @param id 
+	 * 
+	 * @param map 
+	 * 
+	 * @describe     用map传入一个对象到页面用于修改数据回显  
+	 */
+	@RequestMapping(value = "/jyDisplay", produces = "text/json;charset=UTF-8")
+	public String jyDisplay(Integer id, Map<String, Object> map) {
+		Student student = studentService.updateDisplay(id);
+		map.put("jy", student);
+		return "student/jy";
+	}
+	
 	
 	/**
 	 * @Date : 2018年5月25日上午8:57:31
@@ -143,12 +170,31 @@ public class StudentController {
 	 * 
 	 * @describe : 查询届次表到修改页面或添加页面进行修改回显和下拉选择
 	 * 
-	 *  @return : String 
+	 * @return : String 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryYear", produces = "text/json;charset=UTF-8")
 	public String queryYear() {
 		String result = studentService.queryCls();
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @Date : 2018年5月28日上午8:14:45
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param student 
+	 *
+	 * @return : String
+	 * 
+	 * @describe 修改已就业学生信息
+	 *
+	 */
+	@RequestMapping(value = "/employmentEditors", produces = "text/json;charset=UTF-8")
+	public String employmentEditors(@ModelAttribute("student")Student student) {
+		String result = studentService.employmentEditors(student);
 		return result;
 	}
 	
@@ -171,4 +217,6 @@ public class StudentController {
 			map.put("student", studentService.updateDisplay(student.getId()));
 		}
     }
+	
+	
 }
