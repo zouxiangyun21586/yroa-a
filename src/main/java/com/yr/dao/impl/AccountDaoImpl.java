@@ -102,12 +102,13 @@ public class AccountDaoImpl implements AccountDao {
 	}
 	/**
 	 * 查询单个
-	 * @param i 用户id
+	 * @param i 用户账号
 	 * @return 查出的用户对象
 	 */
-	public Account query(Integer i) {
-		// TODO Auto-generated method stub
-		return null;
+	public Account query(String i) {
+		Account acc = (Account) em.createQuery("from Account a where a.userName=?").setParameter(0, i)
+				.getSingleResult();
+		return acc;
 	}
 	/**
 	 * 班某人的分页
@@ -152,23 +153,7 @@ public class AccountDaoImpl implements AccountDao {
         }
         return JsonUtils.beanToJson(pageUtil, new String[] {"usersRoleItems" }, false);
     }
-	 /**
-     * 查询所有的角色
-     * @author 周业好
-     * @return json
-     */
-	@Override
-	public String queryRoleAll() {
-		try {
-			List<Role> list = em.createQuery("from Role").getResultList();
-			String json = JsonUtils.beanListToJson(list, 
-					new String[] {"rolePermItems", "roleUsersItems", "createTime"}, false);
-			return json;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	 
 	/**
      * 重置密码
      * @author 周业好

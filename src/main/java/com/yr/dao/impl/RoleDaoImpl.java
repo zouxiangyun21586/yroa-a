@@ -153,7 +153,8 @@ public class RoleDaoImpl implements RoleDao {
         }
         return JsonUtils.beanToJson(pageUtil, new String[] {"rolePermItems", "roleUsersItems" }, false);
     }
-	 /**
+	
+	/**
      * 查询所有的角色
      * @author 周业好
      * @return json
@@ -170,6 +171,7 @@ public class RoleDaoImpl implements RoleDao {
 		}
 		return null;
 	}
+	
 	/**
      * 启用停用
      * @author 周业好

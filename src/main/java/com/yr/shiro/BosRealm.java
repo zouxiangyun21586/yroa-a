@@ -20,8 +20,6 @@ import com.yr.dao.impl.AccountDaoImpl;
 import com.yr.dao.impl.AuthDaoImpl;
 import com.yr.dao.impl.RoleDaoImpl;
 import com.yr.entity.Role;
-import com.yr.service.AccountService;
-
 /**
  *  实现认证和授权功能
  *自定义的realm，作用从数据库查询数据，并返回数据库认证的信息
@@ -45,10 +43,6 @@ public class BosRealm extends AuthorizingRealm {
         super.setName("customRealm");  
     }  
      
-    //注入service
-    @Autowired
-    private AccountService userService;
-    
     @Autowired
     private AccountDaoImpl userDao;
 
