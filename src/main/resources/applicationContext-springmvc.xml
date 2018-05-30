@@ -66,6 +66,9 @@
             <mvc:exclude-mapping path="/log/loginYan"/>
             <mvc:exclude-mapping path="/log/zhux"/>
             <mvc:exclude-mapping path="/log/add"/>
+            <mvc:exclude-mapping path="/shiro-unauthorized"/>
+            <mvc:exclude-mapping path="/**/font/*"/>
+            <mvc:exclude-mapping path="/**/fonts/*"/>
             <mvc:exclude-mapping path="/**/*.css"/>
             <mvc:exclude-mapping path="/**/*.js"/>
             <mvc:exclude-mapping path="/**/*.png"/>
@@ -74,6 +77,7 @@
             <mvc:exclude-mapping path="/**/*.gif"/>
             <mvc:exclude-mapping path="/layui/**"/>
             <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/yroa-a"/>
             <bean class="com.yr.util.Lanjieqi"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
@@ -86,6 +90,7 @@
 	</bean>
 	<mvc:view-controller path="/WEB-INF/admin/index"  view-name="/index"/>
 	<mvc:view-controller path="/WEB-INF/admin/login"  view-name="/login"/>
+	<mvc:view-controller path="/WEB-INF/admin/shiro-unauthorized"  view-name="/shiro-unauthorized"/>
 	<!-- <mvc:view-controller path="/WEB-INF/admin/user/userList"  view-name="/userList"/>
 	<mvc:view-controller path="/WEB-INF/admin/role/roleList"  view-name="/roleList"/>
 	<mvc:view-controller path="/WEB-INF/admin/auth/authList"  view-name="/authList"/>

@@ -17,13 +17,15 @@
 		<blockquote class="layui-elem-quote quoteBox">
 			<form class="layui-form">
 				<div class="demoTable">
-					<div class="layui-inline">
-						<div class="layui-input-inline">
-							<input type="text" class="layui-input searchVal" placeholder="根据账号搜索"
-							onkeydown="if(event.keyCode==13){document.getElementById('selectuser').click();return false;}"/>
+					<shiro:hasPermission name="/yroa-a/acc/queryfy">
+						<div class="layui-inline">
+							<div class="layui-input-inline">
+								<input type="text" class="layui-input searchVal" placeholder="根据账号搜索"
+								onkeydown="if(event.keyCode==13){document.getElementById('selectuser').click();return false;}"/>
+							</div>
+							<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
 						</div>
-						<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
-					</div>
+					</shiro:hasPermission>
 					<!-- <div class="layui-inline">
 						<a class="layui-btn layui-btn-normal addUser_btn">添加用户</a>
 					</div> -->
@@ -39,7 +41,7 @@
 <div class="layui-dropdown">
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
-		  <shiro:hasPermission name="/yroa-a/acc/add"><li><a lay-event="state"><i class="layui-icon" style="font-size:18px;">&#xe612; </i>{{d.status==0?'禁用账号':'启用用户'}}</a></li></shiro:hasPermission>
+		  <shiro:hasPermission name="/yroa-a/acc/switchs"><li><a lay-event="state"><i class="layui-icon" style="font-size:18px;">&#xe612; </i>{{d.status==0?'禁用账号':'启用用户'}}</a></li></shiro:hasPermission>
 		  
           <shiro:hasPermission name="/yroa-a/acc/reset"><li><a lay-event="resetPassword"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>重置密码</a></li></shiro:hasPermission>
       </ul>
