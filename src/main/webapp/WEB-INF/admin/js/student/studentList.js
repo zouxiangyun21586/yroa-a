@@ -81,7 +81,7 @@ layui.use(['table','form','tree'], function(){
 	    	       url:path+"student/student",
 	    	       data: {"id":obj.data.id,"_method":"DELETE"},
 	    	       success:function(data){
-	    	    	   if(200==data.code){
+	    	    	   if(0==data.code){
 	    	    		   setTimeout(function(){
 		   			            top.layer.close(index);
 		   			        	top.layer.msg(data.msg,{icon:1});
