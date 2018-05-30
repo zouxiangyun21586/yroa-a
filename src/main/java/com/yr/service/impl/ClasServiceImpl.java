@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yr.dao.ClasDao;
 import com.yr.entity.Clas;
+import com.yr.entity.Course;
+import com.yr.entity.CoursePace;
 import com.yr.service.ClasService;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
@@ -243,7 +245,7 @@ public class ClasServiceImpl implements ClasService {
 	}
 	
 	/**
-	 * 
+	 * 详情分页查询
 	 * @author zxy
 	 * 
 	 * 2018年5月28日 下午7:39:34
@@ -260,6 +262,28 @@ public class ClasServiceImpl implements ClasService {
 	public String details(Integer page, Integer limit, String name, String code) {
 		PageUtil pu = clasDao.details(page, limit, name, code);
 		String result = JsonUtils.beanToJson(pu);
+		return result;
+	}
+
+	/**
+	 * 所有课程查询
+	 * @author zxy
+	 * 
+	 * 2018年5月30日 上午10:32:22
+	 * 
+	 * @return
+	 */
+	@Override
+	public String progress() {
+		List<Course> listStr = clasDao.progress();
+		String result = JsonUtils.beanToJson(listStr);
+		return result;
+	}
+
+	@Override
+	public String progressGet(String code) {
+		List<CoursePace> listCp = clasDao.progressGet(code);
+		String result = JsonUtils.beanToJson(listCp);
 		return result;
 	}
 }

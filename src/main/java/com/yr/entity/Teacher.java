@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.yr.util.AgeUtils;
 
 /**
  * 老师实体类
@@ -92,9 +95,9 @@ public class Teacher {
 	public void setSex(String sex) {
 		this.sex = sex == null ? null : sex.trim();
 	}
-
+	@Transient
 	public Integer getAge() {
-		return age;
+		return AgeUtils.birthTime(birth);
 	}
 
 	public void setAge(Integer age) {

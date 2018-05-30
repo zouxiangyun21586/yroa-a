@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.yr.dao.StudentDao;
 import com.yr.entity.Clas;
 import com.yr.entity.Student;
+import com.yr.util.CheckParamUtil;
 import com.yr.util.HanyuPinyinHelper;
 import com.yr.util.PageUtil;
 
@@ -113,27 +114,35 @@ public class StudentDaoImpl implements StudentDao {
 	public String addStudent(Student student) {
 		String result = "";
 		try {
-			String result1 = queyrIsName(student.getName()); //判断学生姓名是否已存在
-			if ("0".equals(result1)) { //判断添加的学是是否也存在 这里表示不存在
-				String code = code(); //学生编号
-				String clasCode = new String(student.getYear()
-						.getBytes("ISO8859-1"), "utf-8"); //届次 ,获取到的是届次表的code
-				Clas clas = queryClas(clasCode); //根据届次code查出届次
-				String year = clas.getYear(); //届次
-				String classCode = clas.getCode(); //所属批次Code 
-				Date createTime = new Date(); //添加这条信息的时间
-				HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
-		        String account = hanyuPinyinHelper.toHanyuPinyin(student.getName());
-		        student.setAccount(account);
-				student.setCode(code);
-				student.setYear(year);
-				student.setClassCode(classCode);
-				student.setCreateTime(createTime);
-				entityManager.persist(student);
-				result = "addSuccess";
-			} else {
-				result = "alreadyExisted";
-			}
+				String result1 = queyrIsName(student.getName()); //判断学生姓名是否已存在
+				if ("0".equals(result1)) { //判断添加的学是是否也存在 这里表示不存在
+//					Boolean bool = CheckTelephoneUtil.isMobile(student.getTel());
+					String code = code(); //学生编号
+					String clasCode = new String(student.getYear()
+							.getBytes("ISO8859-1"), "utf-8"); //届次 ,获取到的是届次表的code
+					Clas clas = queryClas(clasCode); //根据届次code查出届次
+					String year = clas.getYear(); //届次
+					String classCode = clas.getCode(); //所属批次Code 
+					Date createTime = new Date(); //添加这条信息的时间
+					HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
+			        String account = hanyuPinyinHelper.toHanyuPinyin(student.getName());
+			        student.setAccount(account);
+					student.setCode(code);
+					student.setYear(year);
+					student.setClassCode(classCode);
+					student.setCreateTime(createTime);
+					CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
+					result = checkParamUtil.checkParam(student); //判断参数是否为空
+					if ("checkSuccess".equals(result)) {
+						entityManager.persist(student);
+						result = "addSuccess";
+					} else {
+						return result;
+					}	
+				} else {
+					result = "alreadyExisted";
+				}
+			
 		} catch (Exception e) {
 			result = "addFail";
 			e.printStackTrace();
@@ -175,23 +184,34 @@ public class StudentDaoImpl implements StudentDao {
 	 * @see com.yr.dao.StudentDao#updateStudent(java.lang.Integer)
 	 */
 	@Override
-	public void updateStudent(Student student) {
-		Student student1 = entityManager.find(Student.class, student.getId());
-		student1.setAddr(student.getAddr());
-		student1.setBirth(student.getBirth());
-		student1.setSex(student.getSex());
-		student1.setClassCode(student.getClassCode());
-		Clas clas = queryClas(student.getClassCode());
-		student1.setYear(clas.getYear());
-		student1.setTel(student.getTel());
-		student1.setIsFinish(student.getIsFinish());
-		student1.setIsItDisplayed(student.getIsItDisplayed()); //是否展示该学生
-		student1.setHomeTel(student.getHomeTel());
-		student1.setInTime(student.getInTime());
-		entityManager.merge(student1);
+	public String updateStudent(Student student) {
+		String result = "";
+		try {
+			CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
+			result = checkParamUtil.checkParam(student);
+			if ("checkSuccess".equals(result)) {
+				Student student1 = entityManager.find(Student.class, student.getId());
+				student1.setAddr(student.getAddr());
+				student1.setBirth(student.getBirth());
+				student1.setSex(student.getSex());
+				student1.setClassCode(student.getClassCode());
+				Clas clas = queryClas(student.getClassCode());
+				student1.setYear(clas.getYear());
+				student1.setTel(student.getTel());
+				student1.setIsFinish(student.getIsFinish());
+				student1.setIsItDisplayed(student.getIsItDisplayed()); //是否展示该学生
+				student1.setHomeTel(student.getHomeTel());
+				student1.setInTime(student.getInTime());
+				entityManager.merge(student1);
+				result = "updateSuccess";
+			} else {
+				return result;
+			}
+		} catch (Exception e) {
+			result = "updateFial";
+		}
+		return result;
 	}
-	
-	
 	
 	/** 
 	 * 

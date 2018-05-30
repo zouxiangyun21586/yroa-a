@@ -249,4 +249,35 @@ public class ClasController {
 		String str = clasService.details(page, limit, name, code);
 		return str;
 	}
+	
+	/**
+	 * 进度查询所有
+	 * @author zxy
+	 * 
+	 * 2018年5月30日 上午9:42:37
+	 * 
+	 * @return 查询出的值
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/progress", method = {RequestMethod.GET}, produces = "text/json;charset=UTF-8")
+	public String progress() { // 将code 值传过来到批次课程表中去查询所对应的数据 回显到页面
+		String str = clasService.progress();
+		return str;
+	}
+	
+	/**
+	 * 进度回显
+	 * @author zxy
+	 * 
+	 * 2018年5月30日 上午9:42:37
+	 * 
+	 * @param code 查询code批次的上课进程
+	 * @return 查询出的值
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/progressGet", method = {RequestMethod.GET}, produces = "text/json;charset=UTF-8")
+	public String progressGet(String code) { // 将code 值传过来到批次课程表中去查询所对应的数据 回显到页面
+		String str = clasService.progressGet(code);
+		return str;
+	}
 }

@@ -76,7 +76,6 @@ public class StudentServiceImpl implements StudentService {
 	 */
 	@Transactional
 	public String addStudent(Student student) {
-		final Integer number = 2;
 		Map<String, Object> map = new HashMap<String, Object>();
 		String resutl1 = studentDao.addStudent(student);
 		if ("addSuccess".equals(resutl1)) {
@@ -89,8 +88,11 @@ public class StudentServiceImpl implements StudentService {
 			map.put("code", 1);
 			map.put("msg", "添加失败");
 		} else if ("alreadyExisted".equals(resutl1)) {
-			map.put("code", number);
+			map.put("code", 1);
 			map.put("msg", "该学生已经添加过了");
+		} else {
+			map.put("code", 1);
+			map.put("msg", resutl1 + "不能为空");
 		}
 		String result = JSONObject.fromObject(map).toString();
 		return result;
@@ -143,16 +145,17 @@ public class StudentServiceImpl implements StudentService {
 	 */
 	@Transactional
 	public String updateStudent(Student student) {
-
 		Map<String, Object> map = new HashMap<String, Object>();
-		try {
-			studentDao.updateStudent(student);
+		String value = studentDao.updateStudent(student);
+		if ("updateSuccess".equals(value)) {
 			map.put("code", 0);
 			map.put("msg", "修改成功");
-		} catch (Exception e) {
+		} else if ("updateFial".equals(value)) {
 			map.put("code", 1);
 			map.put("msg", "修改失败");
-			map.put("error", e);
+		} else {
+			map.put("code", 1);
+			map.put("msg", value + "不能为空");
 		}
 		String result = JSONObject.fromObject(map).toString();
 		return result;

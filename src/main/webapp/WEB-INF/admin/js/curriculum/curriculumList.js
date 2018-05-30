@@ -203,7 +203,7 @@ layui.use(['table','form','tree'], function(){
 					title : "进度",
 					type : 2,
 					anim : 5,
-					content: " ----- ",
+					content: "../progressGet?code="+obj.data.code,
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
@@ -223,7 +223,7 @@ layui.use(['table','form','tree'], function(){
 					title : "详情",
 					type : 2,
 					anim : 5,
-					content: "curriculumDetails",
+					content: path+"curriculum/curriculumDetails?code="+obj.data.code,
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
