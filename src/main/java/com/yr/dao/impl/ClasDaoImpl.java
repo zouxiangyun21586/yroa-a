@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import com.yr.dao.ClasDao;
 import com.yr.entity.Clas;
+import com.yr.entity.Course;
+import com.yr.entity.CoursePace;
 import com.yr.util.DateUtils;
 import com.yr.util.PageUtil;
 
@@ -353,6 +355,24 @@ public class ClasDaoImpl implements ClasDao {
 		}
 		
 		return pageUtil;
+	}
+
+	@Override
+	public List<Course> progress() { 
+//		13	entedg	进度	a	初级		
+//		14	entedg	进度	b	中级		
+//		15	entedg	进度	c	高级		
+//		16	entedg	进度	d	数据库		
+//		17	entedg	进度	e	前台		
+		List<Course> listCourse = entityManager.createQuery("From Course").getResultList();
+		return listCourse;
+	}
+
+	@Override
+	public List<CoursePace> progressGet(String code) {
+		List<CoursePace> listCp = entityManager.createQuery("From CoursePace where class_code = :class_code")
+				.setParameter("class_code", code).getResultList();
+		return listCp;
 	}
 	
 }

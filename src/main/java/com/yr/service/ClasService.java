@@ -137,4 +137,25 @@ public interface ClasService {
 	 * @return PageUtil 返回查询的结果,是一个集合
 	 */
 	String details(Integer page, Integer limit, String name, String code);
+	
+	/**
+	 * 查询所有课程
+	 * @author zxy
+	 * 
+	 * 2018年5月30日 上午10:30:34
+	 * 
+	 * @return String
+	 */
+	String progress();
+	
+	/**
+	 * 查询某届次上过的课程
+	 * @author zxy
+	 * 
+	 * 2018年5月30日 上午11:27:38
+	 * 
+	 * @param code 批次code
+	 * @return String
+	 */
+	String progressGet(String code);
 }
