@@ -200,9 +200,14 @@ public class StudentDaoImpl implements StudentDao {
 	public String updateStudent(Student student) {
 		String result = "";
 		try {
-			CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
-			result = checkParamUtil.checkParam(student);
-			if ("checkSuccess".equals(result)) {
+				Boolean bool = CheckTelephoneUtil.isMobile(student.getTel());
+				if (bool.equals(false)) {
+					return "telformattingError";
+				}
+				Boolean boo = CheckTelephoneUtil.isMobile(student.getHomeTel());
+				if (boo.equals(false)) {
+					return "homeTelformattingError";
+				}
 				Student student1 = entityManager.find(Student.class, student.getId());
 				student1.setAddr(student.getAddr());
 				student1.setBirth(student.getBirth());
@@ -215,11 +220,28 @@ public class StudentDaoImpl implements StudentDao {
 				student1.setIsItDisplayed(student.getIsItDisplayed()); //是否展示该学生
 				student1.setHomeTel(student.getHomeTel());
 				student1.setInTime(student.getInTime());
-				entityManager.merge(student1);
-				result = "updateSuccess";
-			} else {
-				return result;
-			}
+				if (null != student.getFinishTime() || "".equals(student.getFinishTime())) {
+					student1.setFinishTime(student.getFinishTime());
+				}
+				if (null != student.getOfferTime() || "".equals(student.getOfferTime())) {
+					student1.setOfferTime(student.getOfferTime());
+				}
+				if (null != student.getOfferIncome() || "".equals(student.getOfferIncome())) {
+					student1.setOfferIncome(student.getOfferIncome());
+				}
+				if ("0".equals(student.getIsFinish())) {
+					CheckParamUtil<Student> checkParamUtil1 = new CheckParamUtil<>();
+					result = checkParamUtil1.checkParam(student); //判断参数是否为空
+				} else {
+					CheckParamUtil<Student> checkParamUtil1 = new CheckParamUtil<>();
+					result = checkParamUtil1.checkParam1(student); //判断参数是否为空
+				}
+				if ("checkSuccess".equals(result)) {
+					entityManager.merge(student1);
+					result = "updateSuccess";
+				} else {
+					return result;
+				}
 		} catch (Exception e) {
 			result = "updateFial";
 		}

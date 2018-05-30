@@ -44,13 +44,14 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/student/studentList.js"></script>
 <script type="text/html" id="barDemo">
-<div class="layui-dropdown">
+  <div class="layui-dropdown">
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
-		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
-		  {{d.isFinish==0?'<li><a lay-event="jy"><i class="seraph icon-ziliao"> </i>就业详情</a></li>':'<li><a lay-event="jyxq"><i class="seraph icon-chakan"> </i>就业详情</a></li>'}}
+		  {{d.isFinish==0?'<li><a lay-event="editWjy"><i class="seraph icon-ziliao"> </i>编辑</a></li>':'<li><a lay-event="editYjy"><i class="seraph icon-chakan"> </i>编辑</a></li>'}}
+		  {{d.isFinish==0?'<li><a lay-event="wjy"><i class="seraph icon-ziliao"> </i>就业详情</a></li>':'<li></li>'}}
           <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除学生</a></li>
       </ul>
   </div>
 </script>
+<!-- <a lay-event="yjy"><i class="seraph icon-chakan"> </i>就业详情</a> -->
 </html> 
