@@ -43,7 +43,7 @@
       <ul class="layui-dropdown-menu">
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
 		  {{d.start_time==""?'<li><a lay-event="openClass"><i class="seraph icon-ziliao" > </i>开课</a></li>':'<li><a lay-event="sop"><i class="seraph icon-chakan" > </i>进度</a></li>'}}
-		  {{d.isFinish==1?'<li><a lay-event="graduation"><i class="seraph icon-ziliao" > </i>毕业</a></li>':'<li><a lay-event="details"><i class="seraph icon-chakan" > </i>就业详情</a></li>'}}
+		  {{d.isFinish==1?'<li><a lay-event="details"><i class="seraph icon-chakan" > </i>就业详情</a></li>':'<li><a lay-event="graduation"><i class="seraph icon-ziliao" > </i>毕业</a></li>'}}
 		  <li><a lay-event="addStudent"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>添加学生</a></li>
       </ul>
   </div>
