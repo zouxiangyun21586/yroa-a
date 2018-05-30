@@ -41,7 +41,7 @@ public class AccountDaoImpl implements AccountDao {
 			users.setCreateTime(new Date()); //添加开始时间
 			users.setUpdateTime(new Date()); //添加最后修改时间
 			users.setPassWord(mdFiveMi);
-			users.setStatus("0");
+			users.setStatus("1");
 			if ("否".equals(users.getIsAdmin())) {
 				users.setIsAdmin("false");
 			} else {
@@ -206,7 +206,7 @@ public class AccountDaoImpl implements AccountDao {
 	 */
 	public String yanUs(String name) {
 		//验证用户
-		Query qu = em.createQuery("select u from Account u where u.userName=?");
+		Query qu = em.createQuery("select u from Account u where u.userName=? and u.status=0");
 		qu.setParameter(0, name);
 		Account user = (Account) qu.getSingleResult();
 		if (null == user) {
