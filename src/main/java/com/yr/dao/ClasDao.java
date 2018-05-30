@@ -3,6 +3,8 @@ package com.yr.dao;
 import java.util.List;
 
 import com.yr.entity.Clas;
+import com.yr.entity.Course;
+import com.yr.entity.CoursePace;
 import com.yr.util.PageUtil;
 
 /**
@@ -136,4 +138,25 @@ public interface ClasDao {
 	 * @return PageUtil 返回查询的结果,是一个集合
 	 */
 	PageUtil details(Integer page, Integer limit, String name, String code);
+	
+	/**
+	 * 进度查询所有
+	 * @author zxy
+	 * 
+	 * 2018年5月30日 上午10:24:47
+	 * 
+	 * @return List<Course>
+	 */
+	List<Course> progress();
+	
+	/**
+	 * 查询
+	 * @author zxy
+	 * 
+	 * 2018年5月30日 上午11:22:00
+	 * 
+	 * @param code 批次code
+	 * @return List<CoursePace>
+	 */
+	List<CoursePace> progressGet(String code);
 }

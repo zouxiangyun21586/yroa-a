@@ -261,7 +261,8 @@ public class ClasController {
 	@ResponseBody
 	@RequestMapping(value = "/progress", method = {RequestMethod.GET}, produces = "text/json;charset=UTF-8")
 	public String progress() { // 将code 值传过来到批次课程表中去查询所对应的数据 回显到页面
-		return "";
+		String str = clasService.progress();
+		return str;
 	}
 	
 	/**
@@ -276,6 +277,7 @@ public class ClasController {
 	@ResponseBody
 	@RequestMapping(value = "/progressGet", method = {RequestMethod.GET}, produces = "text/json;charset=UTF-8")
 	public String progressGet(String code) { // 将code 值传过来到批次课程表中去查询所对应的数据 回显到页面
-		return "";
+		String str = clasService.progressGet(code);
+		return str;
 	}
 }
