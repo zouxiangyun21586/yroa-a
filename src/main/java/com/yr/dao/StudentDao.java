@@ -81,9 +81,11 @@ public interface StudentDao {
 	  * 
 	  * @author : 唐子壕
 	  *	
+	  * @return String  
+	  * 
 	  * @param student 
 	  */
-	 void updateStudent(Student student);
+	 String updateStudent(Student student);
 	 
 	 /**
 	  * 

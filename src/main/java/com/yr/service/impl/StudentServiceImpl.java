@@ -90,6 +90,12 @@ public class StudentServiceImpl implements StudentService {
 		} else if ("alreadyExisted".equals(resutl1)) {
 			map.put("code", 1);
 			map.put("msg", "该学生已经添加过了");
+		} else if ("telformattingError".equals(resutl1)) {
+			map.put("code", 1);
+			map.put("msg", "学生电话格式不对");
+		} else if ("homeTelformattingError".equals(resutl1)) {
+			map.put("code", 1);
+			map.put("msg", "家长电话格式不对");
 		} else {
 			map.put("code", 1);
 			map.put("msg", resutl1 + "不能为空");
