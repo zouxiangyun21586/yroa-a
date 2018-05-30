@@ -23,9 +23,11 @@
 						</div>
 						<a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
 					</div>
-					<div class="layui-inline">
-						<a class="layui-btn layui-btn-normal addUser_btn">添加届次</a>
-					</div>
+					<shiro:hasPermission name="/yroa-a/clas">
+						<div class="layui-inline">
+							<a class="layui-btn layui-btn-normal addUser_btn">添加届次</a>
+						</div>
+					</shiro:hasPermission>
 				</div>
 			</form>
 		</blockquote>
@@ -40,10 +42,8 @@
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
 		  <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
-		  <li><a lay-event="openClass"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>开课</a></li>
-		  <li><a lay-event="graduation"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>毕业</a></li>
-		  <li><a lay-event="sop"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>进度</a></li>
-		  <li><a lay-event="details"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>详情</a></li>
+		  {{d.start_time==""?'<li><a lay-event="openClass"><i class="seraph icon-ziliao" > </i>开课</a></li>':'<li><a lay-event="sop"><i class="seraph icon-chakan" > </i>进度</a></li>'}}
+		  {{d.isFinish==1?'<li><a lay-event="details"><i class="seraph icon-chakan" > </i>就业详情</a></li>':'<li><a lay-event="graduation"><i class="seraph icon-ziliao" > </i>毕业</a></li>'}}
 		  <li><a lay-event="addStudent"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>添加学生</a></li>
       </ul>
   </div>

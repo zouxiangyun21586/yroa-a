@@ -1,6 +1,8 @@
 package com.yr.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,20 +59,20 @@ public class TeacherController {
 	 * 2018年5月22日 下午4:00:27
 	 * 
 	 * @param teacher 老师对象
-	 * @param map 传递控制方法或者传递数据到结果页面
 	 * @param code 用于找到这个方法
 	 * @return 执行完这个方法后去到哪个页面
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/teacher", method = RequestMethod.DELETE)
-	public String del(Teacher teacher, ModelMap map, String code) {
+	public String del(Teacher teacher, String code) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		String str = teacherService.delete(teacher);
 		if (str.equals("succ")) {
 			map.put("code", 0);
-			map.put("msg", "添加成功");
+			map.put("msg", "删除成功");
 		} else if (str.equals("error")) {
 			map.put("code", 1);
-			map.put("msg", "添加失败");
+			map.put("msg", "删除失败");
 		}
 		String result = JSONObject.fromObject(map).toString();
 		return result;

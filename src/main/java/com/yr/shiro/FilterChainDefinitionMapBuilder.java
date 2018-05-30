@@ -29,6 +29,7 @@ public class FilterChainDefinitionMapBuilder {
         map.put("/layui/**", "anon");
         map.put("/images/**", "anon");
         map.put("/log/loginYan*", "anon");
+        map.put("/ImageServlet", "anon");
         for (Auth auth : auths) {
             map.put(auth.getUrl(), auth.getCaozuo());
         }

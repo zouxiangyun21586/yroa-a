@@ -81,7 +81,7 @@ layui.use(['table','form','tree'], function(){
 	    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
 	    	$.ajax({
     	       type:"post",
-    	       url:path+"teacher?code="+ obj.data.code,
+    	       url:path+"teacher",
     	       data: {"code":obj.data.code,"_method":"DELETE"},
     	       success:function(data){
     	    	   if(200==data.code){

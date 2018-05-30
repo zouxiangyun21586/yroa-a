@@ -96,7 +96,7 @@ public class RoleDaoImpl implements RoleDao {
 		if ("".equals(qu) || null == qu) { //判断账号是否存在
 			return "1";
 		}
-		return JsonUtils.beanToJson(qu);
+		return JsonUtils.beanToJson(qu, new String[]{"roleUsersItems", "rolePermItems"}, false);
 	}
 	
 	/**

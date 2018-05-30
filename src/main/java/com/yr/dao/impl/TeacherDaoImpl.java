@@ -12,8 +12,8 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.yr.dao.TeacherDao;
-import com.yr.entity.Clas;
 import com.yr.entity.Teacher;
+import com.yr.util.HanyuPinyinHelper;
 import com.yr.util.PageUtil;
 
 /**
@@ -55,7 +55,9 @@ public class TeacherDaoImpl implements TeacherDao {
 			tch.setInfo(teacher.getInfo());
 			tch.setIsLeave(isLeave(teacher.getIsLeave()));
 			tch.setCreateTime(new Date());
-			tch.setTeacherAccount(teacher.getTeacherAccount());
+			HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
+	        String account = hanyuPinyinHelper.toHanyuPinyin(teacher.getName());
+			tch.setTeacherAccount(account);
 			entityManager.persist(tch); // 老师code  age需要算
 			return "succ";
 		} catch (Exception e) {
@@ -206,9 +208,9 @@ public class TeacherDaoImpl implements TeacherDao {
 			int count = 0;
 			String jpql = "From Teacher order by in_time desc";
 			if (null  != name && !"".equals(name)) {
-				jpql = "from Teacher where year like :year order by in_time desc";
+				jpql = "from Teacher where name like :name order by in_time desc";
 			}
-			List<Clas> studentList = new ArrayList<Clas>();
+			List<Teacher> studentList = new ArrayList<Teacher>();
 			name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
 			if (null  != name && !"".equals(name)) {
 				studentList = entityManager.createQuery(jpql)
