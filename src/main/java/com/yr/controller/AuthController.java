@@ -1,6 +1,8 @@
 package com.yr.controller;
 
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +36,14 @@ public class AuthController  {
 	@ResponseBody
 	@RequestMapping(value = "/queryfy", produces = "text/json;charset=UTF-8")
 	public String queryfy(int page, int limit, String name) {
-		String json = aut.getFenye(page, limit, name);
+		String json = null;
+		try {
+			name = new String(name.getBytes("ISO-8859-1"), "utf-8");
+			json = aut.getFenye(page, limit, name);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return json;
 	}
 	/**
