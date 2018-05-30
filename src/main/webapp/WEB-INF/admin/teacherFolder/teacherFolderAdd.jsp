@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -67,12 +68,6 @@
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
 				<input class="layui-input" placeholder="请输入手机号" name="tel" id="tel">
-			</div>
-		</div>
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">账户名</label>
-			<div class="layui-input-block">
-				<input class="layui-input" placeholder="请输入账户名" name="teacherAccount" id="teacherAccount">
 			</div>
 		</div>
 		<div class="magb15 layui-col-md4 layui-col-xs12">

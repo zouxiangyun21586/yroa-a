@@ -13,6 +13,7 @@ import com.yr.entity.Account;
 import com.yr.entity.Teacher;
 import com.yr.service.AccountService;
 import com.yr.service.TeacherService;
+import com.yr.util.HanyuPinyinHelper;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
 
@@ -55,7 +56,9 @@ public class TeacherServiceImpl implements TeacherService {
 				//需提供Account对象内容:
 				//自动生成的账号 ,电话, isAdmin 值是'否',明文的密码 ,.第二个参数是角色的code
 				Account ac = new Account();
-				ac.setUserName(teacher.getTeacherAccount());
+				HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
+		        String username = hanyuPinyinHelper.toHanyuPinyin(teacher.getName());
+				ac.setUserName(username);
 				ac.setTel(teacher.getTel());
 				ac.setIsAdmin("否");
 				ac.setPassWord("123456");
