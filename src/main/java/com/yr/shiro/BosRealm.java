@@ -61,7 +61,7 @@ public class BosRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         //用户名密码令牌（action传过来）
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
-		String userName = upToken.getUsername(); //得到登录的账号
+		String userName = upToken.getUsername(); //得到登录的账号134238905020 ajfklasjdkl
         //调用业务层来查询(根据用户名来查询用户，无需密码)
         //判断用户是否存在
 		String zhi = userDao.yanUs(userName); //判断账号是否存在

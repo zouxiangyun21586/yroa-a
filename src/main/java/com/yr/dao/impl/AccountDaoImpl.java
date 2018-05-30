@@ -201,13 +201,14 @@ public class AccountDaoImpl implements AccountDao {
 	
 	/**
 	 * 判断用户是否存在
-	 * @param name 账号
+	 * @param name 账号 或者手机号
 	 * @return null 不存在 , 1存在
 	 */
 	public String yanUs(String name) {
 		//验证用户
-		Query qu = em.createQuery("select u from Account u where u.userName=? and u.status=0");
+		Query qu = em.createQuery("select u from Account u where u.status=0 and u.userName=? or u.tel=?");
 		qu.setParameter(0, name);
+		qu.setParameter(1, name);
 		Account user = (Account) qu.getSingleResult();
 		if (null == user) {
 			return null;
@@ -222,7 +223,7 @@ public class AccountDaoImpl implements AccountDao {
 	 * @return 密码
 	 */
 	public String yanPs(String us) {
-		Account list1 = (Account) em.createQuery("select u from Account u where u.userName=?")
+		Account list1 = (Account) em.createQuery("select u from Account u where u.userName=? or u.tel=?")
 				.setParameter(0, us).getSingleResult();
 		if (null == list1) {
 			return null;
