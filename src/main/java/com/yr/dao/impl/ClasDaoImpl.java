@@ -299,7 +299,7 @@ public class ClasDaoImpl implements ClasDao {
 	}
 
 	/**
-	 * 
+	 * 详情
 	 * @author zxy
 	 * 
 	 * 2018年5月28日 下午7:27:11
@@ -315,23 +315,25 @@ public class ClasDaoImpl implements ClasDao {
 		PageUtil pageUtil = new PageUtil();
 		try {
 			int count = 0;
-			String jpql = "From Student order by inTime desc";
+			String jpql = "From Student where class_code = :class_code order by inTime desc";
 			if (null  != name && !"".equals(name)) {
 				jpql = "from Student where name like :sName order by inTime desc";
 			}
 			List<Clas> studentList = new ArrayList<Clas>();
 			name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
-			if (null  != name && !"".equals(name)) {
+			if (null  != name && !"".equals(name) &&  null != code && !"".equals(code)) {
 				studentList = entityManager.createQuery(jpql)
 						.setMaxResults(limit).setFirstResult((page - 1) * limit)
 						.setParameter("sName", "%" + name + "%").getResultList();
 				count = Integer
 				.parseInt(entityManager
-				 .createNativeQuery("select count(*) from yr_student where name like :sName ")
-				   .setParameter("sName", "%" + name + "%").getSingleResult().toString());
+				 .createNativeQuery("select count(*) from yr_student where "
+				 	+ "name like :sName ,class_code = :class_code")
+				   .setParameter("sName", "%" + name + "%").setParameter("class_code", code)
+				   .getSingleResult().toString());
 			} else {
 				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
-						.setMaxResults(limit).getResultList();
+						.setMaxResults(limit).setParameter("class_code", code).getResultList();
 				count = Integer
 						.parseInt(entityManager
 						   .createNativeQuery("select count(*) from yr_student where"

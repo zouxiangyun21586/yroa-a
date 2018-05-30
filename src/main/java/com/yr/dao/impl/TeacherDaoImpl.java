@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import com.yr.dao.TeacherDao;
 import com.yr.entity.Clas;
 import com.yr.entity.Teacher;
-import com.yr.util.AgeUtils;
 import com.yr.util.PageUtil;
 
 /**
@@ -49,7 +48,6 @@ public class TeacherDaoImpl implements TeacherDao {
 			tch.setCode(code); // 需加1
 			tch.setSex(teacher.getSex());
 			tch.setBirth(teacher.getBirth());
-			tch.setAge(AgeUtils.birthTime(teacher.getBirth()));
 			tch.setTel(teacher.getTel());
 			tch.setAddr(teacher.getAddr());
 			tch.setInTime(teacher.getInTime());
