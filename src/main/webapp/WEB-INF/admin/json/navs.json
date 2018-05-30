@@ -30,27 +30,27 @@
         "children": [
             {
                 "title": "签到",
-                "icon": "&#xe612;",
+                "icon": "&#xe642;",
                 "href": "attendance/punch",
                 "spread": false
             },{
                 "title": "请假",
-                "icon": "&#xe612;",
+                "icon": "&#xe656;",
                 "href": "attendance/leave",
                 "spread": false
             },{
                 "title": "假期",
-                "icon": "&#xe612;",
+                "icon": "&#xe636;",
                 "href": "attendance/holiday",
                 "spread": false
             },{
                 "title": "考勤列表",
-                "icon": "&#xe612;",
+                "icon": "&#xe60a;",
                 "href": "attendance/attendanceList",
                 "spread": false
             },{
                 "title": "当天考勤报告",
-                "icon": "&#xe612;",
+                "icon": "&#xe66e;",
                 "href": "attendance/attendanceReport",
                 "spread": false
             }

@@ -8,11 +8,53 @@ layui.use(['table','form','tree'], function(){
 	pos = strFullPath.indexOf(strPath),
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
-		
+  
+  $.ajax({
+      type : "get",
+      url : path + "attendance/checkTimeCode",
+      success : function(data) {
+          var obj = eval(data);
+          var objLength = obj.length;
+          $('#stauts').empty();
+          var b = "";
+          b += '<option value=""></option>';
+          b += '<option value=0>没迟到</option>';
+          b += '<option value=1>迟到</option>';
+          b += '<option value=2>旷课</option>';
+          b += '<option value=3>请假</option>';
+          b += '<option value=4>早退</option>';
+          $("#stauts").append(b);
+          if(objLength>0){
+              $('#checkTimeCode').empty();
+              var a="";
+              a += '<option value=""></option>';
+              $(obj).each(function (i) {
+                  a+='<option value="'+obj[i].code+'">' + obj[i].timeName + '</option>';
+              });
+              $("#checkTimeCode").append(a);
+              form.render('select');
+          }else{
+              alert("没有东西");
+              $('#checkTimeCode').find('option').remove();
+              //alert("应该清空")
+              form.render('select');
+
+          }
+      },
+      error : function() {
+          setTimeout(function() {
+              top.layer.close(index);
+              top.layer.msg("异常！", {
+                  icon : 2
+              });
+              layer.closeAll("iframe");
+          }, 1000);
+      }
+  });
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"userSelect", //请求路径
+		  url: path+"attendance/getAttendance", //请求路径
 		  limit:7,
 		  limits:[4,7,10,15],
 		  page:true,
@@ -21,24 +63,35 @@ layui.use(['table','form','tree'], function(){
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
 				{type:'numbers',title:'编号',width:50},
-				{field: 'name', title: '用户名', unresize: true},
-				{field: 'userName', title: '账号', unresize: true},
-				{field: 'passWord', title: '密码',  unresize: true},
-				{field: 'email', title: '邮箱',  unresize: true},
-				{field: 'insertTime', title: '注册时间',templet: function(d) {
-                    return d.insertTime.time;
-                }, unresize: true},
+				{field: 'classCode', title: '届次名称', unresize: true, templet: '<div>{{d.classCode}}-{{d.className}}</div>'},
+				{field: 'studentName', title: '学生姓名', unresize: true},
+				{field: 'checkTimeCode', title: '考勤时间',  unresize: true, templet: '<div>{{ layui.laytpl.toDateString(d.checkTime.time) }}-{{d.checkTimeDesc}}</div>'},
+				{field: 'startTime', title: '上课时间',  unresize: true},
+				{field: 'retyTime', title: '到达时间', unresize: true},
 				{field: 'status', title:'状态', width:90,align:'center', templet: function(d){
 					var state;
 					if(0==d.status){
-						state='<span style="font-size:5px;color:#009688;">可使用</span>'
+						state='<span style="font-size:5px;color:#00FF00;">没迟到</span>'
 					}else if(1==d.status){
-						state='<span style="font-size:5px;color:#FFB800;">未激活</span>'
+						state='<span style="font-size:5px;color:#FF2400;">迟到</span>'
 					}else if(2==d.status){
-						state='<span style="font-size:5px;color:#ff0000;">已禁用</span>'
+						state='<span style="font-size:5px;color:#FF0000;">旷课</span>'
+					}else if(3==d.status){
+						state='<span style="font-size:5px;color:#0000FF;">请假</span>'
+					}else if(4==d.status){
+						state='<span style="font-size:5px;color:#BC1717;">早退</span>'
 					}
 					return state;
 				}, unresize: true},
+				{field: 'isNote', title: '请假条', width:80, templet: function(d){
+					var isNotes;
+					if(0==d.isNote){
+						isNotes='<span style="font-size:5px;color:#00FF00;">有</span>'
+					}else {
+						isNotes='<span style="font-size:5px;color:#FF0000;">无</span>'
+					}
+					return isNotes;
+				},  unresize: true},
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
 		});
@@ -48,7 +101,9 @@ layui.use(['table','form','tree'], function(){
 			if($(".searchVal").val() != ''){
 				table.reload('demo',{
 					where: {
-					   name:$(".searchVal").val()
+					   name:$(".searchVal").val(),
+					   checkTimeCode:$("select[name=checkTimeCode]").val(),
+					   status:$("select[name=stauts]").val()
 					 },page:{
 						 curr:1
 					 }
@@ -126,7 +181,7 @@ layui.use(['table','form','tree'], function(){
 		  }
 		});
 		
-		 //添加用户
+		 //添加考勤
 	    $(".addUser_btn").click(function(){
 	    	var index = layui.layer.open({
 				title : "添加考勤",

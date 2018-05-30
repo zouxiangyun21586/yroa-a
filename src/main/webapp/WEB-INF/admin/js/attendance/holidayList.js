@@ -23,12 +23,21 @@ layui.use(['table','form','tree','laytpl'], function(){
 				{type:'checkbox', fixed: 'left'},
 				{type:'numbers',title:'编号',width:50},
 				{field: 'name', title: '假期名称', unresize: true},
-				{field: 'startDate', title: '放假开始时间', unresize: true,templet: '<div>{{ layui.laytpl.toDateString(d.startDate.time) }} {{d.startTime}}</div>'},
+				{field: 'startDate', title: '放假开始时间', unresize: true, templet: '<div>{{ layui.laytpl.toDateString(d.startDate.time) }} {{d.startTime}}</div>'},
 				{field: 'endDate', title: '放假结束时间',  unresize: true,templet: '<div>{{ layui.laytpl.toDateString(d.endDate.time) }} {{d.endTime}}</div>'},
 				{field: 'info', title: '备注',  unresize: true},
 				{field: 'classCode', title: '所属届次',  unresize: true},
 				{field: 'createTime', title: '创建时间', unresize: true, templet: '<div>{{ layui.laytpl.toDateTimeString(d.createTime.time) }}</div>'},
-				{field: 'statusName', title: '发布状态',  unresize: true},
+				{field: 'status', title: '发布状态',templet: function(d){
+					var state;
+					if('1'==d.status){
+						state='<span style="font-size:5px;color:#009688;">已发布</span>';
+						
+					}else if('0'==d.status){
+						state='<span style="font-size:5px;color:#FFB800;">未发布</span>';
+					}
+					return state;
+				},  unresize: true},
 				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
 		 ]]
 		});
@@ -113,7 +122,67 @@ layui.use(['table','form','tree','laytpl'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
-		  }
+		  } else if(obj.event === 'view'){
+			  var index = layui.layer.open({
+					title : "查看假期",
+					type : 2,
+					anim : 5,
+					content : "../holiday/view?id="+obj.data.id,//修改学生的页面路径
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
+		  } else if(obj.event === 'release'){
+			    layer.confirm('确定要发布该假期?', function(index){
+			    	layer.close(index);
+			    	var index = top.layer.msg('正在发布...请稍候',{icon: 16,time:false,shade:0.8});
+			    	$.ajax({
+		    	       type:"post",
+		    	       url:path+"holiday/release",
+		    	       data: {"id":obj.data.id,"_method":"PUT"},
+		    	       success:function(data){
+		    	    	   if(0==data.code){
+		    	    		   setTimeout(function(){
+			   			            top.layer.close(index);
+			   			        	top.layer.msg(data.msg,{icon:1});
+			   			        	table.reload('demo',{
+			   			        		where: {
+			   			        			name:null
+			   			        		}
+			   			        	});
+			   			        },1000);
+		    	    	   }else {
+		    	    		   setTimeout(function(){
+			   			            top.layer.close(index);
+			   			        	top.layer.msg(data.msg,{icon:2});
+			   			        	table.reload('demo',{
+			   			        		where: {
+			   			        			name:null
+			   			        		}
+			   			        	});
+			   			        },1000);
+		    	    	   }
+		    	       },error : function() {
+							setTimeout(function(){
+							    top.layer.close(index);
+							    top.layer.msg("异常",{icon:2});
+								location.reload();
+							},1000);
+		    	       }
+			     	});
+			      layer.close(index);
+			    });
+			  }
 		});
 		
 		 //添加假期

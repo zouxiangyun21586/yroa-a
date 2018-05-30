@@ -1,6 +1,9 @@
 package com.yr.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,9 @@ import com.yr.entity.Student;
 import com.yr.entity.StudentCheck;
 import com.yr.service.StCkService;
 import com.yr.util.DateUtils;
+import com.yr.util.JsonUtils;
+
+import net.sf.json.JSONObject;
 
 /**
  * 学生考勤Service层
@@ -37,54 +43,61 @@ public class StCkServiceImpl implements StCkService {
 	private HoliDao holiDao;
 	
 	/**
-	 * 签到
+	 * 签到   。。。。  未完成批量签到
 	 * @author 林水桥
 	 * @param code     学生代码
 	 * @return String 返回签到状态 0为签到成功
 	 * 2018年5月25日下午10:26:04
 	 */
 	public String duty(String code) {
+		Integer addReturn = 0;
+		Map<String, Object> map = new HashMap<>();
 		Student student = studentDao.querytoCode(code); //根据学生编码查询学生
 		Clas clas = clasDao.getCode(student.getClassCode()); //根据届次编码查询届次
-		
 		String checkTimeCode = DateUtils.getAmPmNt(); //获得当前考勤时间编码
 		CheckTime checkTime = stCkDao.getCheckTime(checkTimeCode); //根据考勤时间编码查询考勤时间数据
 		Date nowDay = DateUtils.getCurrentDateA(); //获取当前日期Date类型
 		String nowsDay = DateUtils.getCurrentDate(); //获取当前日期String类型
 		String nowTime = DateUtils.getCurrentTime(); //获取当前时间
-		
-		
+		Long lateTime = DateUtils.getDistanceTimes(nowsDay + " " + nowTime, 
+				nowsDay + " " + checkTime.getStartTime()); //获取标准上课与实际到达时间差(分钟)
+		Integer status = 1;
 		StudentCheck studentCheck = new StudentCheck(); //学生考勤实体
 		Holiday holiday = holiDao.getDuty(clas.getCode()); //获取对应届次发布假期数据
-//		if (null != holiday && nowsDay > DateUtils.getCurrentDateT(holiday.getStartDate())) {
-//			
-//		}
-		
-		Long lateTime = DateUtils.getDistanceYear(nowsDay + " " + checkTime.getStartTime(), 
-				nowsDay + " " + nowTime);
-		Integer status = 1;
-		if (lateTime < 0) {
-			status = 1;
-		} else {
-			status = 0;
+		StudentCheck studentCk = stCkDao.repeatSign(student.getCode(), checkTimeCode, nowDay); //重复签到
+		if (null != holiday && nowDay.getTime() > holiday.getStartDate().getTime() 
+		&& nowDay.getTime() < holiday.getEndDate().getTime() 
+		&& DateUtils.getCurrentDateE(nowTime) > DateUtils.getCurrentDateE(holiday.getStartTime()) 
+		&& DateUtils.getCurrentDateE(nowTime) < DateUtils.getCurrentDateE(holiday.getEndTime())) { 
+			addReturn = 0;
+		} else if (null == studentCk) {
+			if (lateTime < 0) {
+				status = 1;
+				studentCheck.setLateTime(Math.abs(Integer.valueOf(String.valueOf(lateTime)))); //迟到时间
+			} else {
+				status = 0;
+			}
+			studentCheck.setClassCode(clas.getCode()); //届次编码
+			studentCheck.setClassName(clas.getName()); //届次名称
+			studentCheck.setStudentCode(student.getCode()); //学生编码
+			studentCheck.setStudentName(student.getName()); //学生名称
+			studentCheck.setCheckTimeCode(checkTime.getCode()); //考勤时间编码
+			studentCheck.setCheckTimeDesc(checkTime.getTimeName()); //考勤时间名称
+			studentCheck.setCheckTime(nowDay); //考勤日期
+			studentCheck.setStartTime(checkTime.getStartTime()); //标准上课时间
+			studentCheck.setRetyTime(nowTime); //实际到达时间
+			studentCheck.setStatus(status); //考勤状态 0没迟到,1迟到
+			studentCheck.setCreateTime(DateUtils.getCurrentDateTimeA()); //创建时间
+			addReturn = stCkDao.add(studentCheck);
 		}
-		
-		studentCheck.setClassCode(clas.getCode());
-		studentCheck.setClassName(clas.getName());
-		studentCheck.setStudentCode(student.getCode());
-		studentCheck.setStudentName(student.getName());
-		studentCheck.setCheckTimeCode(checkTime.getCode());
-		studentCheck.setCheckTimeDesc(checkTime.getTimeName());
-		studentCheck.setCheckTime(nowDay);
-		studentCheck.setStartTime(checkTime.getStartTime());
-		studentCheck.setRetyTime(nowTime);
-		studentCheck.setStatus(status);
-		studentCheck.setCreateTime(DateUtils.getCurrentDateTimeA());
-		
-		
-		stCkDao.add(studentCheck);
-		
-		return null;
+		if (0 == addReturn) {
+			map.put("code", 1);
+			map.put("msg", "签到失败");
+		} else {
+			map.put("code", 0);
+			map.put("msg", "签到成功");
+		}
+		return JSONObject.fromObject(map).toString();
 	}
 	
 	/**
@@ -102,10 +115,37 @@ public class StCkServiceImpl implements StCkService {
 	}
 	
 	/**
+	 * 查询所有考勤数据     带分页
+	 * @author 林水桥
+	 * @param page             当前页
+	 * @param limit            每页多少条数据
+	 * @param name             学生姓名模糊查询
+	 * @param checkTC          考勤时间编码 AM PM NT
+	 * @param status           考勤状态 0没迟到 1迟到 2旷课 3请假 4早退
+	 * @return String          返回学生考勤数据json格式
+	 * 2018年5月28日下午10:18:33
+	 */
+	public String getAttendance(int page, int limit, String name, String checkTC, Integer status) {
+		
+		return stCkDao.getAttendance(page, limit, name, checkTC, status);
+	}
+	
+	/**
+	 * 查询考勤时间
+	 * @author 林水桥
+	 * @return String 返回考勤时间json数据
+	 * 2018年5月28日下午9:30:09
+	 */
+	public String checkTimeCode() {
+		List<CheckTime> checkTime = stCkDao.checkTimeCode();
+		return JsonUtils.beanListToJson(checkTime);
+	}
+	
+	/**
 	 * 修改考勤数据
 	 * @author 林水桥
 	 * @param stCk    学生考勤修改数据
-	 * @return Integer  返回修改状态 0为为修改 
+	 * @return Integer  返回修改状态 0为修改成功
 	 * 2018年5月25日下午10:11:21
 	 */
 	public Integer update(StudentCheck stCk) {

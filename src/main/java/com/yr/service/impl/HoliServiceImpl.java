@@ -1,5 +1,6 @@
 package com.yr.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -126,6 +127,34 @@ public class HoliServiceImpl implements HoliService {
 		} else {
 			map.put("code", 0);
 			map.put("msg", "修改成功");
+		}
+		return JSONObject.fromObject(map).toString();
+	}
+	
+	/**
+	 * 发布假期
+	 * @author 林水桥
+	 * @param id    假期ID
+	 * @return String 返回发布状态 0为发布成功
+	 * 2018年5月28日上午11:22:15
+	 */
+	public String release(Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		Holiday holiday = holiDao.get(id);
+		Date time = DateUtils.getCurrentDateTimeA();
+		Integer release = 0;
+		if (null != holiday && 0 == holiday.getStatus()) {
+			holiday.setStatus(1);
+			holiday.setReleaseTime(time);
+			holiday.setUpdateTime(time);
+			release = holiDao.release(holiday);
+		}
+		if (0 == release) {
+			map.put("code", 1);
+			map.put("msg", "发布失败");
+		} else {
+			map.put("code", 0);
+			map.put("msg", "发布成功");
 		}
 		return JSONObject.fromObject(map).toString();
 	}

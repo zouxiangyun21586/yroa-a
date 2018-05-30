@@ -1,6 +1,8 @@
 package com.yr.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import com.yr.dao.StCkDao;
 import com.yr.entity.CheckTime;
 import com.yr.entity.StudentCheck;
+import com.yr.util.JsonUtils;
+import com.yr.util.PageUtil;
 
 /**
  * 学生考勤Dao层
@@ -21,6 +25,67 @@ public class StCkDaoImpl implements StCkDao {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
+	
+	/**
+	 * 查询所有考勤数据     带分页
+	 * @author 林水桥
+	 * @param page             当前页
+	 * @param limit            每页多少条数据
+	 * @param name             学生姓名模糊查询
+	 * @param checkTC          考勤时间编码 AM PM NT
+	 * @param status           考勤状态 0没迟到 1迟到 2旷课 3请假 4早退
+	 * @return String          返回学生考勤数据json格式
+	 * 2018年5月28日下午10:18:33
+	 */
+	public String getAttendance(int page, int limit, String name, String checkTC, Integer status) {
+		PageUtil pageUtil = new PageUtil();
+        try {
+            int count = 0;
+            String jpql = getJpql(name, checkTC, status);
+            List<StudentCheck> list = new ArrayList<StudentCheck>();
+            List<StudentCheck> list1 = new ArrayList<StudentCheck>();
+            name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
+            if (null != name && !"".equals(name) && null == checkTC && "".equals(checkTC) && null == status) {
+                list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
+                        .setMaxResults(limit).setParameter("studentName", "%" + name + "%").getResultList();
+                count = Integer.parseInt(entityManager.createNativeQuery(
+                		"SELECT COUNT(*) FROM yr_student_check where student_name like :studentName")
+                        .setParameter("studentName", "%" + name + "%").getSingleResult().toString());
+            } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null == status) {
+            	list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit).setMaxResults(limit)
+            	.setParameter("studentName", "%" + name + "%").setParameter("checkTC", checkTC).getResultList();
+            	count = Integer.parseInt(entityManager.createNativeQuery("SELECT COUNT(*) FROM yr_student_check where "
++ "student_name like :studentName and check_time_code=:checkTC").setParameter("studentName", "%" + name + "%")
+            	.setParameter("checkTC", checkTC).getSingleResult().toString());
+            } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null != status) {
+            	list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit).setMaxResults(limit)
+.setParameter("studentName", "%" + name + "%").setParameter("checkTC", checkTC).setParameter("status", status)
+            	.getResultList();
+                count = Integer.parseInt(entityManager.createNativeQuery("SELECT COUNT(*) FROM yr_student_check where "
++ "student_name like :studentName and check_time_code=:checkTC and status=:status").setParameter(
+"studentName", "%" + name + "%").setParameter("checkTC", checkTC)
+                		.setParameter("status", status).getSingleResult().toString());
+            } else {
+                list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
+                        .setMaxResults(limit).getResultList();
+                count = Integer.parseInt(entityManager
+                       .createNativeQuery("SELECT COUNT(*) FROM yr_student_check").getSingleResult().toString());
+            }
+            for (StudentCheck holiday : list) {
+				list1.add(holiday);
+			}
+            pageUtil = new PageUtil(limit, page, count);
+            pageUtil.setCount(count);
+            pageUtil.setData(list1);
+            pageUtil.setCode(0);
+            pageUtil.setMsg("OK");
+        } catch (Exception e) {
+            pageUtil.setCode(1);
+            pageUtil.setMsg("没有数据");
+            e.printStackTrace();
+        }
+        return JsonUtils.beanToJson(pageUtil);
+	}
 	
 	/**
 	 * 添加考勤
@@ -38,7 +103,7 @@ public class StCkDaoImpl implements StCkDao {
 	 * 修改考勤数据
 	 * @author 林水桥
 	 * @param stCk    学生考勤修改数据
-	 * @return Integer  返回修改状态 0为为修改 
+	 * @return Integer  返回修改状态 0为修改 
 	 * 2018年5月25日下午10:11:21
 	 */
 	public Integer update(StudentCheck stCk) {
@@ -54,8 +119,14 @@ public class StCkDaoImpl implements StCkDao {
 	 * 2018年5月25日下午10:19:01
 	 */
 	public StudentCheck get(Integer id) {
-		
-		return null;
+		StudentCheck studentCk = new StudentCheck();
+		try {
+			studentCk = (StudentCheck) entityManager.createQuery("from StudentCheck where id = :id")
+					.getSingleResult();
+		} catch (Exception e) {
+			studentCk = null;
+		}
+		return studentCk;
 	}
 	
 	/**
@@ -72,15 +143,26 @@ public class StCkDaoImpl implements StCkDao {
 		try {
 			stuCk = (StudentCheck) entityManager.createQuery("from StudentCheck where "
 					+ "studentCode = :studentCode and checkTimeCode = :checkTimeCode and "
-					+ "checkTime = :checkTime")
+					+ "checkTime = :checkDate")
 					.setParameter("studentCode", stuCode)
 					.setParameter("checkTimeCode", checkTimeCode)
-					.setParameter("checkTime", checkDate)
+					.setParameter("checkDate", checkDate)
 					.getSingleResult();
 		} catch (Exception e) {
 			stuCk = null;
 		}
 		return stuCk;
+	}
+	
+	/**
+	 * 查询考勤时间
+	 * @author 林水桥
+	 * @return List<CheckTime> 返回考勤时间List
+	 * 2018年5月28日下午9:30:09
+	 */
+	public List<CheckTime> checkTimeCode() {
+		List<CheckTime> checkTime = entityManager.createQuery("from CheckTime").getResultList();
+		return checkTime;
 	}
 	
 	/**
@@ -95,6 +177,29 @@ public class StCkDaoImpl implements StCkDao {
 						      .setParameter("code", code) 
 							  .getSingleResult();
 		return checkTime;
+	}
+	
+	/**
+	 * 将查询分页查询语句单独拿出
+	 * @author 林水桥
+	 * @param name      学生姓名 
+	 * @param checkTC   考勤时间代码
+	 * @param status    考勤状态
+	 * @return String   查询语句
+	 * 2018年5月28日下午11:25:36
+	 */
+	public String getJpql(String name, String checkTC, Integer status) {
+		String jpql = "FROM StudentCheck ORDER BY checkTime desc";
+        if (null != name && !"".equals(name) && null == checkTC && "".equals(checkTC) && null == status) {
+            jpql = "FROM StudentCheck where studentName like :studentName ORDER BY checkTime desc";
+        } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null == status) {
+            jpql = "FROM StudentCheck where studentName like :studentName and checkTimeCode=:checkTC "
+            		+ "ORDER BY checkTime desc";
+        } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null != status) {
+            jpql = "FROM StudentCheck where studentName like :studentName and checkTimeCode=:checkTC "
+            		+ "and status=:status ORDER BY checkTime desc";
+        }
+        return jpql;
 	}
 	
 }
