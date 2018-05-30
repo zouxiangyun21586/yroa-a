@@ -14,6 +14,7 @@ import com.yr.dao.StudentDao;
 import com.yr.entity.Clas;
 import com.yr.entity.Student;
 import com.yr.util.CheckParamUtil;
+import com.yr.util.CheckTelephoneUtil;
 import com.yr.util.HanyuPinyinHelper;
 import com.yr.util.PageUtil;
 
@@ -116,7 +117,14 @@ public class StudentDaoImpl implements StudentDao {
 		try {
 				String result1 = queyrIsName(student.getName()); //判断学生姓名是否已存在
 				if ("0".equals(result1)) { //判断添加的学是是否也存在 这里表示不存在
-//					Boolean bool = CheckTelephoneUtil.isMobile(student.getTel());
+					Boolean bool = CheckTelephoneUtil.isMobile(student.getTel());
+					if (bool.equals(false)) {
+						return "telformattingError";
+					}
+					Boolean boo = CheckTelephoneUtil.isMobile(student.getHomeTel());
+					if (boo.equals(false)) {
+						return "homeTelformattingError";
+					}
 					String code = code(); //学生编号
 					String clasCode = new String(student.getYear()
 							.getBytes("ISO8859-1"), "utf-8"); //届次 ,获取到的是届次表的code
@@ -131,8 +139,13 @@ public class StudentDaoImpl implements StudentDao {
 					student.setYear(year);
 					student.setClassCode(classCode);
 					student.setCreateTime(createTime);
-					CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
-					result = checkParamUtil.checkParam(student); //判断参数是否为空
+					if ("0".equals(student.getIsFinish())) {
+						CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
+						result = checkParamUtil.checkParam(student); //判断参数是否为空
+					} else {
+						CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
+						result = checkParamUtil.checkParam1(student); //判断参数是否为空
+					}
 					if ("checkSuccess".equals(result)) {
 						entityManager.persist(student);
 						result = "addSuccess";
