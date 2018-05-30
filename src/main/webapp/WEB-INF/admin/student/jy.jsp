@@ -88,12 +88,6 @@
 		</div>
 		<div class="layui-form-item layui-row layui-col-xs12">
 			<div class="magb15 layui-col-md4 layui-col-xs12">
-				<label class="layui-form-label">是否毕业</label>
-				<div class="layui-input-block">
-					<form:radiobuttons path="isFinish" items="${isFinish}" lay-filter="isFinish"/>   
-				</div>
-			</div>
-			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">毕业时间</label>
 				<div class="layui-input-block">
 					<form:input path="finishTime" class="layui-input"  placeholder="yyyy-MM-dd" lay-verify="required" />
@@ -105,8 +99,6 @@
 					<form:input path="offerTime" class="layui-input"  placeholder="yyyy-MM-dd" lay-verify="required" />
 				</div>
 			</div>
-		</div>
-		<div class="layui-form-item layui-row layui-col-xs12">
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">工资</label>
 				<div class="layui-input-block">

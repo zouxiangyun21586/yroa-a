@@ -78,13 +78,13 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">是否展示该学生</label>
 			<div class="layui-input-block">
-				<input type="radio" name="isItDisplayed" value="1" title="是" checked>
-				<input type="radio" name="isItDisplayed"  value="0" title="否">
+				<input type="radio" name="isItDisplayed" lay-filter="isItDisplayed"  value="1" title="是" >
+				<input type="radio" name="isItDisplayed" lay-filter="isItDisplayed" value="0" title="否">
 			</div>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
+		<div class="magb15 layui-col-md4 layui-col-xs12" style="display:none;" id="kuang">
 			<label class="layui-form-label">是否毕业</label>
 			<div class="layui-input-block">
 				<input type="radio" name="isFinish" lay-filter="isFinish" value="0" title="未毕业" checked>

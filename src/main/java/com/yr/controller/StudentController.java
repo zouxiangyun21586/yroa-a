@@ -136,7 +136,6 @@ public class StudentController {
 		isItDisplayed.put("1", "是");
 		isItDisplayed.put("0", "否");
 		map.put("isItDisplayed", isItDisplayed);
-		
 		Student student = studentService.updateDisplay(id);
 		map.put("student", student);
 		return "student/studentUpdate";
@@ -163,10 +162,6 @@ public class StudentController {
 		sex.put("0", "女");
 		sex.put("1", "男");
 		map.put("sex", sex);
-		HashMap<String, String> isFinish = new HashMap<String, String>();
-		isFinish.put("0", "未毕业");
-		isFinish.put("1", "已毕业");
-		map.put("isFinish", isFinish);
 		HashMap<String, String> isItDisplayed = new HashMap<String, String>();
 		isItDisplayed.put("1", "是");
 		isItDisplayed.put("0", "否");
