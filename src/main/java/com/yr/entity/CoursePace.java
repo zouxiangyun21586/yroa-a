@@ -2,6 +2,8 @@ package com.yr.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -27,6 +29,8 @@ public class CoursePace {
 	private String createTime;
 	private String isFinish;
 	
+	@GeneratedValue
+	@Id
 	public Integer getId() {
 		return id;
 	}
