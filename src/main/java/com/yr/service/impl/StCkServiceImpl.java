@@ -41,7 +41,7 @@ public class StCkServiceImpl implements StCkService {
 	private ClasDao clasDao;
 	@Autowired
 	private HoliDao holiDao;
-	
+	private static Integer addReturn = 0;
 	/**
 	 * 签到   。。。。  未完成批量签到
 	 * @author 林水桥
@@ -50,7 +50,6 @@ public class StCkServiceImpl implements StCkService {
 	 * 2018年5月25日下午10:26:04
 	 */
 	public String duty(String code) {
-		Integer addReturn = 0;
 		Map<String, Object> map = new HashMap<>();
 		Student student = studentDao.querytoCode(code); //根据学生编码查询学生
 		Clas clas = clasDao.getCode(student.getClassCode()); //根据届次编码查询届次
@@ -87,6 +86,7 @@ public class StCkServiceImpl implements StCkService {
 			studentCheck.setStartTime(checkTime.getStartTime()); //标准上课时间
 			studentCheck.setRetyTime(nowTime); //实际到达时间
 			studentCheck.setStatus(status); //考勤状态 0没迟到,1迟到
+			studentCheck.setIsNote(1); //默认无请假条
 			studentCheck.setCreateTime(DateUtils.getCurrentDateTimeA()); //创建时间
 			addReturn = stCkDao.add(studentCheck);
 		}
@@ -166,6 +166,16 @@ public class StCkServiceImpl implements StCkService {
 		
 		stCkDao.get(id);
 		
+		return null;
+	}
+	
+	/**
+	 * 当天考勤报告
+	 * @author 林水桥
+	 * @return String 返回当天考勤数据
+	 * 2018年5月28日下午8:11:41
+	 */
+	public String report() {
 		return null;
 	}
 }

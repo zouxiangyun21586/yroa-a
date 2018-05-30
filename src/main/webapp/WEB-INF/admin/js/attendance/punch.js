@@ -58,8 +58,8 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 							top.layer.msg(data.msg, {
 								icon : 1
 							});
-							layer.closeAll("iframe");
-							parent.location.reload();
+							//layer.closeAll("iframe");
+							//parent.location.reload();
 						}, 1000);
 					} else {
 						setTimeout(function() {
@@ -76,7 +76,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 						top.layer.msg("异常！", {
 							icon : 2
 						});
-						layer.closeAll("iframe");
+						//layer.closeAll("iframe");
 					}, 1000);
 				}
 			});
