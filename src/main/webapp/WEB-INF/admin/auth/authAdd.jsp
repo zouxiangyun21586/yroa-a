@@ -35,7 +35,7 @@
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">shiro操作</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="caozuo" lay-verify="required" placeholder="anon放行,authc需验证等...">
+                <input type="text" class="layui-input" value="authc" name="caozuo" lay-verify="required" placeholder="anon放行,authc需验证等...">
             </div>
         </div>
 	</div>

@@ -90,7 +90,7 @@ public class AuthDaoImpl implements AuthDao {
 		if ("".equals(qu) || null == qu) { //判断账号是否存在
 			return "1";
 		}
-		return JsonUtils.beanToJson(qu);
+		return JsonUtils.beanToJson(qu, new String[]{"perRoleItems", "data"}, false);
 	}
 	/**
 	 * 班某人的分页
