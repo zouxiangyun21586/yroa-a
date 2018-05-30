@@ -39,15 +39,21 @@ public class LoginController {
 	 * 验证登录方法
 	 * @author 周业好
 	 * @param acc 账户实体类
+	 * @param yanZhengMa 验证码
 	 * @param request 1
 	 * @return json
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/loginYan", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
-	public String verifyLogin(Account acc, HttpServletRequest request) {
+	public String verifyLogin(Account acc, String yanZhengMa, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<>();
-		
 		HttpSession session = request.getSession();
+		String verificationCode = (String) session.getAttribute("RANDOMVALIDATECODEKEY");
+		if (!verificationCode.equals(yanZhengMa)) {
+			map.put("code", 1);
+			map.put("msg", "验证码错误");
+			return JSONObject.fromObject(map).toString();
+		}
 		String errNumce = request.getParameter("errNumce"); //输入错误次数
 		//判断输入框是否输入
 		if (null == acc.getUserName() || "".equals(acc.getUserName()) || null == acc.getPassWord() 
@@ -73,7 +79,6 @@ public class LoginController {
 			session.setMaxInactiveInterval(i * j); //设置session 的时间
 			session.setAttribute("right", u);
 			session.setAttribute("use", acc.getUserName());
-//			mav.setViewName("redirect:/my/queryAll");
 			map.put("code", 0);
 			map.put("msg", "登录成功");
         } catch (NullPointerException e) {

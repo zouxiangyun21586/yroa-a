@@ -76,5 +76,14 @@
         <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-	
+    
+    <!-- 生成验证码servlet -->
+	<servlet>
+        <servlet-name>ImageServlet</servlet-name>
+        <servlet-class>com.yr.servlet.ImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImageServlet</servlet-name>
+        <url-pattern>/ImageServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

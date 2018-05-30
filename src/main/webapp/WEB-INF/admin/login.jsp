@@ -24,8 +24,8 @@
             <div class="kit-login-col">
               <i class="layui-icon">&#xe612;</i>
               <span class="kit-login-input">
-				  <input type="text" name="userName" lay-verify="required" placeholder="账号/手机号" maxlength="16"/>
-			  </span>
+                  <input type="text" name="userName" lay-verify="required" placeholder="账号/手机号" maxlength="16"/>
+              </span>
             </div>
             <div class="kit-login-col"></div>
           </div>
@@ -33,18 +33,18 @@
             <div class="kit-login-col">
               <i class="layui-icon">&#xe64c;</i>
               <span class="kit-login-input">
-				  <input type="password" name="passWord" lay-verify="required" placeholder="密码" maxlength="16"/>
-			  </span>
+                  <input type="password" name="passWord" lay-verify="required" placeholder="密码" maxlength="16"/>
+              </span>
             </div>
             <div class="kit-login-col"></div>
           </div>
-		  <div class="kit-login-row">
+          <div class="kit-login-row">
             <div class="kit-login-col">
               <i class="layui-icon">&#xe60d;</i>
               <span class="kit-login-input">
-				  <input type="text" name="code" style="width:50%;" lay-verify="required" placeholder="验证码" maxlength="6"/>
-				  <img id="Login_code_img" src="images/code.jpg" style="width:85px;float:right;" title="点击图片刷新验证码" />
-			  </span>
+                  <input type="text" name="yanZhengMa" style="width:50%;" lay-verify="required" placeholder="验证码" maxlength="6"/>
+                  <img id="Login_code_img" src="<%=request.getContextPath() %>/ImageServlet" onclick="changeValidateCode();" style="width:85px;float:right;" title="点击图片刷新验证码" />
+              </span>
             </div>
             <div class="kit-login-col"></div>
           </div>
@@ -107,7 +107,7 @@ layui.use(['form','layer','jquery','element'],function(){
 function changeValidateCode() {
     var obj = $('#Login_code_img');
     var timenow = new Date().getTime();
-    var url = "ImageServlet?d=" + timenow;
+    var url = "/yroa-a/ImageServlet?d=" + timenow;
     $(obj).attr("src", url);
 }
 
