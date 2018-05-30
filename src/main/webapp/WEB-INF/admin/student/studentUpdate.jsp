@@ -33,7 +33,7 @@
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">出生日期</label>
 				<div class="layui-input-block">
-					<form:input path="birth" class="layui-input" id="year" placeholder="yyyy-MM-dd" lay-verify="required" />
+					<form:input path="birth" class="layui-input" placeholder="yyyy-MM-dd" lay-verify="required" />
 				</div>
 			</div>
 			<div class="magb15 layui-col-md4 layui-col-xs12">
@@ -76,7 +76,7 @@
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">入学日期</label>
 				<div class="layui-input-block">
-					<form:input path="inTime" class="layui-input" id="entranceYear" placeholder="yyyy-MM-dd" lay-verify="required" />
+					<form:input path="inTime" class="layui-input" placeholder="yyyy-MM-dd" lay-verify="required" />
 				</div>
 			</div>
 			<div class="magb15 layui-col-md4 layui-col-xs12">

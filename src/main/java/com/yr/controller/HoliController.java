@@ -1,5 +1,6 @@
 package com.yr.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,12 +17,7 @@ import com.yr.entity.Clas;
 import com.yr.entity.Holiday;
 import com.yr.service.ClasService;
 import com.yr.service.HoliService;
-import com.yr.util.DateJsonValueProcessor;
 import com.yr.util.JsonUtils;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JsonConfig;
-import net.sf.json.util.CycleDetectionStrategy;
 
 /**
  * 假期Controller层
@@ -36,7 +32,8 @@ public class HoliController {
 	private HoliService holiService;
 	@Autowired
 	private ClasService claService;
-	private static String addr1 = "attendance/holiday/holidayUpdate";
+	private static String addrUpdate = "attendance/holiday/holidayUpdate";
+	private static String addrView = "attendance/holiday/holidayView";
 	/**
 	 * 查询全部假期   带分页
 	 * @param page       当前页 
@@ -49,8 +46,14 @@ public class HoliController {
 	@ResponseBody
     @RequestMapping(value = "/getHoliday", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
 	public String getHoliday(int page, int limit, String name) {
-		String a = holiService.getHoliday(page, limit, name);
-		return a;
+		String json = null;
+		try {
+			name = new String(name.getBytes("ISO-8859-1"), "utf-8");
+			json = holiService.getHoliday(page, limit, name);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return json;
 	}
 	
 	/**
@@ -100,13 +103,12 @@ public class HoliController {
 	 * String
 	 * @作者 林水桥2018年5月25日上午10:38:17
 	 */
-//	@ResponseBody
 	@RequestMapping(value = "updates", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
 	public String updates(Integer id) {
 		Map<String, Object> map = new HashMap<>();
 		Holiday holiday = holiService.get(id);
 		map.put("holiday", holiday);
-		return addr1;
+		return addrUpdate;
 	}
 	
 	/**
@@ -123,21 +125,31 @@ public class HoliController {
 	}
 	
 	/**
-	 * 过滤json嵌套异常字段
-	 * @param object  对象
-	 * @param gl     忽略字段
-	 * @return
-	 * String
-	 * 2018年4月9日下午10:06:38
+	 * 查看假期信息
+	 * @author 林水桥
+	 * @param id   假期ID
+	 * @return String 假期查看页面
+	 * 2018年5月28日上午11:53:31
 	 */
-	public static String sendArray(Object object, String[] gl) {
-		JsonConfig jsonConfig = new JsonConfig();
-		jsonConfig.setExcludes(gl); // 只要将所需忽略字段加到数组中即可
-		jsonConfig.setIgnoreDefaultExcludes(false); // 设置默认忽略
-		jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-		jsonConfig.registerJsonBeanProcessor(java.sql.Date.class, new DateJsonValueProcessor());
-		JSONArray json = JSONArray.fromObject(object, jsonConfig);
-		return json.toString();
+	@RequestMapping(value = "view", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public String view(Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		Holiday holiday = holiService.get(id);
+		map.put("holiday", holiday);
+		return addrView;
+	}
+	
+	/**
+	 * 发布假期
+	 * @author 林水桥
+	 * @param id    假期ID
+	 * @return String 返回发布状态 0为发布成功
+	 * 2018年5月28日上午11:19:26
+	 */
+	@ResponseBody
+	@RequestMapping(value = "release", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
+	public String release(Integer id) {
+		return holiService.release(id);
 	}
 	
 	/**

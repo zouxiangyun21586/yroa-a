@@ -112,12 +112,12 @@ layui.use(['table','form','tree'], function(){
 		     	});
 		      layer.close(index);
 		    });
-		  }else if(obj.event === 'edit'){
+		  }else if(obj.event === 'yjy'){
 			  var index = layui.layer.open({
-					title : "修改学生",
+					title : "添加学生",
 					type : 2,
 					anim : 5,
-					content : "../student/updateDisplay?id="+obj.data.id,//修改学生的页面路径
+					content : "studentAdd",
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
@@ -132,29 +132,50 @@ layui.use(['table','form','tree'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
-		  }else if(obj.event === 'jyxq'){
-			  var index = layui.layer.open({
-					title : "就业详情",
-					type : 2,
-					anim : 5,
-					content : "../student/jyDisplay?id="+obj.data.id,//修改学生的页面路径
-					success : function(layero, index) {
-						setTimeout(function() {
-							layui.layer.tips('点击此处返回',
-									'.layui-layer-setwin .layui-layer-close', {
-										tips : 3
-									});
-						}, 500);
-					}
-				});
-				layui.layer.full(index);
-				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-				$(window).on("resize", function() {
-					layui.layer.full(index);
-				});
-		  }else if(obj.event === 'jy'){
+		  }else if(obj.event === 'wjy'){
 			  alert("该学生还在就读！");
+		  }else if(obj.event === "editWjy"){
+			  var index = layui.layer.open({
+					title : "编辑",//修改未就业学生
+					type : 2,
+					anim : 5,
+					content : "../student/updateWjyDisplay?id="+obj.data.id,//修改学生的页面路径
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
+		  } else if (obj.event === "editYjy"){
+			  var index = layui.layer.open({
+					title : "编辑",//修改已就业学生
+					type : 2,
+					anim : 5,
+					content : "../student/updateYjyDisplay?id="+obj.data.id,//修改学生的页面路径
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
 		  }
+		  
 		});
 		
 		 //添加用户

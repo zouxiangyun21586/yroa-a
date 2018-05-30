@@ -156,9 +156,18 @@ public class StudentServiceImpl implements StudentService {
 		if ("updateSuccess".equals(value)) {
 			map.put("code", 0);
 			map.put("msg", "修改成功");
-		} else if ("updateFial".equals(value)) {
+		} else if ("addFail".equals(value)) {
 			map.put("code", 1);
-			map.put("msg", "修改失败");
+			map.put("msg", "添加失败");
+		} else if ("alreadyExisted".equals(value)) {
+			map.put("code", 1);
+			map.put("msg", "该学生已经添加过了");
+		} else if ("telformattingError".equals(value)) {
+			map.put("code", 1);
+			map.put("msg", "学生电话格式不对");
+		} else if ("homeTelformattingError".equals(value)) {
+			map.put("code", 1);
+			map.put("msg", "家长电话格式不对");
 		} else {
 			map.put("code", 1);
 			map.put("msg", value + "不能为空");

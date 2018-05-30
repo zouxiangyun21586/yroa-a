@@ -52,6 +52,11 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		 $(":select[name='year']").val(data.value);
 	});   
 	
+	
+	form.on('radio(isItDisplayed)',function(date){
+		$("#kuang").show();
+	});
+	
 	form.on('radio(isFinish)', function(data){
 		var i ="";
 		var a ="";

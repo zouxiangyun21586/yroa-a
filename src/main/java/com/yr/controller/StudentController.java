@@ -23,7 +23,7 @@ import com.yr.service.StudentService;
  * 学生管理controller层
  */
 @Controller
-@RequestMapping(value = "/student")
+@RequestMapping(value = "student")
 public class StudentController {
 	
 	@Autowired
@@ -120,10 +120,10 @@ public class StudentController {
 	 * 
 	 * @param map 
 	 * 
-	 * @describe     用map传入一个对象到页面用于修改数据回显  
+	 * @describe     用map传入一个对象到页面用于修改数据回显 ,未就业修改回显
 	 */
-	@RequestMapping(value = "/updateDisplay", produces = "text/json;charset=UTF-8")
-	public String updateDisplay(Integer id, Map<String, Object> map) {
+	@RequestMapping(value = "/updateWjyDisplay", produces = "text/json;charset=UTF-8")
+	public String updateWjyDisplay(Integer id, Map<String, Object> map) {
 		HashMap<String, String> sex = new HashMap<String, String>();
 		sex.put("0", "女");
 		sex.put("1", "男");
@@ -136,10 +136,39 @@ public class StudentController {
 		isItDisplayed.put("1", "是");
 		isItDisplayed.put("0", "否");
 		map.put("isItDisplayed", isItDisplayed);
-		
 		Student student = studentService.updateDisplay(id);
 		map.put("student", student);
 		return "student/studentUpdate";
+	}
+	
+	
+	/**
+	 * 
+	 * @Date : 2018年5月25日上午8:57:31
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : String
+	 *
+	 * @param id 
+	 * 
+	 * @param map 
+	 * 
+	 * @describe     用map传入一个对象到页面用于修改数据回显,已就业修改回显
+	 */
+	@RequestMapping(value = "/updateYjyDisplay", produces = "text/json;charset=UTF-8")
+	public String updateYjyDisplay(Integer id, Map<String, Object> map) {
+		HashMap<String, String> sex = new HashMap<String, String>();
+		sex.put("0", "女");
+		sex.put("1", "男");
+		map.put("sex", sex);
+		HashMap<String, String> isItDisplayed = new HashMap<String, String>();
+		isItDisplayed.put("1", "是");
+		isItDisplayed.put("0", "否");
+		map.put("isItDisplayed", isItDisplayed);
+		Student student = studentService.updateDisplay(id);
+		map.put("student", student);
+		return "student/jy";
 	}
 	
 	/**

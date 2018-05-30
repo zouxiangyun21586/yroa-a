@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,6 +53,7 @@
                 <input class="layui-input" placeholder="请输入放假结束时间" name="endTime" id="endTime" lay-verify="required">
             </div>
         </div>
+        <shiro:hasPermission name="/yroa-a/holiday/clasList">
         <div class="magb15 layui-col-md4 layui-col-xs12">
            <label class="layui-form-label">届次名称</label>
           <div class="layui-input-block editWidth">
@@ -60,6 +62,8 @@
               </select>
           </div>
         </div>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="/yroa-a/holiday/release">
         <div class="magb15 layui-col-md4 layui-col-xs12">
            <label class="layui-form-label">是否发布</label>
           <div class="layui-input-block editWidth">
@@ -68,6 +72,7 @@
               </select>
           </div>
         </div>
+        </shiro:hasPermission>
         <div class="layui-form-item layui-row layui-col-xs12">
 	        <label class="layui-form-label">备注</label>
 	        <div class="layui-input-block">
@@ -77,7 +82,9 @@
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-input-block">
+            <shiro:hasPermission name="/yroa-a/holiday/add">
             <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addHoliday">保存</button>
+            </shiro:hasPermission>
             <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
         </div>
     </div>

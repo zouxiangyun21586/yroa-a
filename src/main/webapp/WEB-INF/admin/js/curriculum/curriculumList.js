@@ -28,7 +28,7 @@ layui.use(['table','form','tree'], function(){
 				{field: 'isFinish', title:'是否毕业', width:90,align:'center', templet: function(d){
 					var gdt;
 					if('1'==d.isFinish){
-						gdt='<span style="font-size:5px;color:#009688;">已毕业查看详情</span>'
+						gdt='<span style="font-size:5px;color:#009688;">已毕业</span>'
 					}else{
 						gdt='<span style="font-size:5px;color:#FFB800;">未毕业</span>'
 					}

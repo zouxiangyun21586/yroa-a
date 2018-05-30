@@ -9,12 +9,11 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
 	laydate.render({
-	    elem: '#year'
+	    elem: '#birth'
 	});
 	laydate.render({
-		elem: '#entranceYear'
+		elem: '#inTime'
 	});
-	
 	 $.ajax({
 	        type : "get",
 	        url : path + "student/queryYear",
@@ -37,7 +36,6 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	            }else{
 	                alert("没有东西");
 	                $('#claSelect').find('option').remove();
-	                //alert("应该清空")
 	                form.render('select');
 
 	            }
