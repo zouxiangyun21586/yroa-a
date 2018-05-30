@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,11 +30,13 @@
               </select>
           </div>
         </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
-        <div class="layui-input-block">
-            <button class="layui-btn" style="width:100%;" lay-submit="" lay-filter="attendance">签到</button>
-        </div>
-    </div>
+    <shiro:hasPermission name="/yroa-a/attendance/signIn">
+	    <div class="layui-form-item layui-row layui-col-xs12">
+	        <div class="layui-input-block">
+	            <button class="layui-btn" style="width:100%;" lay-submit="" lay-filter="attendance">签到</button>
+	        </div>
+	    </div>
+    </shiro:hasPermission>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/punch.js"></script>

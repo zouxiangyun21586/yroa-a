@@ -76,7 +76,7 @@ public class HoliDaoImpl implements HoliDao {
                 list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
                         .setMaxResults(limit).setParameter("classCode", "%" + classCode + "%").getResultList();
                 count = Integer.parseInt(entityManager.createNativeQuery(
-                		"SELECT COUNT(*) FROM Holiday where classCode like :classCode")
+                		"SELECT COUNT(*) FROM yr_holiday where class_code like :classCode")
                                         .setParameter("classCode", "%" + classCode + "%").getSingleResult().toString());
             } else {
                 list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
@@ -99,7 +99,7 @@ public class HoliDaoImpl implements HoliDao {
             pageUtil.setMsg("OK");
         } catch (Exception e) {
             pageUtil.setCode(1);
-            pageUtil.setMsg("-----出错啦-----");
+            pageUtil.setMsg("没有数据");
             e.printStackTrace();
         }
         return JsonUtils.beanToJson(pageUtil);
@@ -134,15 +134,42 @@ public class HoliDaoImpl implements HoliDao {
 	}
 	
 	/**
+	 * 发布假期
+	 * @author 林水桥
+	 * @param holiday    假期数据
+	 * @return Integer 返回发布状态 0为发布成功
+	 * 2018年5月28日上午11:22:15
+	 */
+	public Integer release(Holiday holiday) {
+		Query query = entityManager.createQuery("update Holiday set status=:status,"
+					  + "releaseTime=:releaseTime,updateTime=:updateTime where id=:id")
+					  .setParameter("status", holiday.getStatus())
+					  .setParameter("releaseTime", holiday.getReleaseTime())
+					  .setParameter("updateTime", holiday.getUpdateTime())
+					  .setParameter("id", holiday.getId());
+		return query.executeUpdate();
+	}
+	
+	/**
 	 * 数据回显
 	 * @作者 林水桥
 	 * @param id 根据假期ID回显数据
-	 * @return Holiday 返回假期对象数据
+	 * @return Holiday 返回假期对象数据  null为无此数据
 	 * 2018年5月24日上午10:03:28
 	 */
 	public Holiday get(Integer id) {
-		Holiday holiday = (Holiday) entityManager.createQuery("from Holiday ho where ho.id = :id")
-							.setParameter("id", id).getSingleResult();
+		Holiday holiday = new Holiday();
+		try {
+			holiday = (Holiday) entityManager.createQuery("from Holiday ho where ho.id = :id")
+					.setParameter("id", id).getSingleResult();
+			if (1 == holiday.getStatus()) {
+				holiday.setStatusName("已发布");
+			} else {
+				holiday.setStatusName("未发布");
+			}
+		} catch (Exception e) {
+			holiday = null;
+		}
 		return holiday;
 	}
 	

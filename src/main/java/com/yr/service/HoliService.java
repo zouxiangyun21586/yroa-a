@@ -48,6 +48,15 @@ public interface HoliService {
 	String update(Holiday holiday);
 	
 	/**
+	 * 发布假期
+	 * @author 林水桥
+	 * @param id    假期ID
+	 * @return String 返回发布状态 0为发布成功
+	 * 2018年5月28日上午11:22:15
+	 */
+	String release(Integer id);
+	
+	/**
 	 * 数据回显
 	 * @作者 林水桥
 	 * @param id 根据假期ID回显数据
