@@ -27,10 +27,10 @@ layui.use(['table','form','tree'], function(){
 				{field: 'teacherName', title: '教师姓名',  unresize: true},
 				{field: 'isFinish', title:'是否毕业', width:90,align:'center', templet: function(d){
 					var gdt;
-					if(1==d.isFinish){
-						gdt='<span style="font-size:5px;color:#009688;">详情</span>'
+					if('1'==d.isFinish){
+						gdt='<span style="font-size:5px;color:#009688;">已毕业查看详情</span>'
 					}else{
-						gdt='<span style="font-size:5px;color:#FFB800;">毕业</span>'
+						gdt='<span style="font-size:5px;color:#FFB800;">未毕业</span>'
 					}
 					return gdt;
 				}, unresize: true},
