@@ -276,14 +276,14 @@ public class ClasServiceImpl implements ClasService {
 	@Override
 	public String progress() {
 		List<Course> listStr = clasDao.progress();
-		String result = JsonUtils.beanToJson(listStr);
+		String result = JsonUtils.listToJson(listStr);
 		return result;
 	}
 
 	@Override
 	public String progressGet(String code) {
 		List<CoursePace> listCp = clasDao.progressGet(code);
-		String result = JsonUtils.beanToJson(listCp);
+		String result = JsonUtils.listToJson(listCp);
 		return result;
 	}
 }
