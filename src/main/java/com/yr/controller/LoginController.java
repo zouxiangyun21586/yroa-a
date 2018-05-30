@@ -83,12 +83,12 @@ public class LoginController {
 			map.put("msg", "登录成功");
         } catch (NullPointerException e) {
         	map.put("code", 1);
-			map.put("msg", "账号不存在");
+			map.put("msg", "账号或者密码错误");
         } catch (Exception e) {
 //        	Integer er = Integer.valueOf(errNumce);
 //			er += er;
 			map.put("code", 1);
-			map.put("msg", "密码错误");
+			map.put("msg", "账号或者密码错误");
 //        	e.printStackTrace();
         }
 		return JSONObject.fromObject(map).toString();

@@ -224,7 +224,7 @@ public class AccountDaoImpl implements AccountDao {
 	 */
 	public String yanPs(String us) {
 		Account list1 = (Account) em.createQuery("select u from Account u where u.userName=? or u.tel=?")
-				.setParameter(0, us).getSingleResult();
+				.setParameter(0, us).setParameter(1, us).getSingleResult();
 		if (null == list1) {
 			return null;
 		} else {
