@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Student;
+import com.yr.entity.StudentCheck;
 import com.yr.service.StCkService;
 import com.yr.service.StudentService;
 import com.yr.util.JsonUtils;
@@ -102,6 +103,41 @@ public class StCkController {
 	@RequestMapping(value = "/report", produces = "text/json;charset=UTF-8")
 	public String report() {
 		return null;
+	}
+	
+	/**
+	 * 添加考勤,判断如果:
+	 * 签到了显示 请假(事,病)或早退功能
+	 * 未签到显示 补签,请假(事,病),旷课
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月31日 下午5:16:42
+	 * 
+	 * @param sc 学生考勤
+	 * @return 判断是否执行成功
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addAttendance", produces = "text/json;charset=UTF-8")
+	public String addAttendance(StudentCheck sc) {
+		stCkService.add(sc);
+		return null;
+	}
+	
+	/**
+	 * 查询字典表中的考勤状态
+	 * @author zxy
+	 * 
+	 * 2018年5月31日 下午6:04:18
+	 * 
+	 * @param type 字典类型
+	 * @return strJson
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/stckDic", produces = "text/json;charset=UTF-8")
+	public String stckDic(String type) {
+		String str = stCkService.stckDic(type);
+		return str;
 	}
 	
 }

@@ -81,4 +81,15 @@ public interface StCkDao {
 	 */
 	CheckTime getCheckTime(String code);
 	
+	/**
+	 * 查询字典
+	 * @author zxy
+	 * 
+	 * 2018年5月31日 下午5:54:11
+	 * 
+	 * @param type 字典类型
+	 * @return String
+	 */
+	String stckDic(String type);
+	
 }

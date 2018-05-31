@@ -1,22 +1,16 @@
 package com.yr.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Leave;
 import com.yr.service.LeaveService;
-import com.yr.util.JsonUtils;
 
 /**
  * 请假 Controller
@@ -26,6 +20,7 @@ import com.yr.util.JsonUtils;
  *
  */
 @Controller
+@RequestMapping(value = "leave")
 public class LeaveController {
 	@Autowired
 	private LeaveService leaveService;
@@ -38,20 +33,15 @@ public class LeaveController {
 	 * 2018年5月23日 上午11:44:16
 	 * 
 	 * @param leave 请假对象
-	 * @param map 传递控制方法或者传递数据到结果页面
+	 * @param request 获取当前登录用户名
 	 * @return 返回Json格式的Stirng 数据
 	 */
 	@Transactional
-	@RequestMapping(value = "/Leave", method = RequestMethod.POST)
-	public String add(Leave leave, ModelMap map) {
-		Boolean boo = leaveService.add(leave);
-		if (boo) {
-			map.put("succ", number);
-			return "show";
-		} else {
-			map.put("error", 1);
-			return "show";
-		}
+	@RequestMapping(value = "/Leave", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String add(Leave leave, HttpServletRequest request) {
+		String acc = (String) request.getSession().getAttribute("use");
+		String str = leaveService.add(leave, acc);
+		return str;
 	}
 
 	/**
@@ -60,45 +50,31 @@ public class LeaveController {
 	 * 
 	 * 2018年5月23日 上午11:45:05
 	 * 
-	 * @param leave 请假实体对象
-	 * @param map 传递数据到结果页面
+	 * @param id 定位到指定的人
 	 * @return String(会跳入指定页面)
 	 */
 	@Transactional
-	@RequestMapping(value = "/Leave/{id}", method = RequestMethod.DELETE)
-	public String cancel(Leave leave, ModelMap map) {
-		Boolean bool = leaveService.cancelLeave(leave);
-		if (bool) {
-			map.put("succ", number);
-			return "show";
-		} else {
-			map.put("error", 1);
-			return "show";
-		}
+	@RequestMapping(value = "/Leave", method = RequestMethod.DELETE, produces = "text/json;charset=UTF-8")
+	public String cancel(Integer id) {
+		String str  = leaveService.cancelLeave(id);
+		return str;
 	}
 
 	/**
-	 * 查询所有
+	 * 分页查询
 	 * @author zxy
 	 * 
 	 * 2018年5月23日 上午11:45:07
 	 * 
-	 * @param response 发送
-	 * @param request 接收
-	 * @return Json格式的String 数据
+	 * @param page 第几页
+	 * @param limit 每页多少条
+	 * @param name 分页条件
+	 * @return Json格式的String数据
 	 */
-	@RequestMapping(value = "/Leave", method = RequestMethod.GET)
-	public @ResponseBody String sel(HttpServletResponse response, HttpServletRequest request) {
-		List<Leave> listUser = leaveService.query();
-		String str = "";
-		try {
-			// false表示数组中的属性不需要转成json,如果是true代表只将数组中的属性转成json格式
-			str = JsonUtils.beanListToJson(listUser);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@RequestMapping(value = "/Leave", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public @ResponseBody String query(Integer page, Integer limit, String name) {
+		String str = leaveService.query(page, limit, name);
 		return str;
-		
 	}
 	
 	/**
@@ -107,23 +83,12 @@ public class LeaveController {
 	 * 
 	 * 2018年5月23日 上午11:45:53
 	 * 
-	 * @param response 发送数据
-	 * @param request 接收数据
 	 * @param studenCode 学生code
 	 * @return Json格式数据
 	 */
-		@RequestMapping(value = "/Leave/studenCode", method = RequestMethod.GET)
-		public @ResponseBody String query(HttpServletResponse response, 
-				HttpServletRequest request, @PathVariable(value = "studenCode") String studenCode) {
-			List<Leave> listUser = leaveService.query(studenCode);
-			String str = "";
-			try {
-				// false表示数组中的属性不需要转成json,如果是true代表只将数组中的属性转成json格式
-				str = JsonUtils.beanListToJson(listUser);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return str;
-			
-		}
+	@RequestMapping(value = "/Leave", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
+	public @ResponseBody String query(String studenCode) {
+		String str = leaveService.query(studenCode);
+		return str;
 	}
+}

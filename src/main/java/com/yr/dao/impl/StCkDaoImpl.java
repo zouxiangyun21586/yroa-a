@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yr.dao.StCkDao;
 import com.yr.entity.CheckTime;
+import com.yr.entity.Dic;
 import com.yr.entity.StudentCheck;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
@@ -211,6 +212,14 @@ public class StCkDaoImpl implements StCkDao {
 	public String report() {
 		
 		return null;
+	}
+
+	@Override
+	public String stckDic(String type) {
+		List<Dic> listDic = entityManager.createQuery("From Dic where type = :type")
+				.setParameter("type", type).getResultList();
+		String strJson = JsonUtils.listToJson(listDic);
+		return strJson;
 	}
 	
 }

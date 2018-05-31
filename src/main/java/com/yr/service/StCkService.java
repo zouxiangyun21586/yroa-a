@@ -74,4 +74,15 @@ public interface StCkService {
 	 */
 	String report();
 	
+	/**
+	 * 查询字典中考勤的所有状态
+	 * @author zxy
+	 * 
+	 * 2018年5月31日 下午5:58:10
+	 * 
+	 * @param type 字典类型
+	 * @return 判断是否执行成功
+	 */
+	String stckDic(String type);
+	
 }

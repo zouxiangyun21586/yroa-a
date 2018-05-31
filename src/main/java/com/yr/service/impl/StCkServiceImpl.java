@@ -178,4 +178,10 @@ public class StCkServiceImpl implements StCkService {
 	public String report() {
 		return null;
 	}
+
+	@Override
+	public String stckDic(String type) {
+		String str = stCkDao.stckDic(type);
+		return str;
+	}
 }

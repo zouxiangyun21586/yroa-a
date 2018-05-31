@@ -36,7 +36,7 @@
             },{
                 "title": "请假",
                 "icon": "&#xe656;",
-                "href": "attendance/leave",
+                "href": "attendance/leaveList",
                 "spread": false
             },{
                 "title": "假期",

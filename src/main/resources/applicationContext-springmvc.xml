@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-	xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:context="http://www.springframework.org/schema/context"  
-	xmlns:mvc="http://www.springframework.org/schema/mvc"  
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
-	http://www.springframework.org/schema/tx 
-	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-	http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-3.2.xsd
-	http://www.springframework.org/schema/mvc
-    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
 	<!-- 解析返回JSON (后台返回json格式到前台要配置这个内容) 同时也需要加 jackson-xxx-2.9.4  的三个jar包(最好用新版本的jar包)-->
     <!--  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> -->
@@ -105,5 +101,10 @@
     <mvc:resources location="/layui/" mapping="/layui/**"/>
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
+	
+	<!-- p:order是设置优先级 -->
+    <!-- 注册excel视图解析器 -->  
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="10"></bean>   
+    <bean id="Excels" class="com.yr.util.ExportExcel"></bean>
 	
 </beans>
