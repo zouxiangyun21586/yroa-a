@@ -132,16 +132,17 @@ public class StCkServiceImpl implements StCkService {
 	 */
 	public String getAttendance(int page, int limit, String name, String checkTC, Integer status) {
 		String userName = (String) SecurityUtils.getSubject().getPrincipal();
-		
 		List<Role> roList = roleDao.queryR(userName);
 		for (Role role : roList) {
 			if ("学生".equals(role.getName())) {
-				
+				Student student = studentDao.getAccount(userName);
+				name = student.getName();
+				break;
 			} else if ("家长".equals(role.getName())) {
-			
+				name = "不能使用";
+				break;
 			}
 		}
-		
 		return stCkDao.getAttendance(page, limit, name, checkTC, status);
 	}
 	
@@ -194,14 +195,19 @@ public class StCkServiceImpl implements StCkService {
 	 * 2018年5月28日下午8:11:41
 	 */
 	public String report(int page, int limit, String ckStatus) {
-//		String userName = (String) SecurityUtils.getSubject().getPrincipal();
+		String userName = (String) SecurityUtils.getSubject().getPrincipal();
 		String code = null;
-//		List<Role> roList = roleDao.queryR(userName);
-//		for (Role role : roList) {
-//			if ("家长".equals(role.getName()) || "学生".equals(role.getName())) {
-//				
-//			}
-//		}
+		List<Role> roList = roleDao.queryR(userName);
+		for (Role role : roList) {
+			if ("学生".equals(role.getName())) {
+				Student student = studentDao.getAccount(userName);
+				code = student.getCode();
+				break;
+			} else if ("家长".equals(role.getName())) {
+				code = "不能使用";
+				break;
+			}
+		}
 		Date nowDay = DateUtils.getCurrentDateA();
 		String list = stCkDao.report(page, limit, code, nowDay, ckStatus);
 		return list;
