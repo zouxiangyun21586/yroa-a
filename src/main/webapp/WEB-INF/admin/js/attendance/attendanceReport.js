@@ -1,13 +1,15 @@
-layui.use(['table','form','tree'], function(){
+layui.use(['table','form','tree','element'], function(){
   var table = layui.table,
   form = layui.form,
   $=layui.jquery,
+  element=layui.element,
   tree=layui.tree,
   strFullPath = window.document.location.href,
   	strPath = window.document.location.pathname,
 	pos = strFullPath.indexOf(strPath),
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
+  
   
 		table.render({
 		  elem: '#demo',
@@ -21,25 +23,79 @@ layui.use(['table','form','tree'], function(){
 		  },cols: [[//需显示的字段
 				{type:'checkbox', fixed: 'left'},
 				{type:'numbers',title:'编号',width:50},
-				{field: 'name', title: '用户名', unresize: true},
-				{field: 'userName', title: '账号', unresize: true},
-				{field: 'passWord', title: '密码',  unresize: true},
-				{field: 'email', title: '邮箱',  unresize: true},
-				{field: 'insertTime', title: '注册时间',templet: function(d) {
-                    return d.insertTime.time;
-                }, unresize: true},
-				{field: 'status', title:'状态', width:90,align:'center', templet: function(d){
+				{field: 'name', title: '上午考勤情况', unresize: true, align:'center', templet: function(d){
 					var state;
-					if(0==d.status){
-						state='<span style="font-size:5px;color:#009688;">可使用</span>'
-					}else if(1==d.status){
-						state='<span style="font-size:5px;color:#FFB800;">未激活</span>'
-					}else if(2==d.status){
-						state='<span style="font-size:5px;color:#ff0000;">已禁用</span>'
+					if(0==d.status && "AM"==d.checkStatus){
+						state=d.name+'<span style="font-size:5px;color:#00FF00;">'+d.statusDesc+'</span>'
+					}else if(1==d.status && "AM"==d.checkStatus){
+						state=d.name+'<span style="font-size:5px;color:#FF2400;">'+d.statusDesc+'</span>'
+					}else if(2==d.status && "AM"==d.checkStatus){
+						state=d.name+'<span style="font-size:5px;color:#FF0000;">'+d.statusDesc+'</span>'
+					}else if(3==d.status && "AM"==d.checkStatus){
+						state=d.name+'<span style="font-size:5px;color:#0000FF;">'+d.statusDesc+'</span>'
+					}else if(4==d.status && "AM"==d.checkStatus){
+						state=d.name+'<span style="font-size:5px;color:#BC1717;">'+d.statusDesc+'</span>'
 					}
 					return state;
-				}, unresize: true},
-				{fixed: 'right',title:'操作', width:80, align:'center', toolbar: '#barDemo',unresize:true}
+				}}
 		 ]]
 		});
+		table.render({
+			  elem: '#demo1',
+			  loading:true,
+			  url: path+"attendance/report", //请求路径
+			  limit:7,
+			  limits:[4,7,10,15],
+			  page:true,
+			  where: {
+				   name:null,
+			  },cols: [[//需显示的字段
+					{type:'checkbox', fixed: 'left'},
+					{type:'numbers',title:'编号',width:50},
+					{field: 'name', title: '下午考勤情况', unresize: true, align:'center', templet: function(d){
+						var state;
+						if(0==d.status && "PM"==d.checkStatus){
+							state=d.name+'<span style="font-size:5px;color:#00FF00;">'+d.statusDesc+'</span>'
+						}else if(1==d.status && "PM"==d.checkStatus){
+							state=d.name+'<span style="font-size:5px;color:#FF2400;">'+d.statusDesc+'</span>'
+						}else if(2==d.status && "PM"==d.checkStatus){
+							state=d.name+'<span style="font-size:5px;color:#FF0000;">'+d.statusDesc+'</span>'
+						}else if(3==d.status && "PM"==d.checkStatus){
+							state=d.name+'<span style="font-size:5px;color:#0000FF;">'+d.statusDesc+'</span>'
+						}else if(4==d.status && "PM"==d.checkStatus){
+							state=d.name+'<span style="font-size:5px;color:#BC1717;">'+d.statusDesc+'</span>'
+						}
+						return state;
+					}}
+			 ]]
+			});
+		table.render({
+			  elem: '#demo2',
+			  loading:true,
+			  url: path+"attendance/report", //请求路径
+			  limit:7,
+			  limits:[4,7,10,15],
+			  page:true,
+			  where: {
+				   name:null,
+			  },cols: [[//需显示的字段
+					{type:'checkbox', fixed: 'left'},
+					{type:'numbers',title:'编号',width:50},
+					{field: 'name', title: '晚上考勤情况', unresize: true, align:'center', templet: function(d){
+						var state;
+						if(0==d.status && "NT"==d.setCheckStatus){
+							state=d.name+'<span style="font-size:5px;color:#00FF00;">'+d.statusDesc+'</span>'
+						}else if(1==d.status && "NT"==d.checkStatus){
+							state=d.name+'<span style="font-size:5px;color:#FF2400;">'+d.statusDesc+'</span>'
+						}else if(2==d.status && "NT"==d.checkStatus){
+							state=d.name+'<span style="font-size:5px;color:#FF0000;">'+d.statusDesc+'</span>'
+						}else if(3==d.status && "NT"==d.checkStatus){
+							state=d.name+'<span style="font-size:5px;color:#0000FF;">'+d.statusDesc+'</span>'
+						}else if(4==d.status && "NT"==d.checkStatus){
+							state=d.name+'<span style="font-size:5px;color:#BC1717;">'+d.statusDesc+'</span>'
+						}
+						return state;
+					}}
+			 ]]
+			});
 });

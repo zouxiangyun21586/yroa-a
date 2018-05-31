@@ -2,6 +2,7 @@ package com.yr.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,19 @@ public class StCkController {
 	private StCkService stCkService;
 	@Autowired
 	private StudentService studService;
+	
+	/**
+     * 导出成Excel表
+     * @param map 所有需要导出的数据
+     * @return
+     * String
+     * 2018年3月1日上午8:24:18
+     */
+    @RequestMapping("/testExcel")
+    public String testExcel(Map<String, Object> map) {
+//        map.put("stuList", userService.getAll());
+        return "Excels";
+    }
 	
 	/**
 	 * 查询所有签到人员数据
@@ -96,13 +110,16 @@ public class StCkController {
 	/**
 	 * 当天考勤报告
 	 * @author 林水桥
-	 * @return String 返回当天考勤数据
+	 * @param page 分页当前页
+	 * @param limit 每页多少条记录
+	 * @return String 返回当天考勤数据 根据考勤日期倒序排序
 	 * 2018年5月28日下午8:11:41
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/report", produces = "text/json;charset=UTF-8")
-	public String report() {
-		return null;
+	public String report(int page, int limit) {
+		String a = stCkService.report(page, limit);
+		return a;
 	}
 	
 	/**

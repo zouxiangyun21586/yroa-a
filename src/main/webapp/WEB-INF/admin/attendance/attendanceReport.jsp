@@ -12,9 +12,30 @@
 </style>
 </head>
 <body class="childrenBody">
-    <form class="layui-form">
+    <!-- <form class="layui-form">
         <table id="demo" lay-filter="demo"></table>
-    </form>
+    </form> -->
+    <div class="layui-col-lg6 layui-col-md12">
+            <blockquote class="layui-elem-quote title">今日考勤情况</blockquote>
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+              <ul class="layui-tab-title">
+                <li class="layui-this">上午考勤报告</li>
+                <li>下午考勤报告</li>
+                <li>晚上考勤报告</li>
+              </ul>
+              <div class="layui-tab-content" style="height: 100px;">
+                <div class="layui-tab-item layui-show">
+                    <table id="demo" lay-filter="demo"></table>
+                </div>
+                <div class="layui-tab-item">
+                    <table id="demo" lay-filter="demo"></table>
+                </div>
+                <div class="layui-tab-item">
+                    <table id="demo" lay-filter="demo"></table>
+                </div>
+              </div>
+            </div> 
+        </div>
 </body>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/attendanceReport.js"></script>

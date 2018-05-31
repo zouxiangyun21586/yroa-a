@@ -172,11 +172,23 @@ public class StCkServiceImpl implements StCkService {
 	/**
 	 * 当天考勤报告
 	 * @author 林水桥
-	 * @return String 返回当天考勤数据
+	 * @param page 分页当前页
+	 * @param limit 每页多少条记录
+	 * @return String 返回当天考勤数据 根据考勤日期倒序排序
 	 * 2018年5月28日下午8:11:41
 	 */
-	public String report() {
-		return null;
+	public String report(int page, int limit) {
+//		String userName = (String) SecurityUtils.getSubject().getPrincipal();
+		String code = null;
+//		List<Role> roList = roleDao.queryR(userName);
+//		for (Role role : roList) {
+//			if ("家长".equals(role.getName()) || "学生".equals(role.getName())) {
+//				
+//			}
+//		}
+		Date nowDay = DateUtils.getCurrentDateA();
+		String list = stCkDao.report(page, limit, code, nowDay);
+		return list;
 	}
 
 	@Override

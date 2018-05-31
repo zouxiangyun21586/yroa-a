@@ -12,7 +12,9 @@ import org.springframework.stereotype.Repository;
 import com.yr.dao.StCkDao;
 import com.yr.entity.CheckTime;
 import com.yr.entity.Dic;
+import com.yr.entity.Report;
 import com.yr.entity.StudentCheck;
+import com.yr.util.DateUtils;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
 
@@ -26,6 +28,9 @@ public class StCkDaoImpl implements StCkDao {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
+	private static final Integer T2 = 2;
+	private static final Integer T3 = 3;
+	private static final Integer T4 = 4;
 	
 	/**
 	 * 查询所有考勤数据     带分页
@@ -206,12 +211,93 @@ public class StCkDaoImpl implements StCkDao {
 	/**
 	 * 当天考勤报告
 	 * @author 林水桥
-	 * @return String 返回当天考勤数据
+	 * @param page 分页当前页
+	 * @param limit 每页多少条记录
+	 * @param code    学生code
+	 * @param checkTime 当天日期
+	 * @return String 返回当天考勤数据 根据考勤日期倒序排序
 	 * 2018年5月28日下午8:11:41
 	 */
-	public String report() {
-		
-		return null;
+	public String report(int page, int limit, String code, Date checkTime) {
+		PageUtil pageUtil = new PageUtil();
+		try {
+			int count = 0;
+			String jpql = "";
+			List<StudentCheck> list = new ArrayList<StudentCheck>();
+			if (null == code) {
+			jpql = "from StudentCheck where checkTime=:checkTime order by checkTime desc";
+			list = entityManager.createQuery(jpql).setParameter("checkTime", checkTime)
+					.setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
+count = Integer.valueOf(entityManager.createNativeQuery("select count(*) from yr_student_check "
++ "where check_date=:checkTime").setParameter("checkTime", checkTime).getSingleResult().toString());
+			} else {
+			jpql = "from StudentCheck where studentCode=:studentCode and checkTime=:checkTime "
+					+ "order by checkTime desc";
+			list = entityManager.createQuery(jpql).setParameter("studentCode", code)
+.setParameter("checkTime", checkTime).setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
+count = Integer.valueOf(entityManager.createNativeQuery("select count(*) from yr_student_check "
++ "where check_date=:checkTime and student_code=:stuCode").setParameter("checkTime", checkTime)
+		.setParameter("stuCode", code).getSingleResult().toString());
+			}
+			List<Report> reportList = new ArrayList<Report>();
+			reportList = getReport(list, reportList);
+			pageUtil = new PageUtil(limit, page, count);
+	        pageUtil.setCount(count);
+	        pageUtil.setData(reportList);
+	        pageUtil.setCode(0);
+	        pageUtil.setMsg("OK");
+	    } catch (Exception e) {
+	        pageUtil.setCode(1);
+	        pageUtil.setMsg("没有数据");
+	        e.printStackTrace();
+	    }
+		return JsonUtils.beanToJson(pageUtil);
+	}
+	/**
+	 * 当天考勤需要节俭代码
+	 * @author 林水桥
+	 * @param list        考勤数据
+	 * @param reportList  当天报告
+	 * @return List<Report> 返回当天报告
+	 * List<Report>
+	 * 2018年5月31日下午3:27:00
+	 */
+	public List<Report> getReport(List<StudentCheck> list, List<Report> reportList) {
+		String description = "";
+		for (StudentCheck studentCheck : list) {
+			description = DateUtils.getCurrentDateT(studentCheck.getCheckTime());
+			description += studentCheck.getStudentName();
+			description += studentCheck.getCheckTimeDesc();
+			Report report = new Report();
+			if (0 == studentCheck.getStatus()) {
+				report.setStatus("0");
+				report.setStatusDesc("正常考勤");
+			} else if (1 == studentCheck.getStatus()) {
+				report.setStatus("1");
+				report.setStatusDesc("迟到" + studentCheck.getLateTime() + "分钟");
+			} else if (T2 == studentCheck.getStatus()) {
+				report.setStatus("2");
+				report.setStatusDesc("旷课");
+			} else if (T3 == studentCheck.getStatus()) {
+				report.setStatus("3");
+				report.setStatusDesc("请假");
+			} else if (T4 == studentCheck.getStatus()) {
+				report.setStatus("4");
+				report.setStatusDesc("早退");
+			}
+			if ("AM".equals(studentCheck.getCheckTimeCode())) {
+				report.setCheckStatus("AM");
+				report.setName(description);
+			} else if ("PM".equals(studentCheck.getCheckTimeCode())) {
+				report.setCheckStatus("PM");
+				report.setName(description);
+			} else {
+				report.setCheckStatus("NT");
+				report.setName(description);
+			}
+			reportList.add(report);
+		}
+		return reportList;
 	}
 
 	@Override
