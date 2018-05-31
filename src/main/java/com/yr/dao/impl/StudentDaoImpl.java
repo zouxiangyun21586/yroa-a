@@ -420,4 +420,44 @@ public class StudentDaoImpl implements StudentDao {
 		stu.setOfferIncome(student.getOfferIncome());
 		entityManager.merge(stu);
 	}
+
+	/**
+	 * 
+	 * @Date : 2018年5月31日下午3:28:15
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param id 
+	 * 
+	 * @return Student 
+	 * 
+	 * @see com.yr.dao.StudentDao#employment(java.lang.Integer)
+	 */
+	public Student employment(Integer id) {
+		Student student = entityManager.find(Student.class, id);
+		String year = session(student.getClassCode());
+		student.setYear(year);
+		return student;
+	}
+	
+	/**
+	 * 
+	 * @Date : 2018年5月31日下午4:49:47
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : String 
+	 * 
+	 * @param code 
+	 */
+	public String session(String code) {
+		String jpql = "from Clas where code=:code";
+		Clas clas = (Clas) entityManager.createQuery(jpql).setParameter("code", code).getSingleResult();
+		String year = clas.getYear();
+		String name = clas.getName();
+		String result = year + "-" + name;
+		return result;
+	}
+	
+	
 }

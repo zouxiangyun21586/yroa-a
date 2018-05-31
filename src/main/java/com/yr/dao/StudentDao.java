@@ -152,4 +152,18 @@ public interface StudentDao {
 	  */
 	 void employmentEditors(Student student);
 	 
+
+	 /**
+	  * 
+	  * @Date : 2018年5月31日下午3:17:57
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : String
+	  *
+	  * @param id 
+	  * 
+	  * @describe 查询就业学生信息
+	  */
+	 Student employment(Integer id);
 }

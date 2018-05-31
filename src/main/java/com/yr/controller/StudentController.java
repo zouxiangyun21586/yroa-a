@@ -142,6 +142,24 @@ public class StudentController {
 	}
 	
 	
+	/**\
+	 *
+	 * @Date : 2018年5月31日下午3:15:48
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : String 
+	 *
+	 * @param id 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/employment", produces = "text/json;charset=UTF-8")
+	public String employment(Integer id) {
+		String result = studentService.employment(id);
+		return result;
+		
+	}
+	
 	/**
 	 * 
 	 * @Date : 2018年5月25日上午8:57:31
