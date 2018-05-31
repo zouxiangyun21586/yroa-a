@@ -66,4 +66,12 @@ public interface StCkService {
 	 */
 	StudentCheck get(Integer id);
 	
+	/**
+	 * 当天考勤报告
+	 * @author 林水桥
+	 * @return String 返回当天考勤数据
+	 * 2018年5月28日下午8:11:41
+	 */
+	String report();
+	
 }
