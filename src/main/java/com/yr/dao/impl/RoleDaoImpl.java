@@ -105,8 +105,8 @@ public class RoleDaoImpl implements RoleDao {
 	 * @return list
 	 */
 	public List<Role> queryR(String name) {
-		List<Role> qu = em.createQuery("select r from Role r,Account ac where r.use=0 and ac.userName=?")
-				.setParameter(0, name).getResultList();
+		String sql = "select r from Role r,Account ac where r.use=0 and ac.userName=? or ac.tel=?";
+		List<Role> qu = em.createQuery(sql).setParameter(0, name).setParameter(1, name).getResultList();
 		return qu;
 	}
 	
