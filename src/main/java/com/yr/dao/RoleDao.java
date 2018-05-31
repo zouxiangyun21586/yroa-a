@@ -1,5 +1,7 @@
 package com.yr.dao;
 
+import java.util.List;
+
 import com.yr.entity.Role;
 
 /**
@@ -74,4 +76,12 @@ public interface RoleDao {
      * @return code
      */
     String querydic();
+    
+    /**
+	 * 查询角色全部信息  单个(根据账号)
+	 * @param name 用户账号
+	 * @return list
+	 */
+	List<Role> queryR(String name);
+	
 }
