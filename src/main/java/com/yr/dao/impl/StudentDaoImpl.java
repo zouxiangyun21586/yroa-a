@@ -1,7 +1,6 @@
 package com.yr.dao.impl;
 
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.List;
 
@@ -459,5 +458,17 @@ public class StudentDaoImpl implements StudentDao {
 		return result;
 	}
 	
+	/**
+	 * 根据账号获取学生数据
+	 * @author 林水桥
+	 * @param userName 学生账号
+	 * @return Student 返回学生数据
+	 * 2018年5月31日下午10:15:29
+	 */
+	public Student getAccount(String userName) {
+		Student student = (Student) entityManager.createQuery("from Student where account=:userName")
+				.setParameter("userName", userName).getSingleResult();
+		return student;
+	}
 	
 }

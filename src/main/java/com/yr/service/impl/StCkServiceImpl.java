@@ -5,17 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yr.dao.ClasDao;
 import com.yr.dao.HoliDao;
+import com.yr.dao.RoleDao;
 import com.yr.dao.StCkDao;
 import com.yr.dao.StudentDao;
 import com.yr.entity.CheckTime;
 import com.yr.entity.Clas;
 import com.yr.entity.Holiday;
+import com.yr.entity.Role;
 import com.yr.entity.Student;
 import com.yr.entity.StudentCheck;
 import com.yr.service.StCkService;
@@ -41,6 +44,8 @@ public class StCkServiceImpl implements StCkService {
 	private ClasDao clasDao;
 	@Autowired
 	private HoliDao holiDao;
+	@Autowired
+	private RoleDao roleDao;
 	private static Integer addReturn = 0;
 	/**
 	 * 签到   。。。。  未完成批量签到
@@ -126,6 +131,16 @@ public class StCkServiceImpl implements StCkService {
 	 * 2018年5月28日下午10:18:33
 	 */
 	public String getAttendance(int page, int limit, String name, String checkTC, Integer status) {
+		String userName = (String) SecurityUtils.getSubject().getPrincipal();
+		
+		List<Role> roList = roleDao.queryR(userName);
+		for (Role role : roList) {
+			if ("学生".equals(role.getName())) {
+				
+			} else if ("家长".equals(role.getName())) {
+			
+			}
+		}
 		
 		return stCkDao.getAttendance(page, limit, name, checkTC, status);
 	}

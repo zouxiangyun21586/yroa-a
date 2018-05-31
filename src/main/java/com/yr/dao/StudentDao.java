@@ -166,4 +166,13 @@ public interface StudentDao {
 	  * @describe 查询就业学生信息
 	  */
 	 Student employment(Integer id);
+	 
+	 /**
+	 * 根据账号获取学生数据
+	 * @author 林水桥
+	 * @param userName 学生账号
+	 * @return Student 返回学生数据
+	 * 2018年5月31日下午10:15:29
+	 */
+	Student getAccount(String userName);
 }
