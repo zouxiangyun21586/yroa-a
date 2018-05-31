@@ -110,15 +110,32 @@
                 </form>
             </div>
             </div>
+        </div>
+    </div>
+    <div class="layui-row layui-col-space10">
+         <div class="layui-col-lg6 layui-col-md12">
+            <blockquote class="layui-elem-quote title">今日考勤情况</blockquote>
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+              <ul class="layui-tab-title">
+                <li class="layui-this">早上</li>
+                <li>中午</li>
+                <li>晚上</li>
+              </ul>
+              <div class="layui-tab-content" style="height: 100px;">
+                <div class="layui-tab-item layui-show">内容1</div>
+                <div class="layui-tab-item">内容2</div>
+                <div class="layui-tab-item">内容3</div>
+              </div>
+            </div> 
+        </div>
+        <div class="layui-col-lg6 layui-col-md12">
+            <blockquote class="layui-elem-quote title">树菜单</blockquote>
             <div class="layui-elem-quote layui-quote-nm history_box magb0">
-                <blockquote class="layui-elem-quote title">树菜单</blockquote>
-                <div class="layui-elem-quote layui-quote-nm history_box magb0">
-                    <form class="layui-form">
-                        <div id="treeTest"
-                            style="background-color: #fff; padding: 10px 0 25px 5px; height: 200px; overflow: auto;"></div>
-                    </form>
-                </div>
-            </div>
+                <form class="layui-form">
+                    <div id="treeTest"
+                        style="background-color: #fff; padding: 10px 0 25px 5px; height: 200px; overflow: auto;"></div>
+                </form>
+            </div>            
         </div>
     </div>
     <script type="text/javascript" src="layui/layui.js"></script>
