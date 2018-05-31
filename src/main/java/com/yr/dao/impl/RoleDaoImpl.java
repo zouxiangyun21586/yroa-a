@@ -96,7 +96,8 @@ public class RoleDaoImpl implements RoleDao {
 		if ("".equals(qu) || null == qu) { //判断账号是否存在
 			return "1";
 		}
-		return JsonUtils.beanToJson(qu, new String[]{"roleUsersItems", "rolePermItems"}, false);
+		return JsonUtils.beanToJson(qu, new String[]{"roleUsersItems", "roleMenuItems", 
+			"rolePermItems"}, false);
 	}
 	
 	/**
@@ -151,7 +152,8 @@ public class RoleDaoImpl implements RoleDao {
             pageUtil.setMsg("-----出错啦-----");
             e.printStackTrace();
         }
-        return JsonUtils.beanToJson(pageUtil, new String[] {"rolePermItems", "roleUsersItems" }, false);
+        return JsonUtils.beanToJson(pageUtil, new String[] {"rolePermItems", 
+        		"roleMenuItems", "roleUsersItems" }, false);
     }
 	
 	/**
@@ -164,7 +166,7 @@ public class RoleDaoImpl implements RoleDao {
 		try {
 			List<Role> list = em.createQuery("from Role").getResultList();
 			String json = JsonUtils.beanListToJson(list, 
-					new String[] {"rolePermItems", "roleUsersItems", "createTime"}, false);
+			new String[] {"rolePermItems", "roleMenuItems", "roleUsersItems", "createTime"}, false);
 			return json;
 		} catch (Exception e) {
 			e.printStackTrace();
