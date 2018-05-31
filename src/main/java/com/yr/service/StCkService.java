@@ -69,9 +69,23 @@ public interface StCkService {
 	/**
 	 * 当天考勤报告
 	 * @author 林水桥
-	 * @return String 返回当天考勤数据
+	 * @param page 分页当前页
+	 * @param limit 每页多少条记录
+	 * @param ckStatus 考勤时间状态 AM,PM,NT
+	 * @return String 返回当天考勤数据 根据考勤日期倒序排序
 	 * 2018年5月28日下午8:11:41
 	 */
-	String report();
+	String report(int page, int limit, String ckStatus);
+	
+	/**
+	 * 查询字典中考勤的所有状态
+	 * @author zxy
+	 * 
+	 * 2018年5月31日 下午5:58:10
+	 * 
+	 * @param type 字典类型
+	 * @return 判断是否执行成功
+	 */
+	String stckDic(String type);
 	
 }

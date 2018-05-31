@@ -6,29 +6,38 @@ package com.yr.entity;
  * 2018年5月30日下午9:44:51
  */
 public class Report {
-	/**早上*/
-	private String am;
-	/**中午*/
-	private String pm;
-	/**晚上*/
-	private String nt;
+	/**考勤描述*/
+	private String name;
+	/**考勤时间状态*/
+	private String checkStatus;
+	/**考勤状态*/
+	private String status;
+	/**考勤状态描述*/
+	private String statusDesc;
 	
-	public String getAm() {
-		return am;
+	public String getName()	{
+		return name;
 	}
-	public void setAm(String am) {
-		this.am = am;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getPm() {
-		return pm;
+	public String getStatus() {
+		return status;
 	}
-	public void setPm(String pm) {
-		this.pm = pm;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	public String getNt() {
-		return nt;
+	public String getStatusDesc() {
+		return statusDesc;
 	}
-	public void setNt(String nt) {
-		this.nt = nt;
+	public void setStatusDesc(String statusDesc) {
+		this.statusDesc = statusDesc;
 	}
+	public String getCheckStatus() {
+		return checkStatus;
+	}
+	public void setCheckStatus(String checkStatus) {
+		this.checkStatus = checkStatus;
+	}
+	
 }

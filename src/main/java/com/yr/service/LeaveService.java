@@ -18,9 +18,10 @@ public interface LeaveService {
 	 * 2018年5月23日 上午11:06:13
 	 * 
 	 * @param leave 假条信息
+	 * @param acc 当前登录账户
 	 * @return String 判断是否执行成功
 	 */
-	String add(Leave leave);
+	String add(Leave leave, String acc);
 	
 	/**
 	 * 数据回显
@@ -51,8 +52,8 @@ public interface LeaveService {
 	 * 
 	 * 2018年5月23日 上午11:17:00
 	 * 
-	 * @param leave 请假对象
+	 * @param id 请假对象
 	 * @return String 判断是否执行成功
 	 */
-	String cancelLeave(Leave leave);
+	String cancelLeave(Integer id);
 }

@@ -98,7 +98,7 @@ public final class DateUtils {
 	
 	/**
 	 * 获得Date类型的当前日期
-	 * @return yyyy-MM-dd HH:mm:ss
+	 * @return yyyy-MM-dd 
 	 * Date
 	 * @作者 林水桥2018年5月25日上午9:05:08
 	 */

@@ -187,7 +187,7 @@ layui.use(['table','form','tree'], function(){
 				title : "添加考勤",
 				type : 2,
 				anim : 5,
-				content : "attendanceAdd",
+				content : "attendanceAdd?code="+obj.data.studentCode,
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回',

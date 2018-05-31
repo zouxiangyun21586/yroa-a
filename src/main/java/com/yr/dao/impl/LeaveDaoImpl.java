@@ -1,6 +1,7 @@
 package com.yr.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -47,13 +48,13 @@ public class LeaveDaoImpl implements LeaveDao {
 	 * 
 	 * 2018年5月23日 上午11:17:31
 	 * 
-	 * @param leave 请假对象
+	 * @param id 请假对象
 	 * @return String
 	 */
-	public String cancelLeave(Leave leave) {
+	public String cancelLeave(Integer id) {
 		try {
-			entityManager.createQuery("delete Leave where student_code = :student_code")
-			.setParameter("student_code", leave.getStudentCode());
+			entityManager.createQuery("delete Leave where id = :id")
+			.setParameter("id", id);
 			return "succ";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,14 +69,35 @@ public class LeaveDaoImpl implements LeaveDao {
 	 * 2018年5月30日 下午9:38:39
 	 * 
 	 * @param leave
+	 * @param acc 当前登录账户
 	 * @return
 	 */
 	@Override
-	public String add(Leave leave) {
+	public String add(Leave leave, String acc) {
 		try {
-			
+			Leave lea  = new Leave();
+			String claCode = entityManager.createNativeQuery("select code from yr_clas where name = :cName")
+					.setParameter("cName", leave.getClassName()).getSingleResult().toString();
+			lea.setClassName(leave.getClassName());
+			lea.setClassCode(claCode);
+			String studentCode = entityManager.createNativeQuery(""
+					+ "select code from yr_student where name = :name")
+					.setParameter("name", leave.getStudentName()).getSingleResult().toString();
+			lea.setStudentCode(studentCode);
+			lea.setStudentName(leave.getStudentName());
+			lea.setLeaveDate(leave.getLeaveDate());
+			lea.setLeaveType(leave.getLeaveType());
+			lea.setLeaveHour(leave.getLeaveHour());
+			lea.setLeaveTimeLong(leave.getLeaveTimeLong());
+			// 图片url
+			lea.setLeaveDesc(leave.getLeaveDesc());
+			lea.setLeaveAccount(acc);
+			lea.setCreateTime(new Date());
+			lea.setIsAudit("UN");
+			entityManager.persist(lea);
 			return "succ";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "error";
 		}
 	}
@@ -98,7 +120,7 @@ public class LeaveDaoImpl implements LeaveDao {
 			int count = 0;
 			String jpql = "From Leave order by leave_date desc";
 			if (null  != name && !"".equals(name)) {
-				jpql = "from Leave where name like :name order by leave_date desc";
+				jpql = "from Leave where studentName like :name order by leave_date desc";
 			}
 			List<Teacher> studentList = new ArrayList<Teacher>();
 			name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
@@ -108,7 +130,7 @@ public class LeaveDaoImpl implements LeaveDao {
 						.setParameter("name", "%" + name + "%").getResultList();
 				count = Integer
 				.parseInt(entityManager
-				 .createNativeQuery("select count(*) from yr_leave where name like :name ")
+				 .createNativeQuery("select count(*) from yr_leave where student_name like :name ")
 				   .setParameter("name", "%" + name + "%").getSingleResult().toString());
 			} else {
 				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)

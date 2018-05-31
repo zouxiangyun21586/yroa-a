@@ -2,6 +2,7 @@ package com.yr.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Student;
+import com.yr.entity.StudentCheck;
 import com.yr.service.StCkService;
 import com.yr.service.StudentService;
 import com.yr.util.JsonUtils;
@@ -27,6 +29,19 @@ public class StCkController {
 	private StCkService stCkService;
 	@Autowired
 	private StudentService studService;
+	
+	/**
+     * 导出成Excel表
+     * @param map 所有需要导出的数据
+     * @return
+     * String
+     * 2018年3月1日上午8:24:18
+     */
+    @RequestMapping("/testExcel")
+    public String testExcel(Map<String, Object> map) {
+//        map.put("stuList", userService.getAll());
+        return "Excels";
+    }
 	
 	/**
 	 * 查询所有签到人员数据
@@ -95,13 +110,52 @@ public class StCkController {
 	/**
 	 * 当天考勤报告
 	 * @author 林水桥
-	 * @return String 返回当天考勤数据
+	 * @param page 分页当前页
+	 * @param limit 每页多少条记录
+	 * @param ckStatus 考勤时间状态 AM,PM,NT
+	 * @return String 返回当天考勤数据 根据考勤日期倒序排序
 	 * 2018年5月28日下午8:11:41
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/report", produces = "text/json;charset=UTF-8")
-	public String report() {
+	public String report(int page, int limit, String ckStatus) {
+		String a = stCkService.report(page, limit, ckStatus);
+		return a;
+	}
+	
+	/**
+	 * 添加考勤,判断如果:
+	 * 签到了显示 请假(事,病)或早退功能
+	 * 未签到显示 补签,请假(事,病),旷课
+	 * 
+	 * @author zxy
+	 * 
+	 * 2018年5月31日 下午5:16:42
+	 * 
+	 * @param sc 学生考勤
+	 * @return 判断是否执行成功
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addAttendance", produces = "text/json;charset=UTF-8")
+	public String addAttendance(StudentCheck sc) {
+		stCkService.add(sc);
 		return null;
+	}
+	
+	/**
+	 * 查询字典表中的考勤状态
+	 * @author zxy
+	 * 
+	 * 2018年5月31日 下午6:04:18
+	 * 
+	 * @param type 字典类型
+	 * @return strJson
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/stckDic", produces = "text/json;charset=UTF-8")
+	public String stckDic(String type) {
+		String str = stCkService.stckDic(type);
+		return str;
 	}
 	
 }

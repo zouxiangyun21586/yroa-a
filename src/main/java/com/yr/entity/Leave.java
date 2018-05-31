@@ -30,7 +30,7 @@ public class Leave {
 
     private String studentName;
 
-    private Date leaveDate;
+    private String leaveDate;
 
     private String leaveHour;
 
@@ -48,7 +48,7 @@ public class Leave {
     
     private String imgUrl;
     
-    private Date auditTime;
+    private String auditTime;
     
 
     @GeneratedValue
@@ -99,11 +99,11 @@ public class Leave {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "leave_date")
-    public Date getLeaveDate() {
+    public String getLeaveDate() {
         return leaveDate;
     }
 
-    public void setLeaveDate(Date leaveDate) {
+    public void setLeaveDate(String leaveDate) {
         this.leaveDate = leaveDate;
     }
 
@@ -180,11 +180,11 @@ public class Leave {
 	}
 
 	@Column(name = "audit_time")
-	public Date getAuditTime() {
+	public String getAuditTime() {
 		return auditTime;
 	}
 
-	public void setAuditTime(Date auditTime) {
+	public void setAuditTime(String auditTime) {
 		this.auditTime = auditTime;
 	}
     
