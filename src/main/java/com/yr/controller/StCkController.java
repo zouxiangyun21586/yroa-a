@@ -124,5 +124,20 @@ public class StCkController {
 		return null;
 	}
 	
+	/**
+	 * 查询字典表中的考勤状态
+	 * @author zxy
+	 * 
+	 * 2018年5月31日 下午6:04:18
+	 * 
+	 * @param type 字典类型
+	 * @return strJson
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/stckDic", produces = "text/json;charset=UTF-8")
+	public String stckDic(String type) {
+		String str = stCkService.stckDic(type);
+		return str;
+	}
 	
 }
