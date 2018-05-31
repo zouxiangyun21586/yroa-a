@@ -9,7 +9,7 @@ layui.use(['table','form','tree'], function(){
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
 	table.render({
-	elem: '#demo',
+	elem: '#leaveDemo',
 	loading:true,	
 	url: path+"leave/Leave", //请求路径
 	limit:7,
@@ -23,11 +23,11 @@ layui.use(['table','form','tree'], function(){
 			{field: 'className', title: '批次名', unresize: true},
 			{field: 'studentName', title: '学生姓名', unresize: true},
 			{field: 'leaveDate', title: '请假日期',  unresize: true},
-			{field: 'leaveType', title: '请假类型', width:90, align:'center', templet: function(a){
+			{field: 'leaveType', title: '请假类型', width:90, align:'center', templet: function(e){
 				var leat;
-				if('TH'==a.leat){
+				if('TH'==e.leaveType){
 					leat='<span style="font-size:5px;color:#009688;">事假</span>'
-				} else if('SK' == a.leat) {
+				} else if('SK' ==e.leaveType) {
 					leat='<span style="font-size:5px;color:#FFB800;">病假</span>'
 				}
 				return leat;
@@ -37,13 +37,13 @@ layui.use(['table','form','tree'], function(){
 			{field: 'leaveDesc', title:'请假事因',  unresize: true},
 			{field: 'imgUrl', title:'请假附条',  unresize: true},
 			{field: 'leaveAccount', title:'请假账户',  unresize: true},
-			{field: 'isAudit', title:'审核', width:90, align:'center', templet: function(b){
+			{field: 'isAudit', title:'审核', width:90, align:'center', templet: function(f){
 				var isA;
-				if('UN'==b.isA || ''==b.isA){
+				if('UN'==f.isAudit || ''==f.isAudit){
 					isA='<span style="font-size:5px;color:#009688;">未审核</span>'
-				} else if('YE' == b.isA) {
+				} else if('YE' == f.isAudit) {
 					isA='<span style="font-size:5px;color:#FFB800;">允许请假</span>'
-				} else if('NO' == b.isA) {
+				} else if('NO' == f.isAudit) {
 					isA='<span style="font-size:5px;color:#FFB800;">不允许请假</span>'
 				}
 				return isA;
@@ -57,7 +57,7 @@ layui.use(['table','form','tree'], function(){
 	//搜索
 	$(".search_btn").on("click",function(){
 		if($(".searchVal").val() != ''){
-			table.reload('demo',{
+			table.reload('leaveDemo',{
 				where: {
 				   name:$(".searchVal").val()
 				 },page:{
@@ -72,22 +72,22 @@ layui.use(['table','form','tree'], function(){
 	});
 		
 	//监听工具条
-	table.on('tool(demo)', function(obj){
+	table.on('tool(leaveDemo)', function(obj){
 	  var data = obj.data;
 	  if(obj.event === 'del'){
-	    layer.confirm('确定要删除么', function(index){
+	    layer.confirm('确定要取消么', function(index){
 	    	layer.close(index);
-	    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
+	    	var index = top.layer.msg('正在取消...请稍候',{icon: 16,time:false,shade:0.8});
 	    	$.ajax({
     	       type:"post",
-    	       url:path+"teacher",
-    	       data: {"code":obj.data.code,"_method":"DELETE"},
+    	       url:path+"leave/Leave",
+    	       data: {"id":obj.data.id,"_method":"DELETE"},
     	       success:function(data){
     	    	   if(200==data.code){
     	    		   setTimeout(function(){
 	   			            top.layer.close(index);
 	   			        	top.layer.msg(data.msg,{icon:1});
-	   			        	table.reload('demo',{
+	   			        	table.reload('leaveDemo',{
 	   			        		where: {
 	   			        			name:null
 	   			        		}
@@ -97,7 +97,7 @@ layui.use(['table','form','tree'], function(){
     	    		   setTimeout(function(){
 	   			            top.layer.close(index);
 	   			        	top.layer.msg(data.msg,{icon:2});
-	   			        	table.reload('demo',{
+	   			        	table.reload('leaveDemo',{
 	   			        		where: {
 	   			        			name:null
 	   			        		}
@@ -116,16 +116,16 @@ layui.use(['table','form','tree'], function(){
 	    });
 	  }else if(obj.event === 'edit'){
 		  var index = layui.layer.open({
-				title : "修改教师",
+				title : "审核",
 				type : 2,
 				anim : 5,
-				content : "../getTeacher?id=" + obj.data.id,//修改教师的页面路径
+				content : path+"attendance/leaveUpd?code="+obj.data.studentCode, // 审核页面路径
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回',
-								'.layui-layer-setwin .layui-layer-close', {
-									tips : 3
-								});
+							'.layui-layer-setwin .layui-layer-close', {
+								tips : 3
+							});
 					}, 500);
 				}
 			});
@@ -137,13 +137,13 @@ layui.use(['table','form','tree'], function(){
 	  }
 	});
 		
-	//添加用户
+	//添加假条
 	function addStudent(edit){
 		var index = layui.layer.open({
-			title : "添加学生",
+			title : "添加假条",
 			type : 2,
 			anim : 5,
-			content : "teacherFolderAdd",
+			content : "leaveAdd",
 			success : function(layero, index) {
 				setTimeout(function() {
 					layui.layer.tips('点击此处返回',
@@ -159,7 +159,7 @@ layui.use(['table','form','tree'], function(){
 			layui.layer.full(index);
 		});
     }
-    $(".addStudent_btn").click(function(){
+    $(".addLeave_btn").click(function(){
     	addStudent();
     });
 });

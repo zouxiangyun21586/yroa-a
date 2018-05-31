@@ -2,19 +2,13 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	var layer = layui.layer, 
 	form = layui.form, 
 	$ = layui.jquery,
-	laydate = layui.laydate,
+	laydate=layui.laydate,
 	strFullPath = window.document.location.href,
   	strPath = window.document.location.pathname,
 	pos = strFullPath.indexOf(strPath),
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
-	
-	laydate.render({
-	    elem: '#date',
-	    type: 'datetime',
-	    range: true
-	  });
-	
+		
 	$.getUrlParam = function (name) {  
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
 		var r = window.location.search.substr(1).match(reg);  //匹配目标参数  
@@ -22,17 +16,16 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	}
 	$.getUrlParam('code');
 	
-	form.on("submit(attAdd)", function(data) {
+	form.on("submit(updleave)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,
 			time : false,
 			shade : 0.8
 		});
-		
 			$.ajax({
 				type : "post",
-				url : path+"attendance/addAttendance?code="+$.getUrlParam('code'),
-				data : $('#attForm').serialize(),
+				url : path+"leave/Leave?code="+$.getUrlParam('code'),
+				data : $('#leaveUpdForm').serialize(),
 				success : function(data) {
 					if (0 == data.code) {
 						setTimeout(function() {

@@ -38,12 +38,13 @@ public class LeaveServiceImpl implements LeaveService {
 	 * 2018年5月30日 下午9:50:55
 	 * 
 	 * @param leave
+	 * @param acc 当前登录账户
 	 * @return
 	 */
 	@Override
-	public String add(Leave leave) {
+	public String add(Leave leave, String acc) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String str = leaveDao.add(leave);
+		String str = leaveDao.add(leave, acc);
 		if (str.equals("succ")) {
 			map.put("code", 0);
 			map.put("msg", "添加成功");
@@ -99,9 +100,9 @@ public class LeaveServiceImpl implements LeaveService {
 	 * @return
 	 */
 	@Override
-	public String cancelLeave(Leave leave) {
+	public String cancelLeave(Integer id) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String str = leaveDao.cancelLeave(leave);
+		String str = leaveDao.cancelLeave(id);
 		if (str.equals("succ")) {
 			map.put("code", 0);
 			map.put("msg", "取消成功");
