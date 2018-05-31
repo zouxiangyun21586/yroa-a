@@ -174,10 +174,11 @@ public class StCkServiceImpl implements StCkService {
 	 * @author 林水桥
 	 * @param page 分页当前页
 	 * @param limit 每页多少条记录
+	 * @param ckStatus 考勤时间状态 AM,PM,NT
 	 * @return String 返回当天考勤数据 根据考勤日期倒序排序
 	 * 2018年5月28日下午8:11:41
 	 */
-	public String report(int page, int limit) {
+	public String report(int page, int limit, String ckStatus) {
 //		String userName = (String) SecurityUtils.getSubject().getPrincipal();
 		String code = null;
 //		List<Role> roList = roleDao.queryR(userName);
@@ -187,7 +188,7 @@ public class StCkServiceImpl implements StCkService {
 //			}
 //		}
 		Date nowDay = DateUtils.getCurrentDateA();
-		String list = stCkDao.report(page, limit, code, nowDay);
+		String list = stCkDao.report(page, limit, code, nowDay, ckStatus);
 		return list;
 	}
 

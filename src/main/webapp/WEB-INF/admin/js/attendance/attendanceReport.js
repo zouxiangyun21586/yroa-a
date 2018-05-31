@@ -14,7 +14,7 @@ layui.use(['table','form','tree','element'], function(){
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"attendance/report", //请求路径
+		  url: path+"attendance/report?ckStatus=AM", //请求路径
 		  limit:7,
 		  limits:[4,7,10,15],
 		  page:true,
@@ -43,7 +43,7 @@ layui.use(['table','form','tree','element'], function(){
 		table.render({
 			  elem: '#demo1',
 			  loading:true,
-			  url: path+"attendance/report", //请求路径
+			  url: path+"attendance/report?ckStatus=PM", //请求路径
 			  limit:7,
 			  limits:[4,7,10,15],
 			  page:true,
@@ -72,7 +72,7 @@ layui.use(['table','form','tree','element'], function(){
 		table.render({
 			  elem: '#demo2',
 			  loading:true,
-			  url: path+"attendance/report", //请求路径
+			  url: path+"attendance/report?ckStatus=NT", //请求路径
 			  limit:7,
 			  limits:[4,7,10,15],
 			  page:true,

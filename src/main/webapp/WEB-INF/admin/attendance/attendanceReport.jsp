@@ -28,10 +28,10 @@
                     <table id="demo" lay-filter="demo"></table>
                 </div>
                 <div class="layui-tab-item">
-                    <table id="demo" lay-filter="demo"></table>
+                    <table id="demo1" lay-filter="demo1"></table>
                 </div>
                 <div class="layui-tab-item">
-                    <table id="demo" lay-filter="demo"></table>
+                    <table id="demo2" lay-filter="demo2"></table>
                 </div>
               </div>
             </div> 

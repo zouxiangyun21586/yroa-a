@@ -71,10 +71,11 @@ public interface StCkService {
 	 * @author 林水桥
 	 * @param page 分页当前页
 	 * @param limit 每页多少条记录
+	 * @param ckStatus 考勤时间状态 AM,PM,NT
 	 * @return String 返回当天考勤数据 根据考勤日期倒序排序
 	 * 2018年5月28日下午8:11:41
 	 */
-	String report(int page, int limit);
+	String report(int page, int limit, String ckStatus);
 	
 	/**
 	 * 查询字典中考勤的所有状态

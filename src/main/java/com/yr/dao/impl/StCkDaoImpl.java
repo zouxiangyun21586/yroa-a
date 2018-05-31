@@ -215,29 +215,32 @@ public class StCkDaoImpl implements StCkDao {
 	 * @param limit 每页多少条记录
 	 * @param code    学生code
 	 * @param checkTime 当天日期
+	 * @param ckStatus 考勤时间状态AM,PM,NT
 	 * @return String 返回当天考勤数据 根据考勤日期倒序排序
 	 * 2018年5月28日下午8:11:41
 	 */
-	public String report(int page, int limit, String code, Date checkTime) {
+	public String report(int page, int limit, String code, Date checkTime, String ckStatus) {
 		PageUtil pageUtil = new PageUtil();
 		try {
 			int count = 0;
 			String jpql = "";
 			List<StudentCheck> list = new ArrayList<StudentCheck>();
 			if (null == code) {
-			jpql = "from StudentCheck where checkTime=:checkTime order by checkTime desc";
-			list = entityManager.createQuery(jpql).setParameter("checkTime", checkTime)
+jpql = "from StudentCheck where checkTime=:checkTime and checkTimeCode=:ckStatus order by checkTime desc";
+list = entityManager.createQuery(jpql).setParameter("checkTime", checkTime).setParameter("ckStatus", ckStatus)
 					.setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
 count = Integer.valueOf(entityManager.createNativeQuery("select count(*) from yr_student_check "
-+ "where check_date=:checkTime").setParameter("checkTime", checkTime).getSingleResult().toString());
++ "where check_date=:checkTime and check_time_code=:ckStatus").setParameter("checkTime", checkTime)
+		.setParameter("ckStatus", ckStatus).getSingleResult().toString());
 			} else {
 			jpql = "from StudentCheck where studentCode=:studentCode and checkTime=:checkTime "
-					+ "order by checkTime desc";
-			list = entityManager.createQuery(jpql).setParameter("studentCode", code)
+					+ "and checkTimeCode=:ckStatus order by checkTime desc";
+list = entityManager.createQuery(jpql).setParameter("studentCode", code).setParameter("ckStatus", ckStatus)
 .setParameter("checkTime", checkTime).setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
 count = Integer.valueOf(entityManager.createNativeQuery("select count(*) from yr_student_check "
-+ "where check_date=:checkTime and student_code=:stuCode").setParameter("checkTime", checkTime)
-		.setParameter("stuCode", code).getSingleResult().toString());
++ "where check_date=:checkTime and student_code=:stuCode and check_time_code=:ckStatus")
+.setParameter("checkTime", checkTime).setParameter("ckStatus", ckStatus)
+.setParameter("stuCode", code).getSingleResult().toString());
 			}
 			List<Report> reportList = new ArrayList<Report>();
 			reportList = getReport(list, reportList);
