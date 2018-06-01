@@ -24,18 +24,29 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">时间段</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入时间段" name="checkTimeName" id="checkTimeName">
+				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入考勤时间段,如：上午，下午、晚上" name="checkTimeName" id="checkTimeName">
 			</div>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">考勤状态</label>
-			<input type="hidden" id="attStatus" name="attStatus" value="${stck.status}"/>
 			<div class="layui-input-block">
 				<select name="status" lay-verify="required" id="status">
               	
               	</select>
 			</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<div class="magb15 layui-col-md4 layui-col-xs12" style="display:none;" id="kuang">
+			<label class="layui-form-label">是否有假条</label>
+			<div class="layui-input-block">
+				<input type="radio" name="isNote" lay-filter="isNote" value="0" title="没有假条">
+				<input type="radio" name="isNote" lay-filter="isNote" value="1" title="有假条" checked>
+			</div>
+		</div>
+		<div id="sta">
+			
+		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">

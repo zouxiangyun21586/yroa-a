@@ -26,7 +26,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 			 i+= "<div class='magb15 layui-col-md4 layui-col-xs12'>" +
 					"<label class='layui-form-label'>请假图片:</label>" +
 					"<div class='layui-input-block'>" +
-						"<input type='file' class='layui-btn layui-btn-sm' id='imgUrl' name='imgUrl' value='上传假条图片'/>"+
+						"<input type='file' id='imgUrl' name='imgUrl' value='上传假条图片'/>"+
 					"</div>" +
 				 "</div>"
 				 

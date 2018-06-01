@@ -62,7 +62,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 					 "<div class='magb15 layui-col-md4 layui-col-xs12'>" +
 						"<label class='layui-form-label'>工资 </label>" +
 						"<div class='layui-input-block'>" +
-							"<button class='layui-btn layui-btn-sm' id='imgUrl' name='imgUrl'>上传请假纸制证明</button>"+
+							"<input type='file' id='imgUrl' name='imgUrl' value='上传请假纸制证明'/>"+
 						"</div>" +
 					"</div>" +
 				"</div>" 
