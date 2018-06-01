@@ -95,13 +95,65 @@ public class StCkDaoImpl implements StCkDao {
 	
 	/**
 	 * 添加考勤
-	 * @author 林水桥
+	 * @author zxy
 	 * @param stCk     学生考勤实体数据
 	 * @return Integer 返回添加ID
 	 * 2018年5月25日下午10:03:49
+	 * @throws  
 	 */
 	public Integer add(StudentCheck stCk) {
-		entityManager.persist(stCk);
+		try {
+			StudentCheck sc = new StudentCheck();
+			String clCode = entityManager.createNativeQuery(
+					"select class_code from yr_student where name = :sName")
+					.setParameter("sName", stCk.getStudentName()).getSingleResult().toString();
+			String sCode = entityManager.createNativeQuery(""
+					+ "select code from yr_student where name = :sName")
+					.setParameter("sName", stCk.getStudentName()).getSingleResult().toString();
+			sc.setStudentCode(sCode);
+			sc.setClassCode(clCode);
+			if ("上午".equals(stCk.getCheckTimeDesc())) {
+				sc.setCheckTimeCode("AM");
+			} else if ("下午".equals(stCk.getCheckTimeDesc())) {
+				sc.setCheckTimeCode("PM");
+			} else if ("晚上".equals(stCk.getCheckTimeDesc())) {
+				sc.setCheckTimeCode("NT");
+			}
+			sc.setStudentName(stCk.getStudentName());
+			sc.setClassName(stCk.getClassName());
+			sc.setCheckTimeDesc(stCk.getCheckTimeDesc());
+			sc.setCheckTime(new Date());
+			String shiji = ""; // 标准上课时间
+			if ("上午".equals(stCk.getCheckTimeDesc())) {
+				sc.setStartTime("8:00");
+				shiji = sc.getStartTime();
+			} else if ("下午".equals(stCk.getCheckTimeDesc())) {
+				sc.setStartTime("14:00");
+				shiji = sc.getStartTime();
+			} else if ("晚上".equals(stCk.getCheckTimeDesc())) {
+				sc.setStartTime("19:00");
+				shiji = sc.getStartTime();
+			}
+			Date day = new Date();
+			SimpleDateFormat sd = new SimpleDateFormat("HH:mm");
+			String daoda = String.valueOf(sd.format(day));
+			
+			long from = sd.parse(shiji).getTime();  
+			long to = sd.parse(daoda).getTime();  
+			int hours = (int) ((to - from) / (T1000 * T60 * T60));
+			sc.setLateTime(hours);
+			
+			if (hours == 0) {
+				sc.setStatus(stCk.getStatus());
+			} else {
+				sc.setStatus(1);
+			}
+			sc.setIsNote(stCk.getIsNote());
+			sc.setCreateTime(new Date());
+			entityManager.persist(sc);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return stCk.getId();
 	}
 	

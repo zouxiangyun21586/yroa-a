@@ -23,12 +23,12 @@ public interface StCkService {
 	
 	/**
 	 * 添加考勤
-	 * @author 林水桥
-	 * @param stCk     学生考勤实体数据
-	 * @return Integer 返回添加ID
+	 * @author zxy
+	 * @param stCk 学生考勤实体数据
+	 * @return String 是否成功
 	 * 2018年5月25日下午10:03:49
 	 */
-	Integer add(StudentCheck stCk);
+	String  add(StudentCheck stCk);
 	
 	/**
 	 * 查询所有考勤数据     带分页

@@ -1,6 +1,7 @@
 package com.yr.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ import com.yr.entity.StudentCheck;
 import com.yr.service.StCkService;
 import com.yr.service.StudentService;
 import com.yr.util.JsonUtils;
+
+import net.sf.json.JSONObject;
 
 /**
  * 学生考勤Controller层
@@ -189,10 +192,20 @@ public class StCkController {
 	 * @return 判断是否执行成功
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/addAttendance", produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/addAttendance", method = RequestMethod.POST,
+		produces = "text/json;charset=UTF-8")
 	public String addAttendance(StudentCheck sc) {
-		stCkService.add(sc);
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		String str = stCkService.add(sc);
+		if (str.equals("succ")) {
+			map.put("code", 0);
+			map.put("msg", "添加成功");
+		} else if (str.equals("error")) {
+			map.put("code", 1);
+			map.put("msg", "添加失败");
+		}
+		String result = JSONObject.fromObject(map).toString();
+		return result;
 	}
 	
 	/**

@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yr.entity.Leave;
 import com.yr.service.LeaveService;
+import com.yr.util.FileUtils;
 
 /**
  * 请假 Controller
@@ -33,13 +36,16 @@ public class LeaveController {
 	 * 2018年5月23日 上午11:44:16
 	 * 
 	 * @param leave 请假对象
+	 * @param file 假条
 	 * @param request 获取当前登录用户名
 	 * @return 返回Json格式的Stirng 数据
 	 */
 	@Transactional
 	@RequestMapping(value = "/Leave", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
-	public String add(Leave leave, HttpServletRequest request) {
+	public String add(Leave leave, @RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		String acc = (String) request.getSession().getAttribute("use");
+		String imgName = FileUtils.filesUpload(request, file);	
+		leave.setImgUrl(imgName);
 		String str = leaveService.add(leave, acc);
 		return str;
 	}
