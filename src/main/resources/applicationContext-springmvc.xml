@@ -106,5 +106,6 @@
     <!-- 注册excel视图解析器 -->  
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="10"></bean>   
     <bean id="Excels" class="com.yr.util.ExportExcel"></bean>
+    <bean id="reportExcels" class="com.yr.util.ExExcel"></bean>
 	
 </beans>

@@ -100,9 +100,17 @@ public interface StCkDao {
 	 * 
 	 * 2018年5月31日 下午5:54:11
 	 * 
-	 * @param type 字典类型
 	 * @return String
 	 */
-	String stckDic(String type);
+	String stckDic();
+	
+	/**
+	 * 导出考勤列表数据
+	 * @author 林水桥
+	 * @param code  学生或家长登录的数据
+	 * @return List<StudentCheck> 导出的所有数据
+	 * 2018年6月1日下午5:05:31
+	 */
+	List<StudentCheck> getExcel(String code);
 	
 }

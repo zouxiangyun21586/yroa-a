@@ -24,7 +24,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		});
 			$.ajax({
 				type : "post",
-				url : path+"leave/Leave?code="+$.getUrlParam('code'),
+				url : path+"leave/Leave?studenCode="+$.getUrlParam('code'),
 				data : $('#leaveUpdForm').serialize(),
 				success : function(data) {
 					if (0 == data.code) {

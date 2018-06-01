@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,10 @@ public class StCkController {
 	private StCkService stCkService;
 	@Autowired
 	private StudentService studService;
+	private static String addrGet = "attendance/attendanceView";
+	private static final Integer T2 = 2;
+	private static final Integer T3 = 3;
+	private static final Integer T4 = 4;
 	
 	/**
      * 导出成Excel表
@@ -39,7 +44,7 @@ public class StCkController {
      */
     @RequestMapping("/testExcel")
     public String testExcel(Map<String, Object> map) {
-//        map.put("stuList", userService.getAll());
+        map.put("stuLists", stCkService.getExcel());
         return "Excels";
     }
 	
@@ -124,6 +129,41 @@ public class StCkController {
 	}
 	
 	/**
+	 * 学生考勤数据回显
+	 * @author 林水桥
+	 * @param id     学生考勤ID
+	 * @param modelMap 用来传递数据到前台
+	 * @return  String   学生考勤数据
+	 * 2018年5月25日下午10:19:01
+	 */
+	@RequestMapping(value = "/get", produces = "text/json;charset=UTF-8")
+	public String get(Integer id, ModelMap modelMap) {
+		StudentCheck stuCk = stCkService.get(id);
+		String statusName = "";
+		if (0 == stuCk.getStatus()) {
+			statusName = "没迟到";
+		} else if (1 == stuCk.getStatus()) {
+			statusName = "迟到";
+		} else if (T2 == stuCk.getStatus()) {
+			statusName = "旷课";
+		} else if (T3 == stuCk.getStatus()) {
+			statusName = "请假";
+		} else if (T4 == stuCk.getStatus()) {
+			statusName = "早退";
+		}
+		String note = "";
+		if (1 == stuCk.getIsNote()) {
+			note = "有";
+		} else {
+			note = "没有";
+		}
+		modelMap.addAttribute("studentCheck", stuCk);
+		modelMap.addAttribute("statusName", statusName);
+		modelMap.addAttribute("note", note);
+		return addrGet;
+	}
+	
+	/**
 	 * 添加考勤,判断如果:
 	 * 签到了显示 请假(事,病)或早退功能
 	 * 未签到显示 补签,请假(事,病),旷课
@@ -148,13 +188,12 @@ public class StCkController {
 	 * 
 	 * 2018年5月31日 下午6:04:18
 	 * 
-	 * @param type 字典类型
 	 * @return strJson
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/stckDic", produces = "text/json;charset=UTF-8")
-	public String stckDic(String type) {
-		String str = stCkService.stckDic(type);
+	public String stckDic() {
+		String str = stCkService.stckDic();
 		return str;
 	}
 	

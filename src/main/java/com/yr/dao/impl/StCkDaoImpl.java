@@ -51,19 +51,19 @@ public class StCkDaoImpl implements StCkDao {
             List<StudentCheck> list = new ArrayList<StudentCheck>();
             List<StudentCheck> list1 = new ArrayList<StudentCheck>();
             name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
-            if (null != name && !"".equals(name) && null == checkTC && "".equals(checkTC) && null == status) {
+            if (null != name && !"".equals(name) && null == checkTC && null == status) {
                 list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
                         .setMaxResults(limit).setParameter("studentName", "%" + name + "%").getResultList();
                 count = Integer.parseInt(entityManager.createNativeQuery(
                 		"SELECT COUNT(*) FROM yr_student_check where student_name like :studentName")
                         .setParameter("studentName", "%" + name + "%").getSingleResult().toString());
-            } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null == status) {
+            } else if (null != name && !"".equals(name) && null != checkTC && null == status) {
             	list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit).setMaxResults(limit)
             	.setParameter("studentName", "%" + name + "%").setParameter("checkTC", checkTC).getResultList();
             	count = Integer.parseInt(entityManager.createNativeQuery("SELECT COUNT(*) FROM yr_student_check where "
 + "student_name like :studentName and check_time_code=:checkTC").setParameter("studentName", "%" + name + "%")
             	.setParameter("checkTC", checkTC).getSingleResult().toString());
-            } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null != status) {
+            } else if (null != name && !"".equals(name) && null != checkTC && null != status) {
             	list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit).setMaxResults(limit)
 .setParameter("studentName", "%" + name + "%").setParameter("checkTC", checkTC).setParameter("status", status)
             	.getResultList();
@@ -128,7 +128,7 @@ public class StCkDaoImpl implements StCkDao {
 		StudentCheck studentCk = new StudentCheck();
 		try {
 			studentCk = (StudentCheck) entityManager.createQuery("from StudentCheck where id = :id")
-					.getSingleResult();
+					.setParameter("id", id).getSingleResult();
 		} catch (Exception e) {
 			studentCk = null;
 		}
@@ -196,12 +196,12 @@ public class StCkDaoImpl implements StCkDao {
 	 */
 	public String getJpql(String name, String checkTC, Integer status) {
 		String jpql = "FROM StudentCheck ORDER BY checkTime desc";
-        if (null != name && !"".equals(name) && null == checkTC && "".equals(checkTC) && null == status) {
+        if (null != name && !"".equals(name) && null == checkTC && null == status) {
             jpql = "FROM StudentCheck where studentName like :studentName ORDER BY checkTime desc";
-        } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null == status) {
+        } else if (null != name && !"".equals(name) && null != checkTC && null == status) {
             jpql = "FROM StudentCheck where studentName like :studentName and checkTimeCode=:checkTC "
             		+ "ORDER BY checkTime desc";
-        } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null != status) {
+        } else if (null != name && !"".equals(name) && null != checkTC && null != status) {
             jpql = "FROM StudentCheck where studentName like :studentName and checkTimeCode=:checkTC "
             		+ "and status=:status ORDER BY checkTime desc";
         }
@@ -304,11 +304,30 @@ count = Integer.valueOf(entityManager.createNativeQuery("select count(*) from yr
 	}
 
 	@Override
-	public String stckDic(String type) {
+	public String stckDic() {
 		List<Dic> listDic = entityManager.createQuery("From Dic where type = :type")
-				.setParameter("type", type).getResultList();
+				.setParameter("type", "status").getResultList();
 		String strJson = JsonUtils.listToJson(listDic);
 		return strJson;
+	}
+	
+	/**
+	 * 导出考勤列表数据
+	 * @author 林水桥
+	 * @param code  学生或家长登录的数据
+	 * @return List<StudentCheck> 导出的所有数据
+	 * 2018年6月1日下午5:05:31
+	 */
+	public List<StudentCheck> getExcel(String code) {
+		String jpql = "from StudentCheck order by checkTime desc";
+		List<StudentCheck> stCk = new ArrayList<StudentCheck>();
+		if (null != code) {
+			jpql = "from StudentCheck where studentCode=:code order by checkTime desc";
+			stCk = entityManager.createQuery(jpql).setParameter("code", code).getResultList();
+		} else {
+			stCk = entityManager.createQuery(jpql).getResultList();
+		}
+		return stCk;
 	}
 	
 }

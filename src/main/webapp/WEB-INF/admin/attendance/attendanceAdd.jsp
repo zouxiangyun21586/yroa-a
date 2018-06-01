@@ -22,20 +22,45 @@
 <form:form class="layui-form" style="width:80%;" id="attForm" modelAttribute="stck">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">时间段</label>
+			<label class="layui-form-label">批次名</label>
 			<div class="layui-input-block">
-				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入时间段" name="checkTimeName" id="checkTimeName">
+				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入批次名" name="className" id="className">
+			</div>
+		</div>
+		<div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">学生名</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input" lay-verify="required" placeholder="请输入学生姓名" name="studentName" id="studentName">
 			</div>
 		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
+		<div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">时间段</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input" lay-verify="required" placeholder="考勤时间段,如：上午，下午、晚上" name="checkTimeDesc" id="checkTimeDesc">
+			</div>
+		</div>
+		<div class="magb15 layui-col-md4 layui-col-xs12">
 		<label class="layui-form-label">考勤状态</label>
-			<input type="hidden" id="attStatus" name="attStatus" value="${stck.status}"/>
 			<div class="layui-input-block">
 				<select name="status" lay-verify="required" id="status">
               	
               	</select>
 			</div>
+		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
+		<div class="magb15 layui-col-md4 layui-col-xs12">
+			<label class="layui-form-label">是否有假条</label>
+			<div class="layui-input-block">
+				<input type="radio" name="isNote" lay-filter="isNote" value="0" title="没有假条" checked>
+				<input type="radio" name="isNote" lay-filter="isNote" value="1" title="有假条">
+			</div>
+		</div>
+		<div id="sta">
+			
+		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
@@ -45,6 +70,6 @@
 	</div>
 </form:form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/attendanceList.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/attendanceAdd.js"></script>
 </body>
 </html> 

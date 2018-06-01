@@ -1,5 +1,7 @@
 package com.yr.service;
 
+import java.util.List;
+
 import com.yr.entity.StudentCheck;
 
 /**
@@ -83,9 +85,16 @@ public interface StCkService {
 	 * 
 	 * 2018年5月31日 下午5:58:10
 	 * 
-	 * @param type 字典类型
 	 * @return 判断是否执行成功
 	 */
-	String stckDic(String type);
+	String stckDic();
+	
+	/**
+	 * 导出考勤列表数据
+	 * @author 林水桥
+	 * @return List<StudentCheck> 导出的所有数据
+	 * 2018年6月1日下午5:05:31
+	 */
+	List<StudentCheck> getExcel();
 	
 }

@@ -1,7 +1,6 @@
 package com.yr.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -66,10 +65,18 @@ public class LeaveServiceImpl implements LeaveService {
 	 * @return
 	 */
 	@Override
-	public String query(String code) {
-		List<Leave> listLeave = leaveDao.query(code);
-		String strLeave = JsonUtils.beanListToJson(listLeave);
-		return strLeave;
+	public String query(Leave leave, String code) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String str = leaveDao.query(leave, code);
+		if (str.equals("succ")) {
+			map.put("code", 0);
+			map.put("msg", "审核成功");
+		} else if (str.equals("error")) {
+			map.put("code", 1);
+			map.put("msg", "审核失败");
+		}
+		String result = JSONObject.fromObject(map).toString();
+		return result;
 	}
 
 	/**

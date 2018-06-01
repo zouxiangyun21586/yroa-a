@@ -86,9 +86,9 @@ layui.use(['table','form','tree'], function(){
 				{field: 'isNote', title: '请假条', width:80, templet: function(d){
 					var isNotes;
 					if(0==d.isNote){
-						isNotes='<span style="font-size:5px;color:#00FF00;">有</span>'
+						isNotes='<span style="font-size:5px;color:#FF0000;">没有</span>'
 					}else {
-						isNotes='<span style="font-size:5px;color:#FF0000;">无</span>'
+						isNotes='<span style="font-size:5px;color:#00FF00;">有</span>'
 					}
 					return isNotes;
 				},  unresize: true},
@@ -118,52 +118,12 @@ layui.use(['table','form','tree'], function(){
 		 //监听工具条
 		table.on('tool(demo)', function(obj){
 		  var data = obj.data;
-		  if(obj.event === 'del'){
-		    layer.confirm('确定要删除么', function(index){
-		    	layer.close(index);
-		    	var index = top.layer.msg('正在删除...请稍候',{icon: 16,time:false,shade:0.8});
-		    	$.ajax({
-	    	       type:"post",
-	    	       url:path+"userDelete",
-	    	       data: {"id":obj.data.id,"_method":"DELETE"},
-	    	       success:function(data){
-	    	    	   if(200==data.code){
-	    	    		   setTimeout(function(){
-		   			            top.layer.close(index);
-		   			        	top.layer.msg(data.msg,{icon:1});
-		   			        	table.reload('demo',{
-		   			        		where: {
-		   			        			name:null
-		   			        		}
-		   			        	});
-		   			        },1000);
-	    	    	   }else {
-	    	    		   setTimeout(function(){
-		   			            top.layer.close(index);
-		   			        	top.layer.msg(data.msg,{icon:2});
-		   			        	table.reload('demo',{
-		   			        		where: {
-		   			        			name:null
-		   			        		}
-		   			        	});
-		   			        },1000);
-	    	    	   }
-	    	       },error : function() {
-						setTimeout(function(){
-						    top.layer.close(index);
-						    top.layer.msg("异常",{icon:2});
-							location.reload();
-						},1000);
-	    	       }
-		     	});
-		      layer.close(index);
-		    });
-		  }else if(obj.event === 'edit'){
+		  if(obj.event === 'view'){
 			  var index = layui.layer.open({
-					title : "修改考勤",
+					title : "查看考勤",
 					type : 2,
 					anim : 5,
-					content : "classUpdate",//修改学生的页面路径
+					content : "../attendance/get?id="+obj.data.id,//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
@@ -187,7 +147,7 @@ layui.use(['table','form','tree'], function(){
 				title : "添加考勤",
 				type : 2,
 				anim : 5,
-				content : "attendanceAdd?code="+obj.data.studentCode,
+				content : "attendanceAdd",
 				success : function(layero, index) {
 					setTimeout(function() {
 						layui.layer.tips('点击此处返回',

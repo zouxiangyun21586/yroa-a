@@ -57,25 +57,31 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">请假时长</label>
 			<div class="layui-input-block">
-				<select lay-filter="leaveTimeLong" name="leaveTimeLong">
+				<select lay-filter="required" name="leaveTimeLong">
 					<option value="30">30分钟</option>
 					<option value="60">60分钟</option>
 					<option value="90">90分钟</option>
 				</select>
 			</div>
 		</div>
+	</div>
+	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">请假附条</label>
+			<label class="layui-form-label">是否有假条</label>
 			<div class="layui-input-block">
-				<button id="imgUrl" name="imgUrl">上传请假纸制证明</button>
+				<input type="radio" name="isNote" lay-filter="isNote" value="0" title="没有假条" checked>
+				<input type="radio" name="isNote" lay-filter="isNote" value="1" title="有假条">
 			</div>
 		</div>
-		<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">请假事因</label>
-		<div class="layui-input-block">
-			<textarea placeholder="请输入请假事因" class="layui-textarea userDesc" name="leaveDesc" id="leaveDesc"></textarea>
+		<div id="sta">
+			
 		</div>
-	</div>
+		<div class="layui-form-item layui-row layui-col-xs12">
+			<label class="layui-form-label">请假事因</label>
+			<div class="layui-input-block">
+				<textarea placeholder="请输入请假事因" class="layui-textarea userDesc" name="leaveDesc" id="leaveDesc"></textarea>
+			</div>
+		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">

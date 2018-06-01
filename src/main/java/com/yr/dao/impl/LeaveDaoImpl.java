@@ -1,11 +1,19 @@
 package com.yr.dao.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Repository;
 
@@ -33,13 +41,27 @@ public class LeaveDaoImpl implements LeaveDao {
 	 * 
 	 * 2018年5月23日 上午11:13:12
 	 * 
+	 * @param leave 修改信息
 	 * @param studentCode 学生Code
 	 * @return 某学生的所有请假信息
 	 */
-	public List<Leave> query(String studentCode) {
-		List<Leave> listLeave = entityManager.createQuery("From Leave where student_code = ?1")
-			.setParameter(1, studentCode).getResultList();
-		return listLeave;
+	public String query(Leave leave, String studentCode) {
+		try {
+			
+			Date date = new Date();
+			String aTime = new SimpleDateFormat("yyyy-MM-dd").format(date);
+			
+			Query q = entityManager.createQuery(""
+					+ "update Leave set isAudit = :isA, auditTime = :aTime"
+					+ " where studentCode = :sCode")
+					.setParameter("isA", leave.getIsAudit())
+					.setParameter("aTime", aTime).setParameter("sCode", studentCode);
+			q.executeUpdate();
+			return "succ";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 
 	/**
@@ -53,8 +75,9 @@ public class LeaveDaoImpl implements LeaveDao {
 	 */
 	public String cancelLeave(Integer id) {
 		try {
-			entityManager.createQuery("delete Leave where id = :id")
+			Query q = entityManager.createQuery("delete Leave where id = :id")
 			.setParameter("id", id);
+			q.executeUpdate();
 			return "succ";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,6 +97,7 @@ public class LeaveDaoImpl implements LeaveDao {
 	 */
 	@Override
 	public String add(Leave leave, String acc) {
+		HttpServletRequest request = null;
 		try {
 			Leave lea  = new Leave();
 			String claCode = entityManager.createNativeQuery("select code from yr_clas where name = :cName")
@@ -89,7 +113,13 @@ public class LeaveDaoImpl implements LeaveDao {
 			lea.setLeaveType(leave.getLeaveType());
 			lea.setLeaveHour(leave.getLeaveHour());
 			lea.setLeaveTimeLong(leave.getLeaveTimeLong());
-			// 图片url
+			if (null != leave.getImgUrl() && !"".equals(leave.getImgUrl())) {
+				// String 转 InputStream
+				ByteArrayInputStream stream = new ByteArrayInputStream(leave.getImgUrl().getBytes());
+				
+//				String str = FileUtils.filesUpload(request, leave.getImgUrl());
+//				lea.setImgUrl(str);
+			}
 			lea.setLeaveDesc(leave.getLeaveDesc());
 			lea.setLeaveAccount(acc);
 			lea.setCreateTime(new Date());
@@ -102,6 +132,33 @@ public class LeaveDaoImpl implements LeaveDao {
 		}
 	}
 
+	private final Integer a = 8192;
+	private final Integer b = 1;
+	
+	/**
+	 * inputeSream 转 File
+	 * @author zxy
+	 * 
+	 * 2018年6月1日 上午11:56:25
+	 * 
+	 * @param ins inputStream
+	 * @param file 文件
+	 */
+	public void inputstreamtofile(InputStream ins, File file) {
+		try {
+			OutputStream os = new FileOutputStream(file);
+			int bytesRead = 0;
+			byte[] buffer = new byte[a];
+			while ((bytesRead = ins.read(buffer, 0, a)) != -b) {
+				os.write(buffer, 0, bytesRead);
+			}
+			os.close();
+			ins.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 分页查询
 	 * @author zxy
