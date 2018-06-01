@@ -1,5 +1,6 @@
 package com.yr.dao.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,8 @@ public class StCkDaoImpl implements StCkDao {
 	private static final Integer T2 = 2;
 	private static final Integer T3 = 3;
 	private static final Integer T4 = 4;
+	private static final Integer T60 = 60;
+	private static final Integer T1000 = 1000;
 	
 	/**
 	 * 查询所有考勤数据     带分页
