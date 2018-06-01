@@ -42,37 +42,42 @@ public class ExportExcel extends AbstractXlsView {
         HSSFWorkbook book = (HSSFWorkbook) workbook;  
         HSSFSheet sheet = book.createSheet();  
         HSSFRow row = sheet.createRow(0);  
+        try {
+        	
         String[] headers = new String[] {"数量", "届次名称", "学生姓名", "考勤时间", "上课时间", "到达时间", "迟到时间(分钟)", "状态", "请假条" };  
-        for (int i = 0; i < headers.length; i++) {  
-            row.createCell(i).setCellValue(headers[i]);  
-        }  
-        for (int i = 0; i < stuList.size(); i++) {  
-            StudentCheck stu = stuList.get(i);  
-            row = sheet.createRow(i + 1);  
-            row.createCell(0).setCellValue(i + 1); 
-            row.createCell(1).setCellValue(stu.getClassCode() + "-" + stu.getClassName());
-            row.createCell(a).setCellValue(stu.getStudentName());  
-            row.createCell(b).setCellValue(DateUtils.getCurrentDateT(stu.getCheckTime()) + stu.getCheckTimeDesc());
-            row.createCell(c).setCellValue(stu.getStartTime());
-            row.createCell(d).setCellValue(stu.getRetyTime());
-            row.createCell(e).setCellValue(stu.getLateTime());
-            if (0 == stu.getStatus()) {
-            	row.createCell(f).setCellValue("没迟到");
-            } else if (1 == stu.getStatus()) {
-            	row.createCell(f).setCellValue("迟到");
-            } else if (a == stu.getStatus()) {
-            	row.createCell(f).setCellValue("旷课");
-            } else if (b == stu.getStatus()) {
-            	row.createCell(f).setCellValue("请假");
-            } else if (c == stu.getStatus()) {
-            	row.createCell(f).setCellValue("早退");
-            }
-            if (0 == stu.getIsNote()) {
-            	row.createCell(g).setCellValue("没有");
-            } else {
-            	row.createCell(g).setCellValue("有");
-            }
-        }  
+        	for (int i = 0; i < headers.length; i++) {  
+        		row.createCell(i).setCellValue(headers[i]);  
+        	}  
+        	for (int i = 0; i < stuList.size(); i++) {  
+        		StudentCheck stu = stuList.get(i);  
+        		row = sheet.createRow(i + 1);  
+        		row.createCell(0).setCellValue(i + 1); 
+        		row.createCell(1).setCellValue(stu.getClassCode() + "-" + stu.getClassName());
+        		row.createCell(a).setCellValue(stu.getStudentName());  
+        	row.createCell(b).setCellValue(DateUtils.getCurrentDateT(stu.getCheckTime()) + stu.getCheckTimeDesc());
+        		row.createCell(c).setCellValue(stu.getStartTime());
+        		row.createCell(d).setCellValue(stu.getRetyTime());
+        		row.createCell(e).setCellValue(stu.getLateTime());
+        		if (0 == stu.getStatus()) {
+        			row.createCell(f).setCellValue("没迟到");
+        		} else if (1 == stu.getStatus()) {
+        			row.createCell(f).setCellValue("迟到");
+        		} else if (a == stu.getStatus()) {
+        			row.createCell(f).setCellValue("旷课");
+        		} else if (b == stu.getStatus()) {
+        			row.createCell(f).setCellValue("请假");
+        		} else if (c == stu.getStatus()) {
+        			row.createCell(f).setCellValue("早退");
+        		}
+        		if (0 == stu.getIsNote()) {
+        			row.createCell(g).setCellValue("没有");
+        		} else {
+        			row.createCell(g).setCellValue("有");
+        		}
+        	}  
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
         book.write(outputStream);  
         outputStream.flush();  
         outputStream.close();  
