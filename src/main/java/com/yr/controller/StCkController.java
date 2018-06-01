@@ -154,7 +154,7 @@ public class StCkController {
 	@ResponseBody
 	@RequestMapping(value = "/stckDic", produces = "text/json;charset=UTF-8")
 	public String stckDic(String type) {
-		String str = stCkService.stckDic(type);
+		String str = stCkService.stckDic();
 		return str;
 	}
 	
