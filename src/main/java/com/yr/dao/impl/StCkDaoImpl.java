@@ -51,19 +51,19 @@ public class StCkDaoImpl implements StCkDao {
             List<StudentCheck> list = new ArrayList<StudentCheck>();
             List<StudentCheck> list1 = new ArrayList<StudentCheck>();
             name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
-            if (null != name && !"".equals(name) && null == checkTC && null == status) {
+            if (null != name && !"".equals(name) && null == checkTC && "".equals(checkTC) && null == status) {
                 list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit)
                         .setMaxResults(limit).setParameter("studentName", "%" + name + "%").getResultList();
                 count = Integer.parseInt(entityManager.createNativeQuery(
                 		"SELECT COUNT(*) FROM yr_student_check where student_name like :studentName")
                         .setParameter("studentName", "%" + name + "%").getSingleResult().toString());
-            } else if (null != name && !"".equals(name) && null != checkTC && null == status) {
+            } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null == status) {
             	list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit).setMaxResults(limit)
             	.setParameter("studentName", "%" + name + "%").setParameter("checkTC", checkTC).getResultList();
             	count = Integer.parseInt(entityManager.createNativeQuery("SELECT COUNT(*) FROM yr_student_check where "
 + "student_name like :studentName and check_time_code=:checkTC").setParameter("studentName", "%" + name + "%")
             	.setParameter("checkTC", checkTC).getSingleResult().toString());
-            } else if (null != name && !"".equals(name) && null != checkTC && null != status) {
+            } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null != status) {
             	list = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit).setMaxResults(limit)
 .setParameter("studentName", "%" + name + "%").setParameter("checkTC", checkTC).setParameter("status", status)
             	.getResultList();
@@ -196,12 +196,12 @@ public class StCkDaoImpl implements StCkDao {
 	 */
 	public String getJpql(String name, String checkTC, Integer status) {
 		String jpql = "FROM StudentCheck ORDER BY checkTime desc";
-        if (null != name && !"".equals(name) && null == checkTC && null == status) {
+        if (null != name && !"".equals(name) && null == checkTC && "".equals(checkTC) && null == status) {
             jpql = "FROM StudentCheck where studentName like :studentName ORDER BY checkTime desc";
-        } else if (null != name && !"".equals(name) && null != checkTC && null == status) {
+        } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null == status) {
             jpql = "FROM StudentCheck where studentName like :studentName and checkTimeCode=:checkTC "
             		+ "ORDER BY checkTime desc";
-        } else if (null != name && !"".equals(name) && null != checkTC && null != status) {
+        } else if (null != name && !"".equals(name) && null != checkTC && !"".equals(checkTC) && null != status) {
             jpql = "FROM StudentCheck where studentName like :studentName and checkTimeCode=:checkTC "
             		+ "and status=:status ORDER BY checkTime desc";
         }
@@ -304,9 +304,9 @@ count = Integer.valueOf(entityManager.createNativeQuery("select count(*) from yr
 	}
 
 	@Override
-	public String stckDic(String type) {
+	public String stckDic() {
 		List<Dic> listDic = entityManager.createQuery("From Dic where type = :type")
-				.setParameter("type", type).getResultList();
+				.setParameter("type", "status").getResultList();
 		String strJson = JsonUtils.listToJson(listDic);
 		return strJson;
 	}

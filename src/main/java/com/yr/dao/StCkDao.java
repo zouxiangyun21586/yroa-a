@@ -100,9 +100,8 @@ public interface StCkDao {
 	 * 
 	 * 2018年5月31日 下午5:54:11
 	 * 
-	 * @param type 字典类型
 	 * @return String
 	 */
-	String stckDic(String type);
+	String stckDic();
 	
 }
