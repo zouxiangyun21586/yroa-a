@@ -148,12 +148,11 @@ public class StCkController {
 	 * 
 	 * 2018年5月31日 下午6:04:18
 	 * 
-	 * @param type 字典类型
 	 * @return strJson
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/stckDic", produces = "text/json;charset=UTF-8")
-	public String stckDic(String type) {
+	public String stckDic() {
 		String str = stCkService.stckDic();
 		return str;
 	}
