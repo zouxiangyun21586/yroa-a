@@ -44,7 +44,7 @@ public class StCkController {
      */
     @RequestMapping("/testExcel")
     public String testExcel(Map<String, Object> map) {
-//        map.put("stuList", userService.getAll());
+        map.put("stuLists", stCkService.getExcel());
         return "Excels";
     }
 	
@@ -176,8 +176,7 @@ public class StCkController {
 	 * @return 判断是否执行成功
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/addAttendance", method = RequestMethod.POST,
-		produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/addAttendance", produces = "text/json;charset=UTF-8")
 	public String addAttendance(StudentCheck sc) {
 		stCkService.add(sc);
 		return null;

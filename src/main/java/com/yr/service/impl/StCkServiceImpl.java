@@ -215,4 +215,27 @@ public class StCkServiceImpl implements StCkService {
 		String str = stCkDao.stckDic();
 		return str;
 	}
+	
+	/**
+	 * 导出考勤列表数据
+	 * @author 林水桥
+	 * @return List<StudentCheck> 导出的所有数据
+	 * 2018年6月1日下午5:05:31
+	 */
+	public List<StudentCheck> getExcel() {
+		String userName = (String) SecurityUtils.getSubject().getPrincipal();
+		String code = null;
+		List<Role> roList = roleDao.queryR(userName);
+		for (Role role : roList) {
+			if ("学生".equals(role.getName())) {
+				Student student = studentDao.getAccount(userName);
+				code = student.getCode();
+				break;
+			} else if ("家长".equals(role.getName())) {
+				code = "不能使用";
+				break;
+			}
+		}
+		return stCkDao.getExcel(code);
+	}
 }

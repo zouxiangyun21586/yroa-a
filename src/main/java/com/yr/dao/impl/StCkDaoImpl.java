@@ -311,4 +311,23 @@ count = Integer.valueOf(entityManager.createNativeQuery("select count(*) from yr
 		return strJson;
 	}
 	
+	/**
+	 * 导出考勤列表数据
+	 * @author 林水桥
+	 * @param code  学生或家长登录的数据
+	 * @return List<StudentCheck> 导出的所有数据
+	 * 2018年6月1日下午5:05:31
+	 */
+	public List<StudentCheck> getExcel(String code) {
+		String jpql = "from StudentCheck order by checkTime desc";
+		List<StudentCheck> stCk = new ArrayList<StudentCheck>();
+		if (null != code) {
+			jpql = "from StudentCheck where studentCode=:code order by checkTime desc";
+			stCk = entityManager.createQuery(jpql).setParameter("code", code).getResultList();
+		} else {
+			stCk = entityManager.createQuery(jpql).getResultList();
+		}
+		return stCk;
+	}
+	
 }

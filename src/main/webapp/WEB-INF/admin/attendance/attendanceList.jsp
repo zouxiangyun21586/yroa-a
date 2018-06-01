@@ -39,6 +39,11 @@
 	                        <a class="layui-btn layui-btn-normal addUser_btn">添加考勤</a>
 	                    </div>
                     </shiro:hasPermission>
+                    <shiro:hasPermission name="/yroa-a/attendance/testExcel">
+                        <div class="layui-inline">
+                            <a class="layui-btn layui-btn-normal testExcel_btn" href="/yroa-a/attendance/testExcel">导出Excel</a>
+                        </div>
+                    </shiro:hasPermission>
                 </div>
             </form>
         </blockquote>
