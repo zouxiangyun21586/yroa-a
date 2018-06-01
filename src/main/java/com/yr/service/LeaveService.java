@@ -29,10 +29,11 @@ public interface LeaveService {
 	 * 
 	 * 2018年5月30日 下午9:42:38
 	 * 
+	 * @param leave 修改后的数据
 	 * @param code 学生code
 	 * @return String 判断是否执行成功
 	 */
-	String query(String code);
+	String query(Leave leave, String code);
 
 	/**
 	 * 查询所有假条

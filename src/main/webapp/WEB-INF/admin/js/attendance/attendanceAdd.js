@@ -24,7 +24,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	
 	$.ajax({
         type : "get",
-        url : path + "stckDic",
+        url : path + "attendance/stckDic",
         success : function(result) {
             var obj = eval(result);
             var objLength = obj.length;
@@ -58,14 +58,12 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		if(data.value=="0"){
 			$('#sta').empty();
 		}else if(data.value=="1"){
-			 i+="<div class='layui-form-item layui-row layui-col-xs12'>" +
-					 "<div class='magb15 layui-col-md4 layui-col-xs12'>" +
-						"<label class='layui-form-label'>工资 </label>" +
-						"<div class='layui-input-block'>" +
-							"<input type='file' id='imgUrl' name='imgUrl' value='上传请假纸制证明'/>"+
-						"</div>" +
+			 i+= "<div class='magb15 layui-col-md4 layui-col-xs12'>" +
+					"<label class='layui-form-label'>请假图片:</label>" +
+					"<div class='layui-input-block'>" +
+						"<input type='file' id='imgUrl' name='imgUrl' value='上传假条图片'/>"+
 					"</div>" +
-				"</div>" 
+				 "</div>"
 		}
 		$("#sta").html(i);
 		laydate.render({
@@ -85,7 +83,7 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 		
 			$.ajax({
 				type : "post",
-				url : path+"attendance/addAttendance?code="+obj.data.studentCode,
+				url : path+"attendance/addAttendance",
 				data : $('#attForm').serialize(),
 				success : function(data) {
 					if (0 == data.code) {

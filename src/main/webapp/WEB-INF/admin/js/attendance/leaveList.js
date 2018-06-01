@@ -115,6 +115,8 @@ layui.use(['table','form','tree'], function(){
 	      layer.close(index);
 	    });
 	  }else if(obj.event === 'edit'){
+		  alert(path+"attendance/leaveUpd?code="+obj.data.studentCode);
+		  alert(123456);
 		  var index = layui.layer.open({
 				title : "审核",
 				type : 2,

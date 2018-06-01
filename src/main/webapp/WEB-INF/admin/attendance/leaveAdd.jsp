@@ -57,7 +57,7 @@
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">请假时长</label>
 			<div class="layui-input-block">
-				<select lay-filter="leaveTimeLong" name="leaveTimeLong">
+				<select lay-filter="required" name="leaveTimeLong">
 					<option value="30">30分钟</option>
 					<option value="60">60分钟</option>
 					<option value="90">90分钟</option>
