@@ -86,9 +86,9 @@ layui.use(['table','form','tree'], function(){
 				{field: 'isNote', title: '请假条', width:80, templet: function(d){
 					var isNotes;
 					if(0==d.isNote){
-						isNotes='<span style="font-size:5px;color:#00FF00;">有</span>'
+						isNotes='<span style="font-size:5px;color:#00FF00;">没有</span>'
 					}else {
-						isNotes='<span style="font-size:5px;color:#FF0000;">无</span>'
+						isNotes='<span style="font-size:5px;color:#FF0000;">有</span>'
 					}
 					return isNotes;
 				},  unresize: true},

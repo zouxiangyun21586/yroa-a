@@ -74,33 +74,14 @@
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
            <label class="layui-form-label">考勤状态</label>
-          <div class="layui-input-block">
-              <c:if test="${studentCheck.status}==0">
-                  <input type="text" class="layui-input" id="statusName" name="statusName" lay-verify="required" readonly="readonly" value="没迟到" />
-              </c:if>
-              <c:if test="${studentCheck.status}==1">
-                  <input type="text" class="layui-input" id="statusName" name="statusName" lay-verify="required" readonly="readonly" value="迟到" />
-              </c:if>
-              <c:if test="${studentCheck.status}==2">
-                  <input type="text" class="layui-input" id="statusName" name="statusName" lay-verify="required" readonly="readonly" value="旷课" />
-              </c:if>
-              <c:if test="${studentCheck.status}==3">
-              <input type="text" class="layui-input" id="statusName" name="statusName" lay-verify="required" readonly="readonly" value="请假" />
-              </c:if>
-              <c:if test="${studentCheck.status}==4">
-                  <input type="text" class="layui-input" id="statusName" name="statusName" lay-verify="required" readonly="readonly" value="早退" />
-              </c:if>
-          </div>
+           <div class="layui-input-block">
+               <input type="text" class="layui-input" id="statusName" name="statusName" lay-verify="required" readonly="readonly" value="${statusName}" />
+           </div>
         </div>
         <div class="layui-form-item layui-row layui-col-xs12">
             <label class="layui-form-label">请假条</label>
             <div class="layui-input-block">
-                <c:if test="${studentCheck.isNote} == 0">
-                    <input class="layui-textarea userDesc" id="isNote" name="isNote" readonly="readonly" value="没有" />
-                </c:if>
-                <c:if test="${studentCheck.isNote} == 1">
-                    <input class="layui-textarea userDesc" id="isNote" name="isNote" readonly="readonly" value="有" />
-                </c:if>
+                <input class="layui-input" id="isNote" name="isNote" readonly="readonly" value="${note}" />
             </div>
         </div>
     </div>

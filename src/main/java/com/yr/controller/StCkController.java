@@ -31,6 +31,9 @@ public class StCkController {
 	@Autowired
 	private StudentService studService;
 	private static String addrGet = "attendance/attendanceView";
+	private static final Integer T2 = 2;
+	private static final Integer T3 = 3;
+	private static final Integer T4 = 4;
 	
 	/**
      * 导出成Excel表
@@ -136,7 +139,27 @@ public class StCkController {
 	@RequestMapping(value = "/get", produces = "text/json;charset=UTF-8")
 	public String get(Integer id, ModelMap modelMap) {
 		StudentCheck stuCk = stCkService.get(id);
+		String statusName = "";
+		if (0 == stuCk.getStatus()) {
+			statusName = "没迟到";
+		} else if (1 == stuCk.getStatus()) {
+			statusName = "迟到";
+		} else if (T2 == stuCk.getStatus()) {
+			statusName = "旷课";
+		} else if (T3 == stuCk.getStatus()) {
+			statusName = "请假";
+		} else if (T4 == stuCk.getStatus()) {
+			statusName = "早退";
+		}
+		String note = "";
+		if (1 == stuCk.getIsNote()) {
+			note = "有";
+		} else {
+			note = "没有";
+		}
 		modelMap.addAttribute("studentCheck", stuCk);
+		modelMap.addAttribute("statusName", statusName);
+		modelMap.addAttribute("note", note);
 		return addrGet;
 	}
 	
