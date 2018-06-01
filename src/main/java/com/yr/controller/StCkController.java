@@ -33,7 +33,7 @@ public class StCkController {
 	/**
      * 导出成Excel表
      * @param map 所有需要导出的数据
-     * @return
+     * @return    导出当天考勤报告
      * String
      * 2018年3月1日上午8:24:18
      */
@@ -148,13 +148,12 @@ public class StCkController {
 	 * 
 	 * 2018年5月31日 下午6:04:18
 	 * 
-	 * @param type 字典类型
 	 * @return strJson
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/stckDic", produces = "text/json;charset=UTF-8")
-	public String stckDic(String type) {
-		String str = stCkService.stckDic(type);
+	public String stckDic() {
+		String str = stCkService.stckDic();
 		return str;
 	}
 	

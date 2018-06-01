@@ -304,9 +304,9 @@ count = Integer.valueOf(entityManager.createNativeQuery("select count(*) from yr
 	}
 
 	@Override
-	public String stckDic(String type) {
+	public String stckDic() {
 		List<Dic> listDic = entityManager.createQuery("From Dic where type = :type")
-				.setParameter("type", type).getResultList();
+				.setParameter("type", "status").getResultList();
 		String strJson = JsonUtils.listToJson(listDic);
 		return strJson;
 	}
