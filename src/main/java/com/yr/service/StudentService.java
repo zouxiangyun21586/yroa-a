@@ -141,7 +141,28 @@ public interface StudentService {
 	  */
 	 String employmentEditors(Student student);
 	 
+	 /**
+	  * 
+	  * @Date : 2018年5月31日下午3:17:57
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : String
+	  *
+	  * @param id 
+	  * 
+	  * @describe 查询就业学生信息
+	  */
+	 String employment(Integer id);
 	 
+	 /**
+	 * 根据账号获取学生数据
+	 * @author 林水桥
+	 * @param userName 学生账号
+	 * @return Student 返回学生数据
+	 * 2018年5月31日下午10:15:29
+	 */
+	Student getAccount(String userName);
 	 
 }
 

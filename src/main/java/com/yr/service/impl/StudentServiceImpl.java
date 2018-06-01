@@ -159,11 +159,8 @@ public class StudentServiceImpl implements StudentService {
 		} else if ("addFail".equals(value)) {
 			map.put("code", 1);
 			map.put("msg", "添加失败");
-		} else if ("alreadyExisted".equals(value)) {
-			map.put("code", 1);
-			map.put("msg", "该学生已经添加过了");
 		} else if ("telformattingError".equals(value)) {
-			map.put("code", 1);
+			map.put("code", 1);			
 			map.put("msg", "学生电话格式不对");
 		} else if ("homeTelformattingError".equals(value)) {
 			map.put("code", 1);
@@ -297,4 +294,34 @@ public class StudentServiceImpl implements StudentService {
 		String result = JSONObject.fromObject(map).toString();
 		return result;
 	}
+
+	/**
+	 * 
+	 * @Date : 2018年5月31日下午3:18:57
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param id 
+	 * 
+	 * @return String  
+	 * 
+	 * @see com.yr.service.StudentService#employment(java.lang.Integer)
+	 */
+	public String employment(Integer id) {
+		Student student = studentDao.employment(id);
+		String result = JsonUtils.beanToJson(student);
+		return result;
+	}
+	
+	/**
+	 * 根据账号获取学生数据
+	 * @author 林水桥
+	 * @param userName 学生账号
+	 * @return Student 返回学生数据
+	 * 2018年5月31日下午10:15:29
+	 */
+	public Student getAccount(String userName) {
+		return studentDao.getAccount(userName);
+	}
+	
 }

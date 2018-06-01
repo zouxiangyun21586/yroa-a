@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -13,41 +14,48 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- * 角色表实体类
+ * 菜单实体类
  * @author 周业好
- * 2018年5月23日 下午7:23:07
+ * 2018年5月31日 上午10:56:37
  */
 @Cacheable(true)
-@Table(name = "yr_role")
+@Table(name = "yr_menu")
 @Entity
-public class Role implements Serializable {
+public class Menu implements Serializable {
+	private static final long serialVersionUID = 1L;
 	/**
-	 * id
+	 * 菜单id
 	 */
 	private Integer id;
 	/**
-	 * 角色名
+	 * 菜单名字
 	 */
 	private String name;
 	/**
-	 * 角色唯一编号
+	 * 菜单编号
 	 */
 	private String code;
 	/**
-	 * 角色描述
+	 * 菜单父级编号
 	 */
-	private String info;
+	private String pcode;
 	/**
-	 * 是否激活0 激活,1 未激活
+	 * 菜单路径
 	 */
-	private Integer use;
+	private String url;
+	/**
+	 * 是否弹出
+	 */
+	private boolean spread;
+	/**
+	 * 图标
+	 */
+	private String icon;
 	/**
 	 * 创建时间
 	 */
@@ -57,19 +65,19 @@ public class Role implements Serializable {
      * 最后修改时间
      */
     private Date updateTime;
-	private Set<Auth> rolePermItems = new HashSet<>();
-	private Set<Account> roleUsersItems = new HashSet<>();
-	private Set<Menu> roleMenuItems = new HashSet<>();
-	
-	
-	private String createTimeStr = "";
+    /**
+     * 父类子级
+     */
+    private List<Menu> children;
+    private Set<Role> menuRoleItems = new HashSet<>();
+    private String createTimeStr = "";
 	private String updateTimeStr = "";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -77,7 +85,6 @@ public class Role implements Serializable {
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -89,30 +96,44 @@ public class Role implements Serializable {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
-	public String getInfo() {
-		return info;
+	
+	@Column(name = "p_code")
+	public String getPcode() {
+		return pcode;
+	}
+	public void setPcode(String pcode) {
+		this.pcode = pcode;
 	}
 
-	public void setInfo(String info) {
-		this.info = info;
+	public String getUrl() {
+		return url;
 	}
-	@Column(name = "is_use")
-	public Integer getUse() {
-		return use;
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
-	public void setUse(Integer use) {
-		this.use = use;
+
+	public boolean getSpread() {
+		return spread;
 	}
-	@Column(name = "create_time")
+	public void setSpread(boolean spread) {
+		this.spread = spread;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	
+	@Column(name = "createTime")
 	public Date getCreateTime() {
 		return createTime;
 	}
-
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	
 	@Column(name = "updateTime")
 	public Date getUpdateTime() {
 		return updateTime;
@@ -122,39 +143,14 @@ public class Role implements Serializable {
 		this.updateTime = updateTime;
 	}
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "yr_role_auth",
-	joinColumns = @JoinColumn(name = "role_code", referencedColumnName = "code"),
-	inverseJoinColumns = @JoinColumn(name = "auth_code", referencedColumnName = "code")//
-	)
-	public Set<Auth> getRolePermItems() {
-		return rolePermItems;
+	@ManyToMany(mappedBy = "roleMenuItems", fetch = FetchType.LAZY)//多对多,多维护 mappedBy="不维护(内容要和dept的那个集合一样)"
+	public Set<Role> getMenuRoleItems() {
+		return menuRoleItems;
 	}
-	public void setRolePermItems(Set<Auth> rolePermItems) {
-		this.rolePermItems = rolePermItems;
+	public void setMenuRoleItems(Set<Role> menuRoleItems) {
+		this.menuRoleItems = menuRoleItems;
 	}
-	@ManyToMany(mappedBy = "usersRoleItems")//多对多,多维护 mappedBy="不维护(内容要和dept的那个集合一样)"
-	public Set<Account> getRoleUsersItems() {
-		return roleUsersItems;
-	}
-	public void setRoleUsersItems(Set<Account> roleUsersItems) {
-		this.roleUsersItems = roleUsersItems;
-	}
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "yr_role_menu",
-	joinColumns = @JoinColumn(name = "role_code", referencedColumnName = "code"),
-	inverseJoinColumns = @JoinColumn(name = "menu_code", referencedColumnName = "code")//
-	)
-	public Set<Menu> getRoleMenuItems() {
-		return roleMenuItems;
-	}
-	public void setRoleMenuItems(Set<Menu> roleMenuItems) {
-		this.roleMenuItems = roleMenuItems;
-	}
-	
-	
-	
+
 	/**
 	 * 得到创建时间 的字符串
 	 * @return 时间的字符串
@@ -184,17 +180,16 @@ public class Role implements Serializable {
 		updateTimeStr = dateStr;
 		return updateTimeStr;
 	}
-
 	public void setUpdateTimeStr(String updateTimeStr) {
 		this.updateTimeStr = updateTimeStr;
 	}
-
-	@Override
-	public String toString() {
-		return "Role [id=" + id + ", name=" + name + ", code=" + code
-				+ ", info=" + info + ", use=" + use + ", createTime="
-				+ createTime + ", updateTime=" + updateTime + "]";
+	
+	@Transient
+	public List<Menu> getChildren() {
+		return children;
 	}
-	
-	
+	public void setChildren(List<Menu> children) {
+		this.children = children;
+	}
+    
 }

@@ -28,8 +28,9 @@ public class FilterChainDefinitionMapBuilder {
         map.put("/js/**", " anon");
         map.put("/layui/**", "anon");
         map.put("/images/**", "anon");
-        map.put("/log/loginYan*", "anon");
-        map.put("/ImageServlet", "anon");
+        map.put("/log/loginYan*", "anon"); //登录验证默认放行
+        map.put("/ImageServlet", "anon"); //验证码默认放行
+        map.put("/menu/query", "anon"); //菜单获取显示默认放行
         for (Auth auth : auths) {
             map.put(auth.getUrl(), auth.getCaozuo());
         }

@@ -1,7 +1,6 @@
 package com.yr.dao.impl;
 
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.List;
 
@@ -420,4 +419,56 @@ public class StudentDaoImpl implements StudentDao {
 		stu.setOfferIncome(student.getOfferIncome());
 		entityManager.merge(stu);
 	}
+
+	/**
+	 * 
+	 * @Date : 2018年5月31日下午3:28:15
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @param id 
+	 * 
+	 * @return Student 
+	 * 
+	 * @see com.yr.dao.StudentDao#employment(java.lang.Integer)
+	 */
+	public Student employment(Integer id) {
+		Student student = entityManager.find(Student.class, id);
+		String year = session(student.getClassCode());
+		student.setYear(year);
+		return student;
+	}
+	
+	/**
+	 * 
+	 * @Date : 2018年5月31日下午4:49:47
+	 * 
+	 * @author : 唐子壕
+	 *	
+	 * @return : String 
+	 * 
+	 * @param code 
+	 */
+	public String session(String code) {
+		String jpql = "from Clas where code=:code";
+		Clas clas = (Clas) entityManager.createQuery(jpql).setParameter("code", code).getSingleResult();
+		String year = clas.getYear();
+		String name = clas.getName();
+		String result = year + "-" + name;
+		return result;
+	}
+	
+	/**
+	 * 根据账号获取学生数据
+	 * @author 林水桥
+	 * @param userName 学生账号
+	 * @return Student 返回学生数据
+	 * 2018年5月31日下午10:15:29
+	 */
+	public Student getAccount(String userName) {
+		Student student = (Student) entityManager.createQuery("from Student where account=:userName")
+				.setParameter("userName", userName).getSingleResult();
+		return student;
+	}
+	
 }

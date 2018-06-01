@@ -11,7 +11,7 @@ layui.use(['table','form','tree'], function(){
 		table.render({
 		  elem: '#demo',
 		  loading:true,
-		  url: path+"/student/student", //请求路径
+		  url: path+"student/student", //请求路径
 		  limit:7,
 		  limits:[4,7,10,15],
 		  page:true,
@@ -114,10 +114,10 @@ layui.use(['table','form','tree'], function(){
 		    });
 		  }else if(obj.event === 'yjy'){
 			  var index = layui.layer.open({
-					title : "添加学生",
+					title : "就业信息",
 					type : 2,
 					anim : 5,
-					content : "studentAdd",
+					content : "employmentInformation?id="+obj.data.id,
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',
@@ -132,8 +132,7 @@ layui.use(['table','form','tree'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
-		  }else if(obj.event === 'wjy'){
-			  alert("该学生还在就读！");
+			  
 		  }else if(obj.event === "editWjy"){
 			  var index = layui.layer.open({
 					title : "编辑",//修改未就业学生
