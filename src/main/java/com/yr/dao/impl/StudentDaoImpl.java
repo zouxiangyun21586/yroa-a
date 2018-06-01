@@ -241,10 +241,12 @@ public class StudentDaoImpl implements StudentDao {
 				if (null != student.getOfferIncome() || !"".equals(student.getOfferIncome())) { //判断工资不能为空或null
 					student1.setOfferIncome(student.getOfferIncome()); //修改工资
 				}
-				if ("0".equals(student.getIsFinish())) { //代表未毕业
+				if ("0".equals(student.getIsFinish())) { //代表未毕业学生
 					CheckParamUtil<Student> checkParamUtil1 = new CheckParamUtil<>();
 					result = checkParamUtil1.checkParam(student); //判断参数是否为空
-				} else {
+				} else { //代表已毕业学生
+					student1.setFinishImgUrl(student1.getInImgUrl());
+					student1.setInImgUrl("");
 					CheckParamUtil<Student> checkParamUtil1 = new CheckParamUtil<>();
 					result = checkParamUtil1.checkParam1(student); //判断参数是否为空
 				}
