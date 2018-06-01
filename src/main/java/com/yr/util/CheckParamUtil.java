@@ -85,6 +85,27 @@ public final class CheckParamUtil<T> {
                 if (methodName.startsWith("get")
                         && argsList.contains(fieldName)) {
                     if (method.invoke(t) == null) {
+                    		if ("name".equals(fieldName)) {
+                    			fieldName = "学生姓名";
+                    		} else if ("tel".equals(fieldName)) {
+                    			fieldName = "学生电话";
+                    		} else if ("homeTel".equals(fieldName)) {
+                    			fieldName = "家长电话";
+                    		} else if ("sex".equals(fieldName)) {
+                    			fieldName = "性别";
+                    		} else if ("birth".equals(fieldName)) {
+                    			fieldName = "出生年月";
+                    		} else if ("year".equals(fieldName)) {
+                    			fieldName = "届次";
+                    		} else if ("addr".equals(fieldName)) {
+                    			fieldName = "地址";
+                    		} else if ("inTime".equals(fieldName)) {
+                    			fieldName = "入学日期";
+                    		} else if ("isItDisplayed".equals(fieldName)) {
+                    			fieldName = "是否展示该学生";
+                    		} else {
+                    			fieldName = "是否毕业";
+                    		}
                     		return fieldName;
                     }
                     // 如果该方法返回类型为String,返回结果为空字符串，抛出异常。
@@ -160,6 +181,34 @@ public final class CheckParamUtil<T> {
                 if (methodName.startsWith("get")
                         && argsList.contains(fieldName)) {
                     if (method.invoke(t) == null) {
+                    	if ("name".equals(fieldName)) {
+                			fieldName = "学生姓名";
+                		} else if ("tel".equals(fieldName)) {
+                			fieldName = "学生电话";
+                		} else if ("homeTel".equals(fieldName)) {
+                			fieldName = "家长电话";
+                		} else if ("sex".equals(fieldName)) {
+                			fieldName = "性别";
+                		} else if ("birth".equals(fieldName)) {
+                			fieldName = "出生年月";
+                		} else if ("year".equals(fieldName)) {
+                			fieldName = "届次";
+                		} else if ("addr".equals(fieldName)) {
+                			fieldName = "地址";
+                		} else if ("inTime".equals(fieldName)) {
+                			fieldName = "入学日期";
+                		} else if ("isItDisplayed".equals(fieldName)) {
+                			fieldName = "是否展示该学生";
+                		} else if ("isFinish".equals(fieldName)) {
+                			fieldName = "是否毕业";
+                		} else if ("finishTime".equals(fieldName)) {
+                			fieldName = "毕业时间";
+                		} else if ("offerTime".equals(fieldName)) {
+                			fieldName = "入职日期";
+                		} else if ("offerIncome".equals(fieldName)) {
+                			fieldName = "工资";
+                		}
+                    	
                     		return fieldName;
                     }
                     // 如果该方法返回类型为String,返回结果为空字符串，抛出异常。
