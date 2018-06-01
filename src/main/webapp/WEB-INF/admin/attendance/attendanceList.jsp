@@ -43,7 +43,7 @@
     </form>
 </body>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/attendanceList.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/attendanceAdd.js"></script>
 <script type="text/html" id="barDemo">
 <div class="layui-dropdown">
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>

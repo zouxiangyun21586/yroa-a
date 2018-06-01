@@ -32,7 +32,7 @@ public class MenuDaoImpl implements MenuDao {
 		List<Menu> list = em.createNativeQuery("select DISTINCT m.* from yr_account a,yr_account_role ar,"
 			+ "yr_role r,yr_role_menu rm,yr_menu m where r.code=rm.role_code and m.code=rm.menu_code and "
 			+ "a.username=ar.username and r.code=ar.role_code and m.p_code is null or m.p_code='' "
-			+ "and a.username=? or a.tel=? ORDER BY p_code asc", Menu.class).setParameter(1, name)
+			+ "and a.username=? or a.tel=? ORDER BY code asc", Menu.class).setParameter(1, name)
 			.setParameter(TWO, name).getResultList();
 		return list;
 	}

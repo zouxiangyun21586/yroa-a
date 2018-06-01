@@ -17,6 +17,30 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	form.on('select(year)', function(data){
 		 $(":select[name='year']").val(data.value);
 	});   
+	
+	form.on('radio(isNote)', function(data){
+		var i ="";
+		if(data.value=="0"){
+			$('#sta').empty();
+		}else if(data.value=="1"){
+			 i+= "<div class='magb15 layui-col-md4 layui-col-xs12'>" +
+					"<label class='layui-form-label'>请假图片:</label>" +
+					"<div class='layui-input-block'>" +
+						"<input type='file' id='imgUrl' name='imgUrl' value='上传假条图片'/>"+
+					"</div>" +
+				 "</div>"
+				 
+		}
+		$("#sta").html(i);
+		laydate.render({
+			elem: '#finishTime'
+		});
+		laydate.render({
+			elem: '#offerTime'
+		});
+	}); 
+	
+	
 	form.on("submit(add)", function(data) {
 		var index = top.layer.msg('数据提交中，请稍候', {
 			icon : 16,

@@ -89,7 +89,9 @@ public class LeaveDaoImpl implements LeaveDao {
 			lea.setLeaveType(leave.getLeaveType());
 			lea.setLeaveHour(leave.getLeaveHour());
 			lea.setLeaveTimeLong(leave.getLeaveTimeLong());
-			// 图片url
+			if (null != leave.getImgUrl() && !"".equals(leave.getImgUrl())) {
+				lea.setImgUrl(leave.getImgUrl());
+			}
 			lea.setLeaveDesc(leave.getLeaveDesc());
 			lea.setLeaveAccount(acc);
 			lea.setCreateTime(new Date());
