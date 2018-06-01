@@ -23,16 +23,14 @@
 <br/>
 <form class="layui-form" style="width:80%;" id="leaveUpdForm">
 	<input type="hidden" name="_method" value="PUT">
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<div class="magb15 layui-col-md4 layui-col-xs12">
-			<label class="layui-form-label">审核结果</label>
-			<div class="layui-input-block">
-				<select name="isAudit" lay-verify="required" id="isAudit">
-					<option value="YE" selected>审核通过,允许请假</option>
-					<option value="NO">审核不通过,不允许请假</option>
-	           	</select>
-           	</div>
-		</div>
+	<div class="magb15 layui-col-md4 layui-col-xs12">
+		<label class="layui-form-label">审核结果</label>
+		<div class="layui-input-block">
+			<select name="isAudit" lay-verify="required">
+				<option value="YE">审核通过,允许请假</option>
+				<option value="NO">审核不通过,不允许请假</option>
+           	</select>
+          	</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
@@ -42,6 +40,6 @@
 	</div>
 </form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/attendanceUpd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/leaveUpd.js"></script>
 </body>
 </html>

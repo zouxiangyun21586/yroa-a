@@ -1,7 +1,5 @@
 package com.yr.dao;
 
-import java.util.List;
-
 import com.yr.entity.Leave;
 import com.yr.util.PageUtil;
 
@@ -33,10 +31,11 @@ public interface LeaveDao {
 	 * 
 	 * 2018年5月30日 下午9:42:38
 	 * 
+	 * @param leave 修改信息
 	 * @param code 学生code
-	 * @return List<Leave>所有值
+	 * @return String 返回执行后的结果
 	 */
-	List<Leave> query(String code);
+	String query(Leave leave, String code);
 
 	/**
 	 * 查询所有假条

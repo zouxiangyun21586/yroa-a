@@ -83,12 +83,13 @@ public class LeaveController {
 	 * 
 	 * 2018年5月23日 上午11:45:53
 	 * 
+	 * @param leave 修改后的数据
 	 * @param studenCode 学生code
 	 * @return Json格式数据
 	 */
 	@RequestMapping(value = "/Leave", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
-	public @ResponseBody String query(String studenCode) {
-		String str = leaveService.query(studenCode);
+	public @ResponseBody String query(Leave leave, String studenCode) {
+		String str = leaveService.query(leave, studenCode);
 		return str;
 	}
 }
