@@ -179,10 +179,7 @@ public class StCkServiceImpl implements StCkService {
 	 * 2018年5月25日下午10:19:01
 	 */
 	public StudentCheck get(Integer id) {
-		
-		stCkDao.get(id);
-		
-		return null;
+		return stCkDao.get(id);
 	}
 	
 	/**

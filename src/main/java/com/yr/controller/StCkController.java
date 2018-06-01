@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,7 @@ public class StCkController {
 	private StCkService stCkService;
 	@Autowired
 	private StudentService studService;
+	private static String addrGet = "attendance/attendanceView";
 	
 	/**
      * 导出成Excel表
@@ -121,6 +123,21 @@ public class StCkController {
 	public String report(int page, int limit, String ckStatus) {
 		String a = stCkService.report(page, limit, ckStatus);
 		return a;
+	}
+	
+	/**
+	 * 学生考勤数据回显
+	 * @author 林水桥
+	 * @param id     学生考勤ID
+	 * @param modelMap 用来传递数据到前台
+	 * @return  String   学生考勤数据
+	 * 2018年5月25日下午10:19:01
+	 */
+	@RequestMapping(value = "/get", produces = "text/json;charset=UTF-8")
+	public String get(Integer id, ModelMap modelMap) {
+		StudentCheck stuCk = stCkService.get(id);
+		modelMap.addAttribute("studentCheck", stuCk);
+		return addrGet;
 	}
 	
 	/**

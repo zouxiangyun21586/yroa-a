@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,9 +34,11 @@
                         </div>
                         <a class="layui-btn search_btn" data-type="reload" id="selectuser">搜索</a>
                     </div>
-                    <div class="layui-inline">
-                        <a class="layui-btn layui-btn-normal addUser_btn">添加考勤</a>
-                    </div>
+                    <shiro:hasPermission name="/yroa-a/attendance/attendanceAdd">
+	                    <div class="layui-inline">
+	                        <a class="layui-btn layui-btn-normal addUser_btn">添加考勤</a>
+	                    </div>
+                    </shiro:hasPermission>
                 </div>
             </form>
         </blockquote>
@@ -43,11 +46,12 @@
     </form>
 </body>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/attendanceAdd.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/attendanceList.js"></script>
 <script type="text/html" id="barDemo">
 <div class="layui-dropdown">
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
+          <shiro:hasPermission name="/yroa-a/attendance/get"><li><a lay-event="view"><i class="layui-icon" style="font-size:18px;">&#xe615; </i>查看</a></li></shiro:hasPermission>
           <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
           <li><a lay-event="del"><i class="layui-icon" style="font-size:18px;">&#xe640; </i>删除</a></li>
       </ul>

@@ -178,6 +178,26 @@ layui.use(['table','form','tree'], function(){
 				$(window).on("resize", function() {
 					layui.layer.full(index);
 				});
+		  }else if(obj.event === 'view'){
+			  var index = layui.layer.open({
+					title : "查看考勤",
+					type : 2,
+					anim : 5,
+					content : "../attendance/get?id="+obj.data.id,//修改学生的页面路径
+					success : function(layero, index) {
+						setTimeout(function() {
+							layui.layer.tips('点击此处返回',
+									'.layui-layer-setwin .layui-layer-close', {
+										tips : 3
+									});
+						}, 500);
+					}
+				});
+				layui.layer.full(index);
+				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+				$(window).on("resize", function() {
+					layui.layer.full(index);
+				});
 		  }
 		});
 		

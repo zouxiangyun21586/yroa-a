@@ -128,7 +128,7 @@ public class StCkDaoImpl implements StCkDao {
 		StudentCheck studentCk = new StudentCheck();
 		try {
 			studentCk = (StudentCheck) entityManager.createQuery("from StudentCheck where id = :id")
-					.getSingleResult();
+					.setParameter("id", id).getSingleResult();
 		} catch (Exception e) {
 			studentCk = null;
 		}
