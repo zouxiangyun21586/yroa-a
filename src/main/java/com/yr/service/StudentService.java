@@ -19,15 +19,19 @@ public interface StudentService {
 	 * 
 	 * @author : 唐子壕
 	 *	
-	 * @return : PageUtil
-	 *
 	 * @describe 分页查询
 	 * 
 	 * @param page 第几页
+	 * 
 	 * @param limit 每页多少条
+	 * 
 	 * @param name 搜索条件
+	 * 
 	 * @param modules 搜索条件
 	 * 
+	 * @return : PageUtil
+	 * 
+	 * @describe : 分页查询,根据已毕业或模糊搜索进行分页查询
 	 */
 	 String queryStudent(Integer page, Integer limit, String name, String modules);
 	 
@@ -37,11 +41,11 @@ public interface StudentService {
 	  * 
 	  * @author : 唐子壕
 	  *	
-	  * @return : String 返回一个提示
-	  *
-	  * @describe : 添加学生
-	  *
 	  * @param student 接收StudentControlle传过来的值
+	  * 
+	  * @return : String 返回一个提示
+	  * 
+	  * @describe : 添加学生
 	  */
 	 String addStudent(Student student);
 	 
@@ -51,11 +55,11 @@ public interface StudentService {
 	  * 
 	  * @author : 唐子壕
 	  *	
+	  * @param id 学生id
+	  * 
 	  * @return : String
 	  * 
-	  * @describe 根据学生id删除学生
-	  *
-	  * @param id 学生id
+	  * @describe : 删除学生
 	  */
 	 String deleteStudent(Integer id);
 	 
@@ -65,9 +69,9 @@ public interface StudentService {
 	  * 
 	  * @author : 唐子壕 
 	  *	
-	  * @return : String 
-	  *
 	  * @param id 根据这个id查出一个对象，用来数据回显
+	  * 
+	  * @return : String 
 	  * 
 	  * @describe 修改数据回显
 	  */
@@ -79,9 +83,9 @@ public interface StudentService {
 	  * 
 	  * @author : 唐子壕
 	  *	
+	  * @param student 学生实体
+	  * 
 	  * @return : String 
-	  *
-	  * @param student 
 	  * 
 	  * @describe 执行修改学生信息
 	  */
@@ -96,7 +100,6 @@ public interface StudentService {
 	  * @return : String
 	  * 
 	  * @describe 查询届次用于回显到页面进行选择届次
-	  *
 	  */
 	 String queryCls();
 	 
@@ -118,29 +121,13 @@ public interface StudentService {
 	  * 
 	  * @author : 唐子壕
 	  *	
-	  * @return : Student
-	  * 
 	  * @param code 
 	  * 
+	  * @return : Student
+	  * 
 	  * @describe 供学生考勤模块调用
-	  *
 	  */
 	 Student querytoCode(String code);
-	 
-	 /**
-	  * 
-	  * @Date : 2018年5月28日上午8:18:17
-	  * 
-	  * @author : 唐子壕
-	  *	
-	  * @return : String 
-	  *
-	  * @param student 
-	  * 
-	  * @describe 修改已就业学生信息
-	  */
-	 String employmentEditors(Student student);
-	 
 	 /**
 	  * 
 	  * @Date : 2018年5月31日下午3:17:57
@@ -154,6 +141,19 @@ public interface StudentService {
 	  * @describe 查询就业学生信息
 	  */
 	 String employment(Integer id);
+	 /**
+	  * 
+	  * @Date : 2018年6月1日下午2:46:12
+	  * 
+	  * @author : 唐子壕
+	  *	
+	  * @return : Student 
+	  * 
+	  * @param id 
+	  *
+	  * @describe : 获取照片
+	  */
+	 Student getPic(Integer id);
 	 
 	 /**
 	 * 根据账号获取学生数据

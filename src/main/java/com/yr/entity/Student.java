@@ -89,6 +89,9 @@ public class Student {
 	private String isFinish;
 	
 
+	//就业照片路径
+	private String finishImgUrl;
+	
 	@Column(name = "in_img_url") 
 	public String getInImgUrl() {
 		return inImgUrl;
@@ -116,9 +119,6 @@ public class Student {
 		this.finishImgUrl = finishImgUrl;
 	}
 
-	//就业照片路径
-	private String finishImgUrl;
-	
 	@GeneratedValue
 	@Id
 	public Integer getId() {

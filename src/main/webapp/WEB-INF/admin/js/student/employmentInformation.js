@@ -9,6 +9,16 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
 	var id = getUrlParam('id');
+	$.ajax({
+       type:"get",
+       url : path + "student/getPic",
+       data: {id:id},
+       success:function(data){
+    	   $("#mutationImage").attr("src",data.src);
+       },error : function(data) {
+    	   layer.msg("异常！",{icon:2});
+       }
+  	});
 	 $.ajax({
 	        type : "get",
 	        url : path + "student/employment?id="+id,
@@ -30,6 +40,8 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	            $("#finishTime").val(obj.finishTime);
 	            $("#offerTime").val(obj.offerTime);
 	            $("#offerIncome").val(obj.offerIncome);
+//	            $("#").val(obj.offerIncome);
+	            $("#picture").attr("src",obj.finishImgUrl);
 	        },
 	        error : function() {
 	            setTimeout(function() {
@@ -46,5 +58,4 @@ layui.use([ 'layer', 'form' ,'laydate'], function() {
 	      var r = window.location.search.substr(1).match(reg); //匹配目标参数
 	      if (r != null) return unescape(r[2]); return null; //返回参数值
 	    }
-	
 });

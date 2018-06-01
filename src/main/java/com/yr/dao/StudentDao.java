@@ -22,10 +22,6 @@ public interface StudentDao {
 	 * 
 	 * @author : 唐子壕
 	 *	
-	 * @describe 分页查询
-	 *
-	 * @return : PageUtil 返回查询的结果,是一个集合
-	 *
 	 * @param page 第几页
 	 * 
 	 * @param limit 每页多少条
@@ -33,6 +29,10 @@ public interface StudentDao {
 	 * @param modules 搜索条件
 	 * 
 	 * @param name 搜索条件
+	 * 
+	 * @return : PageUtil 返回查询的结果,是一个集合
+	 * 
+	 * @describe 分页查询
 	 */
 	PageUtil queryStudent(Integer page, Integer limit, String name, String modules);
 	 
@@ -42,11 +42,11 @@ public interface StudentDao {
 	  * 
 	  * @author : 唐子壕
 	  *	
-	  * @describe : 添加学生
+	  * @param student 接收StudentService传过来的值
 	  * 
 	  * @return String  
-	  *	
-	  * @param student 接收StudentService传过来的值
+	  * 
+	  * @describe : 添加学生
 	  */
 	 String addStudent(Student student);
 	 
@@ -68,9 +68,9 @@ public interface StudentDao {
 	  * 
 	  * @author : 唐子壕 
 	  *	
-	  * @return : String 
-	  * 
 	  * @param id 
+	  * 
+	  * @return : String 
 	  */
 	 Student updateDisplay(Integer id);
 	 
@@ -81,9 +81,9 @@ public interface StudentDao {
 	  * 
 	  * @author : 唐子壕
 	  *	
-	  * @return String  
-	  * 
 	  * @param student 
+	  * 
+	  * @return String  
 	  */
 	 String updateStudent(Student student);
 	 
@@ -94,7 +94,6 @@ public interface StudentDao {
 	  * @author : 唐子壕
 	  *	
 	  * @return : List<String> 
-	  *
 	  */
 	 List<Clas> queryCls();
 	 
@@ -142,26 +141,13 @@ public interface StudentDao {
 	 
 	 /**
 	  * 
-	  * @Date : 2018年5月28日上午8:18:17
-	  * 
-	  * @author : 唐子壕
-	  *	
-	  * @param student 
-	  * 
-	  * @describe 修改已就业学生信息
-	  */
-	 void employmentEditors(Student student);
-	 
-
-	 /**
-	  * 
 	  * @Date : 2018年5月31日下午3:17:57
 	  * 
 	  * @author : 唐子壕
 	  *	
-	  * @return : String
-	  *
 	  * @param id 
+	  * 
+	  * @return : String
 	  * 
 	  * @describe 查询就业学生信息
 	  */

@@ -21,6 +21,14 @@
 <br/>
 		<div class="layui-form-item layui-row layui-col-xs12">
 			<div class="magb15 layui-col-md4 layui-col-xs12">
+				<label class="layui-form-label">学生照片</label>
+				<div class="layui-input-block">
+					<img id="mutationImage" style="height:100px;width:75px;" src=""/>
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item layui-row layui-col-xs12">
+			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">学生姓名</label>
 				<div class="layui-input-block">
 					<input type="text" name="name"  id="name" class="layui-input" lay-verify="required" readonly="readonly" />
@@ -99,7 +107,6 @@
 				</div>
 			</div>
 		</div>
-		
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/student/employmentInformation.js"></script>
 </body>

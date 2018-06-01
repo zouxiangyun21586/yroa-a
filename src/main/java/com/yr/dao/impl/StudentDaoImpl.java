@@ -52,35 +52,46 @@ public class StudentDaoImpl implements StudentDao {
 	 * @see com.yr.dao.StudentDao#queryStudent(java.lang.Integer, java.lang.Integer, java.lang.String)
 	 */
 	public PageUtil queryStudent(Integer page, Integer limit, String name, String modules) {
-		PageUtil pageUtil = new PageUtil(); 
+		PageUtil pageUtil = new PageUtil(); //分页实体
 		try { 
-			name = new String(name.getBytes("ISO8859-1"), "utf-8");
+			//modules代表页面传来的是已毕业,未毕业
+			name = new String(name.getBytes("ISO8859-1"), "utf-8"); //页面传来要搜索的值
 			int count = 0;
-			String jpql = "From Student order by inTime desc";
-			if (null  != name && !"".equals(name) && null != modules && !"".equals(modules)) {
-				jpql = "from Student where name like :name and isFinish=:isFinish order by inTime desc";
-			} else if (null  != name && !"".equals(name)) { 
+			String jpql = "From Student order by inTime desc"; // 查出所有学生根据入学时间进行升序
+			if (null  != name && !"".equals(name) && null != modules && !"".equals(modules)) { //如果name不等于null与空和modules不等于null和空，必须都满足条件
+				//模糊查询学生表里name字段等于页面传来的name 和 isFinish等于页面传来的是否已毕业 的数据
+				jpql = "from Student where name like :name and isFinish=:isFinish order by inTime desc"; 
+			} else if (null  != name && !"".equals(name)) { //如果name不等于null和空,必须都满足条件
+				//模糊查询学生表里name字段等于页面传来的name的数据
 				jpql = "from Student where name like :name order by inTime desc";
-			} else if (null != modules && !"".equals(modules)) {
+			} else if (null != modules && !"".equals(modules)) { //如果modules不等于null和空,必须都满足条件
+				//模糊查询学生表里isFinish等于页面传来的是否已毕业的数据
 				jpql = "from Student where isFinish=:isFinish order by inTime desc";
 			}
-			List<Student> studentList = new ArrayList<Student>();
-			name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name);
-			if (null  != name && !"".equals(name) &&  null != modules && !"".equals(modules)) {
+			List<Student> studentList = new ArrayList<Student>(); //用来存放查询出的值
+			name = pageUtil.decodeSpecialCharsWhenLikeUseSlash(name); //防止sql注入
+			if (null  != name && !"".equals(name) &&  null != modules && !"".equals(modules)) { ////如果name不等于null与空和modules不等于null和空，必须都满足条件
 			   studentList = entityManager.createQuery(jpql).setMaxResults(limit).setFirstResult((page - 1) * limit)
-					   		.setParameter("name", "%" + name + "%").setParameter("isFinish", modules).getResultList();
+					   		.setParameter("name", "%" + name + "%").setParameter("isFinish", modules).getResultList(); //进行分页查询
+			   	//查询学生表里name字段等于页面传来的name 和 isFinish等于页面传来的是否已毕业 的总数
 			   count = Integer.parseInt(entityManager.createNativeQuery("select count(*) from yr_student where name like :name and is_finish=:isFinish")
 		    		 				.setParameter("name", "%" + name + "%").setParameter("isFinish", modules).getSingleResult().toString());
 			} else if (null  != name && !"".equals(name)) {
+				//进行分页查询
 				studentList = entityManager.createQuery(jpql).setMaxResults(limit).setFirstResult((page - 1) * limit).setParameter("name", "%" + name + "%").getResultList();
+				//查询学生表里name字段等于页面传来的name的总数
 				count = Integer.parseInt(entityManager.createNativeQuery("select count(*) from yr_student where"
 				 + " name like :name").setParameter("name", "%" + name + "%").getSingleResult().toString());
 			} else if (null != modules && !"".equals(modules)) {
+				//进行分页查询
 			    studentList = entityManager.createQuery(jpql).setMaxResults(limit).setFirstResult((page - 1) * limit).setParameter("isFinish", modules).getResultList();
-				count = Integer.parseInt(entityManager.createNativeQuery("select count(*) from yr_student where is_finish=:isFinish").setParameter("isFinish", modules)
+				//查询学生表里isFinish等于页面传来的是否毕业的总数
+			    count = Integer.parseInt(entityManager.createNativeQuery("select count(*) from yr_student where is_finish=:isFinish").setParameter("isFinish", modules)
 										.getSingleResult().toString());
 			} else {
+				//进行分页查询
 				studentList = entityManager.createQuery(jpql).setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
+				//查询所有学生的总数
 				count = Integer.parseInt(entityManager.createNativeQuery("select count(*) from yr_student").getSingleResult().toString());
 			}
 			pageUtil = new PageUtil(limit, page, count);		
@@ -93,7 +104,7 @@ public class StudentDaoImpl implements StudentDao {
 			pageUtil.setMsg("---出错了!----");
 			e.printStackTrace();
 		}
-		return pageUtil;
+		return pageUtil; //返回数据
 	}
 		
 	/**添加学生信息
@@ -131,27 +142,28 @@ public class StudentDaoImpl implements StudentDao {
 					String year = clas.getYear(); //届次
 					String classCode = clas.getCode(); //所属批次Code 
 					Date createTime = new Date(); //添加这条信息的时间
+					//将学生的姓名转成该名字的拼音作为他的账号
 					HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
 			        String account = hanyuPinyinHelper.toHanyuPinyin(student.getName());
 			        student.setAccount(account);
-					student.setCode(code);
-					student.setYear(year);
-					student.setClassCode(classCode);
-					student.setCreateTime(createTime);
-					if ("0".equals(student.getIsFinish())) {
+					student.setCode(code); //学生编码
+					student.setYear(year); //届次
+					student.setClassCode(classCode); //届次code
+					student.setCreateTime(createTime); //创建时间
+					if ("0".equals(student.getIsFinish())) { //代表该学生未毕业
 						CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
-						result = checkParamUtil.checkParam(student); //判断参数是否为空
-					} else {
+						result = checkParamUtil.checkParam(student); //判断未毕业学生参数是否为空
+					} else { //代表该学生已毕业
 						CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
-						result = checkParamUtil.checkParam1(student); //判断参数是否为空
+						result = checkParamUtil.checkParam1(student); //判断已毕业学生参数是否为空
 					}
-					if ("checkSuccess".equals(result)) {
-						entityManager.persist(student);
+					if ("checkSuccess".equals(result)) { //代表校验参数是否为空通过
+						entityManager.persist(student); //执行添加
 						result = "addSuccess";
-					} else {
+					} else { //代表校验参数是否为空不通过
 						return result;
 					}	
-				} else {
+				} else { //代表该学学已经添加过了
 					result = "alreadyExisted";
 				}
 			
@@ -172,17 +184,17 @@ public class StudentDaoImpl implements StudentDao {
 	 *	
 	 * @param id 学生id
 	 * 
-	 * @describe : 根据id删除学生信息
-	 * 
 	 * @return String
+	 * 
+	 * @describe : 根据id删除学生信息
 	 * 
 	 * @see com.yr.dao.StudentDao#deleteStudent(java.lang.Integer)
 	 */
 	public String deleteStudent(Integer id) {
-		Student student = entityManager.find(Student.class, id);
-		String account = student.getAccount();
-		entityManager.remove(student);
-		return account;
+		Student student = entityManager.find(Student.class, id); //根据id查出该学生的所有信息
+		String account = student.getAccount(); //获取该学生的账号
+		entityManager.remove(student); //执行删除
+		return account; //将账号返回
 	}
 	
 	/**修改学生信息
@@ -199,46 +211,47 @@ public class StudentDaoImpl implements StudentDao {
 	public String updateStudent(Student student) {
 		String result = "";
 		try {
-				Boolean bool = CheckTelephoneUtil.isMobile(student.getTel());
-				if (bool.equals(false)) {
+				Boolean bool = CheckTelephoneUtil.isMobile(student.getTel()); //判断电话号码的格式是否正确
+				if (bool.equals(false)) { //代表不正确
 					return "telformattingError";
 				}
-				Boolean boo = CheckTelephoneUtil.isMobile(student.getHomeTel());
-				if (boo.equals(false)) {
+				Boolean boo = CheckTelephoneUtil.isMobile(student.getHomeTel()); //判断家长电话的格式是否正确
+				if (boo.equals(false)) { //代表不正确
 					return "homeTelformattingError";
 				}
-				Student student1 = entityManager.find(Student.class, student.getId());
-				student1.setAddr(student.getAddr());
-				student1.setBirth(student.getBirth());
-				student1.setSex(student.getSex());
-				student1.setClassCode(student.getClassCode());
-				Clas clas = queryClas(student.getClassCode());
-				student1.setYear(clas.getYear());
-				student1.setTel(student.getTel());
-				student1.setIsFinish(student.getIsFinish());
+				Student student1 = entityManager.find(Student.class, student.getId()); //根据id查出该学生的所有信息
+				student1.setAddr(student.getAddr()); //修改地址
+				student1.setBirth(student.getBirth()); //修改生日
+				student1.setSex(student.getSex()); //修改性别
+				student1.setClassCode(student.getClassCode()); //修改届次code
+				Clas clas = queryClas(student.getClassCode()); //根据届次code查出数据
+				student1.setYear(clas.getYear()); //将届次表里的届次字段作为学生表的届次修改
+				student1.setTel(student.getTel()); //修改电话
+				student1.setIsFinish(student.getIsFinish());  //修改是否毕业
 				student1.setIsItDisplayed(student.getIsItDisplayed()); //是否展示该学生
-				student1.setHomeTel(student.getHomeTel());
-				student1.setInTime(student.getInTime());
-				if (null != student.getFinishTime() || "".equals(student.getFinishTime())) {
-					student1.setFinishTime(student.getFinishTime());
+				student1.setHomeTel(student.getHomeTel()); //修改家长电话
+				student1.setInTime(student.getInTime()); //修改入学时间
+				//这里因为有已毕业或未毕业的学生
+				if (null != student.getFinishTime() || !"".equals(student.getFinishTime())) { //判断毕业时间不能为空或null
+					student1.setFinishTime(student.getFinishTime()); //修改毕业时间
 				}
-				if (null != student.getOfferTime() || "".equals(student.getOfferTime())) {
-					student1.setOfferTime(student.getOfferTime());
+				if (null != student.getOfferTime() || !"".equals(student.getOfferTime())) { //判断入职时间不能为空或null
+					student1.setOfferTime(student.getOfferTime()); //修改入职时间
 				}
-				if (null != student.getOfferIncome() || "".equals(student.getOfferIncome())) {
-					student1.setOfferIncome(student.getOfferIncome());
+				if (null != student.getOfferIncome() || !"".equals(student.getOfferIncome())) { //判断工资不能为空或null
+					student1.setOfferIncome(student.getOfferIncome()); //修改工资
 				}
-				if ("0".equals(student.getIsFinish())) {
+				if ("0".equals(student.getIsFinish())) { //代表未毕业
 					CheckParamUtil<Student> checkParamUtil1 = new CheckParamUtil<>();
 					result = checkParamUtil1.checkParam(student); //判断参数是否为空
 				} else {
 					CheckParamUtil<Student> checkParamUtil1 = new CheckParamUtil<>();
 					result = checkParamUtil1.checkParam1(student); //判断参数是否为空
 				}
-				if ("checkSuccess".equals(result)) {
-					entityManager.merge(student1);
+				if ("checkSuccess".equals(result)) { //代表检验参数是否为空通过
+					entityManager.merge(student1); //执行修改
 					result = "updateSuccess";
-				} else {
+				} else { //代表检验参数是否为空 不通过
 					return result;
 				}
 		} catch (Exception e) {
@@ -260,7 +273,7 @@ public class StudentDaoImpl implements StudentDao {
 	 * @describe 查询要插入的学生是否已存在
 	 */
 	private String queyrIsName(String name) {
-		String jpql = "select count(*) from yr_student where name =:name";
+		String jpql = "select count(*) from yr_student where name =:name"; //查询要插入的学生是否已存在
 		String result = entityManager.createNativeQuery(jpql)
 				.setParameter("name", name).getSingleResult().toString();
 		return result;
@@ -278,15 +291,15 @@ public class StudentDaoImpl implements StudentDao {
 	 */
 	public String code() {
 		String code = "";
-		String jpql = "select count(*) from yr_student";
+		String jpql = "select count(*) from yr_student"; //查询学生的总数
 		String value = entityManager.createNativeQuery(jpql).getSingleResult().toString();
-		if ("0".equals(value)) {
+		if ("0".equals(value)) { //如果总数为0 编号就是1001
 			code = "1001";
-		} else {
-			String sql = "select max(`code`)  from yr_student";
+		} else { //如果总数不为0
+			String sql = "select max(`code`)  from yr_student"; //查出code字段的最大值
 			String sqlCode = entityManager.createNativeQuery(sql).getSingleResult().toString();
-			Integer integer = Integer.valueOf(sqlCode) + 1;
-			code = integer.toString();
+			Integer integer = Integer.valueOf(sqlCode) + 1; //查出code字段的最大值加1
+			code = integer.toString(); //integer转 String
 		}
 		return code;
 	}
@@ -322,7 +335,7 @@ public class StudentDaoImpl implements StudentDao {
 	 */
 	@Override
 	public List<Clas> queryCls() {
-		 List<Clas> yearList = entityManager.createQuery("from Clas").getResultList();
+		List<Clas> yearList = entityManager.createQuery("from Clas").getResultList();
 		return yearList;
 	}
 	
@@ -336,7 +349,7 @@ public class StudentDaoImpl implements StudentDao {
 	 *
 	 * @param code 
 	 * 
-	 * @describe 根据
+	 * @describe 根据code查询届次表的数据
 	 */
 	public Clas queryClas(String code) {
 		String jpql = "from Clas where code=:code";
@@ -356,9 +369,9 @@ public class StudentDaoImpl implements StudentDao {
 	 */
 	@Override
 	public String queryRoleCod() {
-		String jpql = "select val from Dic where keyv=:keyv";
+		String jpql = "select val from Dic where keyv=:keyv"; //根据keyv字段查出字典表的val字段
 		String val = (String) entityManager.createQuery(jpql).setParameter("keyv", "stu").getSingleResult();
-		String jpql1 = "select code from Role where name=:name";
+		String jpql1 = "select code from Role where name=:name"; //根据查出的字段val（角色） 去yr_role表根据name查出 对应的code
 		String code = (String) entityManager.createQuery(jpql1).setParameter("name", val).getSingleResult();
 		return code;
 	}
@@ -376,7 +389,7 @@ public class StudentDaoImpl implements StudentDao {
 	 * @see com.yr.dao.StudentDao#queryNoGre()
 	 */
 	public List<Student> queryNoGre() {
-		String jpql = "from Student where isFinish =:isFinish";
+		String jpql = "from Student where isFinish =:isFinish"; //查询出所有未毕业学生
 		List<Student> student = entityManager.createQuery(jpql).setParameter("isFinish", "0").getResultList();
 		return student;
 	}
@@ -387,39 +400,20 @@ public class StudentDaoImpl implements StudentDao {
 	 * 
 	 * @author : 唐子壕
 	 *	
-	 * @describe 根据code查询学生对象
-	 *  
 	 * @param code 
 	 *	
 	 * @return Student
 	 * 
+	 * @describe 根据code查询学生对象
+	 * 
 	 * @see com.yr.dao.StudentDao#querytoCode()
 	 */
 	public Student querytoCode(String code) {
-		String jpql = "from Student where code=:code";
-		Student student = (Student) entityManager.createQuery(jpql)
-				.setParameter("code", code).getSingleResult();
+		String jpql = "from Student where code=:code"; //根据code查询学生表的数据
+		Student student = (Student) entityManager.createQuery(jpql).setParameter("code", code).getSingleResult();
 		return student;
 	}
 	
-	/**
-	 * 
-	 * @Date : 2018年5月28日上午8:21:43
-	 * 
-	 * @author : 唐子壕
-	 *	
-	 * @param student 
-	 * 
-	 * @see com.yr.dao.StudentDao#employmentEditors(com.yr.entity.Student)
-	 */
-	public void employmentEditors(Student student) {
-		Student stu = entityManager.find(Student.class, student.getId());
-		stu.setFinishTime(student.getFinishTime()); //修改毕业时间
-		stu.setOfferTime(student.getOfferTime()); //修改就业时间
-		stu.setOfferIncome(student.getOfferIncome());
-		entityManager.merge(stu);
-	}
-
 	/**
 	 * 
 	 * @Date : 2018年5月31日下午3:28:15
@@ -430,12 +424,14 @@ public class StudentDaoImpl implements StudentDao {
 	 * 
 	 * @return Student 
 	 * 
+	 * @describe : 就业信息回显
+	 *  
 	 * @see com.yr.dao.StudentDao#employment(java.lang.Integer)
 	 */
 	public Student employment(Integer id) {
 		Student student = entityManager.find(Student.class, id);
-		String year = session(student.getClassCode());
-		student.setYear(year);
+		String year = session(student.getClassCode()); //获取到该学生的届次和批次（已拼接）
+		student.setYear(year); //将拼接的届次和批次赋值给学生表里的year字段显示到页面
 		return student;
 	}
 	
@@ -448,13 +444,15 @@ public class StudentDaoImpl implements StudentDao {
 	 * @return : String 
 	 * 
 	 * @param code 
+	 * 
+	 * @describe : 根据code查询出该学生的届次和批次
 	 */
 	public String session(String code) {
-		String jpql = "from Clas where code=:code";
+		String jpql = "from Clas where code=:code"; //根据届次code查出该学生的届次信息
 		Clas clas = (Clas) entityManager.createQuery(jpql).setParameter("code", code).getSingleResult();
-		String year = clas.getYear();
-		String name = clas.getName();
-		String result = year + "-" + name;
+		String year = clas.getYear(); //获取到届次
+		String name = clas.getName(); //获取到批次
+		String result = year + "-" + name; //将届次和批次拼接在一起
 		return result;
 	}
 	
