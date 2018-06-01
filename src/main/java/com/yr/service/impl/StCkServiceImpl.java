@@ -18,6 +18,7 @@ import com.yr.dao.StudentDao;
 import com.yr.entity.CheckTime;
 import com.yr.entity.Clas;
 import com.yr.entity.Holiday;
+import com.yr.entity.Report;
 import com.yr.entity.Role;
 import com.yr.entity.Student;
 import com.yr.entity.StudentCheck;
@@ -91,7 +92,7 @@ public class StCkServiceImpl implements StCkService {
 			studentCheck.setStartTime(checkTime.getStartTime()); //标准上课时间
 			studentCheck.setRetyTime(nowTime); //实际到达时间
 			studentCheck.setStatus(status); //考勤状态 0没迟到,1迟到
-			studentCheck.setIsNote(1); //默认无请假条
+			studentCheck.setIsNote(0); //默认无请假条
 			studentCheck.setCreateTime(DateUtils.getCurrentDateTimeA()); //创建时间
 			addReturn = stCkDao.add(studentCheck);
 		}
@@ -238,4 +239,28 @@ public class StCkServiceImpl implements StCkService {
 		}
 		return stCkDao.getExcel(code);
 	}
+	
+	/**
+	 * 导出当天考勤数据
+	 * @author 林水桥
+	 * @return List<Report> 导出的所有数据
+	 * 2018年6月1日下午5:05:31
+	 */
+	public List<Report> getReportExcel() {
+		String userName = (String) SecurityUtils.getSubject().getPrincipal();
+		String code = null;
+		List<Role> roList = roleDao.queryR(userName);
+		for (Role role : roList) {
+			if ("学生".equals(role.getName())) {
+				Student student = studentDao.getAccount(userName);
+				code = student.getCode();
+				break;
+			} else if ("家长".equals(role.getName())) {
+				code = "不能使用";
+				break;
+			}
+		}
+		return stCkDao.getReportExcel(code, DateUtils.getCurrentDateA());
+	}
+	
 }

@@ -330,4 +330,27 @@ count = Integer.valueOf(entityManager.createNativeQuery("select count(*) from yr
 		return stCk;
 	}
 	
+	/**
+	 * 导出当天考勤数据
+	 * @author 林水桥
+	 * @param code  学生或家长登录的数据
+	 * @param checkTime 当天日期
+	 * @return List<Report> 导出的所有数据
+	 * 2018年6月1日下午5:05:31
+	 */
+	public List<Report> getReportExcel(String code, Date checkTime) {
+		String jpql = "from StudentCheck where checkTime=:time order by checkTime desc";
+		List<StudentCheck> stCk = new ArrayList<StudentCheck>();
+		if (null != code) {
+			jpql = "from StudentCheck where studentCode=:code and checkTime=:time order by checkTime desc";
+			stCk = entityManager.createQuery(jpql).setParameter("code", code)
+					.setParameter("time", checkTime).getResultList();
+		} else {
+			stCk = entityManager.createQuery(jpql).setParameter("time", checkTime).getResultList();
+		}
+		List<Report> report = new ArrayList<Report>();
+		report = getReport(stCk, report);
+		return report;
+	}
+	
 }

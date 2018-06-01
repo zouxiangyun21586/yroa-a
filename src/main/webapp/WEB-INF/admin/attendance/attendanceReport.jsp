@@ -17,6 +17,11 @@
     </form> -->
     <div class="layui-col-lg6 layui-col-md12">
             <blockquote class="layui-elem-quote title">今日考勤情况</blockquote>
+            <shiro:hasPermission name="/yroa-a/attendance/reportExcel">
+                <div class="layui-inline">
+                    <a class="layui-btn layui-btn-normal reportExcel_btn" href="/yroa-a/attendance/reportExcel">导出Excel</a>
+                </div>
+            </shiro:hasPermission>
             <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
               <ul class="layui-tab-title">
                 <li class="layui-this">上午考勤报告</li>

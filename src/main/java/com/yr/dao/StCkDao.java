@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.yr.entity.CheckTime;
+import com.yr.entity.Report;
 import com.yr.entity.StudentCheck;
 
 /**
@@ -112,5 +113,15 @@ public interface StCkDao {
 	 * 2018年6月1日下午5:05:31
 	 */
 	List<StudentCheck> getExcel(String code);
+	
+	/**
+	 * 导出当天考勤数据
+	 * @author 林水桥
+	 * @param code  学生或家长登录的数据
+	 * @param checkTime 当天日期
+	 * @return List<Report> 导出的所有数据
+	 * 2018年6月1日下午5:05:31
+	 */
+	List<Report> getReportExcel(String code, Date checkTime);
 	
 }
