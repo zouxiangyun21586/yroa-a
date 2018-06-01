@@ -180,8 +180,8 @@ public class StCkServiceImpl implements StCkService {
 	}
 
 	@Override
-	public String stckDic(String type) {
-		String str = stCkDao.stckDic(type);
+	public String stckDic() {
+		String str = stCkDao.stckDic();
 		return str;
 	}
 }
