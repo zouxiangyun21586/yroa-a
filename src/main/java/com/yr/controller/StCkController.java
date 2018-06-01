@@ -38,7 +38,7 @@ public class StCkController {
 	/**
      * 导出成Excel表
      * @param map 所有需要导出的数据
-     * @return    导出当天考勤报告
+     * @return    导出考勤列表数据
      * String
      * 2018年3月1日上午8:24:18
      */
@@ -46,6 +46,19 @@ public class StCkController {
     public String testExcel(Map<String, Object> map) {
         map.put("stuLists", stCkService.getExcel());
         return "Excels";
+    }
+    
+    /**
+     * 导出成Excel表
+     * @param map 所有需要导出的数据
+     * @return    导出当天考勤数据
+     * String
+     * 2018年3月1日上午8:24:18
+     */
+    @RequestMapping("/reportExcel")
+    public String reportExcel(Map<String, Object> map) {
+        map.put("reports", stCkService.getReportExcel());
+        return "reportExcels";
     }
 	
 	/**

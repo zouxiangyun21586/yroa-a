@@ -25,7 +25,7 @@ public class ExExcel extends AbstractXlsView {
     @Override  
     protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,  
             HttpServletResponse response) throws Exception {  
-    	List<Report> stuList = (List<Report>) model.get("reprots");  
+    	List<Report> stuList = (List<Report>) model.get("reports");  
         String fileName = DateUtils.getCurrentDate() + "学生当天考勤.xls";  
         response.setCharacterEncoding("UTF-8");  
         response.setContentType("application/ms-excel"); // 文件下载  

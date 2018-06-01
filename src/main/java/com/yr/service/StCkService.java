@@ -2,6 +2,7 @@ package com.yr.service;
 
 import java.util.List;
 
+import com.yr.entity.Report;
 import com.yr.entity.StudentCheck;
 
 /**
@@ -96,5 +97,13 @@ public interface StCkService {
 	 * 2018年6月1日下午5:05:31
 	 */
 	List<StudentCheck> getExcel();
+	
+	/**
+	 * 导出当天考勤数据
+	 * @author 林水桥
+	 * @return List<Report> 导出的所有数据
+	 * 2018年6月1日下午5:05:31
+	 */
+	List<Report> getReportExcel();
 	
 }
