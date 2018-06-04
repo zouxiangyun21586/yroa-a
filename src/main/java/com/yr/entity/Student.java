@@ -57,6 +57,9 @@ public class Student {
 
 	//家庭住址
 	private String addr;
+	
+	/**家长编码*/
+	private String parentsCode;
 
 	//家长电话
 	private String homeTel;
@@ -194,7 +197,15 @@ public class Student {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	
+	@Column(name = "parents_code")
+	public String getParentsCode() {
+		return parentsCode;
+	}
+
+	public void setParentsCode(String parentsCode) {
+		this.parentsCode = parentsCode;
+	}
+
 	@Column(name = "home_tel") 
 	public String getHomeTel() {
 		return homeTel;

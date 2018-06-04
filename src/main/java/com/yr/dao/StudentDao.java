@@ -161,4 +161,23 @@ public interface StudentDao {
 	 * 2018年5月31日下午10:15:29
 	 */
 	Student getAccount(String value);
+	
+	/**
+	 * 根据学生姓名查询学生数量
+	 * @author 林水桥
+	 * @param name   学生姓名
+	 * @return Integer  学生数量
+	 * 2018年6月4日下午8:54:33
+	 */
+	Integer queryCountName(String name);
+	
+	/**
+	 * 家长添加，修改学生家长code
+	 * @author 林水桥
+	 * @param name          学生姓名
+	 * @param parentsCode   家长code
+	 * @return Integer      0为修改失败
+	 * 2018年6月4日下午10:11:01
+	 */
+	Integer updateParents(String name, String parentsCode);
 }

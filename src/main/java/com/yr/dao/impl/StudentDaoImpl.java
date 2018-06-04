@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -484,4 +485,40 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		return student;	
 	}
+	
+	/**
+	 * 根据学生姓名查询学生数量
+	 * @author 林水桥
+	 * @param name   学生姓名
+	 * @return Integer  学生数量
+	 * 2018年6月4日下午8:54:33
+	 */
+	public Integer queryCountName(String name) {
+		String jpql = "select count(*) from yr_student where name=:name";
+		Integer count = 0;
+		try {
+			count = Integer.valueOf(entityManager.createNativeQuery(jpql)
+					.setParameter("name", name).getSingleResult().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	/**
+	 * 家长添加，修改学生家长code
+	 * @author 林水桥
+	 * @param name          学生姓名
+	 * @param parentsCode   家长code
+	 * @return Integer      0为修改失败
+	 * 2018年6月4日下午10:11:01
+	 */
+	public Integer updateParents(String name, String parentsCode) {
+		String jpql = "update Student set parentsCode=code where name=:name";
+		Query query = entityManager.createQuery(jpql).setParameter("code", parentsCode)
+				.setParameter("name", name);
+		Integer a = query.executeUpdate();
+		return a;
+	}
+	
 }
