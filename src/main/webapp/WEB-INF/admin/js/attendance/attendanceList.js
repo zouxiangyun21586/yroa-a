@@ -9,48 +9,6 @@ layui.use(['table','form','tree'], function(){
 	prePath = strFullPath.substring(0, pos),
 	path = strPath.substring(0, strPath.substr(1).indexOf('/') + 1)+"/";
   
-  $.ajax({
-      type : "get",
-      url : path + "attendance/checkTimeCode",
-      success : function(data) {
-          var obj = eval(data);
-          var objLength = obj.length;
-          $('#stauts').empty();
-          var b = "";
-          b += '<option value=""></option>';
-          b += '<option value=0>没迟到</option>';
-          b += '<option value=1>迟到</option>';
-          b += '<option value=2>旷课</option>';
-          b += '<option value=3>请假</option>';
-          b += '<option value=4>早退</option>';
-          $("#stauts").append(b);
-          if(objLength>0){
-              $('#checkTimeCode').empty();
-              var a="";
-              a += '<option value=""></option>';
-              $(obj).each(function (i) {
-                  a+='<option value="'+obj[i].code+'">' + obj[i].timeName + '</option>';
-              });
-              $("#checkTimeCode").append(a);
-              form.render('select');
-          }else{
-              alert("没有东西");
-              $('#checkTimeCode').find('option').remove();
-              //alert("应该清空")
-              form.render('select');
-
-          }
-      },
-      error : function() {
-          setTimeout(function() {
-              top.layer.close(index);
-              top.layer.msg("异常！", {
-                  icon : 2
-              });
-              layer.closeAll("iframe");
-          }, 1000);
-      }
-  });
 		table.render({
 		  elem: '#demo',
 		  loading:true,
