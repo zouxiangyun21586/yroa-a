@@ -287,9 +287,9 @@ public class ClasServiceImpl implements ClasService {
 		 for (int x = 0; x < listStr.size(); x++) {
 	        	String d = "";
 	        	Course resource = listStr.get(x);
-	            for (int i = 0; i < listCp.size(); i++) {
+ 	            for (int i = 0; i < listCp.size(); i++) {
 	                String values = (String) listCp.get(i);
-	                if (resource.getName().equals(values)) {
+	                if (resource.getLevel().equals(values)) {
 	                    resource.setChecked(true);
 	                }
 	            }

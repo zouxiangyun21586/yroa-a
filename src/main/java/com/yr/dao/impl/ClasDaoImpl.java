@@ -368,8 +368,8 @@ public class ClasDaoImpl implements ClasDao {
 //		15	entedg	进度	c	高级		
 //		16	entedg	进度	d	数据库		
 //		17	entedg	进度	e	前台		
-		List<Course> listCourse = entityManager.createQuery("From Course").getResultList();
-		return listCourse;
+//		List<Course> listCourse = entityManager.createQuery("From Course").getResultList();
+		return entityManager.createQuery("From Course").getResultList();
 	}
 
 	@Override
@@ -379,6 +379,18 @@ public class ClasDaoImpl implements ClasDao {
 		return entityManager.createNativeQuery(sql).setParameter("class_code", code).getResultList();
 	}
 
+	/**
+	 * 修改课程进度
+	 * 问题:
+	 * 数据回显有问题
+	 * @author zxy
+	 * 
+	 * 2018年6月4日 下午7:24:42
+	 * 
+	 * @param curriculumCode 课程code
+	 * @param clasCode 届次code
+	 * @return String
+	 */
 	@Override
 	public String dateRetrieval(String[] curriculumCode, String clasCode) {
 		Map<String, Object> map = new HashMap<>();
@@ -394,10 +406,6 @@ public class ClasDaoImpl implements ClasDao {
                 .setParameter("curr_code", curriculumCode[i]).executeUpdate();
 
             }
-//            Query qu = entityManager.createQuery("update Role a set a.updateTime=? where a.code=?");
-//    		qu.setParameter(0, new Date());
-//    		qu.setParameter(1, clasCode);
-//    		qu.executeUpdate();
     		entityManager.flush();
     		entityManager.clear();
             map.put("code", 0);

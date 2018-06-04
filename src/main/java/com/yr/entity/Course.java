@@ -29,6 +29,8 @@ public class Course {
 	private String content;
 	private Date creatTime;
 	private boolean checked;
+	//子级数据
+    private String[] data;
 
 	@GeneratedValue
 	@Id
@@ -88,6 +90,21 @@ public class Course {
 	}
 	public void setChecked(boolean checked) {
 		this.checked = checked;
+	}
+	
+	@Transient
+	public String[] getData() {
+		return data;
+	}
+	public void setData(String[] data) {
+		this.data = data;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", name=" + name + ", code=" 
+				+ code + ", level=" + level + ", content=" + content
+				+ ", creatTime=" + creatTime + "]";
 	}
 	
 }

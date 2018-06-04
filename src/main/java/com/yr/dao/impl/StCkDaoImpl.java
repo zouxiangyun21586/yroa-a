@@ -115,6 +115,8 @@ public class StCkDaoImpl implements StCkDao {
 	
 	/**
 	 * 添加考勤
+	 * 问题:
+	 * 图片添加有bug
 	 * @author zxy
 	 * @param stCk     学生考勤实体数据
 	 * @return Integer 返回添加ID

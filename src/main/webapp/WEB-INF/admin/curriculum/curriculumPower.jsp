@@ -71,7 +71,7 @@ $.getUrlParam = function (name) {
                        type:"post",
                        url:path+"dateRetrieval",
                        traditional: true,
-                       data: {'curriculumCode':value,'clasCode':clasCode,'_method':'PUT'},
+                       data: {'curriculumCode':value,'clasCode':clas_code,'_method':'PUT'},
                        success:function(data){
                            if(0==data.code){
                                setTimeout(function(){
