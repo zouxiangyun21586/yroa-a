@@ -3,7 +3,9 @@ package com.yr.dao.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +19,8 @@ import com.yr.entity.Course;
 import com.yr.entity.CoursePace;
 import com.yr.util.DateUtils;
 import com.yr.util.PageUtil;
+
+import net.sf.json.JSONObject;
 
 /**
  * 届次 Dao 实现类
@@ -373,6 +377,37 @@ public class ClasDaoImpl implements ClasDao {
 		List<CoursePace> listCp = entityManager.createQuery("From CoursePace where class_code = :class_code")
 				.setParameter("class_code", code).getResultList();
 		return listCp;
+	}
+
+	@Override
+	public String dateRetrieval(String[] curriculumCode, String clasCode) {
+		Map<String, Object> map = new HashMap<>();
+        try {
+            Query query = entityManager
+                    .createNativeQuery("DELETE FROM `yr_course_pace` WHERE `class_code`=:class_code")
+                    .setParameter("class_code", clasCode);
+            query.executeUpdate();
+            for (int i = 0; i < curriculumCode.length; i++) {
+
+                String insert = "INSERT INTO `yr_course_pace` (`class_code`, `code`) VALUES (:class_code,:curr_code)";
+                entityManager.createNativeQuery(insert) .setParameter("class_code", clasCode)
+                .setParameter("curr_code", curriculumCode[i]).executeUpdate();
+
+            }
+//            Query qu = entityManager.createQuery("update Role a set a.updateTime=? where a.code=?");
+//    		qu.setParameter(0, new Date());
+//    		qu.setParameter(1, clasCode);
+//    		qu.executeUpdate();
+    		entityManager.flush();
+    		entityManager.clear();
+            map.put("code", 0);
+            map.put("msg", "修改成功");
+        } catch (Exception e) {
+            map.put("code", 1);
+            map.put("msg", "修改失败");
+            e.printStackTrace();
+        }
+        return JSONObject.fromObject(map).toString();
 	}
 	
 }

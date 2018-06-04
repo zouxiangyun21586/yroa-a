@@ -159,4 +159,16 @@ public interface ClasDao {
 	 * @return List<CoursePace>
 	 */
 	List<CoursePace> progressGet(String code);
+	
+	/**
+	 * 修改课程进度
+	 * @author zxy
+	 * 
+	 * 2018年6月4日 上午8:46:23
+	 * 
+	 * @param curriculumCode 课程code
+	 * @param clasCode 届次code
+	 * @return String
+	 */
+	String dateRetrieval(String[] curriculumCode, String clasCode);
 }

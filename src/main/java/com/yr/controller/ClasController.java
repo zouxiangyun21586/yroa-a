@@ -280,4 +280,21 @@ public class ClasController {
 		String str = clasService.progressGet(code);
 		return str;
 	}
+	
+	/**
+	 * 保存修改课程进度
+	 * @author zxy
+	 * 
+	 * 2018年6月4日 上午8:43:16
+	 * 
+	 * @param curriculumCode 课程code
+	 * @param clasCode 届次code
+	 * @return String
+	 */
+	@ResponseBody
+    @RequestMapping(value = "/dateRetrieval", method = { RequestMethod.PUT }, produces = "text/json;charset=UTF-8")
+    public String roleEmpowerment(String[] curriculumCode, String clasCode) {
+        return clasService.dateRetrieval(curriculumCode, clasCode);
+    }
+	
 }

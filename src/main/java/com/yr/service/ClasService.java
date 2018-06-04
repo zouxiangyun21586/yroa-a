@@ -158,4 +158,16 @@ public interface ClasService {
 	 * @return String
 	 */
 	String progressGet(String code);
+	
+	/**
+	 * 修改进度
+	 * @author zxy
+	 * 
+	 * 2018年6月4日 上午8:46:23
+	 * 
+	 * @param curriculumCode 课程code
+	 * @param clasCode 届次code
+	 * @return String
+	 */
+	String dateRetrieval(String[] curriculumCode, String clasCode);
 }
