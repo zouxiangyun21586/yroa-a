@@ -307,13 +307,12 @@ public class StudentServiceImpl implements StudentService {
 	/**
 	 * 根据账号获取学生数据
 	 * @author 林水桥
-	 * @param userName 学生账号
-	 * @param tel 手机号码
+	 * @param value 学生账号或学生电话
 	 * @return Student 返回学生数据
 	 * 2018年5月31日下午10:15:29
 	 */
-	public Student getAccount(String userName, String tel) {
-		return studentDao.getAccount(userName, tel);
+	public Student getAccount(String value) {
+		return studentDao.getAccount(value);
 	}
 	
 }
