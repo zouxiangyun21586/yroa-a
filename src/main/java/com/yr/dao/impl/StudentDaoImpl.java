@@ -125,48 +125,47 @@ public class StudentDaoImpl implements StudentDao {
 	public String addStudent(Student student) {
 		String result = "";
 		try {
+			Boolean bool = CheckTelephoneUtil.isMobile(student.getTel()); //校验学生电话号码
+			if (bool.equals(false)) { //表示学生电话格式不正确
+				return "telformattingError";
+			}
+			Boolean boo = CheckTelephoneUtil.isMobile(student.getHomeTel()); //校验家长电话号码
+			if (boo.equals(false)) { ////表示家长电话格式不正确
+				return "homeTelformattingError";
+			}
+			String code = code(); //学生编号
+			String clasCode = new String(student.getYear()
+					.getBytes("ISO8859-1"), "utf-8"); //届次 ,获取到的是届次表的code
+			Clas clas = queryClas(clasCode); //根据届次code查出届次
+			String year = clas.getYear(); //届次
+			String classCode = clas.getCode(); //所属批次Code 
+			Date createTime = new Date(); //添加这条信息的时间
+			//将学生的姓名转成该名字的拼音作为他的账号
+			HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
+	        String account = hanyuPinyinHelper.toHanyuPinyin(student.getName());
+	        student.setAccount(account);
+			student.setCode(code); //学生编码
+			student.setYear(year); //届次
+			student.setClassCode(classCode); //届次code
+			student.setCreateTime(createTime); //创建时间
+			if ("0".equals(student.getIsFinish())) { //代表该学生未毕业
+				CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
+				result = checkParamUtil.checkParam(student); //判断未毕业学生参数是否为空
+			} else { //代表该学生已毕业
+				CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
+				result = checkParamUtil.checkParam1(student); //判断已毕业学生参数是否为空
+			}
+			if ("checkSuccess".equals(result)) { //代表校验参数是否为空通过
 				String result1 = queyrIsName(student.getName()); //判断学生姓名是否已存在
 				if ("0".equals(result1)) { //判断添加的学是是否也存在 这里表示不存在
-					Boolean bool = CheckTelephoneUtil.isMobile(student.getTel());
-					if (bool.equals(false)) {
-						return "telformattingError";
-					}
-					Boolean boo = CheckTelephoneUtil.isMobile(student.getHomeTel());
-					if (boo.equals(false)) {
-						return "homeTelformattingError";
-					}
-					String code = code(); //学生编号
-					String clasCode = new String(student.getYear()
-							.getBytes("ISO8859-1"), "utf-8"); //届次 ,获取到的是届次表的code
-					Clas clas = queryClas(clasCode); //根据届次code查出届次
-					String year = clas.getYear(); //届次
-					String classCode = clas.getCode(); //所属批次Code 
-					Date createTime = new Date(); //添加这条信息的时间
-					//将学生的姓名转成该名字的拼音作为他的账号
-					HanyuPinyinHelper hanyuPinyinHelper = new HanyuPinyinHelper();
-			        String account = hanyuPinyinHelper.toHanyuPinyin(student.getName());
-			        student.setAccount(account);
-					student.setCode(code); //学生编码
-					student.setYear(year); //届次
-					student.setClassCode(classCode); //届次code
-					student.setCreateTime(createTime); //创建时间
-					if ("0".equals(student.getIsFinish())) { //代表该学生未毕业
-						CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
-						result = checkParamUtil.checkParam(student); //判断未毕业学生参数是否为空
-					} else { //代表该学生已毕业
-						CheckParamUtil<Student> checkParamUtil = new CheckParamUtil<>();
-						result = checkParamUtil.checkParam1(student); //判断已毕业学生参数是否为空
-					}
-					if ("checkSuccess".equals(result)) { //代表校验参数是否为空通过
-						entityManager.persist(student); //执行添加
-						result = "addSuccess";
-					} else { //代表校验参数是否为空不通过
-						return result;
-					}	
+					entityManager.persist(student); //执行添加
+					result = "addSuccess";
 				} else { //代表该学学已经添加过了
 					result = "alreadyExisted";
 				}
-			
+			} else { //代表校验参数是否为空不通过
+				return result;
+			}	
 		} catch (Exception e) {
 			result = "addFail";
 			e.printStackTrace();
@@ -461,15 +460,28 @@ public class StudentDaoImpl implements StudentDao {
 	/**
 	 * 根据账号获取学生数据
 	 * @author 林水桥
-	 * @param userName 学生账号
-	 * @param tel 手机号码
+	 * @param value  学生账号或学生电话
 	 * @return Student 返回学生数据
 	 * 2018年5月31日下午10:15:29
 	 */
-	public Student getAccount(String userName, String tel) {
-		Student student = (Student) entityManager.createQuery("from Student where account=:userName or tel=:tel")
-				.setParameter("userName", userName).setParameter("tel", tel).getSingleResult();
-		return student;
+	public Student getAccount(String value) {
+		Student student = new Student();
+		try {
+			student = (Student) entityManager.createQuery("from Student where account=:account")
+					.setParameter("account", value).getSingleResult();
+		} catch (Exception e) {
+			student = null;
+		}
+		if (null == student) {
+			Student students = new Student();	
+			try {
+				students = (Student) entityManager.createQuery("from Student where tel=:tel")
+						.setParameter("tel", value).getSingleResult();
+				student = students;
+			} catch (Exception e) {
+				student = null;
+			}
+		}
+		return student;	
 	}
-	
 }
