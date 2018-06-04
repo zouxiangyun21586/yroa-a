@@ -19,7 +19,7 @@
 </head>
 <body>
 <br/>
-<form:form class="layui-form" style="width:80%;" id="attForm" modelAttribute="stck">
+<form:form class="layui-form" style="width:80%;" id="attForm" modelAttribute="stck" enctype="multipart/form-data">
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="magb15 layui-col-md4 layui-col-xs12">
 			<label class="layui-form-label">批次名</label>

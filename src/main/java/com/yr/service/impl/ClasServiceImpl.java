@@ -286,4 +286,20 @@ public class ClasServiceImpl implements ClasService {
 		String result = JsonUtils.listToJson(listCp);
 		return result;
 	}
+
+	/**
+	 * 保存所选的课程进度
+	 * @author zxy
+	 * 
+	 * 2018年6月4日 上午8:51:44
+	 * 
+	 * @param curriculumCode
+	 * @param clasCode
+	 * @return
+	 */
+	@Override
+	public String dateRetrieval(String[] curriculumCode, String clasCode) {
+		String dr = clasDao.dateRetrieval(curriculumCode, clasCode);
+		return dr;
+	}
 }
