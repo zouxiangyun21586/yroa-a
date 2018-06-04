@@ -102,6 +102,13 @@
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
 	
+	<!-- 支持文件上传,多部分文件上传,MultipartFile -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="maxUploadSize" value="104857600" />
+        <property name="maxInMemorySize" value="4096" />
+    </bean>
+	
 	<!-- p:order是设置优先级 -->
     <!-- 注册excel视图解析器 -->  
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="10"></bean>   

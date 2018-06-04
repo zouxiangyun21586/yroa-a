@@ -1,6 +1,5 @@
 package com.yr.dao.impl;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -13,7 +12,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Repository;
 
@@ -97,7 +95,6 @@ public class LeaveDaoImpl implements LeaveDao {
 	 */
 	@Override
 	public String add(Leave leave, String acc) {
-		HttpServletRequest request = null;
 		try {
 			Leave lea  = new Leave();
 			String claCode = entityManager.createNativeQuery("select code from yr_clas where name = :cName")
@@ -113,13 +110,7 @@ public class LeaveDaoImpl implements LeaveDao {
 			lea.setLeaveType(leave.getLeaveType());
 			lea.setLeaveHour(leave.getLeaveHour());
 			lea.setLeaveTimeLong(leave.getLeaveTimeLong());
-			if (null != leave.getImgUrl() && !"".equals(leave.getImgUrl())) {
-				// String 转 InputStream
-				ByteArrayInputStream stream = new ByteArrayInputStream(leave.getImgUrl().getBytes());
-				
-//				String str = FileUtils.filesUpload(request, leave.getImgUrl());
-//				lea.setImgUrl(str);
-			}
+			lea.setImgUrl(leave.getImgUrl());
 			lea.setLeaveDesc(leave.getLeaveDesc());
 			lea.setLeaveAccount(acc);
 			lea.setCreateTime(new Date());

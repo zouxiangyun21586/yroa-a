@@ -108,16 +108,18 @@ public class StCkServiceImpl implements StCkService {
 	
 	/**
 	 * 添加考勤
-	 * @author 林水桥
+	 * @author zxy
 	 * @param stCk     学生考勤实体数据
 	 * @return Integer 返回添加ID
 	 * 2018年5月25日下午10:03:49
 	 */
-	public Integer add(StudentCheck stCk) {
-		
-		stCkDao.add(stCk);
-		
-		return null;
+	public String add(StudentCheck stCk) {
+		try {
+			stCkDao.add(stCk);
+			return "succ";
+		} catch (Exception e) {
+			return "error";
+		}
 	}
 	
 	/**

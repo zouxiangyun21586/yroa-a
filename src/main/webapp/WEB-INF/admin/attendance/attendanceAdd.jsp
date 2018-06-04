@@ -58,9 +58,6 @@
 				<input type="radio" name="isNote" lay-filter="isNote" value="1" title="有假条">
 			</div>
 		</div>
-		<div id="sta">
-			
-		</div>
 	</div>
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<div class="layui-input-block">
