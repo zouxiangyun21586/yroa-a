@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * 
  * @author zxy
  *
- *         2018年5月30日 上午10:41:01
+ *  2018年5月30日 上午10:41:01
  *
  */
 @Entity
@@ -27,6 +28,7 @@ public class Course {
 	private String level;
 	private String content;
 	private Date creatTime;
+	private boolean checked;
 
 	@GeneratedValue
 	@Id
@@ -80,4 +82,12 @@ public class Course {
 		this.creatTime = creatTime;
 	}
 
+	@Transient
+	public boolean isChecked() {
+		return checked;
+	}
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+	
 }

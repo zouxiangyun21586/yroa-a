@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yr.dao.ClasDao;
 import com.yr.entity.Clas;
 import com.yr.entity.Course;
-import com.yr.entity.CoursePace;
 import com.yr.service.ClasService;
 import com.yr.util.JsonUtils;
 import com.yr.util.PageUtil;
@@ -282,9 +281,25 @@ public class ClasServiceImpl implements ClasService {
 
 	@Override
 	public String progressGet(String code) {
-		List<CoursePace> listCp = clasDao.progressGet(code);
-		String result = JsonUtils.listToJson(listCp);
-		return result;
+		List<Course> listStr = clasDao.progress(); // 所有课程查询
+		List<?> listCp = clasDao.progressGet(code); // 查指定届次上过课程
+		String json = "[";
+		 for (int x = 0; x < listStr.size(); x++) {
+	        	String d = "";
+	        	Course resource = listStr.get(x);
+	            for (int i = 0; i < listCp.size(); i++) {
+	                String values = (String) listCp.get(i);
+	                if (resource.getName().equals(values)) {
+	                    resource.setChecked(true);
+	                }
+	            }
+	            d = x < listStr.size() ? "," : "";
+	            json += JsonUtils.sendObject(resource,
+	                    new String[] {"content", "creatTime"}) + d; // 排除哪些字段不转json
+	        }
+	        int i = json.lastIndexOf(",");
+	        json = json.substring(0, i) + json.substring(i + 1);
+	        return json + "]";
 	}
 
 	/**

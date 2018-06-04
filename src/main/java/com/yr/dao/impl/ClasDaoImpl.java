@@ -374,9 +374,9 @@ public class ClasDaoImpl implements ClasDao {
 
 	@Override
 	public List<CoursePace> progressGet(String code) {
-		List<CoursePace> listCp = entityManager.createQuery("From CoursePace where class_code = :class_code")
-				.setParameter("class_code", code).getResultList();
-		return listCp;
+		String sql = "select cs.level from yr_course cs ,yr_course_pace cp ,yr_clas c where "
+				+ "c.code = :class_code and cp.code = cs.code";
+		return entityManager.createNativeQuery(sql).setParameter("class_code", code).getResultList();
 	}
 
 	@Override

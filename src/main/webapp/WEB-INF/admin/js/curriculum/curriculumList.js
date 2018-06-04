@@ -199,26 +199,16 @@ layui.use(['table','form','tree'], function(){
 			      layer.close(index);
 			    });
 		  }else if(obj.event === 'sop'){
-			  var index = layui.layer.open({
-					title : "进度",
-					type : 2,
-					anim : 5,
-					content: path+"curriculum/curriculumPower?code="+obj.data.code,
-//					content: "../progressGet?code="+obj.data.code,
-					success : function(layero, index) {
-						setTimeout(function() {
-							layui.layer.tips('点击此处返回',
-									'.layui-layer-setwin .layui-layer-close', {
-										tips : 3
-									});
-						}, 500);
-					}
-				});
-				layui.layer.full(index);
-				// 改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-				$(window).on("resize", function() {
-					layui.layer.full(index);
-				});
+				layer.open({
+					anim : 2,
+					title : '进度',
+					type : 2, // 窗口类型
+					resize : false,// 禁止拉伸
+					maxmin : false,// 最大化,最小化
+					shade : [ 0.3, '#000' ],
+					area : [ '300px', '400px' ],// 窗口宽高
+					content : path+"curriculum/curriculumPower?code="+obj.data.code
+				  });
 		  }else if(obj.event === 'details'){
 			  var index = layui.layer.open({
 					title : "详情",

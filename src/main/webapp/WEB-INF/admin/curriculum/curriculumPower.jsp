@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -37,7 +37,7 @@ $.getUrlParam = function (name) {
         var form = layui.form,
             layer = layui.layer,
             index = parent.layer.getFrameIndex(window.name),
-            role_id = $.getUrlParam('code'),
+            clas_code = $.getUrlParam('code'),
             strFullPath = window.document.location.href,
             strPath = window.document.location.pathname,
             pos = strFullPath.indexOf(strPath),
@@ -46,7 +46,7 @@ $.getUrlParam = function (name) {
             
             var xtree = new layuiXtree({
                 elem : 'resource',
-                data : "../progressGet?code="+obj.data.code,
+                data : "../progressGet?code="+clas_code,
                 form : form,
                 ckall: true,
                 icon: {        
@@ -56,10 +56,10 @@ $.getUrlParam = function (name) {
                 }
             });
             $('#btn').click(function(){
-                var roleid = xtree.GetChecked(); 
+                var currCode = xtree.GetChecked(); 
                 var value = [];
-                for (var i = 0; i < roleid.length; i++) {
-                    value.push(roleid[i].value);
+                for (var i = 0; i < currCode.length; i++) {
+                    value.push(currCode[i].value);
                 }
                 var index = top.layer.msg('修改进度中，请稍候',{icon: 16,time:false,shade:0.8});
                 if(null==value || ''==value){
