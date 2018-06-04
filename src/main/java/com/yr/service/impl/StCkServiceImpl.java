@@ -94,7 +94,7 @@ public class StCkServiceImpl implements StCkService {
 			studentCheck.setStatus(status); //考勤状态 0没迟到,1迟到
 			studentCheck.setIsNote(0); //默认无请假条
 			studentCheck.setCreateTime(DateUtils.getCurrentDateTimeA()); //创建时间
-			addReturn = stCkDao.add(studentCheck);
+			addReturn = stCkDao.addPunch(studentCheck);
 		}
 		if (0 == addReturn) {
 			map.put("code", 1);

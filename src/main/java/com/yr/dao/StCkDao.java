@@ -28,6 +28,15 @@ public interface StCkDao {
 	String getAttendance(int page, int limit, String name, String checkTC, Integer status);
 	
 	/**
+	 * 签到
+	 * @author 林水桥
+	 * @param stCk  考勤数据
+	 * @return Integer 返回签到数据ID
+	 * 2018年6月4日上午8:25:17
+	 */
+	Integer addPunch(StudentCheck stCk);
+	
+	/**
 	 * 添加考勤
 	 * @author 林水桥
 	 * @param stCk     学生考勤实体数据

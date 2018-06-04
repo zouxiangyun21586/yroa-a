@@ -97,6 +97,23 @@ public class StCkDaoImpl implements StCkDao {
 	}
 	
 	/**
+	 * 签到
+	 * @author 林水桥
+	 * @param stCk  考勤数据
+	 * @return Integer 返回签到数据ID
+	 * 2018年6月4日上午8:25:17
+	 */
+	public Integer addPunch(StudentCheck stCk) {
+		try {
+			entityManager.persist(stCk);
+		} catch (Exception e) {
+			stCk.setId(0);
+			e.printStackTrace();
+		}
+		return stCk.getId();
+	}
+	
+	/**
 	 * 添加考勤
 	 * @author zxy
 	 * @param stCk     学生考勤实体数据
