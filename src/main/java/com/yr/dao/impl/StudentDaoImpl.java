@@ -510,13 +510,14 @@ public class StudentDaoImpl implements StudentDao {
 	 * @author 林水桥
 	 * @param name          学生姓名
 	 * @param parentsCode   家长code
+	 * @param tel           家长电话
 	 * @return Integer      0为修改失败
 	 * 2018年6月4日下午10:11:01
 	 */
-	public Integer updateParents(String name, String parentsCode) {
-		String jpql = "update Student set parentsCode=code where name=:name";
+	public Integer updateParents(String name, String parentsCode, String tel) {
+		String jpql = "update Student set parentsCode=:code,homeTel=:tel where name=:name";
 		Query query = entityManager.createQuery(jpql).setParameter("code", parentsCode)
-				.setParameter("name", name);
+				.setParameter("tel", tel).setParameter("name", name);
 		Integer a = query.executeUpdate();
 		return a;
 	}

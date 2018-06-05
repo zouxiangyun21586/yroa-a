@@ -1,8 +1,6 @@
 package com.yr.service.impl;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -57,7 +55,6 @@ public class PareServiceImpl implements PareService {
 	 * 2018年6月4日上午10:20:53
 	 */
 	public Integer add(Parents parents, String stuName) {
-		Map<String, Object> map = new HashMap<String, Object>();
 		parents.setAccount(new HanyuPinyinHelper().toHanyuPinyin(parents.getName()));
 		parents.setCode(pareDao.getCode());
 		Date nowTime = DateUtils.getCurrentDateTimeA();
@@ -77,7 +74,7 @@ public class PareServiceImpl implements PareService {
 			account.setPassWord(tel.substring(tel.length() - T8, tel.length()));
 			account.setTel(tel);
 			accountDao.addId(account, roleCode);
-			studentDao.updateParents(stuName, parents.getCode());
+			studentDao.updateParents(stuName, parents.getCode(), parents.getTel());
 		}
 		return test;
 	}

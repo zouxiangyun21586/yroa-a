@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yr.entity.Parents;
@@ -55,18 +56,20 @@ public class PareController {
 	 * @return String   
 	 * 2018年6月4日下午4:41:49
 	 */
-	@RequestMapping(value = "/add", produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	@RequestMapping(value = "/add", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	public String add(Parents parents, String stuName) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		Integer a = null;
 		if (parents.getTel().length() == T11) {
-			Integer a = pareService.add(parents, stuName);
-			if (null == a) {
-				map.put("code", 1);
-				map.put("msg", "添加失败");
-			} else {
-				map.put("code", 0);
-				map.put("msg", "添加成功");
-			}
+			a = pareService.add(parents, stuName);
+		}
+		if (null == a) {
+			map.put("code", 1);
+			map.put("msg", "添加失败");
+		} else {
+			map.put("code", 0);
+			map.put("msg", "添加成功");
 		}
 		return JSONObject.fromObject(map).toString();
 	}

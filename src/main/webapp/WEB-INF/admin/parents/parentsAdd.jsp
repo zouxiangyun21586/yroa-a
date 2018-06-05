@@ -21,7 +21,7 @@
 </head>
 <body>
 <br/>
-<form class="layui-form" style="width:80%;" id = "HolidayForm">
+<form class="layui-form" style="width:80%;" id = "attForm">
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="magb15 layui-col-md4 layui-col-xs12">
             <label class="layui-form-label">家长姓名</label>
@@ -44,8 +44,8 @@
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-input-block">
-            <shiro:hasPermission name="/yroa-a/holiday/add">
-            <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addHoliday">保存</button>
+            <shiro:hasPermission name="/yroa-a/parents/add">
+            <button class="layui-btn layui-btn-sm" lay-submit="attAdd" lay-filter="attAdd">保存</button>
             </shiro:hasPermission>
             <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">取消</button>
         </div>
