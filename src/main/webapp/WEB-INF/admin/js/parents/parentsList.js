@@ -48,12 +48,12 @@ layui.use(['table','form','tree'], function(){
 		 //监听工具条
 		table.on('tool(demo)', function(obj){
 		  var data = obj.data;
-		  if(obj.event === 'view'){
+		  if(obj.event === 'edit'){
 			  var index = layui.layer.open({
-					title : "查看考勤",
+					title : "修改家长数据",
 					type : 2,
 					anim : 5,
-					content : "../attendance/get?id="+obj.data.id,//修改学生的页面路径
+					content : "../parents/updates?id="+obj.data.id,//修改学生的页面路径
 					success : function(layero, index) {
 						setTimeout(function() {
 							layui.layer.tips('点击此处返回',

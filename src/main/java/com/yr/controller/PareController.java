@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +26,7 @@ public class PareController {
 	@Autowired
 	private PareService pareService;
 	private static final Integer T11 = 11;
+	private static String updatePage = "parents/parentsUpdate";
 	
 	/**
 	 * 家长分页查询
@@ -74,6 +76,32 @@ public class PareController {
 		return JSONObject.fromObject(map).toString();
 	}
 	
+	/**
+	 * 进入家长修改页面
+	 * @author 林水桥
+	 * @param id      家长ID
+	 * @param map     将数据渲染到页面
+	 * @return String 回显页面
+	 * 2018年6月5日下午3:49:02
+	 */
+	@RequestMapping(value = "updates", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+	public String updates(Integer id, ModelMap map) {
+		Parents parents = pareService.getSingle(id);
+		map.addAttribute("parents", parents);
+		return updatePage;
+	}
 	
+	/**
+	 * 家长修改
+	 * @author  林水桥
+	 * @param parents   修改数据
+	 * @return String   修改状态
+	 * 2018年6月5日下午5:18:32
+	 */
+	@ResponseBody
+	@RequestMapping(value = "update", method = RequestMethod.PUT, produces = "text/json;charset=UTF-8")
+	public String update(Parents parents) {
+		return pareService.update(parents);
+	}
 	
 }

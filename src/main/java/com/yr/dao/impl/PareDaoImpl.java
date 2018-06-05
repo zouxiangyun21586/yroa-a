@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -90,8 +91,11 @@ public class PareDaoImpl implements PareDao {
 	 * 2018年6月4日上午10:26:21
 	 */
 	public Integer update(Parents parents) {
-		
-		return null;
+		Query query = entityManager.createQuery("update Parents set name=:name,tel=:tel,updateTime=:time "
+				+ "where id=:id")
+				.setParameter("name", parents.getName()).setParameter("tel", parents.getTel())
+				.setParameter("time", parents.getUpdateTime()).setParameter("id", parents.getId());
+		return query.executeUpdate();
 	}
 	
 	/**
@@ -127,6 +131,25 @@ public class PareDaoImpl implements PareDao {
 		String jpql1 = "select code from Role where name=:name"; //根据查出的字段val（角色） 去yr_role表根据name查出 对应的code
 		String code = (String) entityManager.createQuery(jpql1).setParameter("name", val).getSingleResult();
 		return code;
+	}
+	
+	/**
+	 * 数据回显
+	 * @author  林水桥
+	 * @param id      家长ID
+	 * @return Parents 家长数据
+	 * 2018年6月5日下午4:40:22
+	 */
+	public Parents getSingle(Integer id) {
+		Parents parents = new Parents();
+		try {
+			parents = (Parents) entityManager.createQuery("from Parents where id=:id")
+					.setParameter("id", id).getSingleResult();
+		} catch (Exception e) {
+			parents = null;
+			e.printStackTrace();
+		}
+		return parents;
 	}
 	
 }

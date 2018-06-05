@@ -522,4 +522,18 @@ public class StudentDaoImpl implements StudentDao {
 		return a;
 	}
 	
+	/**
+	 * 家长修改电话
+	 * @author  林水桥
+	 * @param code   家长code
+	 * @param tel    家长电话
+	 * @return Integer 0为修改失败
+	 * 2018年6月5日下午5:13:27
+	 */
+	public Integer updatePareTel(String code, String tel) {
+		String jpql = "update Student set homeTel=:tel where parentsCode=:code";
+		Query query = entityManager.createQuery(jpql).setParameter("code", code)
+				.setParameter("tel", tel);
+		return query.executeUpdate();
+	}
 }

@@ -38,11 +38,13 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/parents/parentsList.js"></script>
 <script type="text/html" id="barDemo">
+<shiro:hasPermission name="/yroa-a/parents/updates">
 <div class="layui-dropdown">
       <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" data-toggle="dropdown">操作 <span class="layui-icon" style="font-size: 14px"></span></button>
       <ul class="layui-dropdown-menu">
-          <shiro:hasPermission name="/yroa-a/parents/updates"><li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li></shiro:hasPermission>
+          <li><a lay-event="edit"><i class="layui-icon" style="font-size:18px;">&#xe642; </i>编辑</a></li>
       </ul>
   </div>
+</shiro:hasPermission>
 </script>
 </html> 

@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>修改假期</title>
+    <title>修改家长数据</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -22,79 +22,33 @@
 </head>
 <body>
 <br/>
-<form:form class="layui-form" style="width:80%;" modelAttribute="holiday" id = "HolidayForm">
+<form:form class="layui-form" style="width:80%;" modelAttribute="parents" id = "ParentsForm">
     <form:hidden path="id"/>
     <input type="hidden" name="_method" value="PUT">
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">假期名称</label>
+            <label class="layui-form-label">家长姓名</label>
             <div class="layui-input-block">
                 <form:input type="text" class="layui-input" path="name" lay-verify="required" placeholder="请输入假期名称" />
             </div>
         </div>
         <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">放假开始日期</label>
+            <label class="layui-form-label">家长电话</label>
             <div class="layui-input-block">
-                <form:input type="text" class="layui-input" path="startDate" placeholder="yyyy-MM-dd" lay-verify="required" />
-            </div>
-        </div>
-        <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">放假开始时间</label>
-            <div class="layui-input-block">
-                <form:input class="layui-input" placeholder="请输入放假开始时间" path="startTime" lay-verify="required" />
-            </div>
-        </div>
-        <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">放假结束日期</label>
-            <div class="layui-input-block">
-                <form:input type="text" class="layui-input" path="endDate" placeholder="yyyy-MM-dd" lay-verify="required" />
-            </div>
-        </div>
-        <div class="magb15 layui-col-md4 layui-col-xs12">
-            <label class="layui-form-label">放假结束时间</label>
-            <div class="layui-input-block">
-                <form:input class="layui-input" placeholder="请输入放假结束时间" path="endTime" lay-verify="required" />
-            </div>
-        </div>
-        <shiro:hasPermission name="/yroa-a/holiday/clasList">
-        <div class="magb15 layui-col-md4 layui-col-xs12">
-           <label class="layui-form-label">届次名称</label>
-          <div class="layui-input-block editWidth">
-              <input type="hidden" id="code" name="code" value="${holiday.classCode}" />
-              <select name="classCode" lay-verify="required" id="claSelect">
-                  
-              </select>
-          </div>
-        </div>
-        </shiro:hasPermission>
-        <shiro:hasPermission name="/yroa-a/holiday/release">
-        <div class="magb15 layui-col-md4 layui-col-xs12">
-           <label class="layui-form-label">是否发布</label>
-          <div class="layui-input-block editWidth">
-              <input type="hidden" id="statusQ" name="statusQ" value="${holiday.status}" />
-              <select name="status" lay-verify="required" id="statusSelect">
-                  
-              </select>
-          </div>
-        </div>
-        </shiro:hasPermission>
-        <div class="layui-form-item layui-row layui-col-xs12">
-            <label class="layui-form-label">备注</label>
-            <div class="layui-input-block">
-                <form:textarea placeholder="请输入注意事项" class="layui-textarea userDesc" path="info"></form:textarea>
+                <form:input type="text" class="layui-input" path="tel" placeholder="请输入家长电话号码" lay-verify="required" />
             </div>
         </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-input-block">
-            <shiro:hasPermission name="/yroa-a/holiday/update">
-            <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addHoliday">修改</button>
+            <shiro:hasPermission name="/yroa-a/parents/update">
+            <button class="layui-btn layui-btn-sm" lay-submit="updateParents" lay-filter="updateParents">修改</button>
             </shiro:hasPermission>
             <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">重置</button>
         </div>
     </div>
 </form:form>
 <script type="text/javascript" src="<%=request.getContextPath() %>/layui/layui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/attendance/holidayUpdate.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/parents/parentsUpdate.js"></script>
 </body>
 </html>

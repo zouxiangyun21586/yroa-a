@@ -181,4 +181,14 @@ public interface StudentDao {
 	 * 2018年6月4日下午10:11:01
 	 */
 	Integer updateParents(String name, String parentsCode, String tel);
+	
+	/**
+	 * 家长修改电话
+	 * @author  林水桥
+	 * @param code   家长code
+	 * @param tel    家长电话
+	 * @return Integer 0为修改失败
+	 * 2018年6月5日下午5:13:27
+	 */
+	Integer updatePareTel(String code, String tel);
 }

@@ -53,4 +53,13 @@ public interface PareDao {
 	 */
 	String roleCode();
 	
+	/**
+	 * 数据回显
+	 * @author  林水桥
+	 * @param id      家长ID
+	 * @return Parents 家长数据
+	 * 2018年6月5日下午4:40:22
+	 */
+	Parents getSingle(Integer id);
+	
 }

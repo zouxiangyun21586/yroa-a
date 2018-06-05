@@ -33,8 +33,17 @@ public interface PareService {
 	 * 修改家长
 	 * @author 林水桥
 	 * @param parents   要修改的家长数据
-	 * @return Integer  0为修改失败
+	 * @return String  0为修改失败
 	 * 2018年6月4日上午10:26:21
 	 */
-	Integer update(Parents parents);
+	String update(Parents parents);
+	
+	/**
+	 * 数据回显
+	 * @author  林水桥
+	 * @param id      家长ID
+	 * @return Parents 家长数据
+	 * 2018年6月5日下午4:40:22
+	 */
+	Parents getSingle(Integer id);
 }

@@ -1,6 +1,8 @@
 package com.yr.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -13,8 +15,11 @@ import com.yr.dao.StudentDao;
 import com.yr.entity.Account;
 import com.yr.entity.Parents;
 import com.yr.service.PareService;
+import com.yr.util.CheckTelephoneUtil;
 import com.yr.util.DateUtils;
 import com.yr.util.HanyuPinyinHelper;
+
+import net.sf.json.JSONObject;
 
 /**
  * 家长Service层
@@ -83,12 +88,38 @@ public class PareServiceImpl implements PareService {
 	 * 修改家长
 	 * @author 林水桥
 	 * @param parents   要修改的家长数据
-	 * @return Integer  0为修改失败
+	 * @return String  0为修改失败
 	 * 2018年6月4日上午10:26:21
 	 */
-	public Integer update(Parents parents) {
-		
-		return null;
+	public String update(Parents parents) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Parents pare = pareDao.getSingle(parents.getId());
+		parents.setUpdateTime(DateUtils.getCurrentDateTimeA());
+		Boolean boo = CheckTelephoneUtil.isMobile(parents.getTel()); //校验家长电话号码
+		Integer update = 0;
+		if (null != pare) {
+			update = pareDao.update(parents);
+			studentDao.updatePareTel(pare.getCode(), parents.getTel());
+		}
+		if (0 == update || boo.equals(false)) {
+			map.put("code", 1);
+			map.put("msg", "修改失败");
+		} else {
+			map.put("code", 0);
+			map.put("msg", "修改成功");
+		}
+		return JSONObject.fromObject(map).toString();
+	}
+	
+	/**
+	 * 数据回显
+	 * @author  林水桥
+	 * @param id      家长ID
+	 * @return Parents 家长数据
+	 * 2018年6月5日下午4:40:22
+	 */
+	public Parents getSingle(Integer id) {
+		return pareDao.getSingle(id);
 	}
 	
 }
