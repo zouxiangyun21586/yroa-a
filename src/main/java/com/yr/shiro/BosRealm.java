@@ -99,16 +99,11 @@ public class BosRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         //获取当前登录的用户名,等价于(String)principals.fromRealm(this.getName()).iterator().next()  
         String currentUsername = (String) super.getAvailablePrincipal(principals);
-        //两种方式：
-        //方式1：工具类来获取(首长-)
-//        Users user=(Users)SecurityUtils.getSubject().getPrincipal();
-        //方式2：通过参数获取首长(推荐)
-//        Users user = (Users) principals.getPrimaryPrincipal();
         String usName = userDao.yanUs(currentUsername);
-        //实际：需要根据当前用户的角色和功能权限来构建一个授权信息对象，交给安全管理器
         if (!currentUsername.equals(usName)) { //判断当前账户是否存在
             throw new AuthenticationException("msg:用户不存在。");
         }
+        //实际：需要根据当前用户的角色和功能权限来构建一个授权信息对象，交给安全管理器
         List<Role> roleList = roleDao.queryR(currentUsername);
         if (roleList != null && roleList.size() > 0) {
             for (Role role : roleList) {
@@ -122,10 +117,9 @@ public class BosRealm extends AuthorizingRealm {
             	authorizationInfo.addStringPermission(functionList.get(i));
             }
         }
-//        }
 
-        return authorizationInfo;  //将授权信息交给安全管理器接口。
-//        return null;
+//        return authorizationInfo;  //将授权信息交给安全管理器接口。
+        return null;
     }
     
    /**
